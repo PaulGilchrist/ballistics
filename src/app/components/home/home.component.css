@@ -1,0 +1,7 @@
+img {
+    box-shadow:6px 6px 10px rgba(0,0,0,0.4);
+}
+.flash {
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+}

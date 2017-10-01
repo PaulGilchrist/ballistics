@@ -1,0 +1,6 @@
+﻿<div>
+    <firearms *ngIf='dataService.firearms' [firearms]='dataService.firearms' [isOpen]='isFirearmsOpen' (onSelect)='onFirearmSelected($event);'></firearms>
+    <firearm *ngIf='dataService.currentFirearm' [firearm]='dataService.currentFirearm' [isOpen]='isFirearmOpen' (onSave)='onFirearmEdited($event);'></firearm>
+    <rounds *ngIf='dataService.currentFirearm' [firearmName]='dataService.currentFirearm.name' [isOpen]='isRoundsOpen' [rounds]='dataService.currentFirearm.rounds' (onSelect)='onRoundSelected($event);'></rounds>
+    <round *ngIf='dataService.currentRound' [round]='dataService.currentRound' [firearmName]='dataService.currentFirearm.name' [isOpen]='isRoundOpen' (onSave)='onRoundEdited($event);'></round>
+</div>

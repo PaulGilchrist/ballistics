@@ -1,0 +1,10 @@
+.active {
+    background-color: #555555;
+    color: #ffffff;
+}
+li.card {
+    cursor: pointer;
+}
+.panel-primary {
+    min-width: 290px;
+}

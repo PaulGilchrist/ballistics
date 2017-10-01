@@ -1,0 +1,49 @@
+.nav a {
+    color: #ccc;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); /* Always use rgba for text and box shadows */
+    text-transform: uppercase;
+    -webkit-transition: 500ms all;
+    transition: 500ms all;
+}
+.nav a:hover {
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.075em;
+    padding-top: 10px;
+    -webkit-transition: 500ms all;
+    transition: 500ms all;
+}
+.navbar {
+    padding: 10px 0;
+    -webkit-transition: 500ms all;
+    transition: 500ms all;
+}
+.navbar-shrink {
+    padding: 0 0;
+    opacity: 0.9;
+    -webkit-transition: 500ms all;
+    transition: 500ms all;
+}
+.navbar i {
+    color: #ccc;
+    margin: 5px 5px 0 -5px;
+}
+.navbar-brand {
+    color: #ccc;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); /* Always use rgba for text-shadow and boxshadow */
+    -webkit-transition: 500ms all;
+    transition: 500ms all;
+}
+.navbar-brand:hover {
+    color: #fff;
+    -webkit-transition: 500ms all;
+    transition: 500ms all;
+}
+.navbar-nav>li.active>a {
+    height: 50px;
+}
+@media (max-width: 768px) { /* Hide brand icon on small screens */
+    i {
+        display: none;
+    }
+}

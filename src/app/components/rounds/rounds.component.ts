@@ -1,0 +1,49 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Round } from '../../models/round.model'
+
+@Component({
+     moduleId: module.id.toString(),
+     selector: 'rounds',
+     styleUrls: ['rounds.component.css'],
+     templateUrl: 'rounds.component.html'
+})
+export class RoundsComponent {
+
+    public currentRound: Round = null;
+
+    public _isOpen: boolean = true;
+    @Input()
+    set isOpen(isOpen: boolean) {
+        this._isOpen = isOpen;
+    }
+
+    private _firearmName:string = '';
+    @Input()
+    set firearmName(name: string) {
+        if (name) {
+            this._firearmName = name;
+        }
+    }
+
+    private _rounds: Array<Round> = null;
+    @Input()
+    set rounds(rounds: Array<Round>) {
+        if (rounds && rounds.length > 0) {
+            this._rounds = rounds;
+        }
+    }
+
+    // Bubble up that the form was saved
+    @Output() onSelect = new EventEmitter<Round>();
+
+    addFirearm() {
+        console.log('addRound() not implemented');
+    }
+
+    select(round: Round) {
+        this.currentRound = round;
+        this.onSelect.emit(this.currentRound);
+    }
+
+}

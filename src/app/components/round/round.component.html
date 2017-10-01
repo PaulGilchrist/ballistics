@@ -1,0 +1,71 @@
+<div *ngIf='editedRound' class="panel panel-primary">
+	<div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
+		<div class="panel-title pull-left">Firearm ({{ _firearmName }}) - Round ({{ editedRound.name }})</div>
+		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
+	</div>
+	<div class="panel-collapse collapse" [class.in]="_isOpen">
+		<div class="panel-body">
+			<form #form="ngForm" novalidate>
+				<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
+						<label class="control-label">Name</label>
+						<div class="input-group margin-bottom-sm">
+							<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+							<input type="text" name="name" [(ngModel)]="editedRound.name" #nameControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Name" required autofocus minlength="3"  maxlength="50">
+						</div>
+						<div [hidden]="isViewOnly || nameControl.valid || nameControl.pristine" class="alert alert-danger">
+							Name is required and must be between 3 and 50 characters
+						</div>
+					</div>
+				<div class="form-group" [class.has-error]="bulletDiameterInchesControl.invalid && bulletDiameterInchesControl.dirty">
+					<label class="control-label" title="Bullet diameter is required so wind resistance can be calculated properly">Bullet Diameter (inches)</label>
+					<div class="input-group margin-bottom-sm">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="number" name="bulletDiameterInches" [(ngModel)]="editedRound.bulletDiameterInches" #bulletDiameterInchesControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Bullet Diameter (inches)" required autofocus min="0.010" max="1">
+					</div>
+					<div [hidden]="isViewOnly || bulletDiameterInchesControl.valid || bulletDiameterInchesControl.pristine" class="alert alert-danger">
+						Bullet diameter is required so wind resistance can be calculated.  Common diameters are 0.022 to 0.050 inches
+					</div>
+				</div>
+				<div class="form-group" [class.has-error]="bulletWeightGrainsControl.invalid && bulletWeightGrainsControl.dirty">
+					<label class="control-label" title="Bullet weight is required, so inertia can be calculated properly">Bullet Weight (grains)</label>
+					<div class="input-group margin-bottom-sm">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="number" name="bulletWeightGrains" [(ngModel)]="editedRound.bulletWeightGrains" #bulletWeightGrainsControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Bullet Weight (grains)" required min="10" max="1000">
+					</div>
+					<div [hidden]="isViewOnly || bulletWeightGrainsControl.valid || bulletWeightGrainsControl.pristine" class="alert alert-danger">
+						Bullet weight is required, so bullet drop can be calculated properly
+					</div>
+				</div>
+				<div class="form-group" [class.has-error]="muzzleVelocityFPSControl.invalid && muzzleVelocityFPSControl.dirty">
+					<label class="control-label" title="Muzzle velocity is required, so bullet deceleration can be calculated properly">Muzzle Velocity (FPS)</label>
+					<div class="input-group margin-bottom-sm">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="number" name="muzzleVelocityFPS" [(ngModel)]="editedRound.muzzleVelocityFPS" #muzzleVelocityFPSControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Muzzle Velocity (FPS)" required min="100" max="5000">
+					</div>
+					<div [hidden]="isViewOnly || muzzleVelocityFPSControl.valid || muzzleVelocityFPSControl.pristine" class="alert alert-danger">
+						Muzzle velocity is required, so bullet drop can be calculated properly
+					</div>
+				</div>
+				<div class="form-group" [class.has-error]="bulletBCControl.invalid && bulletBCControl.dirty">
+					<label class="control-label" title="Bullet ballistic cooefficient is the aerodynamics of the bullet's ability to resist atmospheric density related deceleration">Bullet Ballistic Cooefficient</label>
+					<div class="input-group margin-bottom-sm">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="number" name="bulletBC" [(ngModel)]="editedRound.bulletBC" #bulletBCControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Bullet Ballistic Cooefficient" required min="0.010" max="1">
+					</div>
+					<div [hidden]="isViewOnly || bulletBCControl.valid || bulletBCControl.pristine" class="alert alert-danger">
+						Bullet ballistic cooefficient is required, so wind resistance can be calculated properly
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel-footer">
+			<div *ngIf='isViewOnly'>
+				<button type="submit" class="btn btn-success" (click)='edit()'><i class="fa fa-check"></i> Edit</button>
+			</div>
+			<div *ngIf='!isViewOnly'>
+				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
+				<button type="submit" class="btn btn-danger" (click)="cancel()"><i class="fa fa-times"></i> Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>

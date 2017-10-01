@@ -1,0 +1,20 @@
+<div *ngIf='_firearms' class="panel panel-primary">
+	<div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
+		<div class="panel-title pull-left">Firearms</div>
+		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
+	</div>
+	<div class="panel-collapse collapse" [class.in]="_isOpen">
+		<div class="panel-body">
+			<ul class="list-inline">
+				<li *ngFor='let firearm of _firearms' (click)='select(firearm);' class='card'>
+					<div class="well" [class.active]='currentFirearm===firearm'>
+						<p class="lead">{{ firearm.name }}</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="panel-footer">
+			<button class="btn btn-default" (click)='addFirearm();'><span class="fa fa-plus"></span> Add Firearm</button>
+		</div>
+	</div>
+</div>
