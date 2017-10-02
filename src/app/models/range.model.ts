@@ -22,5 +22,5 @@ export interface Range {
     slantDropInches: number,
     slantMil: number,
     slantMoA: number,
-    slantIPHY: number,
+    slantIPHY: number
 }

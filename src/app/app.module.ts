@@ -16,6 +16,7 @@ import { DataService } from './services/data.service';
 import { DragService } from './services/drag.service';
 /* Components */
 import { AppComponent } from './components/app/app.component';
+import { ChartComponent } from './components/chart/chart.component';
 import { ConditionsComponent } from './components/conditions/conditions.component';
 import { FirearmComponent } from './components/firearm/firearm.component';
 import { FirearmsComponent } from './components/firearms/firearms.component';
@@ -28,6 +29,7 @@ import { TopNavComponent } from './components/nav/nav-top.component';
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
+        ChartComponent,
         ConditionsComponent,
         FirearmComponent,
         FirearmsComponent,
