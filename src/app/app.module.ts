@@ -23,7 +23,6 @@ import { FirearmsComponent } from './components/firearms/firearms.component';
 import { HomeComponent } from './components/home/home.component';
 import { RoundComponent } from './components/round/round.component';
 import { RoundsComponent } from './components/rounds/rounds.component';
-import { TopNavComponent } from './components/nav/nav-top.component';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -35,8 +34,7 @@ import { TopNavComponent } from './components/nav/nav-top.component';
         FirearmsComponent,
         HomeComponent,
         RoundComponent,
-        RoundsComponent,
-        TopNavComponent
+        RoundsComponent
     ],
     exports: [
         SharedModule

@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<div class="panel-title">Range Chart - Firearm ({{firearm.name}}) - Round ({{round.name}}>)</div>
+		<div class="panel-title">Range Chart - Firearm ({{this.dataService.currentFirearm.name}}) - Round ({{this.dataService.currentRound.name}}>)</div>
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
@@ -108,29 +108,24 @@
 						<td class="hidden-xs">{{rangeRow.timeSeconds.toFixed(3)}}</td>
 						<td class="hidden-xs">{{rangeRow.dropInches.toFixed(1)}}</td>
 						<td class='visible-md visible-lg'>{{rangeRow.verticalPositionInches.toFixed(1)}}</td>
-						<td *ngIf='showMil'>{{rangeRow.verticalPositionMil().toFixed(1)}}</td>
-						<td *ngIf='showMoa'>{{rangeRow.verticalPositionMoA().toFixed(1)}}</td>
-						<td *ngIf='showIPHY'>{{rangeRow.verticalPositionIPHY().toFixed(1)}}</td>
+						<td *ngIf='showMil'>{{rangeRow.verticalPositionMil.toFixed(1)}}</td>
+						<td *ngIf='showMoa'>{{rangeRow.verticalPositionMoA.toFixed(1)}}</td>
+						<td *ngIf='showIPHY'>{{rangeRow.verticalPositionIPHY.toFixed(1)}}</td>
 						<td class='visible-md visible-lg'>{{rangeRow.crossWindDriftInches.toFixed(1)}}</td>
-						<td *ngIf='showMil'>{{rangeRow.crossWindDriftMil().toFixed(1)}}</td>
-						<td *ngIf='showMoa'>{{rangeRow.crossWindDriftMoA().toFixed(1)}}</td>
-						<td *ngIf='showIPHY'>{{rangeRow.crossWindDriftIPHY().toFixed(1)}}</td>
+						<td *ngIf='showMil'>{{rangeRow.crossWindDriftMil.toFixed(1)}}</td>
+						<td *ngIf='showMoa'>{{rangeRow.crossWindDriftMoA.toFixed(1)}}</td>
+						<td *ngIf='showIPHY'>{{rangeRow.crossWindDriftIPHY.toFixed(1)}}</td>
 						<td class='visible-md visible-lg'>{{rangeRow.leadInches.toFixed(1)}}</td>
-						<td *ngIf='showMil'>{{rangeRow.leadMil().toFixed(1)}}</td>
-						<td *ngIf='showMoa'>{{rangeRow.leadMoA().toFixed(1)}}</td>
-						<td *ngIf='showIPHY'>{{rangeRow.leadIPHY().toFixed(1)}}</td>
-						<td class='visible-md visible-lg'>{{rangeRow.slantDropInches().toFixed(1)}}</td>
-						<td *ngIf='showMil'>{{rangeRow.slantMil().toFixed(1)}}</td>
-						<td *ngIf='showMoa'>{{rangeRow.slantMoA().toFixed(1)}}</td>
-						<td *ngIf='showIPHY'>{{rangeRow.slantIPHY().toFixed(1)}}</td>
+						<td *ngIf='showMil'>{{rangeRow.leadMil.toFixed(1)}}</td>
+						<td *ngIf='showMoa'>{{rangeRow.leadMoA.toFixed(1)}}</td>
+						<td *ngIf='showIPHY'>{{rangeRow.leadIPHY.toFixed(1)}}</td>
+						<td class='visible-md visible-lg'>{{rangeRow.slantDropInches.toFixed(1)}}</td>
+						<td *ngIf='showMil'>{{rangeRow.slantMil.toFixed(1)}}</td>
+						<td *ngIf='showMoa'>{{rangeRow.slantMoA.toFixed(1)}}</td>
+						<td *ngIf='showIPHY'>{{rangeRow.slantIPHY.toFixed(1)}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<div class="panel-footer">
-		<button class="btn btn-default" (click)='back();'><span class="fa fa-chevron-left"></span> Back</button>
-		<button class="btn btn-default" (click)='graphBar();'><span class="fa fa-chevron-right"></span> Graph (Bar)</button>
-		<button class="btn btn-default" (click)='graphLine();'><span class="fa fa-chevron-right"></span> Graph (Line)</button>
 	</div>
 </div>
