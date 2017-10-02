@@ -1,6 +1,6 @@
 <div *ngIf='editedRound' class="panel panel-primary">
 	<div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
-		<div class="panel-title pull-left">Firearm ({{ _firearmName }}) - Round ({{ editedRound.name }})</div>
+		<div class="panel-title pull-left">Round - {{ editedRound.name }}</div>
 		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
 	</div>
 	<div class="panel-collapse collapse" [class.in]="_isOpen">
@@ -61,6 +61,7 @@
 		<div class="panel-footer">
 			<div *ngIf='isViewOnly'>
 				<button type="submit" class="btn btn-success" (click)='edit()'><i class="fa fa-check"></i> Edit</button>
+				<button class='btn btn-danger' (click)='change();'> Change</button>
 			</div>
 			<div *ngIf='!isViewOnly'>
 				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>

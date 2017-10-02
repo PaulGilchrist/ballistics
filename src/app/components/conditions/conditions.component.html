@@ -1,0 +1,135 @@
+<div *ngIf='dataService.currentTarget && dataService.currentWeather' class="panel panel-primary">
+    <div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
+        <div class="panel-title pull-left">Conditions</div>
+		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
+    </div>
+    <div class="panel-collapse collapse" [class.in]="_isOpen">
+        <div class="panel-body">
+            <div class=" col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Target</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form #formTarget="ngForm" novalidate>
+                            <div class="form-group" [class.has-error]="distanceYardsControl.invalid && distanceYardsControl.dirty">
+                                <label class="control-label" title="Distance in yards measured from the muzzle to the target">Distance (yards)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="distanceYards" [(ngModel)]="dataService.currentTarget.distanceYards" #distanceYardsControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Distance (yards)" required min="0" max="5000">
+                                </div>
+                                <div [hidden]="isViewOnly || distanceYardsControl.valid || distanceYardsControl.pristine" class="alert alert-danger">
+                                    Distance is required to determine how far out to calculate ballistics data
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="chartSteppingControl.invalid && chartSteppingControl.dirty">
+                                <label class="control-label" title="Chart stepping is required to determine how many rows to calculate">Chart Stepping (yards)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="chartStepping" [(ngModel)]="dataService.currentTarget.chartStepping" #chartSteppingControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Chart Stepping (yards)" required min="10" max="500">
+                                </div>
+                                <div [hidden]="isViewOnly || chartSteppingControl.valid || chartSteppingControl.pristine" class="alert alert-danger">
+                                    Chart stepping is required to determine how many rows to calculate
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="slantDegreesControl.invalid && slantDegreesControl.dirty">
+                                <label class="control-label" title="The angle versus horizontal as measured between the muzzle and target.  Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low.">Slant (degrees)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="slantDegrees" [(ngModel)]="dataService.currentTarget.slantDegrees" #slantDegreesControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Slant (degrees)" required min="10" max="500">
+                                </div>
+                                <div [hidden]="isViewOnly || slantDegreesControl.valid || slantDegreesControl.pristine" class="alert alert-danger">
+                                    Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low.
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="speedMPHControl.invalid && speedMPHControl.dirty">
+                                <label class="control-label" title="The speed the target is moving perpendicular to the line between the muzzle and target.  Target speed is required to determine horizontal lead hold or scope adjustments needed.">Speed (MPH)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="speedMPH" [(ngModel)]="dataService.currentTarget.speedMPH" #speedMPHControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Speed (MPH)" required min="10" max="500">
+                                </div>
+                                <div [hidden]="isViewOnly || speedMPHControl.valid || speedMPHControl.pristine" class="alert alert-danger">
+                                    Target speed is required to determine horizontal lead hold or scope adjustments needed.
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Weather</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form #formWeather="ngForm" novalidate>
+                            <div class="form-group" [class.has-error]="altitudeFeetControl.invalid && altitudeFeetControl.dirty">
+                                <label class="control-label" title="Distance above sea level. Altitude is used to determine atmospheric density.">Altitude (feet)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="altitudeFeet" [(ngModel)]="dataService.currentWeather.altitudeFeet" #altitudeFeetControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Altitude (feet)" required min="0" max="50000">
+                                </div>
+                                <div [hidden]="isViewOnly || altitudeFeetControl.valid || altitudeFeetControl.pristine" class="alert alert-danger">
+                                    Altitude is required to determine atmospheric density
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="temperatureDegreesFahrenheitControl.invalid && temperatureDegreesFahrenheitControl.dirty">
+                                <label class="control-label" title="Distance above sea level. Altitude is used to determine atmospheric density.">Temperature (fahrenheit)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="temperatureDegreesFahrenheit" [(ngModel)]="dataService.currentWeather.temperatureDegreesFahrenheit" #temperatureDegreesFahrenheitControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Temperature (fahrenheit)" required min="0" max="200">
+                                </div>
+                                <div [hidden]="isViewOnly || temperatureDegreesFahrenheitControl.valid || temperatureDegreesFahrenheitControl.pristine" class="alert alert-danger">
+                                    Temperature is required to determine atmospheric density
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="barometericPressureInchesHgControl.invalid && barometericPressureInchesHgControl.dirty">
+                                <label class="control-label" title="Distance above sea level. Altitude is used to determine atmospheric density.">Barometeric Pressure (in Hg)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="barometericPressureInchesHg" [(ngModel)]="dataService.currentWeather.barometericPressureInchesHg" #barometericPressureInchesHgControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Barometeric Pressure (in Hg)" required min="0" max="100">
+                                </div>
+                                <div [hidden]="isViewOnly || barometericPressureInchesHgControl.valid || barometericPressureInchesHgControl.pristine" class="alert alert-danger">
+                                    Barometeric Pressure is required to determine atmospheric density
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="relativeHumidityPercentControl.invalid && relativeHumidityPercentControl.dirty">
+                                <label class="control-label" title="The amount of moisture in the atmosphere impacts density">Relative Humidity (%)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="relativeHumidityPercent" [(ngModel)]="dataService.currentWeather.relativeHumidityPercent" #relativeHumidityPercentControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Relative Humidity (%)" required min="0" max="100">
+                                </div>
+                                <div [hidden]="isViewOnly || relativeHumidityPercentControl.valid || relativeHumidityPercentControl.pristine" class="alert alert-danger">
+                                    Relative Humidity is required to determine atmospheric density
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="windVelocityMPHControl.invalid && windVelocityMPHControl.dirty">
+                                <label class="control-label" title="Wind velocity is required to calculate bullet drift">Wind Velocity (MPH)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="windVelocityMPH" [(ngModel)]="dataService.currentWeather.windVelocityMPH" #windVelocityMPHControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Wind Velocity (MPH)" required min="0" max="200">
+                                </div>
+                                <div [hidden]="isViewOnly || windVelocityMPHControl.valid || windVelocityMPHControl.pristine" class="alert alert-danger">
+                                    Wind Velocity is required to calculate bullet drift
+                                </div>
+                            </div>
+                            <div class="form-group" [class.has-error]="windAngleDegreesControl.invalid && windAngleDegreesControl.dirty">
+                                <label class="control-label" title="Wind Angle is required to determine the winds vector impact on bullet drift.  Allowed values are 0-90 degrees.">Wind Angle (degrees)</label>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input type="number" name="windAngleDegrees" [(ngModel)]="dataService.currentWeather.windAngleDegrees" #windAngleDegreesControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Wind Angle (degrees)" required min="0" max="90">
+                                </div>
+                                <div [hidden]="isViewOnly || windAngleDegreesControl.valid || windAngleDegreesControl.pristine" class="alert alert-danger">
+                                    Wind Angle is required to determine the winds vector impact on bullet drift.  Allowed values are 0-90 degrees.
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            Target and weather information data are not preserved between sessions and will revert back to their defaults
+        </div>
+    </div>
+</div>

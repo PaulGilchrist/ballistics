@@ -1,6 +1,7 @@
 ﻿<div>
+    <conditions [isOpen]='isConditionsOpen'></conditions>
     <firearms *ngIf='dataService.firearms' [firearms]='dataService.firearms' [isOpen]='isFirearmsOpen' (onSelect)='onFirearmSelected($event);'></firearms>
-    <firearm *ngIf='dataService.currentFirearm' [firearm]='dataService.currentFirearm' [isOpen]='isFirearmOpen' (onSave)='onFirearmEdited($event);'></firearm>
-    <rounds *ngIf='dataService.currentFirearm' [firearmName]='dataService.currentFirearm.name' [isOpen]='isRoundsOpen' [rounds]='dataService.currentFirearm.rounds' (onSelect)='onRoundSelected($event);'></rounds>
-    <round *ngIf='dataService.currentRound' [round]='dataService.currentRound' [firearmName]='dataService.currentFirearm.name' [isOpen]='isRoundOpen' (onSave)='onRoundEdited($event);'></round>
+    <firearm *ngIf='dataService.currentFirearm' [firearm]='dataService.currentFirearm' [isOpen]='isFirearmOpen' (onChange)='onFirearmChange();' (onSave)='onFirearmEdited($event);'></firearm>
+    <rounds *ngIf='dataService.currentFirearm' [isOpen]='isRoundsOpen' [rounds]='dataService.currentFirearm.rounds' (onSelect)='onRoundSelected($event);'></rounds>
+    <round *ngIf='dataService.currentRound' [round]='dataService.currentRound' [isOpen]='isRoundOpen' (onChange)='onRoundChange();' (onSave)='onRoundEdited($event);'></round>
 </div>

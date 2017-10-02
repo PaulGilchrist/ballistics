@@ -1,22 +1,22 @@
 <div *ngIf='editedFirearm' class="panel panel-primary">
 	<div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
-		<div class="panel-title pull-left">Firearm ({{ editedFirearm.name }})</div>
+		<div class="panel-title pull-left">Firearm - {{ editedFirearm.name }}</div>
 		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
 	</div>
 	<div class="panel-collapse collapse" [class.in]="_isOpen">
 		<div class="panel-body">
 			<form #form="ngForm" novalidate>
-					<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
-						<label class="control-label">Name</label>
-						<div class="input-group margin-bottom-sm">
-							<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-							<input type="text" name="name" [(ngModel)]="editedFirearm.name" #nameControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Name" required autofocus minlength="3"  maxlength="50">
-						</div>
-						<div [hidden]="isViewOnly || nameControl.valid || nameControl.pristine" class="alert alert-danger">
-							Name is required and must be between 3 and 50 characters
-						</div>
+				<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
+					<label class="control-label">Name</label>
+					<div class="input-group margin-bottom-sm">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="text" name="name" [(ngModel)]="editedFirearm.name" #nameControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Name" required autofocus minlength="3"  maxlength="50">
 					</div>
-					<div class="form-group" [class.has-error]="sightHeightInchesControl.invalid && sightHeightInchesControl.dirty">
+					<div [hidden]="isViewOnly || nameControl.valid || nameControl.pristine" class="alert alert-danger">
+						Name is required and must be between 3 and 50 characters
+					</div>
+				</div>
+				<div class="form-group" [class.has-error]="sightHeightInchesControl.invalid && sightHeightInchesControl.dirty">
 					<label class="control-label" title="Measured form bore centerline to scope centerline">Sight Height (inches)</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
@@ -96,9 +96,10 @@
 				</div>
 			</form>
 		</div>
-		<div class="panel-footer">
+		<div class="panel-footer clearfix">
 			<div *ngIf='isViewOnly'>
 				<button type="submit" class="btn btn-success" (click)='edit()'><i class="fa fa-check"></i> Edit</button>
+				<button class='btn btn-danger' (click)='change();'> Change</button>
 			</div>
 			<div *ngIf='!isViewOnly'>
 				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>

@@ -1,6 +1,6 @@
-<div *ngIf='_rounds' class="panel panel-primary">
+<div *ngIf='_rounds && _isOpen' class="panel panel-primary">
 	<div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
-		<div class="panel-title pull-left">Firearm ({{ _firearmName }}) - Rounds</div>
+		<div class="panel-title pull-left">Select Round</div>
 		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
 	</div>
 	<div class="panel-collapse collapse" [class.in]="_isOpen">

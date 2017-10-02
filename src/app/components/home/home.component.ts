@@ -15,6 +15,7 @@ import { DataService } from '../../services/data.service'
 })
 export class HomeComponent implements OnInit {
 
+    isConditionsOpen: boolean = true;
     isFirearmOpen: boolean = true;
     isFirearmsOpen: boolean = true;
     isRoundOpen: boolean = true;
@@ -41,9 +42,28 @@ export class HomeComponent implements OnInit {
         currentFirearm.zeroRangeYards = firearm.zeroRangeYards;
     }
 
+    onFirearmChange() {
+        //Close everything except the firearm selection panel
+        this.isConditionsOpen = this.isFirearmsOpen = this.isRoundOpen = this.isRoundsOpen = false;
+        //Reset the selected round and firearm to null
+        this.dataService.currentRound = this.dataService.currentFirearm = null;
+        //Open the firearm selection panel so a new firearm can be selected
+        this.isFirearmsOpen = true;
+    }
+
     onFirearmSelected(firearm: Firearm) {
+        //Close everything except the firearm selected and the round selection panel for that firearm
+        this.isConditionsOpen = this.isFirearmsOpen = this.isRoundOpen = false;
         this.dataService.currentFirearm = firearm;
-        this.isFirearmsOpen = false;
+        this.isFirearmOpen = this.isRoundsOpen = true;
+    }
+
+    onRoundChange() {
+        //Close the selected firearm, and open the list of firearms for a new one to be selected
+        this.isConditionsOpen = this.isFirearmsOpen = this.isFirearmOpen = this.isRoundOpen = false;
+        this.dataService.currentRound = null;
+        this.isRoundsOpen = true;
+        console.log(this.isRoundsOpen);
     }
 
     onRoundEdited(round: Round) {
@@ -59,10 +79,10 @@ export class HomeComponent implements OnInit {
     }
 
     onRoundSelected(round: Round) {
+        //Close everything except the round selected
+        this.isConditionsOpen = this.isFirearmsOpen = this.isFirearmOpen = this.isRoundsOpen = false;
         this.dataService.currentRound = round;
-        //this.isFirearmsOpen = false;
-        this.isFirearmOpen = false;
-        this.isRoundsOpen = false;
+        this.isRoundOpen = true;
     }
 
 }

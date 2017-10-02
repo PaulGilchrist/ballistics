@@ -40,8 +40,13 @@ export class FirearmComponent {
         }
     }
 
-    // Bubble up that the form was saved
+    @Output() onChange = new EventEmitter();
     @Output() onSave = new EventEmitter<Firearm>();
+
+    change() {
+        this.isOpen = false;
+        this.onChange.emit();
+    }
 
     edit() {
         this.isViewOnly = false;

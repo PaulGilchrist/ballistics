@@ -19,14 +19,6 @@ export class RoundComponent {
         this._isOpen = isOpen;
     }
 
-    private _firearmName:string = '';
-    @Input()
-    set firearmName(name: string) {
-        if (name) {
-            this._firearmName = name;
-        }
-    }
-
     _round: Round = null;
     @Input()
     set round(round: Round) {
@@ -45,8 +37,13 @@ export class RoundComponent {
         }
     }
 
-    // Bubble up that the form was saved
+    @Output() onChange = new EventEmitter();
     @Output() onSave = new EventEmitter<Round>();
+
+    change() {
+        this.isOpen = false;
+        this.onChange.emit();
+    }
 
     edit() {
         this.isViewOnly = false;

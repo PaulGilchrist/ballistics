@@ -18,14 +18,6 @@ export class RoundsComponent {
         this._isOpen = isOpen;
     }
 
-    private _firearmName:string = '';
-    @Input()
-    set firearmName(name: string) {
-        if (name) {
-            this._firearmName = name;
-        }
-    }
-
     private _rounds: Array<Round> = null;
     @Input()
     set rounds(rounds: Array<Round>) {
@@ -37,7 +29,7 @@ export class RoundsComponent {
     // Bubble up that the form was saved
     @Output() onSelect = new EventEmitter<Round>();
 
-    addFirearm() {
+    addRound() {
         console.log('addRound() not implemented');
     }
 
