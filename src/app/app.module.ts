@@ -11,29 +11,29 @@ import { AppComponent } from './app.component';
 import { BallisticsModule } from './ballistics-module/ballistics.module';
 
 @NgModule({
-    bootstrap: [AppComponent],
-    declarations: [
-        AppComponent,
-    ],
-    exports: [
-        SharedModule
-    ],
-    imports: [
-        BallisticsModule,
-        BrowserModule,
-        FormsModule,
-        SharedModule,
-        RouterModule.forRoot([
-                // Static Loading
-                { path: '', redirectTo: '/home', pathMatch: 'full' },
-                { path: 'home', component: BallisticsModule },
-            ],
-            {preloadingStrategy: NoPreloading}
-        )
-    ],
-    providers: [
-        // { provide: LocationStrategy, useClass: HashLocationStrategy },
-        { provide: Window, useValue: window },
-    ]
+	bootstrap: [AppComponent],
+	declarations: [
+		AppComponent,
+	],
+	exports: [
+		SharedModule
+	],
+	imports: [
+		BallisticsModule,
+		BrowserModule,
+		FormsModule,
+		SharedModule,
+		RouterModule.forRoot([
+				// Static Loading
+				{ path: '', redirectTo: '/home', pathMatch: 'full' },
+				{ path: 'home', component: BallisticsModule },
+			],
+			{preloadingStrategy: NoPreloading}
+		)
+	],
+	providers: [
+		// { provide: LocationStrategy, useClass: HashLocationStrategy },
+		{ provide: Window, useValue: window },
+	]
 })
 export class AppModule {}

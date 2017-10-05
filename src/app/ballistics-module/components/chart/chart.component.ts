@@ -17,31 +17,31 @@ import { DataService } from '../../services/data.service'
 import { DragService } from '../../services/drag.service'
 
 @Component({
-     moduleId: module.id.toString(),
-     selector: 'chart',
-     styleUrls: ['chart.component.css'],
-     templateUrl: 'chart.component.html'
+	moduleId: module.id.toString(),
+	selector: 'chart',
+	styleUrls: ['chart.component.css'],
+	templateUrl: 'chart.component.html'
 })
 export class ChartComponent implements OnInit {
 
-	showMil: boolean = true;
-	showMoA: boolean = true;
-	showIPHY: boolean = true;
+	showMil = true;
+	showMoA = true;
+	showIPHY = true;
 	rangeData: Array<any>;
 
-	public _isOpen: boolean = true;
-    @Input()
-    set isOpen(isOpen: boolean) {
-        this._isOpen = isOpen;
-    }
+	public _isOpen = true;
+	@Input()
+	set isOpen(isOpen: boolean) {
+		this._isOpen = isOpen;
+	}
 
-    constructor(private _atmosphericService: AtmosphericService, private _conversionService: ConversionService, public dataService: DataService, private _dragService: DragService) {}
+	constructor(private _atmosphericService: AtmosphericService, private _conversionService: ConversionService, public dataService: DataService, private _dragService: DragService) {}
 
-    ngOnInit() {
-		//Assumes this component is not loaded until after we have a dataService with currentFirearm, currentRound, currentTarget, and currentWeather
-		this.showMil = this.dataService.currentFirearm.turretUnits==0 || this.dataService.currentFirearm.reticleUnits==0;
-		this.showMoA = this.dataService.currentFirearm.turretUnits==1 || this.dataService.currentFirearm.reticleUnits==1;
-		this.showIPHY = this.dataService.currentFirearm.turretUnits==3 || this.dataService.currentFirearm.reticleUnits==3;
+	ngOnInit() {
+		// Assumes this component is not loaded until after we have a dataService with currentFirearm, currentRound, currentTarget, and currentWeather
+		this.showMil = this.dataService.currentFirearm.turretUnits===0 || this.dataService.currentFirearm.reticleUnits===0;
+		this.showMoA = this.dataService.currentFirearm.turretUnits===1 || this.dataService.currentFirearm.reticleUnits===1;
+		this.showIPHY = this.dataService.currentFirearm.turretUnits===3 || this.dataService.currentFirearm.reticleUnits===3;
 		this.rangeData = this.dataService.getRangeData();
 	}
 

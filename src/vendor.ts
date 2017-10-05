@@ -19,7 +19,7 @@ import 'rxjs/add/operator/map';
 import 'animate.css/animate.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-//import 'font-awesome/css/font-awesome.css'; // not working
+// import 'font-awesome/css/font-awesome.css'; // not working
 import 'jquery/src/jquery.js';
 import 'jquery-confirm/css/jquery-confirm.css';
 import 'jquery-confirm/js/jquery-confirm.js';

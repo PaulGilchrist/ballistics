@@ -11,27 +11,27 @@ import { Weather } from '../../models/weather.model'
 import { DataService } from '../../services/data.service'
 
 @Component({
-     moduleId: module.id.toString(),
-     selector: 'conditions',
-     styleUrls: ['conditions.component.css'],
-     templateUrl: 'conditions.component.html'
+	moduleId: module.id.toString(),
+	selector: 'conditions',
+	styleUrls: ['conditions.component.css'],
+	templateUrl: 'conditions.component.html'
 })
 export class ConditionsComponent implements OnInit {
 
-    public isViewOnly: boolean = false;
+	public isViewOnly = false;
 
-    public _isOpen: boolean = true;
-    @Input()
-    set isOpen(isOpen: boolean) {
-        this._isOpen = isOpen;
-    }
+	public _isOpen = true;
+	@Input()
+	set isOpen(isOpen: boolean) {
+		this._isOpen = isOpen;
+	}
 
-    constructor(public dataService: DataService) {}
+	constructor(public dataService: DataService) {}
 
-    ngOnInit() {
-        let targetObservable = this.dataService.getTarget();
-        let weatherObservable = this.dataService.getWeather();
-        Observable.forkJoin(targetObservable, weatherObservable).subscribe();
-    }
+	ngOnInit() {
+		let targetObservable = this.dataService.getTarget();
+		let weatherObservable = this.dataService.getWeather();
+		Observable.forkJoin(targetObservable, weatherObservable).subscribe();
+	}
 
 }

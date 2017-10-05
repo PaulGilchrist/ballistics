@@ -17,31 +17,31 @@ import { FirearmsComponent } from './components/firearms/firearms.component';
 import { HomeComponent } from './components/home/home.component';
 import { RoundComponent } from './components/round/round.component';
 import { RoundsComponent } from './components/rounds/rounds.component';
-//Not currently importing any shared modules
+// Not currently importing any shared modules
 
 @NgModule({
-    declarations: [
-        ChartComponent,
-        ConditionsComponent,
-        FirearmComponent,
-        FirearmsComponent,
-        HomeComponent,
-        RoundComponent,
-        RoundsComponent
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule.forChild([
-            { path: '', component: HomeComponent },
-        ])
-    ],
-    providers: [
-        AtmosphericService,
-        BallisticsService,
-        ConversionService,
-        DataService,
-        DragService
-    ]
+	declarations: [
+		ChartComponent,
+		ConditionsComponent,
+		FirearmComponent,
+		FirearmsComponent,
+		HomeComponent,
+		RoundComponent,
+		RoundsComponent
+	],
+	imports: [
+		CommonModule,
+		FormsModule,
+		RouterModule.forChild([
+			{ path: '', component: HomeComponent },
+		])
+	],
+	providers: [
+		AtmosphericService,
+		BallisticsService,
+		ConversionService,
+		DataService,
+		DragService
+	]
 })
 export class BallisticsModule {}
