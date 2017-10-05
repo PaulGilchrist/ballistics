@@ -17,7 +17,7 @@ services:
       PORT: 80
     depends_on:
       - mssql-server-windows
-    image: paulgilchrist/angulartemplate-node-nano
+    image: paulgilchrist/ballistics-node-nano
     ports: ["80:80"]
   mssql-server-windows:
     environment:

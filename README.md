@@ -3,12 +3,12 @@
     Currently under development
 
 #### ToDo
-* Conditions - Weather
-* Conditions - Target
-* Add Firearm
-* Add Round
-* Chart
-    * Column Prioritization
+* Separate Target and Weather into their own components
+* Fire event to rebuild chart should firearm, round, target, or weather change
+* Save/Retrieve Firearms to local storage
+* Add/Delete Firearm
+* Add/Delete Round
 * Graph (Bar)
 * Graph (Line)
 * Tooltips
+* Small screen optimization

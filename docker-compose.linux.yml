@@ -17,7 +17,7 @@ services:
       PORT: 80
     depends_on:
       - mssql-server-windows
-    image: paulgilchrist/angulartemplate-node-linux
+    image: paulgilchrist/ballistics-node-linux
     ports: ["80:80"]
   mssql-server-linux:
     environment:
