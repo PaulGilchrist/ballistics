@@ -23,8 +23,6 @@ import 'bootstrap/dist/js/bootstrap.js';
 import 'jquery/src/jquery.js';
 import 'jquery-confirm/css/jquery-confirm.css';
 import 'jquery-confirm/js/jquery-confirm.js';
-//import 'pdfmake/build/pdfmake.js';
-//import 'pdfmake/build/vfs_fonts.js';
 import 'toastr/build/toastr.css';
 import 'toastr/toastr.js';
 import 'underscore/underscore.js';

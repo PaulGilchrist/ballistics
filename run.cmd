@@ -1,3 +1,4 @@
 cd build
-start node server.js
-start http://localhost:3000
+set PORT=3001
+start /MIN node server.js
+start http://localhost:3001
