@@ -1,3 +1,8 @@
 .home {
     padding-top: 10px;
 }
+.panel {
+    display: inline-block;
+    max-width: 260px;
+    vertical-align: top;
+}

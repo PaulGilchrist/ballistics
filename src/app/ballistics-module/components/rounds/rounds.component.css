@@ -3,7 +3,12 @@
     color: #eeeeee;}
 li.card {
     cursor: pointer;
+    width: 100%;
 }
-.panel-primary {
-    min-width: 290px;
+.well {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
 }

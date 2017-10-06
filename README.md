@@ -3,7 +3,7 @@
     Currently under development
 
 #### ToDo
-* Separate Target and Weather into their own components
+* Fix bug when calculating OBR data
 * Fire event to rebuild chart should firearm, round, target, or weather change
 * Save/Retrieve Firearms to local storage
 * Add/Delete Firearm
@@ -11,4 +11,4 @@
 * Graph (Bar)
 * Graph (Line)
 * Tooltips
-* Small screen optimization
+* Started - Small screen optimization

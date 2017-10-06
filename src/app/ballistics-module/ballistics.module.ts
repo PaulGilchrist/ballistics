@@ -11,23 +11,25 @@ import { DataService } from './services/data.service';
 import { DragService } from './services/drag.service';
 /* Components */
 import { ChartComponent } from './components/chart/chart.component';
-import { ConditionsComponent } from './components/conditions/conditions.component';
 import { FirearmComponent } from './components/firearm/firearm.component';
 import { FirearmsComponent } from './components/firearms/firearms.component';
 import { HomeComponent } from './components/home/home.component';
 import { RoundComponent } from './components/round/round.component';
 import { RoundsComponent } from './components/rounds/rounds.component';
+import { TargetComponent } from './components/target/target.component';
+import { WeatherComponent } from './components/weather/weather.component';
 // Not currently importing any shared modules
 
 @NgModule({
 	declarations: [
 		ChartComponent,
-		ConditionsComponent,
 		FirearmComponent,
 		FirearmsComponent,
 		HomeComponent,
 		RoundComponent,
-		RoundsComponent
+		RoundsComponent,
+		TargetComponent,
+		WeatherComponent
 	],
 	imports: [
 		CommonModule,

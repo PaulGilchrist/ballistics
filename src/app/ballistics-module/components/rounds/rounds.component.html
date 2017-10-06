@@ -8,7 +8,7 @@
 			<ul class="list-inline">
 				<li *ngFor='let round of _rounds' (click)='select(round);' class='card' >
 					<div class="well" [class.active]='currentRound===round'>
-						<p class="lead">{{ round.name }}</p>
+						{{ round.name }}
 					</div>
 				</li>
 			</ul>
