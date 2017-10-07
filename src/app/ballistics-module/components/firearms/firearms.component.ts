@@ -11,28 +11,24 @@ import { Firearm } from '../../models/firearm.model'
 export class FirearmsComponent {
 
 	public currentFirearm: Firearm = null;
-
-	public _isOpen = true;
-	@Input()
-	set isOpen(isOpen: boolean) {
-		this._isOpen = isOpen;
-	}
+	public isOpen = true;
 
 	private _firearms: Array<Firearm> = null;
 	@Input()
 	set firearms(firearms: Array<Firearm>) {
-		if (firearms && firearms.length > 0) {
+		if (firearms) {
 			this._firearms = firearms;
+		} else {
+			this.firearms = [];
 		}
 	}
 
-	// Bubble up that the form was saved
-	@Output() onSelect = new EventEmitter<Firearm>();
-
-	addFirearm() {
-		console.log('addFirearm() not implemented');
+	@Output() onAdd = new EventEmitter();
+	add() {
+		this.onAdd.emit();
 	}
 
+	@Output() onSelect = new EventEmitter<Firearm>();
 	select(firearm: Firearm) {
 		this.currentFirearm = firearm;
 		this.onSelect.emit(this.currentFirearm);

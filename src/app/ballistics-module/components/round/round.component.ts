@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Round } from '../../models/round.model'
 
+declare var $: any;
+declare var toastr: any;
+
 @Component({
 	moduleId: module.id.toString(),
 	selector: 'round',
@@ -11,53 +14,95 @@ import { Round } from '../../models/round.model'
 export class RoundComponent {
 
 	public editedRound: Round = null;
-	public isViewOnly = true;
+	public isOpen = true;
+	public isPristine = true;
 
-	public _isOpen = true;
+	private _mode = 'add';
 	@Input()
-	set isOpen(isOpen: boolean) {
-		this._isOpen = isOpen;
+	set mode(mode: string) {
+		// Acceptable modes are 'add' and 'edit'
+		this._mode = mode;
 	}
 
-	_round: Round = null;
+	private _round: Round = null;
 	@Input()
 	set round(round: Round) {
 		if (round) {
-			this._round = round;
-			let editedRound = {
+			this.editedRound = {
 				id: round.id,
-				firearmId: round.firearmId,
 				name: round.name,
 				bulletBC: round.bulletBC,
 				bulletDiameterInches: round.bulletDiameterInches,
 				bulletWeightGrains: round.bulletWeightGrains,
 				muzzleVelocityFPS: round.muzzleVelocityFPS
 			}
-			this.editedRound = editedRound;
+		} else {
+			// Setup defaults
+			this.editedRound = {
+				id: null,
+				name: null,
+				bulletBC: null,
+				bulletDiameterInches: null,
+				bulletWeightGrains: null,
+				muzzleVelocityFPS: null
+			}
+		}
+		//Save the initial settings so we can reset if requested
+		this._round = round;
+	}
+
+	@Output() onChange = new EventEmitter<Round>();
+	change(isValid: boolean) {
+		if(isValid) {
+			this.onChange.emit(this.editedRound);
 		}
 	}
 
-	@Output() onChange = new EventEmitter();
+	@Output() onClose = new EventEmitter();
+	close(isDirty: boolean) {
+		// Change to another firearm
+		if(isDirty) {
+			toastr.error('Round not saved');
+		}
+		this.onClose.emit();
+	}
+
+	@Output() onDelete = new EventEmitter<Round>();
+	delete() {
+		//Confirm before delete
+		let self = this;
+		$.confirm({
+			title: 'Confirm!',
+			content: 'Delete round?',
+			icon: 'fa fa-warning',
+			buttons: {
+				confirm: {
+					text: 'Confirm',
+					btnClass: 'btn-success',
+					action: function () {
+						self.onDelete.emit(self._round);
+					}
+				},
+				cancel: {
+					text: 'Cancel',
+					btnClass: 'btn-danger',
+					action: function () {
+						// $.alert('Canceled!');
+					}
+				},
+			}
+		});
+	}
+
 	@Output() onSave = new EventEmitter<Round>();
-
-	change() {
-		this.isOpen = false;
-		this.onChange.emit();
-	}
-
-	edit() {
-		this.isViewOnly = false;
-	}
-
 	save(): void {
+		// Save changes to this round
 		this.onSave.emit(this.editedRound);
-		this.isViewOnly = true;
 	}
 
 	cancel(): void {
 		// Reset the form back to the original object
 		this.round = this._round;
-		this.isViewOnly = true;
 	}
 
 }

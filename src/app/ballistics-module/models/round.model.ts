@@ -1,6 +1,5 @@
 export interface Round {
-	id: number,
-	firearmId: number,
+	id: string,
 	name: string,
 	bulletBC: number,
 	bulletDiameterInches: number,

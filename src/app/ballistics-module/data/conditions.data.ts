@@ -2,7 +2,7 @@ import { Target } from '../models/target.model'
 import { Weather } from '../models/weather.model'
 
 export let TARGET: Target = {
-	distanceYards: 100,
+	distanceYards: 1000,
 	chartStepping: 50,
 	slantDegrees: 45,
 	speedMPH: 3

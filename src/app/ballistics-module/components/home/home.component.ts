@@ -5,7 +5,8 @@ import { Round } from '../../models/round.model'
 
 import { DataService } from '../../services/data.service'
 
-
+declare var toastr: any;
+declare var _: any;
 
 @Component({
 	moduleId: module.id.toString(),
@@ -15,77 +16,115 @@ import { DataService } from '../../services/data.service'
 })
 export class HomeComponent implements OnInit {
 
-	isFirearmOpen = true;
-	isFirearmsOpen = true;
-	isRoundOpen = true;
-	isRoundsOpen = true;
-	isTargetOpen = true;
-	isWeatherOpen = true;
+	public firearm: Firearm = null;
+	public firearmMode: string = 'select'; // Valid modes are 'add', 'edit', or 'select'
+	public roundMode: string = 'select'; // Valid modes are 'add', 'edit', or 'select'
 
 	constructor(public dataService: DataService) {}
 
 	ngOnInit() {
-		this.dataService.getFirearms().subscribe();
+		this.dataService.getFirearms().subscribe(firearms => {
+			if(firearms && firearms.length > 0) {
+				this.firearmMode = 'select';
+			} else {
+				this.firearmMode = 'add';
+			}
+		});
 	}
 
-	onFirearmEdited(firearm: Firearm) {
-		let currentFirearm = this.dataService.currentFirearm;
+	addFirearm() {
+		this.firearmMode = 'add';
+	}
+
+	addRound() {
+		this.roundMode = 'add';
+	}
+
+	changeFirearm(firearm: Firearm) {
 		this.dataService.currentFirearm = firearm;
-		currentFirearm.id = firearm.id;
-		currentFirearm.userId = firearm.userId;
-		currentFirearm.name = firearm.name;
-		currentFirearm.elevationTurretGradients = firearm.elevationTurretGradients;
-		currentFirearm.reticleUnits = firearm.reticleUnits;
-		currentFirearm.rounds = firearm.rounds;
-		currentFirearm.sightHeightInches = firearm.sightHeightInches;
-		currentFirearm.turretUnits = firearm.turretUnits;
-		currentFirearm.windageTurretGradients =firearm.windageTurretGradients;
-		currentFirearm.zeroRangeYards = firearm.zeroRangeYards;
+		this.dataService.getRangeData();
 	}
 
-	onFirearmChange() {
-		// Close everything except the firearm selection panel
-		// this.isFirearmsOpen = this.isRoundOpen = this.isRoundsOpen = this.isTargetOpen = this.isWeatherOpen = false;
+	changeRound(round: Round) {
+		this.dataService.currentRound = round;
+		this.dataService.getRangeData();
+	}
+
+	closeFirearm() {
 		// Reset the selected round and firearm to null
-		this.dataService.currentRound = this.dataService.currentFirearm = null;
-		// Open the firearm selection panel so a new firearm can be selected
-		this.isFirearmsOpen = true;
+		this.closeRound();
+		this.dataService.currentFirearm = this.firearm = null;
+		this.firearmMode = 'select';
 	}
 
-	onFirearmSelected(firearm: Firearm) {
-		// Close everything except the firearm selected and the round selection panel for that firearm
-		// this.isFirearmsOpen = this.isRoundOpen = this.isTargetOpen = this.isWeatherOpen = false;
-		this.isFirearmsOpen = false;
-		this.dataService.currentFirearm = firearm;
-		this.isFirearmOpen = this.isRoundsOpen = true;
-	}
-
-	onRoundChange() {
-		// Close the selected firearm, and open the list of firearms for a new one to be selected
-		// this.isFirearmsOpen = this.isFirearmOpen = this.isRoundOpen = this.isTargetOpen = this.isWeatherOpen = false;
+	closeRound() {
 		this.dataService.currentRound = null;
-		this.isRoundsOpen = true;
-		console.log(this.isRoundsOpen);
+		this.dataService.getRangeData();
 	}
 
-	onRoundEdited(round: Round) {
-		let currentRound = this.dataService.currentRound;
-		this.dataService.currentRound = round;
-		currentRound.id = round.id;
-		currentRound.firearmId = round.firearmId;
-		currentRound.name = round.name;
-		currentRound.bulletBC = round.bulletBC;
-		currentRound.bulletDiameterInches = round.bulletDiameterInches;
-		currentRound.bulletWeightGrains = round.bulletWeightGrains;
-		currentRound.muzzleVelocityFPS = round.muzzleVelocityFPS;
+	deleteFirearm(firearm: Firearm) {
+		console.log('Home - deleteFirearm');
+		if(this.dataService.deleteFirearm(firearm)) {
+			toastr.info('Firearm deleted');
+			this.closeFirearm();
+		}
 	}
 
-	onRoundSelected(round: Round) {
-		// Close everything except the round selected
-		// this.isFirearmsOpen = this.isFirearmOpen = this.isRoundsOpen = this.isTargetOpen = this.isWeatherOpen = false;
-		this.isRoundsOpen = false;
+	deleteRound(round: Round) {
+		console.log(round);
+		if(this.dataService.deleteRound(this.dataService.currentFirearm, round)) {
+			toastr.info('Round deleted');
+			this.closeRound();
+		}
+	}
+	saveFirearm(firearm: Firearm) {
+		if(this.firearmMode==='add') {
+			if(this.dataService.insertFirearm(firearm)) {
+				toastr.info('Firearm added');
+				this.selectFirearm(firearm);
+			}
+		} else {
+			if(this.dataService.updateFirearm(firearm)) {
+				toastr.info('Firearm updated');
+			}
+		}
+	}
+
+	saveRound(round: Round) {
+		if(this.roundMode==='add') {
+			if(this.dataService.insertRound(this.dataService.currentFirearm, round)) {
+				toastr.info('Round added');
+				this.selectRound(round);
+			}
+		} else {
+			if(this.dataService.updateRound(this.dataService.currentFirearm, round)) {
+				toastr.info('Round updated');
+			}
+		}
+	}
+
+	selectFirearm(firearm: Firearm) {
+		this.dataService.currentFirearm = this.firearm = firearm;
+		this.firearmMode = 'edit';
+		if(firearm.rounds && firearm.rounds.length > 0) {
+			this.roundMode = 'select';
+		} else {
+			this.roundMode = 'add';
+		}
+	}
+
+	selectRound(round: Round) {
 		this.dataService.currentRound = round;
-		this.isRoundOpen = true;
+		this.roundMode = 'edit';
+		this.dataService.getRangeData();
+	}
+
+	changeTarget() {
+		this.dataService.getRangeData();
+	}
+
+	changeWeather() {
+		this.dataService.getRangeData();
 	}
 
 }

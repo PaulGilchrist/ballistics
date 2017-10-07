@@ -1,18 +1,18 @@
 <div *ngIf='dataService.currentTarget' class="panel panel-primary">
-    <div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
+    <div class="panel-heading clearfix" data-toggle="collapse" (click)='isOpen=!isOpen'>
         <div class="panel-title pull-left">Target</div>
-		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
+		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!isOpen' [class.fa-chevron-down]='isOpen'></i>
     </div>
-    <div class="panel-collapse collapse" [class.in]="_isOpen">
+    <div class="panel-collapse collapse" [class.in]="isOpen">
         <div class="panel-body">
-            <form #formTarget="ngForm" novalidate>
+            <form #form="ngForm" novalidate (change)='change(form.valid);'>
                 <div class="form-group" [class.has-error]="distanceYardsControl.invalid && distanceYardsControl.dirty">
                     <label class="control-label" title="Distance in yards measured from the muzzle to the target">Distance (yards)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                        <input type="number" name="distanceYards" [(ngModel)]="dataService.currentTarget.distanceYards" #distanceYardsControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Distance (yards)" required min="0" max="5000">
+                        <input type="number" name="distanceYards" [(ngModel)]="dataService.currentTarget.distanceYards" #distanceYardsControl="ngModel" class="form-control" placeholder="Distance (yards)" required min="0" max="5000" step="5">
                     </div>
-                    <div [hidden]="isViewOnly || distanceYardsControl.valid || distanceYardsControl.pristine" class="alert alert-danger">
+                    <div [hidden]="distanceYardsControl.valid || distanceYardsControl.pristine" class="alert alert-danger">
                         Distance is required to determine how far out to calculate ballistics data
                     </div>
                 </div>
@@ -20,9 +20,9 @@
                     <label class="control-label" title="Chart stepping is required to determine how many rows to calculate">Chart Stepping (yards)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                        <input type="number" name="chartStepping" [(ngModel)]="dataService.currentTarget.chartStepping" #chartSteppingControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Chart Stepping (yards)" required min="10" max="500">
+                        <input type="number" name="chartStepping" [(ngModel)]="dataService.currentTarget.chartStepping" #chartSteppingControl="ngModel" class="form-control" placeholder="Chart Stepping (yards)" required min="10" max="500">
                     </div>
-                    <div [hidden]="isViewOnly || chartSteppingControl.valid || chartSteppingControl.pristine" class="alert alert-danger">
+                    <div [hidden]="chartSteppingControl.valid || chartSteppingControl.pristine" class="alert alert-danger">
                         Chart stepping is required to determine how many rows to calculate
                     </div>
                 </div>
@@ -30,9 +30,9 @@
                     <label class="control-label" title="The angle versus horizontal as measured between the muzzle and target.  Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low.">Slant (degrees)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                        <input type="number" name="slantDegrees" [(ngModel)]="dataService.currentTarget.slantDegrees" #slantDegreesControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Slant (degrees)" required min="10" max="500">
+                        <input type="number" name="slantDegrees" [(ngModel)]="dataService.currentTarget.slantDegrees" #slantDegreesControl="ngModel" class="form-control" placeholder="Slant (degrees)" required min="10" max="500">
                     </div>
-                    <div [hidden]="isViewOnly || slantDegreesControl.valid || slantDegreesControl.pristine" class="alert alert-danger">
+                    <div [hidden]="slantDegreesControl.valid || slantDegreesControl.pristine" class="alert alert-danger">
                         Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low.
                     </div>
                 </div>
@@ -40,9 +40,9 @@
                     <label class="control-label" title="The speed the target is moving perpendicular to the line between the muzzle and target.  Target speed is required to determine horizontal lead hold or scope adjustments needed.">Speed (MPH)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                        <input type="number" name="speedMPH" [(ngModel)]="dataService.currentTarget.speedMPH" #speedMPHControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Speed (MPH)" required min="10" max="500">
+                        <input type="number" name="speedMPH" [(ngModel)]="dataService.currentTarget.speedMPH" #speedMPHControl="ngModel" class="form-control" placeholder="Speed (MPH)" required min="10" max="500">
                     </div>
-                    <div [hidden]="isViewOnly || speedMPHControl.valid || speedMPHControl.pristine" class="alert alert-danger">
+                    <div [hidden]="speedMPHControl.valid || speedMPHControl.pristine" class="alert alert-danger">
                         Target speed is required to determine horizontal lead hold or scope adjustments needed.
                     </div>
                 </div>

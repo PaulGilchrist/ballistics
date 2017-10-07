@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model'
+import { Round } from '../../models/round.model'
+
+declare var $: any;
+declare var toastr: any;
 
 @Component({
 	moduleId: module.id.toString(),
@@ -11,55 +15,98 @@ import { Firearm } from '../../models/firearm.model'
 export class FirearmComponent {
 
 	public editedFirearm: Firearm = null;
-	public isViewOnly = true;
+	public isOpen = true;
+	public isPristine = true;
 
-	public _isOpen = true;
-	@Input()
-	set isOpen(isOpen: boolean) {
-		this._isOpen = isOpen;
-	}
-
-	_firearm: Firearm = null;
+	private _firearm: Firearm = null;
 	@Input()
 	set firearm(firearm: Firearm) {
 		if (firearm) {
-			this._firearm = firearm;
-			let editedFirearm = {
+			this.editedFirearm = {
 				id: firearm.id,
-				userId: firearm.userId,
 				name: firearm.name,
 				elevationTurretGradients: firearm.elevationTurretGradients,
 				reticleUnits: firearm.reticleUnits,
 				rounds: firearm.rounds,
 				sightHeightInches: firearm.sightHeightInches,
 				turretUnits: firearm.turretUnits,
-				windageTurretGradients:firearm.windageTurretGradients,
+				windageTurretGradients: firearm.windageTurretGradients,
 				zeroRangeYards: firearm.zeroRangeYards,
-			}
-			this.editedFirearm = editedFirearm;
+			};
+		} else {
+			// Setup defaults
+			this.editedFirearm = {
+				id: null,
+				name: null,
+				elevationTurretGradients: null,
+				reticleUnits: null,
+				rounds: [],
+				sightHeightInches: null,
+				turretUnits: null,
+				windageTurretGradients: null,
+				zeroRangeYards: null,
+			};
 		}
+		// Save the initial settings so we can reset if requested
+		this._firearm = firearm;
 	}
 
-	@Output() onChange = new EventEmitter();
+	private _mode = 'add';
+	@Input()
+	set mode(mode: string) {
+		// Acceptable modes are 'add' or 'edit'
+		this._mode = mode;
+	}
+
+	@Output() onChange = new EventEmitter<Firearm>();
+	change(isValid: boolean) {
+		if(isValid) {
+			this.onChange.emit(this.editedFirearm);
+		}
+		this.isPristine = false;
+	}
+
+	@Output() onClose = new EventEmitter();
+	close(isDirty: boolean = false) {
+		this.onClose.emit();
+	}
+
+	@Output() onDelete = new EventEmitter<Firearm>();
+	delete() {
+		let self = this;
+		$.confirm({
+			title: 'Confirm!',
+			content: 'Delete firearm?',
+			icon: 'fa fa-warning',
+			buttons: {
+				confirm: {
+					text: 'Confirm',
+					btnClass: 'btn-success',
+					action: function () {
+						self.onDelete.emit(self._firearm);
+					}
+				},
+				cancel: {
+					text: 'Cancel',
+					btnClass: 'btn-danger',
+					action: function () {
+						// $.alert('Canceled!');
+					}
+				},
+			}
+		});
+	}
+
 	@Output() onSave = new EventEmitter<Firearm>();
-
-	change() {
-		this.isOpen = false;
-		this.onChange.emit();
-	}
-
-	edit() {
-		this.isViewOnly = false;
-	}
-
 	save(): void {
+		// Save changes to this firearm
 		this.onSave.emit(this.editedFirearm);
-		this.isViewOnly = true;
+		this.isPristine = true;
 	}
 
-	cancel(): void {
+	cancel(form: any): void {
 		// Reset the form back to the original object
 		this.firearm = this._firearm;
-		this.isViewOnly = true;
+		this.isPristine = true;
 	}
 }

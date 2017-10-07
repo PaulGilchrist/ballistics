@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs';
 import 'rxjs/add/observable/of';
 
 import { Firearm } from '../models/firearm.model'
@@ -23,6 +24,8 @@ export class DataService {
 	public currentFirearm: Firearm = null;
 	public currentRound: Round = null;
 	public currentTarget: Target = null;
+	public rangeData: Array<Range> = null;
+
 	public currentWeather: Weather = null;
 	public minRangeDataRows = 6;
 	public maxRangeDataRows = 20;
@@ -30,8 +33,14 @@ export class DataService {
 	constructor(private _atmosphericService: AtmosphericService, private _conversionService: ConversionService, private _dragService: DragService) {}
 
 	public getFirearms(): Observable<Array<Firearm>> {
-		// We already have the data so simulate an async call
-		this.firearms = FIREARMS;
+		// Check to see if firearms are stored in localstorage before getting from API or mock data
+		let firearmsJson = localStorage.getItem('firearms');
+		if(firearmsJson) {
+			this.firearms = JSON.parse(firearmsJson);
+		} else {
+			// We already have the data so simulate an async call
+			this.firearms = FIREARMS;
+		}
 		return Observable.of(this.firearms);
 	}
 
@@ -98,7 +107,11 @@ export class DataService {
 			let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches;
 			// Skip the first row
 			let currentRangeYards = this.currentTarget.chartStepping;
-			while ((currentVelocityFPS == null) || (currentVelocityFPS > this._atmosphericService.speedOfSoundAtSeaLevel)) {
+			/*
+				Here is a method that auto determines the maximum distance based on when the round goes subsonic, but takes control away from user
+				while ((currentVelocityFPS == null) || (currentVelocityFPS > this._atmosphericService.speedOfSoundAtSeaLevel)) {
+			*/
+			while (currentRangeYards <= this.currentTarget.distanceYards) {
 				currentVelocityFPS = this._dragService.velocityFromRange(currentBallisticCoefficient, this.currentRound.muzzleVelocityFPS, currentRangeYards);
 				currentEnergyFtLbs = this._dragService.energy(this.currentRound.bulletWeightGrains, currentVelocityFPS);
 				currentTimeSeconds = this._dragService.time(currentBallisticCoefficient, this.currentRound.muzzleVelocityFPS, currentVelocityFPS);
@@ -136,18 +149,129 @@ export class DataService {
 				rangeData.push(range);
 				currentRangeYards += this.currentTarget.chartStepping;
 			}
-	}
-	while(rangeData.length < this.minRangeDataRows) {
-			// Reduce the stepping to ensure we have a good sample of data between muzzle and subsonic
-			this.currentTarget.chartStepping = Math.floor(this.currentTarget.chartStepping / 2);
-			rangeData = this.getRangeData();
+			/*
+				Below is methods to ensure the table is neither too short or too long, but takes control away from user
+			*/
+			// if(rangeData.length < this.minRangeDataRows) {
+			// 	// Reduce the stepping to ensure we have a good sample of data between muzzle and subsonic
+			// 	this.currentTarget.chartStepping = Math.floor(this.currentTarget.chartStepping / 2);
+			// 	rangeData = this.getRangeData();
+			// } else if(rangeData.length > this.maxRangeDataRows) {
+			// 	// Increase the stepping to ensure we do not have too large of a chart
+			// 	this.currentTarget.chartStepping = this.currentTarget.chartStepping * 2;
+			// 	rangeData = this.getRangeData();
+			// }
 		}
-		if(rangeData.length > this.maxRangeDataRows) {
-			// Reset chart stepping back to the default value to prevent excessive run times and long graphs
-			this.currentTarget.chartStepping = 50;
-			rangeData = this.getRangeData();
-		}
+		this.rangeData = rangeData;
 		return rangeData;
-	};
+	}
+
+	guid() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
+
+	public deleteFirearm(firearm: Firearm): boolean {
+		let deleted = false;
+		for(let i = 0; i < this.firearms.length; i++) {
+			if(this.firearms[i].id === firearm.id) {
+				this.firearms.splice(i, 1)
+				deleted = true;
+				break;
+			}
+		}
+		if(deleted) {
+			localStorage.setItem('firearms', JSON.stringify(this.firearms));
+		}
+		return deleted;
+	}
+
+	public deleteRound(firearm: Firearm, round: Round): boolean {
+		let deleted = false;
+		for(let i = 0; i < firearm.rounds.length; i++) {
+			if(firearm.rounds[i].id === round.id) {
+				firearm.rounds.splice(i, 1)
+				deleted = true;
+				break;
+			}
+		}
+		if(deleted) {
+			localStorage.setItem('firearms', JSON.stringify(this.firearms));
+		}
+		return deleted;
+	}
+
+	public insertFirearm(firearm: Firearm): boolean {
+		//Gernerate new id
+		firearm.id = this.guid();
+		this.firearms.push(firearm);
+		this.firearms.sort(this.nameSort);
+		localStorage.setItem('firearms', JSON.stringify(this.firearms));
+		return true;
+	}
+
+	public insertRound(firearm: Firearm, round: Round): boolean {
+		//Gernerate new id
+		round.id = this.guid();
+		firearm.rounds.push(round);
+		firearm.rounds.sort(this.nameSort);
+		localStorage.setItem('firearms', JSON.stringify(this.firearms));
+		return true;
+	}
+
+	public nameSort(a: any, b: any) {
+		if(a.name < b.name) {
+			return -1;
+		} else if (b.name < a.name) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	public updateFirearm(firearm: Firearm) {
+		let updated = false;
+		let nameChanged = false;
+		for(let i = 0; i < this.firearms.length; i++) {
+			if(this.firearms[i].id === firearm.id) {
+				nameChanged = (this.firearms[i].name !== firearm.name)
+				this.firearms[i] = firearm;
+				updated = true;
+				break;
+			}
+		}
+		if(updated) {
+			if(nameChanged) {
+				//Name may have been changed
+				this.firearms.sort(this.nameSort);
+			}
+			localStorage.setItem('firearms', JSON.stringify(this.firearms));
+		}
+		return updated;
+	}
+
+	public updateRound(firearm: Firearm, round: Round) {
+		let updated = false;
+		let nameChanged = false;
+		for(let i = 0; i < firearm.rounds.length; i++) {
+			if(firearm.rounds[i].id === round.id) {
+				nameChanged = (firearm.rounds[i].name !== round.name)
+				firearm.rounds[i] = round;
+				updated = true;
+				break;
+			}
+		}
+		if(updated) {
+			if(nameChanged) {
+				//Name may have been changed
+				firearm.rounds.sort(this.nameSort);
+			}
+			localStorage.setItem('firearms', JSON.stringify(this.firearms));
+		}
+		return updated;
+	}
+
 
 }

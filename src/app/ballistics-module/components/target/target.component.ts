@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/forkJoin';
 
 import { Target } from '../../models/target.model'
 import { DataService } from '../../services/data.service'
@@ -14,18 +12,20 @@ import { DataService } from '../../services/data.service'
 })
 export class TargetComponent implements OnInit {
 
-	public isViewOnly = false;
+	public isOpen = true;
 
-	public _isOpen = true;
-	@Input()
-	set isOpen(isOpen: boolean) {
-		this._isOpen = isOpen;
-	}
+	@Output() onChange = new EventEmitter();
 
 	constructor(public dataService: DataService) {}
 
 	ngOnInit() {
 		this.dataService.getTarget().subscribe();
+	}
+
+	change(isValid: boolean) {
+		if(isValid) {
+			this.onChange.emit();
+		}
 	}
 
 }

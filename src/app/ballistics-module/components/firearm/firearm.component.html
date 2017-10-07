@@ -1,18 +1,19 @@
 <div *ngIf='editedFirearm' class="panel panel-primary">
-	<div class="panel-heading clearfix" data-toggle="collapse" (click)='_isOpen=!_isOpen'>
-		<div class="panel-title pull-left">Firearm - {{ editedFirearm.name }}</div>
-		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!_isOpen' [class.fa-chevron-down]='_isOpen'></i>
+	<div class="panel-heading clearfix" data-toggle="collapse" (click)='isOpen=!isOpen'>
+		<div *ngIf="_mode==='add'" class="panel-title pull-left">Add Firearm</div>
+		<div *ngIf="_mode==='edit'" class="panel-title pull-left">Firearm - {{ editedFirearm.name }}</div>
+		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!isOpen' [class.fa-chevron-down]='isOpen'></i>
 	</div>
-	<div class="panel-collapse collapse" [class.in]="_isOpen">
+	<div class="panel-collapse collapse" [class.in]="isOpen">
 		<div class="panel-body">
-			<form #form="ngForm" novalidate>
+			<form #form="ngForm" novalidate (change)='change(form.valid);'>
 				<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
 					<label class="control-label">Name</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<input type="text" name="name" [(ngModel)]="editedFirearm.name" #nameControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Name" required autofocus minlength="3"  maxlength="50">
+						<input type="text" name="name" [(ngModel)]="editedFirearm.name" #nameControl="ngModel" [disabled]="_mode==='view'" class="form-control" placeholder="Name" required autofocus minlength="3"  maxlength="50">
 					</div>
-					<div [hidden]="isViewOnly || nameControl.valid || nameControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || nameControl.valid || nameControl.pristine" class="alert alert-danger">
 						Name is required and must be between 3 and 50 characters
 					</div>
 				</div>
@@ -20,9 +21,9 @@
 					<label class="control-label" title="Measured form bore centerline to scope centerline">Sight Height (inches)</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<input type="number" name="sightHeightInches" [(ngModel)]="editedFirearm.sightHeightInches" #sightHeightInchesControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Sight Height (inches)" required min="0" max="20">
+						<input type="number" name="sightHeightInches" [(ngModel)]="editedFirearm.sightHeightInches" #sightHeightInchesControl="ngModel" class="form-control" placeholder="Sight Height (inches)" required min="0" max="20">
 					</div>
-					<div [hidden]="isViewOnly || sightHeightInchesControl.valid || sightHeightInchesControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || sightHeightInchesControl.valid || sightHeightInchesControl.pristine" class="alert alert-danger">
 						Sight height is required.  Common heights are 1.5 to 2 inches
 					</div>
 				</div>
@@ -30,9 +31,9 @@
 					<label class="control-label" title="Range at which scope has been adjusted for point of aim = point of impact">Zero Range (yards)</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<input type="number" name="zeroRangeYards" [(ngModel)]="editedFirearm.zeroRangeYards" #zeroRangeYardsControl="ngModel" [disabled]='isViewOnly' class="form-control" placeholder="Zero Range (yards)" required min="25" max="3000" >
+						<input type="number" name="zeroRangeYards" [(ngModel)]="editedFirearm.zeroRangeYards" #zeroRangeYardsControl="ngModel" class="form-control" placeholder="Zero Range (yards)" required min="25" max="3000" >
 					</div>
-					<div [hidden]="isViewOnly || zeroRangeYardsControl.valid || zeroRangeYardsControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || zeroRangeYardsControl.valid || zeroRangeYardsControl.pristine" class="alert alert-danger">
 						Zero range is required, so bullet drop can be calculated properly
 					</div>
 				</div>
@@ -40,13 +41,13 @@
 					<label class="control-label" title="Scope crosshair hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Reticle Units</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<select name="reticleUnits" [(ngModel)]="editedFirearm.reticleUnits" #reticleUnitsControl="ngModel" [disabled]='isViewOnly' class="form-control" required>
+						<select name="reticleUnits" [(ngModel)]="editedFirearm.reticleUnits" #reticleUnitsControl="ngModel" class="form-control" required>
 							<option value='0'>Mil</option>
 							<option value='1'>MoA</option>
 							<option value='2'>IPHY</option>
 						</select>
 					</div>
-					<div [hidden]="isViewOnly || reticleUnitsControl.valid || reticleUnitsControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || reticleUnitsControl.valid || reticleUnitsControl.pristine" class="alert alert-danger">
 							Reticle units are required rangeing and hold overs
 					</div>
 				</div>
@@ -54,13 +55,13 @@
 					<label class="control-label" title="Scope turret hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Turret Units</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<select name="turretUnits" [(ngModel)]="editedFirearm.turretUnits" #turretUnitsControl="ngModel" [disabled]='isViewOnly' class="form-control" required>
+						<select name="turretUnits" [(ngModel)]="editedFirearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
 							<option value='0'>Mil</option>
 							<option value='1'>MoA</option>
 							<option value='2'>IPHY</option>
 						</select>
 					</div>
-					<div [hidden]="isViewOnly || turretUnitsControl.valid || turretUnitsControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || turretUnitsControl.valid || turretUnitsControl.pristine" class="alert alert-danger">
 							Turret units are required for rangeing and hold overs
 					</div>
 				</div>
@@ -68,14 +69,14 @@
 					<label class="control-label" title="Number of elevation (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Elevation Turret Gradients</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<select name="elevationTurretGradients" [(ngModel)]="editedFirearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" [disabled]='isViewOnly' class="form-control" required>
+						<select name="elevationTurretGradients" [(ngModel)]="editedFirearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" class="form-control" required>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='1'>1</option>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='2'>2</option>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='4'>4</option>
 							<option *ngIf='editedFirearm.turretUnits==0' value='10'>10</option>
 						</select>
 					</div>
-					<div [hidden]="isViewOnly || elevationTurretGradientsControl.valid || elevationTurretGradientsControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || elevationTurretGradientsControl.valid || elevationTurretGradientsControl.pristine" class="alert alert-danger">
 							Elevation turret gradients allows values 1,2,4 or 10 (# clicks per turret unti 1,2,4 for MoA and IPHY, and 10 for Mil)
 					</div>
 				</div>
@@ -83,27 +84,29 @@
 					<label class="control-label" title="Number of windage (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Windage Turret Gradients</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<select name="windageTurretGradients" [(ngModel)]="editedFirearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" [disabled]='isViewOnly' class="form-control" required>
+						<select name="windageTurretGradients" [(ngModel)]="editedFirearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" class="form-control" required>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='1'>1</option>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='2'>2</option>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='4'>4</option>
 							<option *ngIf='editedFirearm.turretUnits==0' value='10'>10</option>
 						</select>
 					</div>
-					<div [hidden]="isViewOnly || windageTurretGradientsControl.valid || windageTurretGradientsControl.pristine" class="alert alert-danger">
+					<div [hidden]="_mode==='view' || windageTurretGradientsControl.valid || windageTurretGradientsControl.pristine" class="alert alert-danger">
 							Windage turret gradients allows values 1,2,4 or 10 (# clicks per turret unti 1,2,4 for MoA and IPHY, and 10 for Mil)
 					</div>
 				</div>
 			</form>
 		</div>
 		<div class="panel-footer clearfix">
-			<div *ngIf='isViewOnly'>
-				<button type="submit" class="btn btn-success" (click)='edit()'><i class="fa fa-check"></i> Edit</button>
-				<button class='btn btn-danger' (click)='change();'> Change</button>
-			</div>
-			<div *ngIf='!isViewOnly'>
+			<div *ngIf="_mode==='add'">
 				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
-				<button type="submit" class="btn btn-danger" (click)="cancel()"><i class="fa fa-times"></i> Cancel</button>
+				<button class='btn btn-danger' (click)='close();'> Cancel</button>
+			</div>
+			<div *ngIf="_mode=='edit'">
+				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
+				<button *ngIf='isPristine' class='btn btn-warning' (click)='close();'> Close</button>
+				<button *ngIf='isPristine' class='btn btn-danger' (click)='delete();'> Delete</button>
+				<button *ngIf='!isPristine' class='btn btn-warning' (click)='cancel();'> Cancel</button>
 			</div>
 		</div>
 	</div>

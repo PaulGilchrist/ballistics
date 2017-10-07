@@ -10,24 +10,14 @@
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
 }
-.inline-block{ display: inline-block; }
 input.ng-valid { border-left: 5px solid #42A948; /* green */}
 input.ng-invalid { border-left: 5px solid #a94442; /* red */}
-.sub-section {
-    margin: 0 0 32px 0;
-    padding: 16px 24px;
-    background: #f5f6f7;
-    border-left: 4px solid #8BC34A;
-    border-radius: 4px;
+/*
+Below settings compact vertical forms
+*/
+label.control-label {
+    margin-bottom: 0;
 }
-@media (min-width: 768px) {
-    body {
-        padding-top: 80px;
-    }
-    .navbar-static-top { /* we use this instead of navbar-fixed-top so we can remove it on smaller screens */
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-    }
+.form-group {
+    margin-bottom: 5px;
 }

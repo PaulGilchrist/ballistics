@@ -1,8 +1,7 @@
 import { Round } from './round.model';
 
 export interface Firearm {
-	id?: number,
-	userId?: number,
+	id: string,
 	name: string,
 	// Gradients are clicks required to match 1 full turret unit.
 	// MoA and IPHY are 1, 2 or 4 displayed in select as 1, 1/2, 1/4 per click

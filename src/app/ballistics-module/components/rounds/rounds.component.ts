@@ -11,28 +11,24 @@ import { Round } from '../../models/round.model'
 export class RoundsComponent {
 
 	public currentRound: Round = null;
+	public isOpen = true;
 
-	public _isOpen = true;
-	@Input()
-	set isOpen(isOpen: boolean) {
-		this._isOpen = isOpen;
-	}
-
-	private _rounds: Array<Round> = null;
+	private _rounds: Array<Round> = [];
 	@Input()
 	set rounds(rounds: Array<Round>) {
-		if (rounds && rounds.length > 0) {
+		if (rounds) {
 			this._rounds = rounds;
+		} else {
+			this._rounds = [];
 		}
 	}
 
-	// Bubble up that the form was saved
-	@Output() onSelect = new EventEmitter<Round>();
-
-	addRound() {
-		console.log('addRound() not implemented');
+	@Output() onAdd = new EventEmitter();
+	add() {
+		this.onAdd.emit();
 	}
 
+	@Output() onSelect = new EventEmitter<Round>();
 	select(round: Round) {
 		this.currentRound = round;
 		this.onSelect.emit(this.currentRound);

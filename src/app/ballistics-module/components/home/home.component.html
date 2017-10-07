@@ -1,11 +1,11 @@
 ﻿<div class='home'>
     <div>
-        <div class='panel'><weather [isOpen]='isWeatherOpen'></weather></div>
-        <div class='panel'><target [isOpen]='isTargetOpen'></target></div>
-        <div class='panel'><firearms *ngIf='dataService.firearms' [firearms]='dataService.firearms' [isOpen]='isFirearmsOpen' (onSelect)='onFirearmSelected($event);'></firearms></div>
-        <div class='panel'><firearm *ngIf='dataService.currentFirearm' [firearm]='dataService.currentFirearm' [isOpen]='isFirearmOpen' (onChange)='onFirearmChange();' (onSave)='onFirearmEdited($event);'></firearm></div>
-        <div class='panel'><rounds *ngIf='dataService.currentFirearm' [isOpen]='isRoundsOpen' [rounds]='dataService.currentFirearm.rounds' (onSelect)='onRoundSelected($event);'></rounds></div>
-        <div class='panel'><round *ngIf='dataService.currentRound' [round]='dataService.currentRound' [isOpen]='isRoundOpen' (onChange)='onRoundChange();' (onSave)='onRoundEdited($event);'></round></div>
+        <div class='panel'><weather (onChange)='changeWeather();'></weather></div>
+        <div class='panel'><target (onChange)='changeTarget();'></target></div>
+        <div class='panel'><firearms *ngIf="dataService.firearms && !dataService.currentFirearm && this.firearmMode!=='add'" [firearms]='dataService.firearms' (onAdd)='addFirearm();' (onSelect)='selectFirearm($event);'></firearms></div>
+        <div class='panel'><firearm *ngIf="dataService.currentFirearm || this.firearmMode==='add'" [firearm]='firearm' [mode]='firearmMode' (onChange)='changeFirearm($event);' (onClose)='closeFirearm();' (onDelete)='deleteFirearm($event);' (onSave)='saveFirearm($event);'></firearm></div>
+        <div class='panel'><rounds *ngIf="dataService.currentFirearm && !dataService.currentRound && this.roundMode!=='add'" [rounds]='dataService.currentFirearm.rounds' (onAdd)='addRound();' (onSelect)='selectRound($event);'></rounds></div>
+        <div class='panel'><round *ngIf="dataService.currentFirearm && (dataService.currentRound || this.roundMode==='add')" [round]='dataService.currentRound' [mode]='roundMode' (onChange)='changeRound($event);' (onClose)='closeRound();' (onDelete)='deleteRound($event);' (onSave)='saveRound($event);'></round></div>
     </div>
     <chart *ngIf='dataService.currentRound'></chart>
 </div>
