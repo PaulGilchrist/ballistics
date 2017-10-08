@@ -11,6 +11,7 @@ import { DataService } from './services/data.service';
 import { DragService } from './services/drag.service';
 /* Components */
 import { ChartComponent } from './components/chart/chart.component';
+import { D3GraphComponent } from './components/d3-graph/d3-graph.component';
 import { FirearmComponent } from './components/firearm/firearm.component';
 import { FirearmsComponent } from './components/firearms/firearms.component';
 import { HomeComponent } from './components/home/home.component';
@@ -23,6 +24,7 @@ import { WeatherComponent } from './components/weather/weather.component';
 @NgModule({
 	declarations: [
 		ChartComponent,
+		D3GraphComponent,
 		FirearmComponent,
 		FirearmsComponent,
 		HomeComponent,

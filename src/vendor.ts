@@ -20,12 +20,16 @@ import 'animate.css/animate.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 // import 'font-awesome/css/font-awesome.css'; // not working
+
+import * as d3 from 'd3';
+import { Selection, select } from 'd3-selection';
+import { transition } from 'd3-transition';
+
 import 'jquery/src/jquery.js';
 import 'jquery-confirm/css/jquery-confirm.css';
 import 'jquery-confirm/js/jquery-confirm.js';
 import 'toastr/build/toastr.css';
 import 'toastr/toastr.js';
-import 'underscore/underscore.js';
+//import 'underscore/underscore.js';
 
-import './../src/css/app.css'; // Load this last so it can override all other css files
 

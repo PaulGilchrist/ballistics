@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
 
 	public firearm: Firearm = null;
 	public firearmMode: string = 'select'; // Valid modes are 'add', 'edit', or 'select'
+	public graphHeight = 300;
+	public graphType = 'line';
+	public graphWidth = 300;
 	public roundMode: string = 'select'; // Valid modes are 'add', 'edit', or 'select'
 
 	constructor(public dataService: DataService) {}

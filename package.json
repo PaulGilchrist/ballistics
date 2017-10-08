@@ -34,6 +34,7 @@
     "animate.css": "^3.5.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.1",
+    "d3": "^4.11.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-confirm": "^3.3.2",
@@ -45,8 +46,9 @@
   },
   "devDependencies": {
     "@types/core-js": "^0.9.43",
-    "@types/node": "^8.0.31",
+    "@types/d3": "^4.10.1",
     "@types/jasmine": "^2.6.0",
+    "@types/node": "^8.0.31",
     "angular2-router-loader": "^0.3.5",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.2.3",

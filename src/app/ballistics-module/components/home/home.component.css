@@ -1,8 +1,12 @@
+.graph-inline {
+    display: inline-block;
+    padding: 0;
+}
 .home {
-    padding-top: 10px;
+    margin: 0 auto;
+    padding-top: 5px;
 }
 .panel {
     display: inline-block;
-    max-width: 260px;
     vertical-align: top;
 }

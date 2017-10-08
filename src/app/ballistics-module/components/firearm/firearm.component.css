@@ -1,0 +1,11 @@
+input.ng-valid { border-left: 5px solid #42A948; /* green */}
+input.ng-invalid { border-left: 5px solid #a94442; /* red */}
+/*
+Below settings compact vertical forms
+*/
+label.control-label {
+    margin-bottom: 0;
+}
+.form-group {
+    margin-bottom: 5px;
+}

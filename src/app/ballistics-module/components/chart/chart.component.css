@@ -1,3 +1,6 @@
+.panel-body {
+	padding: 5px
+}
 .tooltip {
 	position: fixed;
 }

@@ -11270,26 +11270,3 @@ button.toast-close-button {
     width: 25em;
   }
 }
-@charset "UTF-8";
-/*
- Place CSS in Angular component styleUrls: [] when not re-used globally
- This helps ensure component specific CSS moves with the component
-    and is removed from the project if the component is removed
-*/
-.animated {
-    /* Keep in mind smartphones and tables are usually not capable of complex animations like cubic-bezier */
-    -moz-animation-duration: 0.5s;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-}
-input.ng-valid { border-left: 5px solid #42A948; /* green */}
-input.ng-invalid { border-left: 5px solid #a94442; /* red */}
-/*
-Below settings compact vertical forms
-*/
-label.control-label {
-    margin-bottom: 0;
-}
-.form-group {
-    margin-bottom: 5px;
-}

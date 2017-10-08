@@ -6,6 +6,7 @@ declare let System: any;
 @Component({
 	moduleId: module.id.toString(),
 	selector: 'my-app',
+	styleUrls: ['app.component.css'],
 	templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
