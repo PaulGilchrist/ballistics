@@ -11,7 +11,7 @@
 						<label class="control-label">Name</label>
 						<div class="input-group margin-bottom-sm">
 							<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-							<input type="text" name="name" [(ngModel)]="editedRound.name" #nameControl="ngModel" class="form-control" placeholder="Name" required autofocus minlength="3"  maxlength="50">
+							<input type="text" name="name" [(ngModel)]="editedRound.name" #nameControl="ngModel" class="form-control" placeholder="Name" required minlength="3"  maxlength="50">
 						</div>
 						<div [hidden]="_mode==='view' || nameControl.valid || nameControl.pristine" class="alert alert-danger">
 							Name is required and must be between 3 and 50 characters
@@ -21,7 +21,7 @@
 					<label class="control-label" data-toggle="tooltip" title="Bullet diameter is required so wind resistance can be calculated properly">Bullet Diameter (inches)</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<input type="number" name="bulletDiameterInches" [(ngModel)]="editedRound.bulletDiameterInches" #bulletDiameterInchesControl="ngModel" class="form-control" placeholder="Bullet Diameter (inches)" required autofocus min="0.010" max="1">
+						<input type="number" name="bulletDiameterInches" [(ngModel)]="editedRound.bulletDiameterInches" #bulletDiameterInchesControl="ngModel" class="form-control" placeholder="Bullet Diameter (inches)" required min="0.010" max="1">
 					</div>
 					<div [hidden]="_mode==='view' || bulletDiameterInchesControl.valid || bulletDiameterInchesControl.pristine" class="alert alert-danger">
 						Bullet diameter is required so wind resistance can be calculated.  Common diameters are 0.022 to 0.050 inches
