@@ -32,3 +32,24 @@
 * Platform set to 64-bit (if running anyt tier above free)
 * Always On (if running anyt tier above free)
 * Go to Deployment Options, and set to deploy from GitHub repository
+
+### ToDo List
+* clicksToReachMaximumPointBlankRangeZero
+* maxPointBlankRangeZeroYards
+* maximumPointBlankRange
+* optimalRiflingTwist
+* rifleRecoilVelocity
+* rifleRecoilEnergy
+* sectionalDensity
+* What about making all the calculators available?
+* getDistanceYards
+* degreesToRadians
+* inchesToIPHY
+* inchesToMil
+* inchesToMinutesOfAngle
+* milesPerHourToInchesPerSecond
+* radiansToDegrees
+* secant
+* speedOfSound (at different altitudes)
+* weightDensityOfAir (at different altitudes)
+* standardRelativeHumidity (at different altitudes)

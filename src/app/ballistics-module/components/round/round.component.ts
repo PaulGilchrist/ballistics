@@ -65,8 +65,14 @@ export class RoundComponent implements OnInit {
 		}
 	}
 
+	cancel(): void {
+		// Reset the form back to the original object
+		this.round = this._round;
+		this.isPristine = true;
+	}
+
 	@Output() onClose = new EventEmitter();
-	close(isDirty: boolean) {
+	close(isDirty: boolean = false) {
 		// Change to another firearm
 		if(isDirty) {
 			toastr.error('Round not saved');
@@ -105,11 +111,6 @@ export class RoundComponent implements OnInit {
 	save(): void {
 		// Save changes to this round
 		this.onSave.emit(this.editedRound);
-	}
-
-	cancel(): void {
-		// Reset the form back to the original object
-		this.round = this._round;
 	}
 
 }

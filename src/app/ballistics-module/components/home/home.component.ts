@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
 
 	closeRound() {
 		this.dataService.currentRound = null;
+		this.roundMode = 'select';
 		this.dataService.getRangeData();
 	}
 

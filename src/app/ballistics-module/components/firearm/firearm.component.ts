@@ -73,6 +73,12 @@ export class FirearmComponent {
 		this.isPristine = false;
 	}
 
+	cancel(form: any): void {
+		// Reset the form back to the original object
+		this.firearm = this._firearm;
+		this.isPristine = true;
+	}
+
 	@Output() onClose = new EventEmitter();
 	close(isDirty: boolean = false) {
 		this.onClose.emit();
@@ -111,9 +117,4 @@ export class FirearmComponent {
 		this.isPristine = true;
 	}
 
-	cancel(form: any): void {
-		// Reset the form back to the original object
-		this.firearm = this._firearm;
-		this.isPristine = true;
-	}
 }

@@ -77,30 +77,9 @@ export class DataService {
 	}
 
 	getRangeData(): Array<Range> {
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// What other calculations exist in drag.js that are not yet on the chart?
-		// 		clicksToReachMaximumPointBlankRangeZero
-		// 		maxPointBlankRangeZeroYards
-		// 		maximumPointBlankRange
-		// 		optimalRiflingTwist
-		// 		rifleRecoilVelocity
-		// 		rifleRecoilEnergy
-		// 		sectionalDensity
-		// What about making all the calculators available?
-		// 		getDistanceYards
-		// 		degreesToRadians
-		// 		inchesToIPHY
-		// 		inchesToMil
-		// 		inchesToMinutesOfAngle
-		// 		milesPerHourToInchesPerSecond
-		// 		radiansToDegrees
-		// 		secant
-		// 		speedOfSound (at different altitudes)
-		// 		weightDensityOfAir (at different altitudes)
-		// 		standardRelativeHumidity (at different altitudes)
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		let rangeData: Array<Range> = [];
+		let rangeData: Array<Range> = null;
 		if(this.currentFirearm && this.currentRound && this.currentTarget && this.currentWeather) {
+			rangeData = [];
 			// Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
 			let currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(this.currentRound.bulletBC, this.currentWeather.altitudeFeet, this.currentWeather.temperatureDegreesFahrenheit, this.currentWeather.barometericPressureInchesHg, this.currentWeather.relativeHumidityPercent);
 			let muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(this.currentRound.muzzleVelocityFPS, this.currentFirearm.zeroRangeYards, this.currentFirearm.sightHeightInches, currentBallisticCoefficient);
