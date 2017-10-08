@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model'
 import { Round } from '../../models/round.model'
@@ -17,6 +17,13 @@ export class FirearmComponent {
 	public editedFirearm: Firearm = null;
 	public isOpen = true;
 	public isPristine = true;
+
+	ngOnInit() {
+		//Initialize tooltips just for this component
+		$(document).ready(() => {
+			$('firearm [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		});
+	}
 
 	private _firearm: Firearm = null;
 	@Input()

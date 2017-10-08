@@ -18,7 +18,7 @@
 					</div>
 				</div>
 				<div class="form-group" [class.has-error]="sightHeightInchesControl.invalid && sightHeightInchesControl.dirty">
-					<label class="control-label" title="Measured form bore centerline to scope centerline">Sight Height (inches)</label>
+					<label class="control-label" data-toggle="tooltip" title="Measured form bore centerline to scope centerline">Sight Height (inches)</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<input type="number" name="sightHeightInches" [(ngModel)]="editedFirearm.sightHeightInches" #sightHeightInchesControl="ngModel" class="form-control" placeholder="Sight Height (inches)" required min="0" max="20">
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="form-group" [class.has-error]="zeroRangeYardsControl.invalid && zeroRangeYardsControl.dirty">
-					<label class="control-label" title="Range at which scope has been adjusted for point of aim = point of impact">Zero Range (yards)</label>
+					<label class="control-label" data-toggle="tooltip" title="Range at which scope has been adjusted for point of aim = point of impact">Zero Range (yards)</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<input type="number" name="zeroRangeYards" [(ngModel)]="editedFirearm.zeroRangeYards" #zeroRangeYardsControl="ngModel" class="form-control" placeholder="Zero Range (yards)" required min="25" max="3000" >
@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<div class="form-group" [class.has-error]="reticleUnitsControl.invalid && reticleUnitsControl.dirty">
-					<label class="control-label" title="Scope crosshair hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Reticle Units</label>
+					<label class="control-label" data-toggle="tooltip" title="Scope crosshair hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Reticle Units</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<select name="reticleUnits" [(ngModel)]="editedFirearm.reticleUnits" #reticleUnitsControl="ngModel" class="form-control" required>
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 				<div class="form-group" [class.has-error]="turretUnitsControl.invalid && turretUnitsControl.dirty">
-					<label class="control-label" title="Scope turret hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Turret Units</label>
+					<label class="control-label" data-toggle="tooltip" title="Scope turret hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Turret Units</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<select name="turretUnits" [(ngModel)]="editedFirearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 				<div class="form-group" [class.has-error]="elevationTurretGradientsControl.invalid && elevationTurretGradientsControl.dirty">
-					<label class="control-label" title="Number of elevation (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Elevation Turret Gradients</label>
+					<label class="control-label" data-toggle="tooltip" title="Number of elevation (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Elevation Turret Gradients</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<select name="elevationTurretGradients" [(ngModel)]="editedFirearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" class="form-control" required>
@@ -81,7 +81,7 @@
 					</div>
 				</div>
 				<div class="form-group" [class.has-error]="windageTurretGradientsControl.invalid && windageTurretGradientsControl.dirty">
-					<label class="control-label" title="Number of windage (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Windage Turret Gradients</label>
+					<label class="control-label" data-toggle="tooltip" title="Number of windage (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Windage Turret Gradients</label>
 					<div class="input-group margin-bottom-sm">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<select name="windageTurretGradients" [(ngModel)]="editedFirearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" class="form-control" required>

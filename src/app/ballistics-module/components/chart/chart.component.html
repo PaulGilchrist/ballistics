@@ -8,93 +8,93 @@
 				<table class="table table-condensed table-striped table-hover font-size-small">
 					<thead>
 						<tr>
-							<th data-bind="tooltip: {trigger: 'hover click'}" title="Range in yards from the muzzle to the bullet">
+							<th data-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
 								Range<br>(yards)
 							</th>
-							<th data-bind="tooltip: {trigger: 'hover click'}" title="Velocity of the bullet in feet per second">
+							<th data-toggle="tooltip" title="Velocity of the bullet in feet per second">
 								Velocity<br>(FPS)
 							</th>
-							<th class="hidden-xs" data-bind="tooltip: {trigger: 'hover click'}" title="Energy of the bullet on impact">
+							<th class="hidden-xs" data-toggle="tooltip" title="Energy of the bullet on impact">
 								Energy<br>(FtLbs)
 							</th>
-							<th class="hidden-xs" data-bind="tooltip: {trigger: 'hover click'}" title="Time the bullet has been in flight since leaving the muzzle">
+							<th class="hidden-xs" data-toggle="tooltip" title="Time the bullet has been in flight since leaving the muzzle">
 								Time<br>(sec)
 							</th>
-							<th class="hidden-xs" data-bind="tooltip: {trigger: 'hover click'}" title="Amount of bullet drop in relation to the muzzle angle not the ground">
+							<th class="hidden-xs" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
 								Drop<br>(inch)
 							</th>
-							<th class='visible-md visible-lg' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet elevation above or below the target centerline">
+							<th class='visible-md visible-lg' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
 								Elevation<br>(inch)
 							</th>
-							<th *ngIf='showMil' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet elevation above or below the target centerline">
+							<th *ngIf='showMil' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
 								Elevation<br>(Mil)
 							</th>
-							<th *ngIf='showMoa' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet elevation above or below the target centerline">
+							<th *ngIf='showMoa' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
 								Elevation<br>(MoA)
 							</th>
-							<th *ngIf='showIPHY' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet elevation above or below the target centerline">
+							<th *ngIf='showIPHY' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
 								Elevation<br>(IPHY)
 							</th>
-							<th class='visible-md visible-lg' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+							<th class='visible-md visible-lg' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
 								Wind<br>
 								{{dataService.currentWeather.windVelocityMPH}} MPH<br>
 								{{dataService.currentWeather.windAngleDegrees}} deg<br>
 								(inch)
 							</th>
-							<th *ngIf='showMil' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+							<th *ngIf='showMil' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
 								Wind<br>
 								{{dataService.currentWeather.windVelocityMPH}} MPH<br>
 								{{dataService.currentWeather.windAngleDegrees}} deg<br>
 								(Mil)
 							</th>
-							<th *ngIf='showMoa' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+							<th *ngIf='showMoa' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
 								Wind<br>
 								{{dataService.currentWeather.windVelocityMPH}} MPH<br>
 								{{dataService.currentWeather.windAngleDegrees}} deg<br>
 								(MoA)
 							</th>
-							<th *ngIf='showIPHY' data-bind="tooltip: {trigger: 'hover click'}" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+							<th *ngIf='showIPHY' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
 								Wind<br>
 								{{dataService.currentWeather.windVelocityMPH}} MPH<br>
 								{{dataService.currentWeather.windAngleDegrees}} deg<br>
 								(IPHY)
 							</th>
-							<th class='visible-md visible-lg' data-bind="tooltip: {trigger: 'hover click'}" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+							<th class='visible-md visible-lg' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
 								Lead<br>
 								{{dataService.currentTarget.speedMPH}} MPH<br>
 								(inch)
 							</th>
-							<th *ngIf='showMil' data-bind="tooltip: {trigger: 'hover click'}" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+							<th *ngIf='showMil' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
 								Lead<br>
 								{{dataService.currentTarget.speedMPH}} MPH<br>
 								(Mil)
 							</th>
-							<th *ngIf='showMoa' data-bind="tooltip: {trigger: 'hover click'}" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+							<th *ngIf='showMoa' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
 								Lead<br>
 								{{dataService.currentTarget.speedMPH}} MPH<br>
 								(MoA)
 							</th>
-							<th *ngIf='showIPHY' data-bind="tooltip: {trigger: 'hover click'}" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+							<th *ngIf='showIPHY' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
 								Lead<br>
 								{{dataService.currentTarget.speedMPH}} MPH<br>
 								(IPHY)
 							</th>
-							<th class='visible-md visible-lg' data-bind="tooltip: {trigger: 'hover click'}" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+							<th class='visible-md visible-lg' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
 								Slant<br>
 								{{dataService.currentTarget.slantDegrees}} deg<br>
 								(inch)
 							</th>
-							<th  *ngIf='showMil' data-bind="tooltip: {trigger: 'hover click'}" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+							<th  *ngIf='showMil' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
 								Slant<br>
 								{{dataService.currentTarget.slantDegrees}} deg<br>
 								(Mil)
 							</th>
-							<th *ngIf='showMoa' data-bind="tooltip: {trigger: 'hover click'}" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+							<th *ngIf='showMoa' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
 								Slant<br>
 								{{dataService.currentTarget.slantDegrees}} deg<br>
 								(MoA)
 							</th>
-							<th *ngIf='showIPHY' data-bind="tooltip: {trigger: 'hover click'}" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+							<th *ngIf='showIPHY' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
 								Slant<br>
 								{{dataService.currentTarget.slantDegrees}} deg<br>
 								(IPHY)

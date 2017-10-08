@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Round } from '../../models/round.model'
 
@@ -11,11 +11,18 @@ declare var toastr: any;
 	styleUrls: ['round.component.css'],
 	templateUrl: 'round.component.html'
 })
-export class RoundComponent {
+export class RoundComponent implements OnInit {
 
 	public editedRound: Round = null;
 	public isOpen = true;
 	public isPristine = true;
+
+	ngOnInit() {
+		//Initialize tooltips just for this component
+		$(document).ready(() => {
+			$('round [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		});
+	}
 
 	private _mode = 'add';
 	@Input()

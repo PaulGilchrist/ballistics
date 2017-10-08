@@ -8,6 +8,8 @@ import { Weather } from '../../models/weather.model'
 
 import { DataService } from '../../services/data.service'
 
+declare var $: any;
+
 @Component({
 	moduleId: module.id.toString(),
 	selector: 'chart',
@@ -29,6 +31,12 @@ export class ChartComponent implements OnInit {
 		this.showMoA = this.dataService.currentFirearm.turretUnits===1 || this.dataService.currentFirearm.reticleUnits===1;
 		this.showIPHY = this.dataService.currentFirearm.turretUnits===3 || this.dataService.currentFirearm.reticleUnits===3;
 		this.dataService.getRangeData();
+		//Initialize tooltips just for this component
+		$(document).ready(() => {
+			$('chart [data-toggle="tooltip"]').tooltip({
+				container: 'body',
+				trigger: 'hover click'
+			});
+		});
 	}
-
 }

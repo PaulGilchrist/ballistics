@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Target } from '../../models/target.model'
 import { DataService } from '../../services/data.service'
 
+declare var $: any;
+
 @Component({
 	moduleId: module.id.toString(),
 	selector: 'target',
@@ -20,6 +22,10 @@ export class TargetComponent implements OnInit {
 
 	ngOnInit() {
 		this.dataService.getTarget().subscribe();
+		//Initialize tooltips just for this component
+		$(document).ready(() => {
+			$('target [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		});
 	}
 
 	change(isValid: boolean) {

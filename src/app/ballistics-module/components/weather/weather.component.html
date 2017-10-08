@@ -7,7 +7,7 @@
         <div class="panel-body">
             <form #form="ngForm" novalidate (change)='change(form.valid);'>
                 <div class="form-group" [class.has-error]="altitudeFeetControl.invalid && altitudeFeetControl.dirty">
-                    <label class="control-label" title="Distance above sea level. Altitude is used to determine atmospheric density.">Altitude (feet)</label>
+                    <label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Altitude (feet)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         <input type="number" name="altitudeFeet" [(ngModel)]="dataService.currentWeather.altitudeFeet" #altitudeFeetControl="ngModel" class="form-control" placeholder="Altitude (feet)" required min="0" max="50000">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="form-group" [class.has-error]="temperatureDegreesFahrenheitControl.invalid && temperatureDegreesFahrenheitControl.dirty">
-                    <label class="control-label" title="Distance above sea level. Altitude is used to determine atmospheric density.">Temperature (fahrenheit)</label>
+                    <label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Temperature (fahrenheit)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         <input type="number" name="temperatureDegreesFahrenheit" [(ngModel)]="dataService.currentWeather.temperatureDegreesFahrenheit" #temperatureDegreesFahrenheitControl="ngModel" class="form-control" placeholder="Temperature (fahrenheit)" required min="0" max="200">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="form-group" [class.has-error]="barometericPressureInchesHgControl.invalid && barometericPressureInchesHgControl.dirty">
-                    <label class="control-label" title="Distance above sea level. Altitude is used to determine atmospheric density.">Barometeric Pressure (in Hg)</label>
+                    <label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Barometeric Pressure (in Hg)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         <input type="number" name="barometericPressureInchesHg" [(ngModel)]="dataService.currentWeather.barometericPressureInchesHg" #barometericPressureInchesHgControl="ngModel" class="form-control" placeholder="Barometeric Pressure (in Hg)" required min="0" max="100">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="form-group" [class.has-error]="relativeHumidityPercentControl.invalid && relativeHumidityPercentControl.dirty">
-                    <label class="control-label" title="The amount of moisture in the atmosphere impacts density">Relative Humidity (%)</label>
+                    <label class="control-label" data-toggle="tooltip" title="The amount of moisture in the atmosphere impacts density">Relative Humidity (%)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         <input type="number" name="relativeHumidityPercent" [(ngModel)]="dataService.currentWeather.relativeHumidityPercent" #relativeHumidityPercentControl="ngModel" class="form-control" placeholder="Relative Humidity (%)" required min="0" max="100">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="form-group" [class.has-error]="windVelocityMPHControl.invalid && windVelocityMPHControl.dirty">
-                    <label class="control-label" title="Wind velocity is required to calculate bullet drift">Wind Velocity (MPH)</label>
+                    <label class="control-label" data-toggle="tooltip" title="Wind velocity is required to calculate bullet drift">Wind Velocity (MPH)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         <input type="number" name="windVelocityMPH" [(ngModel)]="dataService.currentWeather.windVelocityMPH" #windVelocityMPHControl="ngModel" class="form-control" placeholder="Wind Velocity (MPH)" required min="0" max="200">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="form-group" [class.has-error]="windAngleDegreesControl.invalid && windAngleDegreesControl.dirty">
-                    <label class="control-label" title="Wind Angle is required to determine the winds vector impact on bullet drift.  Allowed values are 0-90 degrees.">Wind Angle (degrees)</label>
+                    <label class="control-label" data-toggle="tooltip" title="Wind Angle is required to determine the winds vector impact on bullet drift.  Allowed values are 0-90 degrees.">Wind Angle (degrees)</label>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                         <input type="number" name="windAngleDegrees" [(ngModel)]="dataService.currentWeather.windAngleDegrees" #windAngleDegreesControl="ngModel" class="form-control" placeholder="Wind Angle (degrees)" required min="0" max="90">

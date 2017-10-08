@@ -6,7 +6,6 @@ import { Round } from '../../models/round.model'
 import { DataService } from '../../services/data.service'
 
 declare var toastr: any;
-declare var _: any;
 
 @Component({
 	moduleId: module.id.toString(),

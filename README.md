@@ -5,5 +5,4 @@
 #### ToDo
 * Graph (Bar)
 * Graph (Line)
-* Tooltips
 * Started - Small screen optimization
