@@ -3,10 +3,28 @@
     padding: 0;
 }
 .home {
-    margin: 0 auto;
     padding-top: 5px;
+    text-align: center;
+    width: 100%;
 }
 .panel {
     display: inline-block;
+    margin: 0 auto;
     vertical-align: top;
+    width: 100%;
+}
+@media screen and (min-width: 600px) {
+    .panel {
+        width: 49%;
+    }
+}
+@media screen and (min-width: 900px) {
+    .panel {
+        width: 32%;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .panel {
+        width: 24%;
+    }
 }
