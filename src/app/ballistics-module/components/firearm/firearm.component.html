@@ -10,7 +10,7 @@
 				<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
 					<label class="control-label">Name</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-file-o fa-fw"></i></span>
 						<input type="text" name="name" [(ngModel)]="editedFirearm.name" #nameControl="ngModel" [disabled]="_mode==='view'" class="form-control" placeholder="Name" required minlength="3"  maxlength="50">
 					</div>
 					<div [hidden]="_mode==='view' || nameControl.valid || nameControl.pristine" class="alert alert-danger">
@@ -20,7 +20,7 @@
 				<div class="form-group" [class.has-error]="sightHeightInchesControl.invalid && sightHeightInchesControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Measured form bore centerline to scope centerline">Sight Height (inches)</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-crosshairs fa-fw"></i></span>
 						<input type="number" name="sightHeightInches" [(ngModel)]="editedFirearm.sightHeightInches" #sightHeightInchesControl="ngModel" class="form-control" placeholder="Sight Height (inches)" required min="0" max="20">
 					</div>
 					<div [hidden]="_mode==='view' || sightHeightInchesControl.valid || sightHeightInchesControl.pristine" class="alert alert-danger">
@@ -30,7 +30,7 @@
 				<div class="form-group" [class.has-error]="zeroRangeYardsControl.invalid && zeroRangeYardsControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Range at which scope has been adjusted for point of aim = point of impact">Zero Range (yards)</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-dot-circle-o fa-fw"></i></span>
 						<input type="number" name="zeroRangeYards" [(ngModel)]="editedFirearm.zeroRangeYards" #zeroRangeYardsControl="ngModel" class="form-control" placeholder="Zero Range (yards)" required min="25" max="3000" >
 					</div>
 					<div [hidden]="_mode==='view' || zeroRangeYardsControl.valid || zeroRangeYardsControl.pristine" class="alert alert-danger">
@@ -40,7 +40,7 @@
 				<div class="form-group" [class.has-error]="reticleUnitsControl.invalid && reticleUnitsControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Scope crosshair hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Reticle Units</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-spinner fa-fw"></i></span>
 						<select name="reticleUnits" [(ngModel)]="editedFirearm.reticleUnits" #reticleUnitsControl="ngModel" class="form-control" required>
 							<option value='0'>Mil</option>
 							<option value='1'>MoA</option>
@@ -54,7 +54,7 @@
 				<div class="form-group" [class.has-error]="turretUnitsControl.invalid && turretUnitsControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Scope turret hash mark separation.  Usually Minutes of Angle (MoA), Milliradian (Mil), or Inch Per Hundred Yards (IPHY)">Turret Units</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-circle-thin fa-fw"></i></span>
 						<select name="turretUnits" [(ngModel)]="editedFirearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
 							<option value='0'>Mil</option>
 							<option value='1'>MoA</option>
@@ -68,7 +68,7 @@
 				<div class="form-group" [class.has-error]="elevationTurretGradientsControl.invalid && elevationTurretGradientsControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Number of elevation (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Elevation Turret Gradients</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-align-center fa-fw"></i></span>
 						<select name="elevationTurretGradients" [(ngModel)]="editedFirearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" class="form-control" required>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='1'>1</option>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='2'>2</option>
@@ -83,7 +83,7 @@
 				<div class="form-group" [class.has-error]="windageTurretGradientsControl.invalid && windageTurretGradientsControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Number of windage (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Windage Turret Gradients</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-repeat fa-fw"></i></span>
 						<select name="windageTurretGradients" [(ngModel)]="editedFirearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" class="form-control" required>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='1'>1</option>
 							<option *ngIf='editedFirearm.turretUnits!=0' value='2'>2</option>
@@ -99,14 +99,14 @@
 		</div>
 		<div class="panel-footer clearfix">
 			<div *ngIf="_mode==='add'">
-				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
-				<button class='btn btn-danger' (click)='close();'> Cancel</button>
+				<button type="submit" class="btn btn-lg btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
+				<button class='btn btn-lg btn-danger' (click)='close();'> Cancel</button>
 			</div>
 			<div *ngIf="_mode=='edit'">
-				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
-				<button *ngIf='isPristine' class='btn btn-warning' (click)='close();'> Close</button>
-				<button *ngIf='isPristine' class='btn btn-danger' (click)='delete();'> Delete</button>
-				<button *ngIf='!isPristine' class='btn btn-warning' (click)='cancel();'> Cancel</button>
+				<button type="submit" class="btn btn-lg btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
+				<button *ngIf='isPristine' class='btn btn-lg btn-warning' (click)='close();'> Close</button>&nbsp;
+				<button *ngIf='isPristine' class='btn btn-lg btn-danger' (click)='delete();'> Delete</button>
+				<button *ngIf='!isPristine' class='btn btn-lg btn-warning' (click)='cancel();'> Cancel</button>
 			</div>
 		</div>
 	</div>

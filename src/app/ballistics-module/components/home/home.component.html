@@ -9,7 +9,7 @@
     </div>
     <div *ngIf='dataService.rangeData'>
         <chart></chart>
-        <button class='btn btn-primary'(click)="graphType==='line' ? graphType='bar' : graphType='line'">Change Graph Type</button>
+        <button class='btn btn-lg btn-success'(click)="graphType==='line' ? graphType='bar' : graphType='line'">Change Graph Type</button>
         <div>
             <div class="graph-inline">
                 <h3>Velocity (feet/sec)</h3>

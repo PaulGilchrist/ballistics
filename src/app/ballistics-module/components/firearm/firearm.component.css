@@ -10,3 +10,6 @@ label.control-label {
     margin-bottom: 5px;
     text-align: left;
 }
+.panel-footer  {
+    padding: 10px;
+}

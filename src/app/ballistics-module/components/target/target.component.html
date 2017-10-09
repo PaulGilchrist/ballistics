@@ -9,7 +9,7 @@
                 <div class="form-group" [class.has-error]="distanceYardsControl.invalid && distanceYardsControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Distance in yards measured from the muzzle to the target">Distance (yards)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-bullseye fa-fw"></i></span>
                         <input type="number" name="distanceYards" [(ngModel)]="dataService.currentTarget.distanceYards" #distanceYardsControl="ngModel" class="form-control" placeholder="Distance (yards)" required min="0" max="5000" step="5">
                     </div>
                     <div [hidden]="distanceYardsControl.valid || distanceYardsControl.pristine" class="alert alert-danger">
@@ -19,7 +19,7 @@
                 <div class="form-group" [class.has-error]="chartSteppingControl.invalid && chartSteppingControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Chart stepping is required to determine how many rows to calculate">Chart Stepping (yards)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-bars fa-fw"></i></span>
                         <input type="number" name="chartStepping" [(ngModel)]="dataService.currentTarget.chartStepping" #chartSteppingControl="ngModel" class="form-control" placeholder="Chart Stepping (yards)" required min="10" max="500">
                     </div>
                     <div [hidden]="chartSteppingControl.valid || chartSteppingControl.pristine" class="alert alert-danger">
@@ -29,7 +29,7 @@
                 <div class="form-group" [class.has-error]="slantDegreesControl.invalid && slantDegreesControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="The angle versus horizontal as measured between the muzzle and target.  Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low.">Slant (degrees)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-location-arrow fa-fw"></i></span>
                         <input type="number" name="slantDegrees" [(ngModel)]="dataService.currentTarget.slantDegrees" #slantDegreesControl="ngModel" class="form-control" placeholder="Slant (degrees)" required min="10" max="500">
                     </div>
                     <div [hidden]="slantDegreesControl.valid || slantDegreesControl.pristine" class="alert alert-danger">
@@ -39,7 +39,7 @@
                 <div class="form-group" [class.has-error]="speedMPHControl.invalid && speedMPHControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="The speed the target is moving perpendicular to the line between the muzzle and target.  Target speed is required to determine horizontal lead hold or scope adjustments needed.">Speed (MPH)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-car fa-fw"></i></span>
                         <input type="number" name="speedMPH" [(ngModel)]="dataService.currentTarget.speedMPH" #speedMPHControl="ngModel" class="form-control" placeholder="Speed (MPH)" required min="10" max="500">
                     </div>
                     <div [hidden]="speedMPHControl.valid || speedMPHControl.pristine" class="alert alert-danger">

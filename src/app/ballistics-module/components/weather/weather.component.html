@@ -9,7 +9,7 @@
                 <div class="form-group" [class.has-error]="altitudeFeetControl.invalid && altitudeFeetControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Altitude (feet)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
                         <input type="number" name="altitudeFeet" [(ngModel)]="dataService.currentWeather.altitudeFeet" #altitudeFeetControl="ngModel" class="form-control" placeholder="Altitude (feet)" required min="0" max="50000">
                     </div>
                     <div [hidden]="altitudeFeetControl.valid || altitudeFeetControl.pristine" class="alert alert-danger">
@@ -19,7 +19,7 @@
                 <div class="form-group" [class.has-error]="temperatureDegreesFahrenheitControl.invalid && temperatureDegreesFahrenheitControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Temperature (fahrenheit)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-snowflake-o fa-fw"></i></span>
                         <input type="number" name="temperatureDegreesFahrenheit" [(ngModel)]="dataService.currentWeather.temperatureDegreesFahrenheit" #temperatureDegreesFahrenheitControl="ngModel" class="form-control" placeholder="Temperature (fahrenheit)" required min="0" max="200">
                     </div>
                     <div [hidden]="temperatureDegreesFahrenheitControl.valid || temperatureDegreesFahrenheitControl.pristine" class="alert alert-danger">
@@ -29,7 +29,7 @@
                 <div class="form-group" [class.has-error]="barometericPressureInchesHgControl.invalid && barometericPressureInchesHgControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Barometeric Pressure (in Hg)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-cloud fa-fw"></i></span>
                         <input type="number" name="barometericPressureInchesHg" [(ngModel)]="dataService.currentWeather.barometericPressureInchesHg" #barometericPressureInchesHgControl="ngModel" class="form-control" placeholder="Barometeric Pressure (in Hg)" required min="0" max="100">
                     </div>
                     <div [hidden]="barometericPressureInchesHgControl.valid || barometericPressureInchesHgControl.pristine" class="alert alert-danger">
@@ -39,7 +39,7 @@
                 <div class="form-group" [class.has-error]="relativeHumidityPercentControl.invalid && relativeHumidityPercentControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="The amount of moisture in the atmosphere impacts density">Relative Humidity (%)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-tint fa-fw"></i></span>
                         <input type="number" name="relativeHumidityPercent" [(ngModel)]="dataService.currentWeather.relativeHumidityPercent" #relativeHumidityPercentControl="ngModel" class="form-control" placeholder="Relative Humidity (%)" required min="0" max="100">
                     </div>
                     <div [hidden]="relativeHumidityPercentControl.valid || relativeHumidityPercentControl.pristine" class="alert alert-danger">
@@ -49,7 +49,7 @@
                 <div class="form-group" [class.has-error]="windVelocityMPHControl.invalid && windVelocityMPHControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Wind velocity is required to calculate bullet drift">Wind Velocity (MPH)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-flag fa-fw"></i></span>
                         <input type="number" name="windVelocityMPH" [(ngModel)]="dataService.currentWeather.windVelocityMPH" #windVelocityMPHControl="ngModel" class="form-control" placeholder="Wind Velocity (MPH)" required min="0" max="200">
                     </div>
                     <div [hidden]="windVelocityMPHControl.valid || windVelocityMPHControl.pristine" class="alert alert-danger">
@@ -59,7 +59,7 @@
                 <div class="form-group" [class.has-error]="windAngleDegreesControl.invalid && windAngleDegreesControl.dirty">
                     <label class="control-label" data-toggle="tooltip" title="Wind Angle is required to determine the winds vector impact on bullet drift.  Allowed values are 0-90 degrees.">Wind Angle (degrees)</label>
                     <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-line-chart fa-fw"></i></span>
                         <input type="number" name="windAngleDegrees" [(ngModel)]="dataService.currentWeather.windAngleDegrees" #windAngleDegreesControl="ngModel" class="form-control" placeholder="Wind Angle (degrees)" required min="0" max="90">
                     </div>
                     <div [hidden]="windAngleDegreesControl.valid || windAngleDegreesControl.pristine" class="alert alert-danger">

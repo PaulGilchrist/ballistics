@@ -6,6 +6,9 @@ li.card {
     cursor: pointer;
     width: 100%;
 }
+.panel-footer  {
+    padding: 10px;
+}
 .well {
     font-size: 1.3em;
     margin-bottom: 10px;

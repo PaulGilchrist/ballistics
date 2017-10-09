@@ -10,7 +10,7 @@
 				<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
 						<label class="control-label">Name</label>
 						<div class="input-group margin-bottom-sm">
-							<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+							<span class="input-group-addon"><i class="fa fa-file-text-o fa-fw"></i></span>
 							<input type="text" name="name" [(ngModel)]="editedRound.name" #nameControl="ngModel" class="form-control" placeholder="Name" required minlength="3"  maxlength="50">
 						</div>
 						<div [hidden]="_mode==='view' || nameControl.valid || nameControl.pristine" class="alert alert-danger">
@@ -20,7 +20,7 @@
 				<div class="form-group" [class.has-error]="bulletDiameterInchesControl.invalid && bulletDiameterInchesControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Bullet diameter is required so wind resistance can be calculated properly">Bullet Diameter (inches)</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-superpowers fa-fw"></i></span>
 						<input type="number" name="bulletDiameterInches" [(ngModel)]="editedRound.bulletDiameterInches" #bulletDiameterInchesControl="ngModel" class="form-control" placeholder="Bullet Diameter (inches)" required min="0.010" max="1">
 					</div>
 					<div [hidden]="_mode==='view' || bulletDiameterInchesControl.valid || bulletDiameterInchesControl.pristine" class="alert alert-danger">
@@ -30,7 +30,7 @@
 				<div class="form-group" [class.has-error]="bulletWeightGrainsControl.invalid && bulletWeightGrainsControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Bullet weight is required, so inertia can be calculated properly">Bullet Weight (grains)</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-balance-scale fa-fw"></i></span>
 						<input type="number" name="bulletWeightGrains" [(ngModel)]="editedRound.bulletWeightGrains" #bulletWeightGrainsControl="ngModel" class="form-control" placeholder="Bullet Weight (grains)" required min="10" max="1000">
 					</div>
 					<div [hidden]="_mode==='view' || bulletWeightGrainsControl.valid || bulletWeightGrainsControl.pristine" class="alert alert-danger">
@@ -40,7 +40,7 @@
 				<div class="form-group" [class.has-error]="muzzleVelocityFPSControl.invalid && muzzleVelocityFPSControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Muzzle velocity is required, so bullet deceleration can be calculated properly">Muzzle Velocity (FPS)</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-signal fa-fw"></i></span>
 						<input type="number" name="muzzleVelocityFPS" [(ngModel)]="editedRound.muzzleVelocityFPS" #muzzleVelocityFPSControl="ngModel" class="form-control" placeholder="Muzzle Velocity (FPS)" required min="100" max="5000">
 					</div>
 					<div [hidden]="_mode==='view' || muzzleVelocityFPSControl.valid || muzzleVelocityFPSControl.pristine" class="alert alert-danger">
@@ -50,7 +50,7 @@
 				<div class="form-group" [class.has-error]="bulletBCControl.invalid && bulletBCControl.dirty">
 					<label class="control-label" data-toggle="tooltip" title="Bullet ballistic cooefficient is the aerodynamics of the bullet's ability to resist atmospheric density related deceleration">Bullet Ballistic Cooefficient</label>
 					<div class="input-group margin-bottom-sm">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<span class="input-group-addon"><i class="fa fa-google-wallet fa-fw"></i></span>
 						<input type="number" name="bulletBC" [(ngModel)]="editedRound.bulletBC" #bulletBCControl="ngModel" class="form-control" placeholder="Bullet Ballistic Cooefficient" required min="0.010" max="1">
 					</div>
 					<div [hidden]="_mode==='view' || bulletBCControl.valid || bulletBCControl.pristine" class="alert alert-danger">
@@ -61,14 +61,14 @@
 		</div>
 		<div class="panel-footer">
 			<div *ngIf="_mode==='add'">
-				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
-				<button class='btn btn-danger' (click)='close();'> Cancel</button>
+				<button type="submit" class="btn btn-lg btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
+				<button class='btn btn-lg btn-danger' (click)='close();'> Cancel</button>
 			</div>
 			<div *ngIf="_mode=='edit'">
-				<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>
-				<button *ngIf='isPristine' class='btn btn-warning' (click)='close();'> Close</button>
-				<button *ngIf='isPristine' class='btn btn-danger' (click)='delete();'> Delete</button>
-				<button *ngIf='!isPristine' class='btn btn-warning' (click)='cancel();'> Cancel</button>
+				<button type="submit" class="btn btn-lg btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
+				<button *ngIf='isPristine' class='btn btn-lg btn-warning' (click)='close();'> Close</button>&nbsp;
+				<button *ngIf='isPristine' class='btn btn-lg btn-danger' (click)='delete();'> Delete</button>
+				<button *ngIf='!isPristine' class='btn btn-lg btn-warning' (click)='cancel();'> Cancel</button>
 			</div>
 		</div>
 	</div>
