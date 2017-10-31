@@ -7,10 +7,9 @@ import { DataService } from '../../services/data.service'
 declare var $: any;
 
 @Component({
-	moduleId: module.id.toString(),
 	selector: 'weather',
-	styleUrls: ['weather.component.css'],
-	templateUrl: 'weather.component.html'
+	styleUrls: ['./weather.component.css'],
+	templateUrl: './weather.component.html'
 })
 export class WeatherComponent implements OnInit {
 

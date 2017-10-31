@@ -41,7 +41,8 @@
 * rifleRecoilVelocity
 * rifleRecoilEnergy
 * sectionalDensity
-* What about making all the calculators available?
+
+What about making all the calculators available?
 * getDistanceYards
 * degreesToRadians
 * inchesToIPHY

@@ -8,10 +8,9 @@ import { DataService } from '../../services/data.service'
 declare var toastr: any;
 
 @Component({
-	moduleId: module.id.toString(),
 	selector: 'app-home',
-	styleUrls: ['home.component.css'],
-	templateUrl: 'home.component.html'
+	styleUrls: ['./home.component.css'],
+	templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 

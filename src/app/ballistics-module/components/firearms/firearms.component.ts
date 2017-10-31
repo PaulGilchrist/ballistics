@@ -3,10 +3,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Firearm } from '../../models/firearm.model'
 
 @Component({
-	moduleId: module.id.toString(),
 	selector: 'firearms',
-	styleUrls: ['firearms.component.css'],
-	templateUrl: 'firearms.component.html'
+	styleUrls: ['./firearms.component.css'],
+	templateUrl: './firearms.component.html'
 })
 export class FirearmsComponent {
 

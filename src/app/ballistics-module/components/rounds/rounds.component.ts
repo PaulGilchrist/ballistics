@@ -3,10 +3,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Round } from '../../models/round.model'
 
 @Component({
-		moduleId: module.id.toString(),
 		selector: 'rounds',
-		styleUrls: ['rounds.component.css'],
-		templateUrl: 'rounds.component.html'
+		styleUrls: ['./rounds.component.css'],
+		templateUrl: './rounds.component.html'
 })
 export class RoundsComponent {
 

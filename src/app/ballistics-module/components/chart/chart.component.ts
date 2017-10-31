@@ -11,10 +11,9 @@ import { DataService } from '../../services/data.service'
 declare var $: any;
 
 @Component({
-	moduleId: module.id.toString(),
 	selector: 'chart',
-	styleUrls: ['chart.component.css'],
-	templateUrl: 'chart.component.html'
+	styleUrls: ['./chart.component.css'],
+	templateUrl: './chart.component.html'
 })
 export class ChartComponent implements OnInit {
 

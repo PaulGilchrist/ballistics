@@ -6,10 +6,9 @@ declare var $: any;
 declare var toastr: any;
 
 @Component({
-	moduleId: module.id.toString(),
 	selector: 'round',
-	styleUrls: ['round.component.css'],
-	templateUrl: 'round.component.html'
+	styleUrls: ['./round.component.css'],
+	templateUrl: './round.component.html'
 })
 export class RoundComponent implements OnInit {
 

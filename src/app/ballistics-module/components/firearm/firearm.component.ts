@@ -7,10 +7,9 @@ declare var $: any;
 declare var toastr: any;
 
 @Component({
-	moduleId: module.id.toString(),
 	selector: 'firearm',
-	styleUrls: ['firearm.component.css'],
-	templateUrl: 'firearm.component.html'
+	styleUrls: ['./firearm.component.css'],
+	templateUrl: './firearm.component.html'
 })
 export class FirearmComponent {
 
