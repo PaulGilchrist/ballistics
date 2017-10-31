@@ -1,11 +1,12 @@
-# docker build -f Dockerfile.node.linux -t paulgilchrist/ballistics-node-linux .
-# docker run -d -p 80:3000 paulgilchrist/ballistics-node-linux
+# docker build -f Dockerfile.node.linux -t paulgilchrist/angulartemplate-node-linux .
+# docker run -d -p 80:3000 paulgilchrist/angulartemplate-node-linux
 # docker inspect --format="http://{{.NetworkSettings.Networks.nat.IPAddress}}:3000" <containerId>
 # Test on http://<containerIP>:3000
 # docker rm -f <containerID>
 FROM node:alpine
 RUN mkdir -p /usr/src/app
-COPY build /usr/src/app
+COPY dist /usr/src/app
 WORKDIR /usr/src/app
 # RUN npm install
 CMD [ "node", "server.js" ]
+# docker push paulgilchrist/angulartemplate-node-linux

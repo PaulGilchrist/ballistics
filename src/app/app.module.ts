@@ -32,8 +32,6 @@ import { BallisticsModule } from './ballistics-module/ballistics.module';
 		)
 	],
 	providers: [
-		// { provide: LocationStrategy, useClass: HashLocationStrategy },
-		{ provide: Window, useValue: window },
 	]
 })
 export class AppModule {}

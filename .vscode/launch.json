@@ -3,55 +3,11 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "compounds": [
-        {
-            "name": "Test",
-            "configurations": ["Copy Files", "Launch Test Server", "Launch Chrome"]
-        },
-        {
-            "name": "Prod",
-            "configurations": ["Build", "Launch Prod Server", "Launch Chrome"]
-        }
-    ],
     "configurations": [
         {
             "type": "node",
             "request": "launch",
-            "name": "Build",
-            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
-            "args": [
-                "build"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Copy Files",
-            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
-            "args": [
-                "copyFiles"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "args": [
-                "--inline --progress --content-base build/ --port 3000"
-            ],
-            "cwd": "${workspaceRoot}",
-            "name": "Launch Test Server",
-            "program": "${workspaceRoot}/node_modules/webpack-dev-server/bin/webpack-dev-server.js"
-        },
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceRoot}"
-        },        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Prod Server",
+            "name": "Launch Web Server",
             "program": "${workspaceRoot}/build/server.js",
             "cwd": "${workspaceRoot}/build"
         }

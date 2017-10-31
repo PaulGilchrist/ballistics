@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Round } from '../../models/round.model'
+import { Round } from '../../models/round.model';
 
 @Component({
 		selector: 'rounds',
@@ -12,7 +12,7 @@ export class RoundsComponent {
 	public currentRound: Round = null;
 	public isOpen = true;
 
-	private _rounds: Array<Round> = [];
+	public _rounds: Array<Round> = [];
 	@Input()
 	set rounds(rounds: Array<Round>) {
 		if (rounds) {
@@ -23,11 +23,12 @@ export class RoundsComponent {
 	}
 
 	@Output() onAdd = new EventEmitter();
+	@Output() onSelect = new EventEmitter<Round>();
+
 	add() {
 		this.onAdd.emit();
 	}
 
-	@Output() onSelect = new EventEmitter<Round>();
 	select(round: Round) {
 		this.currentRound = round;
 		this.onSelect.emit(this.currentRound);

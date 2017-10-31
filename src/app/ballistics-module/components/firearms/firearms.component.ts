@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Firearm } from '../../models/firearm.model'
+import { Firearm } from '../../models/firearm.model';
 
 @Component({
 	selector: 'firearms',
@@ -12,7 +12,7 @@ export class FirearmsComponent {
 	public currentFirearm: Firearm = null;
 	public isOpen = true;
 
-	private _firearms: Array<Firearm> = null;
+	public _firearms: Array<Firearm> = null;
 	@Input()
 	set firearms(firearms: Array<Firearm>) {
 		if (firearms) {
@@ -23,11 +23,12 @@ export class FirearmsComponent {
 	}
 
 	@Output() onAdd = new EventEmitter();
+	@Output() onSelect = new EventEmitter<Firearm>();
+
 	add() {
 		this.onAdd.emit();
 	}
 
-	@Output() onSelect = new EventEmitter<Firearm>();
 	select(firearm: Firearm) {
 		this.currentFirearm = firearm;
 		this.onSelect.emit(this.currentFirearm);

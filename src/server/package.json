@@ -1,0 +1,8 @@
+{
+    "name": "ng2-server",
+    "version": "1.0.0",
+    "dependencies": {
+        "compression": "^1.6.2",
+        "express": "4.14.0"
+    }
+}
