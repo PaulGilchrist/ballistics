@@ -6,10 +6,10 @@ export class FilterObjectsPipe implements PipeTransform {
 	transform(input: Object[], query: string): Object[] {
 		if (input!=null && query!=null && query.length>0) {
 			return input.filter(item => {
-				for (let key in item) {
+				for (const key in item) {
 					if (typeof item[key] === 'string') {
-						let inputLower = item[key].toLowerCase();
-						let queryLower = query.toLowerCase();
+						const inputLower = item[key].toLowerCase();
+						const queryLower = query.toLowerCase();
 						if (inputLower.indexOf(queryLower) !== -1) {
 							return true;
 						}

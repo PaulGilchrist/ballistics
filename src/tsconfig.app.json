@@ -3,10 +3,9 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "module": "es2016",
+    "module": "es6",
     "types": [
-		"node",
-		"../@types/adal-angular"
+		"node"
 	]
   },
   "exclude": [

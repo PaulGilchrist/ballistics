@@ -32,12 +32,12 @@ app.use(function(req, res, next) {
     if(ext !== '') {
         return next();
 	}
-	//Return the settings file
-	if(req.path.endsWith('api/settings')) {
-		res.writeHead(200, {'Content-Type': 'application/json'});
-		fs.createReadStream(staticRoot + 'settings.json').pipe(res);
-		return next();
-	}
+	// //Return the settings file
+	// if(req.path.endsWith('api/settings')) {
+	// 	res.writeHead(200, {'Content-Type': 'application/json'});
+	// 	fs.createReadStream(staticRoot + 'settings.json').pipe(res);
+	// 	return next();
+	// }
 	//Send the root page back to the client (SPA)
 	fs.createReadStream(staticRoot + 'index.html').pipe(res);
 });

@@ -19,74 +19,74 @@ export class AtmosphericService {
 	altitudeAdjustmentFactor(altitude: number) {
 	  // Used to adjust from the standard altitude (sea level) to the current altitude.
 	  return this.interpolateArray(this.altitudeAdjustmentFactorTable, altitude / 1000);
-	};
+	}
 
 	barometricPressureAdjustmentFactor(altitude: number, barometricPressure: number) {
 	  // The Barometric Pressure Adjustment Factor Compares The Barometric Pressure (Inches Hg)
 	  //     At A Given altitude (Feet) To The Standard Barometric Pressure At That altitude.
-	  let standardBarometricPressure = this.interpolateArray(this.barometricPressureTable, altitude / 1000);
+	  const standardBarometricPressure = this.interpolateArray(this.barometricPressureTable, altitude / 1000);
 	  return (barometricPressure - standardBarometricPressure) / standardBarometricPressure;
-	};
+	}
 
 	interpolateArray(array: Array<number>, arrayIndex: number) {
 	  // -----------------------------------------------------------------------------------------------------
 	  // Takes the nearest 2 numbers in a lookup table and returns a number between them
 	  // Need way to keep from exceeding the maximum value.
 	  // -----------------------------------------------------------------------------------------------------
-	  let maxIndex = array.length;
-	  let minIndex = 0;
+	  const maxIndex = array.length;
+	  const minIndex = 0;
 	  let result = 0;
 	  if(arrayIndex <= minIndex) {
 		result = array[minIndex];
 	  } else if(arrayIndex >= maxIndex) {
 		result = array[maxIndex];
 	  } else {
-		let integerPartOfArrayIndex = Math.floor(arrayIndex);
-		let decimalPartOfArrayIndex = arrayIndex - integerPartOfArrayIndex;
-		let rangeSpread = array[integerPartOfArrayIndex + 1] - array[integerPartOfArrayIndex];
+		const integerPartOfArrayIndex = Math.floor(arrayIndex);
+		const decimalPartOfArrayIndex = arrayIndex - integerPartOfArrayIndex;
+		const rangeSpread = array[integerPartOfArrayIndex + 1] - array[integerPartOfArrayIndex];
 		result = array[integerPartOfArrayIndex] + (rangeSpread * decimalPartOfArrayIndex);
 	  }
 	  return result;
-	};
+	}
 
 	relativeHumidityAdjustmentFactor(altitude: number, temperature: number, barometricPressure: number, relativeHumidity: number) {
 	  // The Relative Humidity Adjustment Factor Compares The Relative Humidity (Percentage)
 	  //     At A Given altitude (Feet) To The Standard Relative Humidity At That altitude.
-	  let standardVaporPressureOfWater = this.interpolateArray(this.vaporPressureOfWaterTable, temperature / 2);
+	  const standardVaporPressureOfWater = this.interpolateArray(this.vaporPressureOfWaterTable, temperature / 2);
 	  return 0.995 * (barometricPressure / (barometricPressure - 0.3783 * relativeHumidity * standardVaporPressureOfWater));
-	};
+	}
 
 	speedOfSound(altitude: number) {
 	  // Speed Of Sound (Feet Per Second) At A Given Altitude (Feet).
 	  return this.speedOfSoundFactor(altitude) * this.speedOfSoundAtSeaLevel;
-	};
+	}
 
 	speedOfSoundFactor(altitude: number) {
 	  // The Speed Of Sound Factor Compares The Speed Of Sound (Feet Per Second)
 	  //     At A Given altitude (Feet) To The Standard Speed Of Sound At Sea Level.
 	  return 1 - 0.00001126666 * altitude - 0.00000000006753074 * Math.pow(altitude, 2);
-	};
+	}
 
 	standardRelativeHumidity(altitude: number) {
 	  // The Relative Humidity Adjustment Factor Compares The Relative Humidity (Percentage)
 	  //     At A Given altitude (Feet) To The Standard Relative Humidity At That altitude.
-	  let standardTemperature = this.interpolateArray(this.temperatureTable, altitude / 1000);
-	  let standardVaporPressureOfWater = this.interpolateArray(this.vaporPressureOfWaterTable, standardTemperature / 2);
-	  let standardBarometricPressure = this.interpolateArray(this.barometricPressureTable, altitude / 1000);
+	  const standardTemperature = this.interpolateArray(this.temperatureTable, altitude / 1000);
+	  const standardVaporPressureOfWater = this.interpolateArray(this.vaporPressureOfWaterTable, standardTemperature / 2);
+	  const standardBarometricPressure = this.interpolateArray(this.barometricPressureTable, altitude / 1000);
 	  return (standardBarometricPressure - (0.995 * standardBarometricPressure)) / (0.3783 * standardVaporPressureOfWater);
-	};
+	}
 
 	temperatureAdjustmentFactor(altitude: number, temperature: number) {
 	  // The temperature Adjustment Factor Compares The temperature (Degrees F)
 	  //     At A Given altitude (Feet) To The Standard temperature At That altitude.
-	  let standardTemperature = this.interpolateArray(this.temperatureTable, altitude / 1000);
+	  const standardTemperature = this.interpolateArray(this.temperatureTable, altitude / 1000);
 	  return (temperature - standardTemperature) / (459.6 + standardTemperature);
-	};
+	}
 
 	weightDensityOfAir(altitude: number) {
 	  // Barometric Pressure (Inches Hg) At A Given Altitude (Feet)
 	  return this.weightDensityOfAirAtSeaLevel * Math.exp(-0.0000302149 * altitude);
-	};
+	}
 
 
 }

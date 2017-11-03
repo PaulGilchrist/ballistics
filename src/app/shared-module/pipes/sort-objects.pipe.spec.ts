@@ -4,8 +4,8 @@ import {} from 'jasmine';
 
 describe('SortObjectsPipe', () => {
 	it('Object array sorted in ascending order based on name property', function () {
-		let sortObjectsPipe = new SortObjectsPipe();
-		let inputObjectArray = [
+		const sortObjectsPipe = new SortObjectsPipe();
+		const inputObjectArray = [
 			{ name: 'Gary', job: 'Data' },
 			{ name: 'Paul', job: 'Enterprise' },
 			{ name: 'John', job: 'Infrastructure' },
@@ -13,12 +13,12 @@ describe('SortObjectsPipe', () => {
 			{ name: 'Brent', job: 'Solutions' },
 			{ name: 'Jamie', job: 'Systems' }
 		];
-		let outputObjectArray: any = sortObjectsPipe.transform(inputObjectArray, 'name', false);
+		const outputObjectArray: any = sortObjectsPipe.transform(inputObjectArray, 'name', false);
 		expect(outputObjectArray[0].name).toEqual('Brent');
 	});
 	it('Object array sorted in decending order based on name property', function () {
-		let sortObjectsPipe = new SortObjectsPipe();
-		let inputObjectArray = [
+		const sortObjectsPipe = new SortObjectsPipe();
+		const inputObjectArray = [
 			{ name: 'Gary', job: 'Data' },
 			{ name: 'Paul', job: 'Enterprise' },
 			{ name: 'John', job: 'Infrastructure' },
@@ -26,7 +26,7 @@ describe('SortObjectsPipe', () => {
 			{ name: 'Brent', job: 'Solutions' },
 			{ name: 'Jamie', job: 'Systems' }
 		];
-		let outputObjectArray: any = sortObjectsPipe.transform(inputObjectArray, 'name', true);
+		const outputObjectArray: any = sortObjectsPipe.transform(inputObjectArray, 'name', true);
 		expect(outputObjectArray[0].name).toEqual('Rick');
 	});
 	// Add test for number sorting

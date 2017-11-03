@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
 import 'rxjs/add/observable/of';
 
-import { Firearm } from '../models/firearm.model'
-import { Range } from '../models/range.model'
-import { Round } from '../models/round.model'
-import { Target } from '../models/target.model'
-import { Weather } from '../models/weather.model'
+import { Firearm } from '../models/firearm.model';
+import { Range } from '../models/range.model';
+import { Round } from '../models/round.model';
+import { Target } from '../models/target.model';
+import { Weather } from '../models/weather.model';
 
-import { FIREARMS } from '../data/firearms.data'
-import { TARGET, WEATHER } from '../data/conditions.data'
+import { FIREARMS } from '../data/firearms.data';
+import { TARGET, WEATHER } from '../data/conditions.data';
 
-import { AtmosphericService } from './atmospheric.service'
-import { ConversionService } from './conversion.service'
-import { DragService } from './drag.service'
+import { AtmosphericService } from './atmospheric.service';
+import { ConversionService } from './conversion.service';
+import { DragService } from './drag.service';
 
 
 @Injectable()
@@ -34,7 +33,7 @@ export class DataService {
 
 	public getFirearms(): Observable<Array<Firearm>> {
 		// Check to see if firearms are stored in localstorage before getting from API or mock data
-		let firearmsJson = localStorage.getItem('firearms');
+		const firearmsJson = localStorage.getItem('firearms');
 		if(firearmsJson) {
 			this.firearms = JSON.parse(firearmsJson);
 		} else {
@@ -81,8 +80,8 @@ export class DataService {
 		if(this.currentFirearm && this.currentRound && this.currentTarget && this.currentWeather) {
 			rangeData = [];
 			// Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
-			let currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(this.currentRound.bulletBC, this.currentWeather.altitudeFeet, this.currentWeather.temperatureDegreesFahrenheit, this.currentWeather.barometericPressureInchesHg, this.currentWeather.relativeHumidityPercent);
-			let muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(this.currentRound.muzzleVelocityFPS, this.currentFirearm.zeroRangeYards, this.currentFirearm.sightHeightInches, currentBallisticCoefficient);
+			const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(this.currentRound.bulletBC, this.currentWeather.altitudeFeet, this.currentWeather.temperatureDegreesFahrenheit, this.currentWeather.barometericPressureInchesHg, this.currentWeather.relativeHumidityPercent);
+			const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(this.currentRound.muzzleVelocityFPS, this.currentFirearm.zeroRangeYards, this.currentFirearm.sightHeightInches, currentBallisticCoefficient);
 			let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches;
 			// Skip the first row
 			let currentRangeYards = this.currentTarget.chartStepping;
@@ -99,8 +98,8 @@ export class DataService {
 				// Cross Winds take on full range value regardless of Slant To Target
 				currentCrossWindDriftInches = this._dragService.crossWindDrift(currentRangeYards, currentTimeSeconds, this.currentWeather.windAngleDegrees, this.currentWeather.windVelocityMPH, muzzleAngleDegrees, this.currentRound.muzzleVelocityFPS);
 				currentLeadInches = this._dragService.lead(this.currentTarget.speedMPH, currentTimeSeconds);
-				let slantDropInches: number = currentDropInches * (1-Math.cos(this._conversionService.degreesToRadians(this.currentTarget.slantDegrees)));
-				let range: Range = {
+				const slantDropInches: number = currentDropInches * (1-Math.cos(this._conversionService.degreesToRadians(this.currentTarget.slantDegrees)));
+				const range: Range = {
 					rangeYards: currentRangeYards,
 					velocityFPS: currentVelocityFPS,
 					energyFtLbs: currentEnergyFtLbs,
@@ -147,7 +146,7 @@ export class DataService {
 
 	guid() {
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
 			return v.toString(16);
 		});
 	}
@@ -156,7 +155,7 @@ export class DataService {
 		let deleted = false;
 		for(let i = 0; i < this.firearms.length; i++) {
 			if(this.firearms[i].id === firearm.id) {
-				this.firearms.splice(i, 1)
+				this.firearms.splice(i, 1);
 				deleted = true;
 				break;
 			}
@@ -171,7 +170,7 @@ export class DataService {
 		let deleted = false;
 		for(let i = 0; i < firearm.rounds.length; i++) {
 			if(firearm.rounds[i].id === round.id) {
-				firearm.rounds.splice(i, 1)
+				firearm.rounds.splice(i, 1);
 				deleted = true;
 				break;
 			}
@@ -183,7 +182,7 @@ export class DataService {
 	}
 
 	public insertFirearm(firearm: Firearm): boolean {
-		//Gernerate new id
+		// Gernerate new id
 		firearm.id = this.guid();
 		this.firearms.push(firearm);
 		this.firearms.sort(this.nameSort);
@@ -192,7 +191,7 @@ export class DataService {
 	}
 
 	public insertRound(firearm: Firearm, round: Round): boolean {
-		//Gernerate new id
+		// Gernerate new id
 		round.id = this.guid();
 		firearm.rounds.push(round);
 		firearm.rounds.sort(this.nameSort);
@@ -215,7 +214,7 @@ export class DataService {
 		let nameChanged = false;
 		for(let i = 0; i < this.firearms.length; i++) {
 			if(this.firearms[i].id === firearm.id) {
-				nameChanged = (this.firearms[i].name !== firearm.name)
+				nameChanged = (this.firearms[i].name !== firearm.name);
 				this.firearms[i] = firearm;
 				updated = true;
 				break;
@@ -223,7 +222,7 @@ export class DataService {
 		}
 		if(updated) {
 			if(nameChanged) {
-				//Name may have been changed
+				// Name may have been changed
 				this.firearms.sort(this.nameSort);
 			}
 			localStorage.setItem('firearms', JSON.stringify(this.firearms));
@@ -236,7 +235,7 @@ export class DataService {
 		let nameChanged = false;
 		for(let i = 0; i < firearm.rounds.length; i++) {
 			if(firearm.rounds[i].id === round.id) {
-				nameChanged = (firearm.rounds[i].name !== round.name)
+				nameChanged = (firearm.rounds[i].name !== round.name);
 				firearm.rounds[i] = round;
 				updated = true;
 				break;
@@ -244,7 +243,7 @@ export class DataService {
 		}
 		if(updated) {
 			if(nameChanged) {
-				//Name may have been changed
+				// Name may have been changed
 				firearm.rounds.sort(this.nameSort);
 			}
 			localStorage.setItem('firearms', JSON.stringify(this.firearms));

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Round } from '../../models/round.model'
+import { Round } from '../../models/round.model';
 
 declare var $: any;
 declare var toastr: any;
@@ -15,13 +15,6 @@ export class RoundComponent implements OnInit {
 	public editedRound: Round = null;
 	public isOpen = true;
 	public isPristine = true;
-
-	ngOnInit() {
-		//Initialize tooltips just for this component
-		$(document).ready(() => {
-			$('round [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		});
-	}
 
 	private _mode = 'add';
 	@Input()
@@ -41,7 +34,7 @@ export class RoundComponent implements OnInit {
 				bulletDiameterInches: round.bulletDiameterInches,
 				bulletWeightGrains: round.bulletWeightGrains,
 				muzzleVelocityFPS: round.muzzleVelocityFPS
-			}
+			};
 		} else {
 			// Setup defaults
 			this.editedRound = {
@@ -51,13 +44,24 @@ export class RoundComponent implements OnInit {
 				bulletDiameterInches: null,
 				bulletWeightGrains: null,
 				muzzleVelocityFPS: null
-			}
+			};
 		}
-		//Save the initial settings so we can reset if requested
+		// Save the initial settings so we can reset if requested
 		this._round = round;
 	}
 
 	@Output() onChange = new EventEmitter<Round>();
+	@Output() onClose = new EventEmitter();
+	@Output() onDelete = new EventEmitter<Round>();
+	@Output() onSave = new EventEmitter<Round>();
+
+	ngOnInit() {
+		// Initialize tooltips just for this component
+		$(document).ready(() => {
+			$('round [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		});
+	}
+
 	change(isValid: boolean) {
 		if(isValid) {
 			this.onChange.emit(this.editedRound);
@@ -70,7 +74,6 @@ export class RoundComponent implements OnInit {
 		this.isPristine = true;
 	}
 
-	@Output() onClose = new EventEmitter();
 	close(isDirty: boolean = false) {
 		// Change to another firearm
 		if(isDirty) {
@@ -79,10 +82,9 @@ export class RoundComponent implements OnInit {
 		this.onClose.emit();
 	}
 
-	@Output() onDelete = new EventEmitter<Round>();
 	delete() {
-		//Confirm before delete
-		let self = this;
+		// Confirm before delete
+		const self = this;
 		$.confirm({
 			title: 'Confirm!',
 			content: 'Delete round?',
@@ -106,7 +108,6 @@ export class RoundComponent implements OnInit {
 		});
 	}
 
-	@Output() onSave = new EventEmitter<Round>();
 	save(): void {
 		// Save changes to this round
 		this.onSave.emit(this.editedRound);

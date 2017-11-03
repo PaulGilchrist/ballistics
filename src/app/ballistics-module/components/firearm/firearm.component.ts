@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Firearm } from '../../models/firearm.model'
-import { Round } from '../../models/round.model'
+import { Firearm } from '../../models/firearm.model';
+import { Round } from '../../models/round.model';
 
 declare var $: any;
 declare var toastr: any;
@@ -11,18 +11,11 @@ declare var toastr: any;
 	styleUrls: ['./firearm.component.css'],
 	templateUrl: './firearm.component.html'
 })
-export class FirearmComponent {
+export class FirearmComponent implements OnInit {
 
 	public editedFirearm: Firearm = null;
 	public isOpen = true;
 	public isPristine = true;
-
-	ngOnInit() {
-		//Initialize tooltips just for this component
-		$(document).ready(() => {
-			$('firearm [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		});
-	}
 
 	private _firearm: Firearm = null;
 	@Input()
@@ -65,12 +58,17 @@ export class FirearmComponent {
 	}
 
 	@Output() onChange = new EventEmitter<Firearm>();
-	change(isValid: boolean) {
-		if(isValid) {
-			this.onChange.emit(this.editedFirearm);
-		}
-		this.isPristine = false;
+	@Output() onClose = new EventEmitter();
+	@Output() onDelete = new EventEmitter<Firearm>();
+	@Output() onSave = new EventEmitter<Firearm>();
+
+	ngOnInit() {
+		// Initialize tooltips just for this component
+		$(document).ready(() => {
+			$('firearm [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		});
 	}
+
 
 	cancel(form: any): void {
 		// Reset the form back to the original object
@@ -78,14 +76,19 @@ export class FirearmComponent {
 		this.isPristine = true;
 	}
 
-	@Output() onClose = new EventEmitter();
+	change(isValid: boolean) {
+		if(isValid) {
+			this.onChange.emit(this.editedFirearm);
+		}
+		this.isPristine = false;
+	}
+
 	close(isDirty: boolean = false) {
 		this.onClose.emit();
 	}
 
-	@Output() onDelete = new EventEmitter<Firearm>();
 	delete() {
-		let self = this;
+		const self = this;
 		$.confirm({
 			title: 'Confirm!',
 			content: 'Delete firearm?',
@@ -109,7 +112,6 @@ export class FirearmComponent {
 		});
 	}
 
-	@Output() onSave = new EventEmitter<Firearm>();
 	save(): void {
 		// Save changes to this firearm
 		this.onSave.emit(this.editedFirearm);

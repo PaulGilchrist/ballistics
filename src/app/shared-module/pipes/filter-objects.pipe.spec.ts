@@ -4,8 +4,8 @@ import {} from 'jasmine';
 
 describe('FilterObjectsPipe', () => {
 	it('Object array filtered down to a single object', function () {
-		let filterObjectsPipe = new FilterObjectsPipe();
-		let inputObjectArray = [
+		const filterObjectsPipe = new FilterObjectsPipe();
+		const inputObjectArray = [
 			{ name: 'Brent', job: 'Solutions' },
 			{ name: 'Gary', job: 'Data' },
 			{ name: 'Jamie', job: 'Systems' },
@@ -13,12 +13,12 @@ describe('FilterObjectsPipe', () => {
 			{ name: 'Paul', job: 'Enterprise' },
 			{ name: 'Rick', job: 'Network' }
 		];
-		let outputObjectArray = filterObjectsPipe.transform(inputObjectArray, 'Paul');
+		const outputObjectArray = filterObjectsPipe.transform(inputObjectArray, 'Paul');
 		expect(outputObjectArray.length).toEqual(1);
 	});
 	it('Object array filtered down to 2 objects', function () {
-		let filterObjectsPipe = new FilterObjectsPipe();
-		let inputObjectArray = [
+		const filterObjectsPipe = new FilterObjectsPipe();
+		const inputObjectArray = [
 			{ name: 'Brent', job: 'Business' },
 			{ name: 'Gary', job: 'Solutions' },
 			{ name: 'Jamie', job: 'Solutions' },
@@ -26,7 +26,7 @@ describe('FilterObjectsPipe', () => {
 			{ name: 'Paul', job: 'Business' },
 			{ name: 'Rick', job: 'Operations' }
 		];
-		let outputObjectArray = filterObjectsPipe.transform(inputObjectArray, 'Operations');
+		const outputObjectArray = filterObjectsPipe.transform(inputObjectArray, 'Operations');
 		expect(outputObjectArray.length).toEqual(2);
 	});
 });

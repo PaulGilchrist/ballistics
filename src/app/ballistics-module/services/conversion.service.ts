@@ -10,22 +10,22 @@ export class ConversionService {
 	degreesToRadians(degrees: number) {
 	  // Converts from a Degree To A Radian Angle.
 		return degrees * this.pi / 180;
-	};
+	}
 
 	inchesToIPHY(inches: number, currentRange: number) {
 	  // Converts from Inches ToInches per 100 Yards
 	  return (inches * 100 / currentRange);
-	};
+	}
 
 	inchesToMil(inches: number, currentRange: number) {
 	  // Converts from Inches To MinutesOfAngle.
 	  return (inches * 100 / this.mil / currentRange);
-	};
+	}
 
 	inchesToMinutesOfAngle(inches: number, currentRange: number) {
 	  // Converts from Inches To MinutesOfAngle.
 	  return (inches * 100 / this.minuteOfAngle / currentRange);
-	};
+	}
 
 	isEven(input: number) {
 	  // Returns true if the inputed integer is an even number
@@ -34,21 +34,21 @@ export class ConversionService {
 	  } else {
 		return false;
 	  }
-	};
+	}
 
 	milesPerHourToInchesPerSecond(inputVelocityMPH: number) {
 	  // Converts from a Miles Per Hour To Inches Per Second.
 	  return inputVelocityMPH * 17.6004;
-	};
+	}
 
 	radiansToDegrees(radians: number) {
 	  // Converts from a Radian To A Degree Angle.
 	  return radians * 180 / this.pi;
-	};
+	}
 
 	sec(angle: number) {
 	  // Secant
 	  return 1 / Math.cos(angle);
-	};
+	}
 
 }

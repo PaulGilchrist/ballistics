@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule }    from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 import { FilterObjectsPipe } from './pipes/filter-objects.pipe';
 import { SortObjectsPipe } from './pipes/sort-objects.pipe';

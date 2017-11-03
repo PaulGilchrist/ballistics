@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AtmosphericService } from './atmospheric.service';
 import { ConversionService } from './conversion.service';
 
-import { INGALS } from '../data/ingals.data'
+import { INGALS } from '../data/ingals.data';
 
 @Injectable()
 export class DragService {
@@ -16,15 +16,15 @@ export class DragService {
 		// Calculates how many up or down clicks to adjust the scope to change from the current zero to the maximum point blank range zero.  Maximum point blank range is the maximum range at
 		//     which the user can shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
 		// Calculate the range you need to zero the rifle to obtain a maximum point blank range
-		let maxPointBlankRangeZeroYards = this.maximumPointBlankRangeZero(ballisticCoefficient, muzzleVelocityFPS, maximumOrdinate);
+		const maxPointBlankRangeZeroYards = this.maximumPointBlankRangeZero(ballisticCoefficient, muzzleVelocityFPS, maximumOrdinate);
 		// Calculate the velocity (feet per second) of the bullet at the new zero
-		let velocityAtMaxPointBlankRangeZero = this.velocityFromRange(ballisticCoefficient, muzzleVelocityFPS, maxPointBlankRangeZeroYards);
+		const velocityAtMaxPointBlankRangeZero = this.velocityFromRange(ballisticCoefficient, muzzleVelocityFPS, maxPointBlankRangeZeroYards);
 		// Calculate the time (seconds) of flight of the bullet at the new velocity
-		let timeAtMaxPointBlankRangeZero = this.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaxPointBlankRangeZero);
+		const timeAtMaxPointBlankRangeZero = this.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaxPointBlankRangeZero);
 		// Calculate the drop (inches) of the bullet at the new time and velocity
-		let dropAtMaxPointBlankRangeZero = this.drop(muzzleVelocityFPS, velocityAtMaxPointBlankRangeZero, timeAtMaxPointBlankRangeZero);
+		const dropAtMaxPointBlankRangeZero = this.drop(muzzleVelocityFPS, velocityAtMaxPointBlankRangeZero, timeAtMaxPointBlankRangeZero);
 		// Calculate the vertical position (inches) of the bullet at the given drop
-		let verticalPositionAtMaxPointBlankRangeZero = (-scopeHeightInches / 12) + ((dropAtMaxPointBlankRangeZero / 12) + (maxPointBlankRangeZeroYards * 3) * Math.tan(this.conversionService.degreesToRadians(muzzleAngleDegrees))) * 12;
+		const verticalPositionAtMaxPointBlankRangeZero = (-scopeHeightInches / 12) + ((dropAtMaxPointBlankRangeZero / 12) + (maxPointBlankRangeZeroYards * 3) * Math.tan(this.conversionService.degreesToRadians(muzzleAngleDegrees))) * 12;
 		// Calculate the number of scope clicks needed to correct the above calculated vertical position making the new vertical position zero.
 		return -(this.conversionService.inchesToMinutesOfAngle(verticalPositionAtMaxPointBlankRangeZero, maxPointBlankRangeZeroYards) * scopeElevationClicksPerMOA);
 	}
@@ -36,7 +36,7 @@ export class DragService {
 
 	drop(muzzleVelocityFPS: number, currentVelocityFPS: number, currentTimeSeconds: number) {
 		// Calculates how far the bullet falls (inches) due to gravity, if their were no angle at the muzzle.
-		let falls = this.atmosphericService.dropTable[Math.floor((currentVelocityFPS / muzzleVelocityFPS) * 100 + 0.5)];
+		const falls = this.atmosphericService.dropTable[Math.floor((currentVelocityFPS / muzzleVelocityFPS) * 100 + 0.5)];
 		return -(falls * Math.pow(currentTimeSeconds, 2));
 	}
 
@@ -56,10 +56,10 @@ export class DragService {
 			spaceFromVelocity = INGALS.s[counter];
 		} else {
 			// Interoperlate Array
-			let differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
-			let distanceFromVelocityIndex = currentVelocity - INGALS.v[counter];
-			let differenceBetweenSpaceIndexes = INGALS.s[counter] - INGALS.s[counter - 1];
-			let percentage = distanceFromVelocityIndex / differenceBetweenVelocityIndexes;
+			const differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
+			const distanceFromVelocityIndex = currentVelocity - INGALS.v[counter];
+			const differenceBetweenSpaceIndexes = INGALS.s[counter] - INGALS.s[counter - 1];
+			const percentage = distanceFromVelocityIndex / differenceBetweenVelocityIndexes;
 			spaceFromVelocity = INGALS.s[counter] - (differenceBetweenSpaceIndexes * percentage);
 		}
 		return spaceFromVelocity;
@@ -76,10 +76,10 @@ export class DragService {
 			timeFromVelocity = INGALS.t[counter];
 		} else {
 			// Interoperlate Array
-			let differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
-			let distanceFromVelocityIndex = currentVelocity - INGALS.v[counter];
-			let differenceBetweenTimeIndexes = INGALS.t[counter] - INGALS.t[counter - 1];
-			let percentage = distanceFromVelocityIndex / differenceBetweenVelocityIndexes;
+			const differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
+			const distanceFromVelocityIndex = currentVelocity - INGALS.v[counter];
+			const differenceBetweenTimeIndexes = INGALS.t[counter] - INGALS.t[counter - 1];
+			const percentage = distanceFromVelocityIndex / differenceBetweenVelocityIndexes;
 			timeFromVelocity = INGALS.t[counter] - (differenceBetweenTimeIndexes * percentage);
 		}
 		return timeFromVelocity;
@@ -96,10 +96,10 @@ export class DragService {
 			velocityFromSpace = INGALS.v[counter];
 		} else {
 			// Interoperlate Array
-			let differenceBetweenSpaceIndexes = INGALS.s[counter] - INGALS.s[counter - 1];
-			let distanceFromSpaceIndex = INGALS.s[counter] - currentSpace;
-			let differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
-			let percentage = distanceFromSpaceIndex / differenceBetweenSpaceIndexes;
+			const differenceBetweenSpaceIndexes = INGALS.s[counter] - INGALS.s[counter - 1];
+			const distanceFromSpaceIndex = INGALS.s[counter] - currentSpace;
+			const differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
+			const percentage = distanceFromSpaceIndex / differenceBetweenSpaceIndexes;
 			velocityFromSpace = INGALS.v[counter] + (differenceBetweenVelocityIndexes * percentage);
 		}
 		return velocityFromSpace;
@@ -116,10 +116,10 @@ export class DragService {
 			velocityFromTime = INGALS.v[counter];
 		} else {
 			// Interoperlate Array
-			let differenceBetweenTimeIndexes = INGALS.t[counter] - INGALS.t[counter - 1];
-			let distanceFromTimeIndex = INGALS.t[counter] - currentTime;
-			let differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
-			let percentage = distanceFromTimeIndex / differenceBetweenTimeIndexes;
+			const differenceBetweenTimeIndexes = INGALS.t[counter] - INGALS.t[counter - 1];
+			const distanceFromTimeIndex = INGALS.t[counter] - currentTime;
+			const differenceBetweenVelocityIndexes = INGALS.v[counter - 1] - INGALS.v[counter];
+			const percentage = distanceFromTimeIndex / differenceBetweenTimeIndexes;
 			velocityFromTime = INGALS.v[counter] + (differenceBetweenVelocityIndexes * percentage);
 		}
 		return velocityFromTime;
@@ -133,13 +133,13 @@ export class DragService {
 	maximumPointBlankRange(ballisticCoefficient: number, muzzleVelocityFPS: number, maximumOrdinate: number) {
 		// Calculate the maximum range at which the user can shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
 		// Time (seconds)it takes to reach the range having a maximum ordinate supplied above
-		let timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
+		const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
 		// Velocity (feet per second) of the bullet at the above calculated time
-		let velocityAtTimeToMaximumOrdinate = this.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
+		const velocityAtTimeToMaximumOrdinate = this.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
 		// Drop (inches) of the bullet at the above given time and velocity***
-		let dropAtMaximumPointBlankRangeZero = this.drop(muzzleVelocityFPS, velocityAtTimeToMaximumOrdinate, timeToMaximumOrdinate);
+		const dropAtMaximumPointBlankRangeZero = this.drop(muzzleVelocityFPS, velocityAtTimeToMaximumOrdinate, timeToMaximumOrdinate);
 		// The bullet may drop the radius of the target below zero at the true maximum point blank range
-		let dropAtMaximumPointBlankRange = dropAtMaximumPointBlankRangeZero - maximumOrdinate;
+		const dropAtMaximumPointBlankRange = dropAtMaximumPointBlankRangeZero - maximumOrdinate;
 		// Loop through dropping velocity until Drop = DropAtMaximumPointBlankRange to find the velocity at the true point blank range
 		let velocityAtMaximumPointBlankRange = velocityAtTimeToMaximumOrdinate;
 		while(this.drop(muzzleVelocityFPS, velocityAtMaximumPointBlankRange, this.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaximumPointBlankRange)) > dropAtMaximumPointBlankRange) {
@@ -153,28 +153,28 @@ export class DragService {
 		// Maximum Point Blank Range Zero (yards) is the range that the user should zero his/her rifle to obtain their maximum point blank range.
 		// This range allows a user to shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
 		// Time (seconds)it takes to reach the range having a maximum ordinate supplied above
-		let timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
+		const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
 		// Velocity (feet per second) of the bullet at the above calculated time
-		let velocityAtTimeToMaximumOrdinate = this.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
+		const velocityAtTimeToMaximumOrdinate = this.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
 		// Given the velocity at the point blank range zero, calculate the actual range to zero the rifle
 		return this.range(ballisticCoefficient, muzzleVelocityFPS, velocityAtTimeToMaximumOrdinate);
 	}
 
 	modifiedBallisticCoefficient(ballisticCoefficient: number, altitudeFeet: number, temperatureFahrenheit: number, barometricPressureInchesHg: number, relativeHumidityPercent: number) {
 		// Takes the bullets ballistic coefficient at standard atmospheric conditions (sea level), and converts it to a new ballistic coefficient at the current altitudeFeet and conditions.
-		let altitudeAdjustmentFactor = this.atmosphericService.altitudeAdjustmentFactor(altitudeFeet);
-		let temperatureAdjustmentFactor = this.atmosphericService.temperatureAdjustmentFactor(altitudeFeet, temperatureFahrenheit);
-		let barometricPressureAdjustmentFactor = this.atmosphericService.barometricPressureAdjustmentFactor(altitudeFeet, barometricPressureInchesHg);
-		let relativeHumidityAdjustmentFactor = this.atmosphericService.relativeHumidityAdjustmentFactor(altitudeFeet, temperatureFahrenheit, barometricPressureInchesHg, relativeHumidityPercent / 100);
+		const altitudeAdjustmentFactor = this.atmosphericService.altitudeAdjustmentFactor(altitudeFeet);
+		const temperatureAdjustmentFactor = this.atmosphericService.temperatureAdjustmentFactor(altitudeFeet, temperatureFahrenheit);
+		const barometricPressureAdjustmentFactor = this.atmosphericService.barometricPressureAdjustmentFactor(altitudeFeet, barometricPressureInchesHg);
+		const relativeHumidityAdjustmentFactor = this.atmosphericService.relativeHumidityAdjustmentFactor(altitudeFeet, temperatureFahrenheit, barometricPressureInchesHg, relativeHumidityPercent / 100);
 		return ballisticCoefficient * (altitudeAdjustmentFactor * (1 + temperatureAdjustmentFactor - barometricPressureAdjustmentFactor) * relativeHumidityAdjustmentFactor);
 	}
 
 	muzzleAngleDegreesForZeroRange(muzzleVelocityFPS: number, zeroRangeYards: number, scopeHeightInches: number, ballisticCoefficient: number) {
 		// Calculates the neccessary angle (degrees) of the muzzle to obtain the requested zero range.
 		// This is done by looping through vertical position with different muzzle angles at the given range until a muzzle angle is found that produces a vertical position of 0.
-		let velocityAtZeroRange = this.velocityFromRange(ballisticCoefficient, muzzleVelocityFPS, zeroRangeYards);
-		let timeAtZeroRange = this.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtZeroRange);
-		let dropAtZeroRange = this.drop(muzzleVelocityFPS, velocityAtZeroRange, timeAtZeroRange);
+		const velocityAtZeroRange = this.velocityFromRange(ballisticCoefficient, muzzleVelocityFPS, zeroRangeYards);
+		const timeAtZeroRange = this.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtZeroRange);
+		const dropAtZeroRange = this.drop(muzzleVelocityFPS, velocityAtZeroRange, timeAtZeroRange);
 		let muzzleAngleDegreesForZeroRange = 0;
 		while(this.verticalPosition(scopeHeightInches, muzzleAngleDegreesForZeroRange, zeroRangeYards, dropAtZeroRange) < 0) {
 		muzzleAngleDegreesForZeroRange += 0.00001;
@@ -214,7 +214,7 @@ export class DragService {
 
 	velocityFromRange(ballisticCoefficient: number, muzzleVelocityFPS: number, currentRangeYards: number) {
 		// Calculates the velocity (feet per second) remaining in the bullet at a given range (yards).
-		let currentSpace = this.ingalsSpaceFromVelocity(muzzleVelocityFPS) + ((currentRangeYards * 3) / ballisticCoefficient);
+		const currentSpace = this.ingalsSpaceFromVelocity(muzzleVelocityFPS) + ((currentRangeYards * 3) / ballisticCoefficient);
 		return this.ingalsVelocityFromSpace(currentSpace);
 	}
 

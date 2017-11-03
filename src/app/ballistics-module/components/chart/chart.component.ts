@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Firearm } from '../../models/firearm.model'
-import { Range } from '../../models/range.model'
-import { Round } from '../../models/round.model'
-import { Target } from '../../models/target.model'
-import { Weather } from '../../models/weather.model'
+import { Firearm } from '../../models/firearm.model';
+import { Range } from '../../models/range.model';
+import { Round } from '../../models/round.model';
+import { Target } from '../../models/target.model';
+import { Weather } from '../../models/weather.model';
 
-import { DataService } from '../../services/data.service'
+import { DataService } from '../../services/data.service';
 
 declare var $: any;
 
@@ -30,7 +30,7 @@ export class ChartComponent implements OnInit {
 		this.showMoA = this.dataService.currentFirearm.turretUnits===1 || this.dataService.currentFirearm.reticleUnits===1;
 		this.showIPHY = this.dataService.currentFirearm.turretUnits===3 || this.dataService.currentFirearm.reticleUnits===3;
 		this.dataService.getRangeData();
-		//Initialize tooltips just for this component
+		// Initialize tooltips just for this component
 		$(document).ready(() => {
 			$('chart [data-toggle="tooltip"]').tooltip({
 				container: 'body',

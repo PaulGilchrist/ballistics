@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { Firearm } from '../../models/firearm.model'
-import { Round } from '../../models/round.model'
+import { Firearm } from '../../models/firearm.model';
+import { Round } from '../../models/round.model';
 
-import { DataService } from '../../services/data.service'
+import { DataService } from '../../services/data.service';
 
 declare var toastr: any;
 
@@ -15,11 +15,11 @@ declare var toastr: any;
 export class HomeComponent implements OnInit {
 
 	public firearm: Firearm = null;
-	public firearmMode: string = 'select'; // Valid modes are 'add', 'edit', or 'select'
+	public firearmMode = 'select'; // Valid modes are 'add', 'edit', or 'select'
 	public graphHeight = 300;
 	public graphType = 'line';
 	public graphWidth = 300;
-	public roundMode: string = 'select'; // Valid modes are 'add', 'edit', or 'select'
+	public roundMode = 'select'; // Valid modes are 'add', 'edit', or 'select'
 
 	constructor(public dataService: DataService) {}
 

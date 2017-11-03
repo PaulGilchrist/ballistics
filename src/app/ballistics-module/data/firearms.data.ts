@@ -1,4 +1,4 @@
-import { Firearm } from '../models/firearm.model'
+import { Firearm } from '../models/firearm.model';
 export let FIREARMS: Array<Firearm> = [
 	{
 		id: '8f331a2c-ef70-4a64-a028-276bf27523c4',
@@ -136,4 +136,4 @@ export let FIREARMS: Array<Firearm> = [
 		windageTurretGradients: 10,
 		zeroRangeYards: 100
 	}
-]
+];

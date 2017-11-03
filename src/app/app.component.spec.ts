@@ -27,13 +27,13 @@ describe('AppComponent', () => {
 	});
 	it('Should instantiate component', async(() => {
 		TestBed.compileComponents().then(() => {
-			let fixture = TestBed.createComponent(AppComponent);
+			const fixture = TestBed.createComponent(AppComponent);
 			expect(fixture.componentInstance instanceof AppComponent).toBe(true, 'should create AppComponent');
 		});
 	}));
 	it('Should have expected <div> text', async(() => {
 		TestBed.compileComponents().then(() => {
-			let fixture = TestBed.createComponent(AppComponent);
+			const fixture = TestBed.createComponent(AppComponent);
 			fixture.detectChanges();
 			let div = fixture.debugElement.query(el => el.name === 'div').nativeElement;  // it works
 			div = fixture.debugElement.query(By.css('div')).nativeElement;            // preferred

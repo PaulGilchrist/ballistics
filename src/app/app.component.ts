@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {} from 'node'
+import {} from 'node';
 
 declare let $: any;
 declare let System: any;

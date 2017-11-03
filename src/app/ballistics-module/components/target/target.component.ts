@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Target } from '../../models/target.model'
-import { DataService } from '../../services/data.service'
+import { Target } from '../../models/target.model';
+import { DataService } from '../../services/data.service';
 
 declare var $: any;
 
@@ -21,7 +21,7 @@ export class TargetComponent implements OnInit {
 
 	ngOnInit() {
 		this.dataService.getTarget().subscribe();
-		//Initialize tooltips just for this component
+		// Initialize tooltips just for this component
 		$(document).ready(() => {
 			$('target [data-toggle="tooltip"]').tooltip({ container: 'body' });
 		});
