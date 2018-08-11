@@ -190,7 +190,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
 			.enter() // This will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
 			.append('svg:g') // Create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
 			.attr('class', 'slice'); // Allow us to style things in the slices (like text)
-		const color = d3.scaleOrdinal(d3.schemeCategory20c); // builtin range of colors
+		const color = d3.scaleOrdinal(d3.schemeCategory10); // builtin range of colors
 		const arc = d3.arc().outerRadius(r).innerRadius(0); // Declare an arc generator function that will create <path> elements for us using arc data
 		arcs.append('svg:path')
 			.attr('fill', function(d: any, i: any) { return color(i); }) // Set the color for each slice to be chosen from the color function defined above
