@@ -65,7 +65,7 @@
 		<div *ngIf="_mode=='edit'">
 			<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
 			<button *ngIf='isPristine' class='btn btn-warning' (click)='close();'> Close</button>&nbsp;
-			<button *ngIf='isPristine' class='btn btn-danger' (click)='delete();'> Delete</button>
+			<button *ngIf='isPristine' class='btn btn-danger' mwlConfirmationPopover [popoverTitle]="'Confirm Delete'" [popoverMessage]="'Delete this firearm?'" placement="top" (confirm)="delete()"> Delete</button>
 			<button *ngIf='!isPristine' class='btn btn-warning' (click)='cancel();'> Cancel</button>
 		</div>
 	</div>

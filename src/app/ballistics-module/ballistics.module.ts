@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import * as $ from 'jquery';
 import * as toastr from 'toastr';
 
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+
 /* Services */
 import { AtmosphericService } from './services/atmospheric.service';
 import { BallisticsService } from './services/ballistics.service';
@@ -39,6 +41,9 @@ import { WeatherComponent } from './components/weather/weather.component';
 	],
 	imports: [
 		CommonModule,
+		ConfirmationPopoverModule.forRoot({
+      		confirmButtonType: 'danger' // set defaults here
+    	}),
 		FormsModule,
 		RouterModule.forChild([
 			{ path: '', component: HomeComponent },

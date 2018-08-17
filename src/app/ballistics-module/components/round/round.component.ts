@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+
 import { Round } from '../../models/round.model';
 
 @Component({
@@ -81,29 +83,6 @@ export class RoundComponent implements OnInit {
 
 	delete() {
 		this.onDelete.emit(this._round);
-		// // Confirm before delete
-		// const self = this;
-		// $.confirm({
-		// 	title: 'Confirm!',
-		// 	content: 'Delete round?',
-		// 	icon: 'fa fa-warning',
-		// 	buttons: {
-		// 		confirm: {
-		// 			text: 'Confirm',
-		// 			btnClass: 'btn-success',
-		// 			action: function () {
-		// 				self.onDelete.emit(self._round);
-		// 			}
-		// 		},
-		// 		cancel: {
-		// 			text: 'Cancel',
-		// 			btnClass: 'btn-danger',
-		// 			action: function () {
-		// 				// $.alert('Canceled!');
-		// 			}
-		// 		},
-		// 	}
-		// });
 	}
 
 	save(): void {

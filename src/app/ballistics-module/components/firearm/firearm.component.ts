@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+
 import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
 
@@ -85,28 +87,6 @@ export class FirearmComponent implements OnInit {
 
 	delete() {
 		this.onDelete.emit(this._firearm);
-		// const self = this;
-		// $.confirm({
-		// 	title: 'Confirm!',
-		// 	content: 'Delete firearm?',
-		// 	icon: 'fa fa-warning',
-		// 	buttons: {
-		// 		confirm: {
-		// 			text: 'Confirm',
-		// 			btnClass: 'btn-success',
-		// 			action: function () {
-		// 				self.onDelete.emit(self._firearm);
-		// 			}
-		// 		},
-		// 		cancel: {
-		// 			text: 'Cancel',
-		// 			btnClass: 'btn-danger',
-		// 			action: function () {
-		// 				// $.alert('Canceled!');
-		// 			}
-		// 		},
-		// 	}
-		// });
 	}
 
 	save(): void {

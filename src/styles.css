@@ -1,7 +1,6 @@
 @import '~animate.css/animate.css';
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~font-awesome/css/font-awesome.css';
-@import '~jquery-confirm/css/jquery-confirm.css';
 @import '~toastr/build/toastr.css';
 /*
 Try and keep global CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
