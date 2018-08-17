@@ -10,7 +10,6 @@ import { Firearm } from '../../models/firearm.model';
 export class FirearmsComponent {
 
 	public currentFirearm: Firearm = null;
-	public isOpen = true;
 
 	public _firearms: Array<Firearm> = null;
 	@Input()

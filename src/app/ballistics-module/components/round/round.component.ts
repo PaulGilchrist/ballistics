@@ -2,9 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Round } from '../../models/round.model';
 
-declare var $: any;
-declare var toastr: any;
-
 @Component({
 	selector: 'round',
 	styleUrls: ['./round.component.css'],
@@ -57,9 +54,9 @@ export class RoundComponent implements OnInit {
 
 	ngOnInit() {
 		// Initialize tooltips just for this component
-		$(document).ready(() => {
-			$('round [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		});
+		// $(document).ready(() => {
+		// 	$('round [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		// });
 	}
 
 	change(isValid: boolean) {
@@ -83,29 +80,30 @@ export class RoundComponent implements OnInit {
 	}
 
 	delete() {
-		// Confirm before delete
-		const self = this;
-		$.confirm({
-			title: 'Confirm!',
-			content: 'Delete round?',
-			icon: 'fa fa-warning',
-			buttons: {
-				confirm: {
-					text: 'Confirm',
-					btnClass: 'btn-success',
-					action: function () {
-						self.onDelete.emit(self._round);
-					}
-				},
-				cancel: {
-					text: 'Cancel',
-					btnClass: 'btn-danger',
-					action: function () {
-						// $.alert('Canceled!');
-					}
-				},
-			}
-		});
+		this.onDelete.emit(this._round);
+		// // Confirm before delete
+		// const self = this;
+		// $.confirm({
+		// 	title: 'Confirm!',
+		// 	content: 'Delete round?',
+		// 	icon: 'fa fa-warning',
+		// 	buttons: {
+		// 		confirm: {
+		// 			text: 'Confirm',
+		// 			btnClass: 'btn-success',
+		// 			action: function () {
+		// 				self.onDelete.emit(self._round);
+		// 			}
+		// 		},
+		// 		cancel: {
+		// 			text: 'Cancel',
+		// 			btnClass: 'btn-danger',
+		// 			action: function () {
+		// 				// $.alert('Canceled!');
+		// 			}
+		// 		},
+		// 	}
+		// });
 	}
 
 	save(): void {

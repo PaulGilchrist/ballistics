@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
+import * as $ from 'jquery';
+import * as toastr from 'toastr';
+
 /* Services */
 import { AtmosphericService } from './services/atmospheric.service';
 import { BallisticsService } from './services/ballistics.service';

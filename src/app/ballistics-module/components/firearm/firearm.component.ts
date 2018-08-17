@@ -3,9 +3,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
 
-declare var $: any;
-declare var toastr: any;
-
 @Component({
 	selector: 'firearm',
 	styleUrls: ['./firearm.component.css'],
@@ -14,7 +11,6 @@ declare var toastr: any;
 export class FirearmComponent implements OnInit {
 
 	public editedFirearm: Firearm = null;
-	public isOpen = true;
 	public isPristine = true;
 
 	private _firearm: Firearm = null;
@@ -64,9 +60,9 @@ export class FirearmComponent implements OnInit {
 
 	ngOnInit() {
 		// Initialize tooltips just for this component
-		$(document).ready(() => {
-			$('firearm [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		});
+		// $(document).ready(() => {
+		// 	$('firearm [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		// });
 	}
 
 
@@ -88,28 +84,29 @@ export class FirearmComponent implements OnInit {
 	}
 
 	delete() {
-		const self = this;
-		$.confirm({
-			title: 'Confirm!',
-			content: 'Delete firearm?',
-			icon: 'fa fa-warning',
-			buttons: {
-				confirm: {
-					text: 'Confirm',
-					btnClass: 'btn-success',
-					action: function () {
-						self.onDelete.emit(self._firearm);
-					}
-				},
-				cancel: {
-					text: 'Cancel',
-					btnClass: 'btn-danger',
-					action: function () {
-						// $.alert('Canceled!');
-					}
-				},
-			}
-		});
+		this.onDelete.emit(this._firearm);
+		// const self = this;
+		// $.confirm({
+		// 	title: 'Confirm!',
+		// 	content: 'Delete firearm?',
+		// 	icon: 'fa fa-warning',
+		// 	buttons: {
+		// 		confirm: {
+		// 			text: 'Confirm',
+		// 			btnClass: 'btn-success',
+		// 			action: function () {
+		// 				self.onDelete.emit(self._firearm);
+		// 			}
+		// 		},
+		// 		cancel: {
+		// 			text: 'Cancel',
+		// 			btnClass: 'btn-danger',
+		// 			action: function () {
+		// 				// $.alert('Canceled!');
+		// 			}
+		// 		},
+		// 	}
+		// });
 	}
 
 	save(): void {

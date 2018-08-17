@@ -4,16 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import { Target } from '../../models/target.model';
 import { DataService } from '../../services/data.service';
 
-declare var $: any;
-
 @Component({
 	selector: 'target',
 	styleUrls: ['./target.component.css'],
 	templateUrl: './target.component.html'
 })
 export class TargetComponent implements OnInit {
-
-	public isOpen = true;
 
 	@Output() onChange = new EventEmitter();
 
@@ -22,9 +18,9 @@ export class TargetComponent implements OnInit {
 	ngOnInit() {
 		this.dataService.getTarget().subscribe();
 		// Initialize tooltips just for this component
-		$(document).ready(() => {
-			$('target [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		});
+		// $(document).ready(() => {
+		// 	$('target [data-toggle="tooltip"]').tooltip({ container: 'body' });
+		// });
 	}
 
 	change(isValid: boolean) {

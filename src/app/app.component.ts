@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
-declare let $: any;
-declare let System: any;
 @Component({
 	moduleId: module.id.toString(),
 	selector: 'my-app',

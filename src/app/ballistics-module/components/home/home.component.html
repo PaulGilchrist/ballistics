@@ -1,15 +1,15 @@
 ﻿<div class='home'>
     <div>
-        <div class='panel'><weather (onChange)='changeWeather();'></weather></div>
-        <div class='panel'><target (onChange)='changeTarget();'></target></div>
-        <div *ngIf="dataService.firearms && !dataService.currentFirearm && this.firearmMode!=='add'" class='panel'><firearms [firearms]='dataService.firearms' (onAdd)='addFirearm();' (onSelect)='selectFirearm($event);'></firearms></div>
-        <div *ngIf="dataService.currentFirearm || this.firearmMode==='add'" class='panel'><firearm [firearm]='firearm' [mode]='firearmMode' (onChange)='changeFirearm($event);' (onClose)='closeFirearm();' (onDelete)='deleteFirearm($event);' (onSave)='saveFirearm($event);'></firearm></div>
-        <div *ngIf="dataService.currentFirearm && !dataService.currentRound && this.roundMode!=='add'" class='panel'><rounds [rounds]='dataService.currentFirearm.rounds' (onAdd)='addRound();' (onSelect)='selectRound($event);'></rounds></div>
-        <div *ngIf="dataService.currentFirearm && (dataService.currentRound || this.roundMode==='add')" class='panel'><round [round]='dataService.currentRound' [mode]='roundMode' (onChange)='changeRound($event);' (onClose)='closeRound();' (onDelete)='deleteRound($event);' (onSave)='saveRound($event);'></round></div>
+        <div class='card'><weather (onChange)='changeWeather();'></weather></div>
+        <div class='card'><target (onChange)='changeTarget();'></target></div>
+        <div *ngIf="dataService.firearms && !dataService.currentFirearm && this.firearmMode!=='add'" class='card'><firearms [firearms]='dataService.firearms' (onAdd)='addFirearm();' (onSelect)='selectFirearm($event);'></firearms></div>
+        <div *ngIf="dataService.currentFirearm || this.firearmMode==='add'" class='card'><firearm [firearm]='firearm' [mode]='firearmMode' (onChange)='changeFirearm($event);' (onClose)='closeFirearm();' (onDelete)='deleteFirearm($event);' (onSave)='saveFirearm($event);'></firearm></div>
+        <div *ngIf="dataService.currentFirearm && !dataService.currentRound && this.roundMode!=='add'" class='card'><rounds [rounds]='dataService.currentFirearm.rounds' (onAdd)='addRound();' (onSelect)='selectRound($event);'></rounds></div>
+        <div *ngIf="dataService.currentFirearm && (dataService.currentRound || this.roundMode==='add')" class='card'><round [round]='dataService.currentRound' [mode]='roundMode' (onChange)='changeRound($event);' (onClose)='closeRound();' (onDelete)='deleteRound($event);' (onSave)='saveRound($event);'></round></div>
     </div>
     <div *ngIf='dataService.rangeData'>
         <chart></chart>
-        <button class='btn btn-lg btn-success'(click)="graphType==='line' ? graphType='bar' : graphType='line'">Change Graph Type</button>
+        <button class='btn btn-success'(click)="graphType==='line' ? graphType='bar' : graphType='line'">Change Graph Type</button>
         <div>
             <div class="graph-inline">
                 <h3>Velocity (feet/sec)</h3>

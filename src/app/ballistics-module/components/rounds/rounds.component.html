@@ -1,20 +1,17 @@
-<div *ngIf='_rounds' class="panel panel-primary">
-	<div class="panel-heading clearfix" data-toggle="collapse" (click)='isOpen=!isOpen'>
-		<div class="panel-title pull-left">Select Round</div>
-		<i class="fa fa-fw pull-right" [class.fa-chevron-up]='!isOpen' [class.fa-chevron-down]='isOpen'></i>
+<div *ngIf='_rounds' class="card">
+    <div class="card-heading bg-dark text-light clearfix p-2">
+		Select Round
 	</div>
-	<div class="panel-collapse collapse" [class.in]="isOpen">
-			<div class="panel-body">
-			<ul class="list-inline">
-				<li *ngFor='let round of _rounds' (click)='select(round);' class='card' >
-					<div class="well" [class.active]='currentRound===round'>
-						{{ round.name }}
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="panel-footer">
-			<button class="btn btn-lg btn-default" (click)='add();'><span class="fa fa-plus"></span> Add Round</button>
-		</div>
+	<div class="card-body">
+		<ul class="list-inline">
+			<li *ngFor='let round of _rounds' (click)='select(round);' class='card' >
+				<div class="well" [class.active]='currentRound===round'>
+					{{ round.name }}
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="card-footer">
+		<button class="btn btn-default" (click)='add();'><span class="fa fa-plus"></span> Add Round</button>
 	</div>
 </div>

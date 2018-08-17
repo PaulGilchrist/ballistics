@@ -1,9 +1,9 @@
 <div *ngIf='dataService.rangeData'>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<div class="panel-title">Range Chart - Firearm ({{this.dataService.currentFirearm.name}}) - Round ({{this.dataService.currentRound.name}})</div>
+	<div class="card">
+		<div class="card-heading bg-dark text-light p-2">
+			Range Chart - Firearm ({{this.dataService.currentFirearm.name}}) - Round ({{this.dataService.currentRound.name}})
 		</div>
-		<div class="panel-body">
+		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-condensed table-striped table-hover font-size-small">
 					<thead>
@@ -14,16 +14,16 @@
 							<th data-toggle="tooltip" title="Velocity of the bullet in feet per second">
 								Velocity<br>(FPS)
 							</th>
-							<th class="hidden-xs" data-toggle="tooltip" title="Energy of the bullet on impact">
+							<th class="d-none d-sm-table-cell" data-toggle="tooltip" title="Energy of the bullet on impact">
 								Energy<br>(FtLbs)
 							</th>
-							<th class="hidden-xs" data-toggle="tooltip" title="Time the bullet has been in flight since leaving the muzzle">
+							<th class="d-none d-sm-table-cell" data-toggle="tooltip" title="Time the bullet has been in flight since leaving the muzzle">
 								Time<br>(sec)
 							</th>
-							<th class="hidden-xs" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
+							<th class="d-none d-sm-table-cell" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
 								Drop<br>(inch)
 							</th>
-							<th class='visible-md visible-lg' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
+							<th class='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
 								Elevation<br>(inch)
 							</th>
 							<th *ngIf='showMil' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
@@ -35,7 +35,7 @@
 							<th *ngIf='showIPHY' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
 								Elevation<br>(IPHY)
 							</th>
-							<th class='visible-md visible-lg' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+							<th class='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
 								Wind<br>
 								{{dataService.currentWeather.windVelocityMPH}} MPH<br>
 								{{dataService.currentWeather.windAngleDegrees}} deg<br>
@@ -59,7 +59,7 @@
 								{{dataService.currentWeather.windAngleDegrees}} deg<br>
 								(IPHY)
 							</th>
-							<th class='visible-md visible-lg' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+							<th class='d-none d-md-table-cell' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
 								Lead<br>
 								{{dataService.currentTarget.speedMPH}} MPH<br>
 								(inch)
@@ -79,7 +79,7 @@
 								{{dataService.currentTarget.speedMPH}} MPH<br>
 								(IPHY)
 							</th>
-							<th class='visible-md visible-lg' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+							<th class='d-none d-md-table-cell' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
 								Slant<br>
 								{{dataService.currentTarget.slantDegrees}} deg<br>
 								(inch)
@@ -105,22 +105,22 @@
 						<tr *ngFor='let rangeRow of dataService.rangeData'>
 							<td>{{rangeRow.rangeYards}}</td>
 							<td>{{rangeRow.velocityFPS.toFixed(0)}}</td>
-							<td class="hidden-xs">{{rangeRow.energyFtLbs.toFixed(0)}}</td>
-							<td class="hidden-xs">{{rangeRow.timeSeconds.toFixed(3)}}</td>
-							<td class="hidden-xs">{{rangeRow.dropInches.toFixed(1)}}</td>
-							<td class='visible-md visible-lg'>{{rangeRow.verticalPositionInches.toFixed(1)}}</td>
+							<td class="d-none d-sm-table-cell">{{rangeRow.energyFtLbs.toFixed(0)}}</td>
+							<td class="d-none d-sm-table-cell">{{rangeRow.timeSeconds.toFixed(3)}}</td>
+							<td class="d-none d-sm-table-cell">{{rangeRow.dropInches.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{rangeRow.verticalPositionInches.toFixed(1)}}</td>
 							<td *ngIf='showMil'>{{rangeRow.verticalPositionMil.toFixed(1)}}</td>
 							<td *ngIf='showMoa'>{{rangeRow.verticalPositionMoA.toFixed(1)}}</td>
 							<td *ngIf='showIPHY'>{{rangeRow.verticalPositionIPHY.toFixed(1)}}</td>
-							<td class='visible-md visible-lg'>{{rangeRow.crossWindDriftInches.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{rangeRow.crossWindDriftInches.toFixed(1)}}</td>
 							<td *ngIf='showMil'>{{rangeRow.crossWindDriftMil.toFixed(1)}}</td>
 							<td *ngIf='showMoa'>{{rangeRow.crossWindDriftMoA.toFixed(1)}}</td>
 							<td *ngIf='showIPHY'>{{rangeRow.crossWindDriftIPHY.toFixed(1)}}</td>
-							<td class='visible-md visible-lg'>{{rangeRow.leadInches.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{rangeRow.leadInches.toFixed(1)}}</td>
 							<td *ngIf='showMil'>{{rangeRow.leadMil.toFixed(1)}}</td>
 							<td *ngIf='showMoa'>{{rangeRow.leadMoA.toFixed(1)}}</td>
 							<td *ngIf='showIPHY'>{{rangeRow.leadIPHY.toFixed(1)}}</td>
-							<td class='visible-md visible-lg'>{{rangeRow.slantDropInches.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{rangeRow.slantDropInches.toFixed(1)}}</td>
 							<td *ngIf='showMil'>{{rangeRow.slantMil.toFixed(1)}}</td>
 							<td *ngIf='showMoa'>{{rangeRow.slantMoA.toFixed(1)}}</td>
 							<td *ngIf='showIPHY'>{{rangeRow.slantIPHY.toFixed(1)}}</td>
