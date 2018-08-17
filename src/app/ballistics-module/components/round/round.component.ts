@@ -5,7 +5,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { Round } from '../../models/round.model';
 
 @Component({
-	selector: 'round',
+	selector: 'app-round',
 	styleUrls: ['./round.component.css'],
 	templateUrl: './round.component.html'
 })

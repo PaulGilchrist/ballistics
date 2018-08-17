@@ -13,17 +13,17 @@
     vertical-align: top;
     width: 100%;
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 576px) {
     .card {
         width: 49%;
     }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 768px) {
     .card {
         width: 32%;
     }
 }
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 992px) {
     .card {
         width: 24%;
     }

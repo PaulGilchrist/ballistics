@@ -6,13 +6,14 @@ import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
 
 @Component({
-	selector: 'firearm',
+	selector: 'app-firearm',
 	styleUrls: ['./firearm.component.css'],
 	templateUrl: './firearm.component.html'
 })
 export class FirearmComponent implements OnInit {
 
 	public editedFirearm: Firearm = null;
+	public isOpen = true;
 	public isPristine = true;
 
 	private _firearm: Firearm = null;

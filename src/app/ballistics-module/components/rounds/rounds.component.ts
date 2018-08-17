@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Round } from '../../models/round.model';
 
 @Component({
-		selector: 'rounds',
+		selector: 'app-rounds',
 		styleUrls: ['./rounds.component.css'],
 		templateUrl: './rounds.component.html'
 })

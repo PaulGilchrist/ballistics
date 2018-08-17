@@ -5,11 +5,13 @@ import { Target } from '../../models/target.model';
 import { DataService } from '../../services/data.service';
 
 @Component({
-	selector: 'target',
+	selector: 'app-target',
 	styleUrls: ['./target.component.css'],
 	templateUrl: './target.component.html'
 })
 export class TargetComponent implements OnInit {
+
+	public isOpen = true;
 
 	@Output() onChange = new EventEmitter();
 

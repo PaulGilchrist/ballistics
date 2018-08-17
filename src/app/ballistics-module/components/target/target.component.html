@@ -1,8 +1,9 @@
 <div *ngIf='dataService.currentTarget' class="card">
-    <div class="card-heading bg-dark text-light clearfix p-2">
+    <div class="card-heading bg-dark text-light d-flex p-2">
         Target
+		<i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
     </div>
-	<div class="card-body">
+	<div class="card-body" [class.collapse]="!isOpen">
 		<form #form="ngForm" novalidate (change)='change(form.valid);'>
 			<div class="form-group" [class.has-error]="distanceYardsControl.invalid && distanceYardsControl.dirty">
 				<label class="control-label" data-toggle="tooltip" title="Distance in yards measured from the muzzle to the target">Distance (yards)</label>

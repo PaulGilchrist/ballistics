@@ -9,7 +9,7 @@ import { Weather } from '../../models/weather.model';
 import { DataService } from '../../services/data.service';
 
 @Component({
-	selector: 'chart',
+	selector: 'app-chart',
 	styleUrls: ['./chart.component.css'],
 	templateUrl: './chart.component.html'
 })

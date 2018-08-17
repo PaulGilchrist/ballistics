@@ -5,11 +5,13 @@ import { Weather } from '../../models/weather.model';
 import { DataService } from '../../services/data.service';
 
 @Component({
-	selector: 'weather',
+	selector: 'app-weather',
 	styleUrls: ['./weather.component.css'],
 	templateUrl: './weather.component.html'
 })
 export class WeatherComponent implements OnInit {
+
+	public isOpen = true;
 
 	@Output() onChange = new EventEmitter();
 

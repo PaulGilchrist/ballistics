@@ -1,9 +1,10 @@
 <div *ngIf='editedFirearm' class="card">
-    <div class="card-heading bg-dark text-light clearfix p-2">
+    <div class="card-heading bg-dark text-light d-flex p-2">
 		<span *ngIf="_mode==='add'">Add Firearm</span>
 		<span *ngIf="_mode==='edit'">Firearm - {{ editedFirearm.name }}</span>
+		<i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
 	</div>
-	<div class="card-body">
+	<div class="card-body" [class.collapse]="!isOpen">
 		<form #form="ngForm" novalidate (change)='change(form.valid);'>
 			<div class="form-group" [class.has-error]="nameControl.invalid && nameControl.dirty">
 				<label class="control-label">Name</label>
@@ -95,7 +96,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="card-footer clearfix">
+	<div class="card-footer" [class.collapse]="!isOpen">
 		<div *ngIf="_mode==='add'">
 			<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
 			<button class='btn btn-danger' (click)='close();'> Cancel</button>
