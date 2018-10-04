@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
 
 import { Firearm } from '../models/firearm.model';
 import { Range } from '../models/range.model';
@@ -40,7 +39,7 @@ export class DataService {
 			// We already have the data so simulate an async call
 			this.firearms = FIREARMS;
 		}
-		return Observable.of(this.firearms);
+		return of(this.firearms);
 	}
 
 	public getTarget(force = false): Observable<Target> {
@@ -53,7 +52,7 @@ export class DataService {
 				speedMPH: TARGET.speedMPH
 			};
 		}
-		return Observable.of(this.currentTarget);
+		return of(this.currentTarget);
 	}
 
 	public getWeather(force = false): Observable<Weather> {
@@ -68,7 +67,7 @@ export class DataService {
 				windAngleDegrees: WEATHER.windAngleDegrees
 			};
 		}
-		return Observable.of(this.currentWeather);
+		return of(this.currentWeather);
 	}
 
 	getDistanceYards(actualTargetSizeInches: number, reticleViewedTargetSizeMils: number) {

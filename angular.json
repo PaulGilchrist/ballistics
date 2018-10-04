@@ -19,11 +19,7 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "src/server",
-                "output": "/"
-              }
+              { "glob": "**/*", "input": "src/server/", "output": "/" }
             ],
             "styles": [
               "src/styles.css"
@@ -32,8 +28,7 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/popper.js/dist/popper.js",
-              "node_modules/toastr/toastr.js",
-              "node_modules/underscore/underscore.js"
+              "node_modules/toastr/toastr.js"
             ]
           },
           "configurations": {
@@ -83,8 +78,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/toastr/toastr.js",
-              "node_modules/underscore/underscore.js"
+              "node_modules/toastr/toastr.js"
             ],
             "styles": [
               "src/styles.css"

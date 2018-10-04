@@ -1,0 +1,14 @@
+{
+    "name": "web-server",
+    "description": "Simple Node web server for static content like Angular",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/PaulGilchrist"
+    },
+    "version": "1.0.0",
+    "dependencies": {
+        "compression": "^1.7.3",
+        "express": "4.16.3"
+    }
+}
