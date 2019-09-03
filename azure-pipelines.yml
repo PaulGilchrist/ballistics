@@ -26,7 +26,7 @@ steps:
     verbose: false
     customCommand: 'run ng -- build -c production'
 
-- task: AzureRmWebAppDeployment@3
+- task: AzureWebApp@1
   displayName: 'Azure App Service Deploy: Ballistics'
   inputs:
     azureSubscription: 'Visual Studio Enterprise (4cacb210-354d-4c71-9f3b-1368a6b47f61)'
