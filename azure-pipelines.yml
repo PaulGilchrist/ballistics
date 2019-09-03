@@ -28,7 +28,7 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Visual Studio Enterprise (4cacb210-354d-4c71-9f3b-1368a6b47f61)'
+    azureSubscription: 'Visual Studio Enterprise(4cacb210-354d-4c71-9f3b-1368a6b47f61)'
     appType: 'webApp'
     appName: ballistics
     package: '$(System.DefaultWorkingDirectory)/dist'
