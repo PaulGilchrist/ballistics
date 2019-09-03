@@ -1,38 +1,37 @@
-## Ballistics - Advanced Rifle Ballistics Calculator
+# Ballistics - Advanced Rifle Ballistics Calculator
 
+## Running Locally
 
-### Running Locally
 1. Install node from https://nodejs.org/en/download/
 2. Install npm
     * npm install -g npm
-2. Install important node packages
-    2. npm install -g typescript
-    3. npm install -g @angular/cli
-3. Install GIT from https://git-scm.com/downloads
-4. Clone repository to local directory
+3. Install important node packages
+   * npm install -g typescript
+   * npm install -g @angular/cli
+4. Install GIT from https://git-scm.com/downloads
+5. Clone repository to local directory
     * git clone https://github.com/PaulGilchrist/ballistics.git
-5. Change to local directory
+6. Change to local directory
     * cd ballistics
-6. Install all needed packages
+7. Install all needed packages
     * npm install
-7. Build and launch application (debug mode)
-    * npm start
-8. Alternativly can build and launch application (production mode)
-    1. npm run build
-    2. cd build
-    3. node server.js
+8. Build and launch application (debug mode)
+    * ng serve
 
-### Azure Deployment
-* To save some cost, this website is efficient enough to run on the free tier for your App Service Plan
-* Must add the setting below to inform Azure to lauch website from 'dist' folder rather than from project root folder
-    * Project=dist
-* PHP version set to off
-* ARR Affinity set to Off
-* Platform set to 64-bit (if running anyt tier above free)
-* Always On (if running anyt tier above free)
-* Go to Deployment Options, and set to deploy from GitHub repository
+## Azure Deployment
 
-### ToDo List
+* Create Azure Web App (Free App Service plan tier usually enough for Angular apps)
+* Go to Configuration/General Settings and make the following changes to the default settings
+  * Platform = 64 Bit (if allowed by app service plan)
+  * FTP state  = FTPS only
+  * HTTP version = 2.0
+  * ARR affinity = Off
+* Go to Deployment/Deployment Center/FTP/Dashboard and get the FTPS endpoint, username, and password
+* Build Angular project "ng build --prod -c production"
+* Use FTPS client to upload contents of "dist" folder into "site\wwwroot" folder
+
+## ToDo List
+
 * clicksToReachMaximumPointBlankRangeZero
 * maxPointBlankRangeZeroYards
 * maximumPointBlankRange
@@ -40,16 +39,15 @@
 * rifleRecoilVelocity
 * rifleRecoilEnergy
 * sectionalDensity
-
-What about making all the calculators available?
-* getDistanceYards
-* degreesToRadians
-* inchesToIPHY
-* inchesToMil
-* inchesToMinutesOfAngle
-* milesPerHourToInchesPerSecond
-* radiansToDegrees
-* secant
-* speedOfSound (at different altitudes)
-* weightDensityOfAir (at different altitudes)
-* standardRelativeHumidity (at different altitudes)
+* What about making all the calculators available?
+  * getDistanceYards
+  * degreesToRadians
+  * inchesToIPHY
+  * inchesToMil
+  * inchesToMinutesOfAngle
+  * milesPerHourToInchesPerSecond
+  * radiansToDegrees
+  * secant
+  * speedOfSound (at different altitudes)
+  * weightDensityOfAir (at different altitudes)
+  * standardRelativeHumidity (at different altitudes)
