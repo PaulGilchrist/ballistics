@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Firearm } from '../models/firearm.model';
 import { Range } from '../models/range.model';
 import { Round } from '../models/round.model';
+import { Store } from '../models/store.model';
 import { Target } from '../models/target.model';
 import { Weather } from '../models/weather.model';
 
@@ -18,17 +19,38 @@ import { DragService } from './drag.service';
 @Injectable()
 export class DataService {
 	// Public variables
+    public store: Store = {
+        firearms: null,
+        target: null,
+        weather: null
+    };
+
 	public firearms: Array<Firearm> = null;
+	public currentTarget: Target = null;
+	public currentWeather: Weather = null;
+
 	public currentFirearm: Firearm = null;
 	public currentRound: Round = null;
-	public currentTarget: Target = null;
 	public rangeData: Array<Range> = null;
 
-	public currentWeather: Weather = null;
 	public minRangeDataRows = 6;
 	public maxRangeDataRows = 20;
 
 	constructor(private _atmosphericService: AtmosphericService, private _conversionService: ConversionService, private _dragService: DragService) {}
+
+	public export(): Store {
+        return {
+            firearms: this.firearms,
+            target: this.currentTarget,
+            weather: this.currentWeather
+        };
+	}
+
+	public import(store: Store) {
+        this.firearms = store.firearms;
+        this.currentTarget = store.target;
+        this.currentWeather = store.weather;
+	}
 
 	public getFirearms(): Observable<Array<Firearm>> {
 		// Check to see if firearms are stored in localstorage before getting from API or mock data

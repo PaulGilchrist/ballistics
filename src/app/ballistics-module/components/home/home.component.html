@@ -1,5 +1,12 @@
 ﻿<div class='home'>
     <div>
+        <label class="btn btn-info" (change)="importData($event)">
+            Import <input type="file" multiple="false" accept=".json" hidden>
+        </label>
+        &nbsp;
+        <label class="btn btn-info" (click)="exportData()">Export</label>
+    </div>
+    <div>
         <div class='card'><app-weather (onChange)='changeWeather();'></app-weather></div>
         <div class='card'><app-target (onChange)='changeTarget();'></app-target></div>
         <div *ngIf="dataService.firearms && !dataService.currentFirearm && this.firearmMode!=='add'" class='card'><app-firearms [firearms]='dataService.firearms' (onAdd)='addFirearm();' (onSelect)='selectFirearm($event);'></app-firearms></div>

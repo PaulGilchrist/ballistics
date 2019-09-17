@@ -2,6 +2,7 @@
 
 import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
+import { Store } from '../../models/store.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -32,6 +33,39 @@ export class HomeComponent implements OnInit {
 			}
 		});
 	}
+
+    exportData() {
+        const json = JSON.stringify({
+            firearms: this.dataService.firearms,
+            target: this.dataService.currentTarget,
+            weather: this.dataService.currentWeather
+        });
+        const blob = new Blob([json],{type:'application/json'});
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = 'ballisticsData.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    importData(event) {
+        if (event.target.files.length !== 1) {
+            console.error('No file selected');
+        } else {
+            const reader = new FileReader();
+            reader.onloadend = (e) => {
+                // handle data processing
+                const store: Store = JSON.parse(reader.result.toString());
+                this.dataService.firearms = store.firearms;
+                this.dataService.currentTarget = store.target;
+                this.dataService.currentWeather = store.weather;
+                console.log(store);
+            };
+            reader.readAsText(event.target.files[0]);
+        }
+    }
 
 	addFirearm() {
 		this.firearmMode = 'add';

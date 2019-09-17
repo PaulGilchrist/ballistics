@@ -32,13 +32,13 @@
 
 ## ToDo List
 
+* Done - Convert to Progresssive Web Application so it can run without internet access
+* Done - Save the weather conditions during rifle zeroing.  Adapt current elevation zero to current weather conditions
 * Export/Import of data store (weather, target, firearms, & rounds) to JSON file for sending to another device or user
-* Convert to Progresssive Web Application so it can run without internet access
 * New module for tracking shots fired (shooting log)
   * Should track firearm, load, weather, velocity, accuracy (inches from group center), notes
     * Accuracy should not be inches from point of aim, because that is more related to a correct zero, shooter ability, and weather reading than ammo accuracy
   * Can help with tracking barrel life, best loads
-* Save the weather conditions during rifle zeroing.  Adapt current elevation zero to current weather conditions
 
 ### Other Ideas for Later Addition
 
