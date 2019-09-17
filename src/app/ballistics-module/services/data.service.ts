@@ -42,22 +42,28 @@ export class DataService {
 		return of(this.firearms);
 	}
 
-	public getTarget(force = false): Observable<Target> {
-		// We already have the data so simulate an async call
-		if(force || !this.currentTarget) {
-			this.currentTarget = {
-				distanceYards: TARGET.distanceYards,
-				chartStepping: TARGET.chartStepping,
-				slantDegrees: TARGET.slantDegrees,
-				speedMPH: TARGET.speedMPH
-			};
-		}
+	public getTarget(): Observable<Target> {
+		const targetJson = localStorage.getItem('target');
+		if(targetJson) {
+			this.currentTarget = JSON.parse(targetJson);
+		} else {
+            // We already have the data so simulate an async call
+            this.currentTarget = {
+                distanceYards: TARGET.distanceYards,
+                chartStepping: TARGET.chartStepping,
+                slantDegrees: TARGET.slantDegrees,
+                speedMPH: TARGET.speedMPH
+            };
+        }
 		return of(this.currentTarget);
 	}
 
-	public getWeather(force = false): Observable<Weather> {
+	public getWeather(): Observable<Weather> {
 		// We already have the data so simulate an async call
-		if(force || !this.currentWeather) {
+		const weatherJson = localStorage.getItem('weather');
+		if(weatherJson) {
+			this.currentWeather = JSON.parse(weatherJson);
+		} else {
 			this.currentWeather = {
 				altitudeFeet: WEATHER.altitudeFeet,
 				temperatureDegreesFahrenheit: WEATHER.temperatureDegreesFahrenheit,
@@ -249,6 +255,16 @@ export class DataService {
 		}
 		return updated;
 	}
+
+	public updateTarget() {
+        localStorage.setItem('target', JSON.stringify(this.currentTarget));
+	}
+
+	public updateWeather() {
+        localStorage.setItem('weather', JSON.stringify(this.currentWeather));
+	}
+
+
 
 
 }

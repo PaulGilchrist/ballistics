@@ -122,10 +122,12 @@ export class HomeComponent implements OnInit {
 	}
 
 	changeTarget() {
+		this.dataService.updateTarget();
 		this.dataService.getRangeData();
 	}
 
 	changeWeather() {
+		this.dataService.updateWeather();
 		this.dataService.getRangeData();
 	}
 
