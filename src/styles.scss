@@ -1,7 +1,8 @@
 @import '~animate.css/animate.css';
-@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap/scss/bootstrap.scss';
 @import '~font-awesome/css/font-awesome.css';
-@import '~toastr/build/toastr.css';
+@import '~ngx-toastr/toastr-bs4-alert';
+
 /*
 Try and keep global CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
 */

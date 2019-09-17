@@ -40,9 +40,9 @@
     "d3-transition": "^1.2.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
+    "ngx-toastr": "~10.2.0",
     "popper.js": "1.15.0",
     "rxjs": "^6.5.2",
-    "toastr": "^2.1.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
@@ -58,7 +58,6 @@
     "@types/jasminewd2": "^2.0.6",
     "@types/jquery": "^3.3.31",
     "@types/node": "^12.7.3",
-    "@types/toastr": "^2.1.37",
     "codelyzer": "^5.0.1",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",

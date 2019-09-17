@@ -1,20 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ToastrService } from 'ngx-toastr';
 
 import { Firearm } from '../../models/firearm.model';
-import { Round } from '../../models/round.model';
 
 @Component({
 	selector: 'app-firearm',
 	styleUrls: ['./firearm.component.css'],
 	templateUrl: './firearm.component.html'
 })
-export class FirearmComponent implements OnInit {
+export class FirearmComponent {
 
 	public editedFirearm: Firearm = null;
 	public isOpen = true;
-	public isPristine = true;
 
 	private _firearm: Firearm = null;
 	@Input()
@@ -61,28 +59,15 @@ export class FirearmComponent implements OnInit {
 	@Output() onDelete = new EventEmitter<Firearm>();
 	@Output() onSave = new EventEmitter<Firearm>();
 
-	ngOnInit() {
-		// Initialize tooltips just for this component
-		// $(document).ready(() => {
-		// 	$('firearm [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		// });
-	}
-
-
-	cancel(form: any): void {
-		// Reset the form back to the original object
-		this.firearm = this._firearm;
-		this.isPristine = true;
-	}
+    constructor(private toastrService: ToastrService) { }
 
 	change(isValid: boolean) {
 		if(isValid) {
 			this.onChange.emit(this.editedFirearm);
 		}
-		this.isPristine = false;
 	}
 
-	close(isDirty: boolean = false) {
+	close() {
 		this.onClose.emit();
 	}
 
@@ -92,8 +77,8 @@ export class FirearmComponent implements OnInit {
 
 	save(): void {
 		// Save changes to this firearm
+        this.toastrService.success('Firearm Saved', 'State Changed');
 		this.onSave.emit(this.editedFirearm);
-		this.isPristine = true;
 	}
 
 }

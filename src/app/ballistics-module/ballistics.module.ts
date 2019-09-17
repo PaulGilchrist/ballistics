@@ -4,10 +4,8 @@ import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import * as $ from 'jquery';
-import * as toastr from 'toastr';
-
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ToastrModule } from 'ngx-toastr';
 
 /* Services */
 import { AtmosphericService } from './services/atmospheric.service';
@@ -47,7 +45,8 @@ import { WeatherComponent } from './components/weather/weather.component';
 		FormsModule,
 		RouterModule.forChild([
 			{ path: '', component: HomeComponent },
-		])
+		]),
+        ToastrModule.forRoot()
 	],
 	providers: [
 		AtmosphericService,

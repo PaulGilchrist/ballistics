@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ToastrService } from 'ngx-toastr';
 
 import { Round } from '../../models/round.model';
 
@@ -9,11 +9,10 @@ import { Round } from '../../models/round.model';
 	styleUrls: ['./round.component.css'],
 	templateUrl: './round.component.html'
 })
-export class RoundComponent implements OnInit {
+export class RoundComponent {
 
 	public editedRound: Round = null;
 	public isOpen = true;
-	public isPristine = true;
 
 	private _mode = 'add';
 	@Input()
@@ -54,12 +53,7 @@ export class RoundComponent implements OnInit {
 	@Output() onDelete = new EventEmitter<Round>();
 	@Output() onSave = new EventEmitter<Round>();
 
-	ngOnInit() {
-		// Initialize tooltips just for this component
-		// $(document).ready(() => {
-		// 	$('round [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		// });
-	}
+    constructor(private toastrService: ToastrService) { }
 
 	change(isValid: boolean) {
 		if(isValid) {
@@ -67,17 +61,7 @@ export class RoundComponent implements OnInit {
 		}
 	}
 
-	cancel(): void {
-		// Reset the form back to the original object
-		this.round = this._round;
-		this.isPristine = true;
-	}
-
-	close(isDirty: boolean = false) {
-		// Change to another firearm
-		if(isDirty) {
-			toastr.error('Round not saved');
-		}
+	close() {
 		this.onClose.emit();
 	}
 
@@ -87,6 +71,7 @@ export class RoundComponent implements OnInit {
 
 	save(): void {
 		// Save changes to this round
+        this.toastrService.success('Round Saved', 'State Changed');
 		this.onSave.emit(this.editedRound);
 	}
 
