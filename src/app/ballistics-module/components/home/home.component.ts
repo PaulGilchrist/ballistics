@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
         } else {
             const reader = new FileReader();
             reader.onloadend = (e) => {
+                this.closeFirearm();
                 // handle data processing
                 const store: Store = JSON.parse(reader.result.toString());
                 this.dataService.firearms = store.firearms;
