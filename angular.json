@@ -19,7 +19,8 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              "src/web.config"
             ],
             "styles": [
               "src/styles.css"
