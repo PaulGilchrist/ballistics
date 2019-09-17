@@ -9,6 +9,8 @@ import { SharedModule } from './shared-module/shared.module';
 /* Components */
 import { AppComponent } from './app.component';
 import { BallisticsModule } from './ballistics-module/ballistics.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
 	bootstrap: [AppComponent],
@@ -29,7 +31,8 @@ import { BallisticsModule } from './ballistics-module/ballistics.module';
 				{ path: 'home', component: BallisticsModule },
 			],
 			{preloadingStrategy: NoPreloading}
-		)
+		),
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 	],
 	providers: [
 	]
