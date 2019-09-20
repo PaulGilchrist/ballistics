@@ -58,7 +58,6 @@ export class FirearmComponent implements OnInit {
 	}
 
 	save(): void {
-        console.log(this.firearm);
         if(this.status===Status.AddFirearm) {
 		    this.dataService.insertFirearm(this.firearm);
         } else {

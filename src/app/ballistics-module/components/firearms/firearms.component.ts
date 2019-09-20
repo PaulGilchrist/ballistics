@@ -29,6 +29,7 @@ export class FirearmsComponent implements OnInit {
 
 	select(firearm: Firearm) {
 		this.dataService.selectFirearm(firearm.id);
+		this.dataService.updateStatus(Status.SelectRound);
 	}
 
 }

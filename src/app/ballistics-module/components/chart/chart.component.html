@@ -103,28 +103,28 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor='let rangeRow of dataService.rangeData'>
-							<td>{{rangeRow.rangeYards}}</td>
-							<td>{{rangeRow.velocityFPS.toFixed(0)}}</td>
-							<td class="d-none d-sm-table-cell">{{rangeRow.energyFtLbs.toFixed(0)}}</td>
-							<td class="d-none d-sm-table-cell">{{rangeRow.timeSeconds.toFixed(3)}}</td>
-							<td class="d-none d-sm-table-cell">{{rangeRow.dropInches.toFixed(1)}}</td>
-							<td class='d-none d-md-table-cell'>{{rangeRow.verticalPositionInches.toFixed(1)}}</td>
-							<td *ngIf='showMil'>{{rangeRow.verticalPositionMil.toFixed(1)}}</td>
-							<td *ngIf='showMoA'>{{rangeRow.verticalPositionMoA.toFixed(1)}}</td>
-							<td *ngIf='showIPHY'>{{rangeRow.verticalPositionIPHY.toFixed(1)}}</td>
-							<td class='d-none d-md-table-cell'>{{rangeRow.crossWindDriftInches.toFixed(1)}}</td>
-							<td *ngIf='showMil'>{{rangeRow.crossWindDriftMil.toFixed(1)}}</td>
-							<td *ngIf='showMoA'>{{rangeRow.crossWindDriftMoA.toFixed(1)}}</td>
-							<td *ngIf='showIPHY'>{{rangeRow.crossWindDriftIPHY.toFixed(1)}}</td>
-							<td class='d-none d-md-table-cell'>{{rangeRow.leadInches.toFixed(1)}}</td>
-							<td *ngIf='showMil'>{{rangeRow.leadMil.toFixed(1)}}</td>
-							<td *ngIf='showMoA'>{{rangeRow.leadMoA.toFixed(1)}}</td>
-							<td *ngIf='showIPHY'>{{rangeRow.leadIPHY.toFixed(1)}}</td>
-							<td class='d-none d-md-table-cell'>{{rangeRow.slantDropInches.toFixed(1)}}</td>
-							<td *ngIf='showMil'>{{rangeRow.slantMil.toFixed(1)}}</td>
-							<td *ngIf='showMoA'>{{rangeRow.slantMoA.toFixed(1)}}</td>
-							<td *ngIf='showIPHY'>{{rangeRow.slantIPHY.toFixed(1)}}</td>
+						<tr *ngFor='let range of ranges'>
+							<td>{{range.rangeYards}}</td>
+							<td>{{range.velocityFPS.toFixed(0)}}</td>
+							<td class="d-none d-sm-table-cell">{{range.energyFtLbs.toFixed(0)}}</td>
+							<td class="d-none d-sm-table-cell">{{range.timeSeconds.toFixed(3)}}</td>
+							<td class="d-none d-sm-table-cell">{{range.dropInches.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{range.verticalPositionInches.toFixed(1)}}</td>
+							<td *ngIf='showMil'>{{range.verticalPositionMil.toFixed(1)}}</td>
+							<td *ngIf='showMoA'>{{range.verticalPositionMoA.toFixed(1)}}</td>
+							<td *ngIf='showIPHY'>{{range.verticalPositionIPHY.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{range.crossWindDriftInches.toFixed(1)}}</td>
+							<td *ngIf='showMil'>{{range.crossWindDriftMil.toFixed(1)}}</td>
+							<td *ngIf='showMoA'>{{range.crossWindDriftMoA.toFixed(1)}}</td>
+							<td *ngIf='showIPHY'>{{range.crossWindDriftIPHY.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{range.leadInches.toFixed(1)}}</td>
+							<td *ngIf='showMil'>{{range.leadMil.toFixed(1)}}</td>
+							<td *ngIf='showMoA'>{{range.leadMoA.toFixed(1)}}</td>
+							<td *ngIf='showIPHY'>{{range.leadIPHY.toFixed(1)}}</td>
+							<td class='d-none d-md-table-cell'>{{range.slantDropInches.toFixed(1)}}</td>
+							<td *ngIf='showMil'>{{range.slantMil.toFixed(1)}}</td>
+							<td *ngIf='showMoA'>{{range.slantMoA.toFixed(1)}}</td>
+							<td *ngIf='showIPHY'>{{range.slantIPHY.toFixed(1)}}</td>
 						</tr>
 					</tbody>
 				</table>

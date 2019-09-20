@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { Firearm } from '../models/firearm.model';
@@ -108,15 +108,14 @@ export class DataService {
 	}
 
 	getRanges(): Observable<Range[]> {
-        combineLatest([
+        return combineLatest([
             this.getWeather(),
             this.getTarget(),
             this.getFirearms(),
             this.getFirearmId(),
             this.getRoundId()
         ]).pipe(
-            tap(([weather, target, firearms, firearmId, roundId]) => {
-                console.log(`Getting range data`);
+            map(([weather, target, firearms, firearmId, roundId]) => {
                 let rangeData: Range[] = null;
                 let firearm = null;
                 let round = null;
@@ -193,10 +192,10 @@ export class DataService {
                     // 	rangeData = this.getRangeData();
                     // }
                 }
-                this.ranges.next(rangeData);
+                return rangeData;
             })
         );
-        return this.ranges$;
+        // return this.ranges$;
 	}
 
 	public getRoundId(): Observable<string> {
@@ -291,10 +290,13 @@ export class DataService {
 	}
 
 	public selectFirearm(firearmId: string) {
+        this.selectRound(null);
+        localStorage.setItem('firearmId', JSON.stringify(firearmId));
         this.firearmId.next(firearmId);
 	}
 
 	public selectRound(roundId: string) {
+        localStorage.setItem('roundId', JSON.stringify(roundId));
         this.roundId.next(roundId);
 	}
 

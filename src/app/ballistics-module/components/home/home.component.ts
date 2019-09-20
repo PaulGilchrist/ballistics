@@ -46,7 +46,6 @@ export class HomeComponent implements OnInit {
         });
 		this.dataService.getRanges().subscribe(ranges => {
             this.ranges = ranges;
-            console.log(`getRanges() Subscription Returned`);
         });
 	}
 
