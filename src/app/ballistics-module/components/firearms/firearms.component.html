@@ -1,18 +1,18 @@
-<div *ngIf='_firearms' class="card">
+<div *ngIf="firearms != null" class="card">
     <div class="card-heading bg-dark text-light d-flex p-2">
-		Select Firearm
-		<i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
-	</div>
-	<div class="card-body" [class.collapse]="!isOpen">
-		<ul class="list-inline">
-			<li *ngFor='let firearm of _firearms' (click)='select(firearm);' class='card'>
-				<div class="well" [class.active]='currentFirearm===firearm'>
-					{{ firearm.name }}
-				</div>
-			</li>
-		</ul>
-	</div>
-	<div class="card-footer" [class.collapse]="!isOpen">
-		<button class="btn btn-default" (click)='add();'><span class="fa fa-plus"></span> Add Firearm</button>
-	</div>
+        Select Firearm
+        <i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
+    </div>
+    <div class="card-body" [class.collapse]="!isOpen">
+        <ul class="list-inline">
+            <li *ngFor='let firearm of firearms' (click)='select(firearm);' class='card'>
+                <div class="well">
+                    {{ firearm.name }}
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer" [class.collapse]="!isOpen">
+        <button class="btn btn-default" (click)='add();'><span class="fa fa-plus"></span> Add Firearm</button>
+    </div>
 </div>

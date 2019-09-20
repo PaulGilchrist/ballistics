@@ -1,37 +1,46 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
+import { Status } from '../../models/status.model';
+
+import { DataService } from '../../services/data.service';
 
 @Component({
 		selector: 'app-rounds',
 		styleUrls: ['./rounds.component.css'],
 		templateUrl: './rounds.component.html'
 })
-export class RoundsComponent {
+export class RoundsComponent implements OnInit {
 
-	public currentRound: Round = null;
-	public isOpen = true;
+	firearms: Firearm[] = null;
+	rounds: Round[] = null;
+	isOpen = true;
+    status: Status = null;
+    get statusEnum() { return Status; }
 
-	public _rounds: Array<Round> = [];
-	@Input()
-	set rounds(rounds: Array<Round>) {
-		if (rounds) {
-			this._rounds = rounds;
-		} else {
-			this._rounds = [];
-		}
+    constructor(private dataService: DataService) { }
+
+	ngOnInit() {
+		this.dataService.getFirearms().subscribe(firearms => {
+            this.firearms = firearms;
+        });
+		this.dataService.getFirearmId().subscribe(firearmId => {
+            if(this.firearms != null && firearmId != null) {
+                this.rounds = this.firearms.find(f => f.id===firearmId).rounds;
+            }
+        });
+		this.dataService.getStatus().subscribe(status => {
+            this.status = status;
+        });
 	}
 
-	@Output() onAdd = new EventEmitter();
-	@Output() onSelect = new EventEmitter<Round>();
-
 	add() {
-		this.onAdd.emit();
+		this.dataService.updateStatus(Status.AddRound);
 	}
 
 	select(round: Round) {
-		this.currentRound = round;
-		this.onSelect.emit(this.currentRound);
+		this.dataService.selectRound(round.id);
 	}
 
 }

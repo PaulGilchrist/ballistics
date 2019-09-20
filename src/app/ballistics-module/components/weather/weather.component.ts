@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 import { Weather } from '../../models/weather.model';
 import { DataService } from '../../services/data.service';
@@ -11,23 +10,20 @@ import { DataService } from '../../services/data.service';
 })
 export class WeatherComponent implements OnInit {
 
-	public isOpen = true;
+    isOpen = true;
+    weather: Weather = null;
 
-	@Output() onChange = new EventEmitter();
-
-	constructor(public dataService: DataService) {}
+	constructor(private dataService: DataService) {}
 
 	ngOnInit() {
-		this.dataService.getWeather().subscribe();
-		// Initialize tooltips just for this component
-		// $(document).ready(() => {
-		// 	$('weather [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		// });
+		this.dataService.getWeather().subscribe(weather => {
+            this.weather = weather;
+        });
 	}
 
 	change(isValid: boolean) {
 		if(isValid) {
-			this.onChange.emit();
+            this.dataService.updateWeather(this.weather);
 		}
 	}
 

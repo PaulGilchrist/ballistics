@@ -1,37 +1,34 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model';
+import { Status } from '../../models/status.model';
+
+import { DataService } from '../../services/data.service';
 
 @Component({
 	selector: 'app-firearms',
 	styleUrls: ['./firearms.component.css'],
 	templateUrl: './firearms.component.html'
 })
-export class FirearmsComponent {
+export class FirearmsComponent implements OnInit {
 
-	public isOpen = true;
-	public currentFirearm: Firearm = null;
+	isOpen = true;
+	firearms: Firearm[] = null;
 
-	public _firearms: Array<Firearm> = null;
-	@Input()
-	set firearms(firearms: Array<Firearm>) {
-		if (firearms) {
-			this._firearms = firearms;
-		} else {
-			this.firearms = [];
-		}
+	constructor(private dataService: DataService) {}
+
+	ngOnInit() {
+		this.dataService.getFirearms().subscribe(firearms => {
+            this.firearms = firearms;
+        });
 	}
 
-	@Output() onAdd = new EventEmitter();
-	@Output() onSelect = new EventEmitter<Firearm>();
-
 	add() {
-		this.onAdd.emit();
+		this.dataService.updateStatus(Status.AddFirearm);
 	}
 
 	select(firearm: Firearm) {
-		this.currentFirearm = firearm;
-		this.onSelect.emit(this.currentFirearm);
+		this.dataService.selectFirearm(firearm.id);
 	}
 
 }

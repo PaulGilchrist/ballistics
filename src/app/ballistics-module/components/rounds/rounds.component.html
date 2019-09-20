@@ -1,12 +1,12 @@
-<div *ngIf='_rounds' class="card">
+<div *ngIf='rounds != null' class="card">
     <div class="card-heading bg-dark text-light d-flex p-2">
 		Select Round
 		<i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
 	</div>
 	<div class="card-body" [class.collapse]="!isOpen">
 		<ul class="list-inline">
-			<li *ngFor='let round of _rounds' (click)='select(round);' class='card' >
-				<div class="well" [class.active]='currentRound===round'>
+			<li *ngFor='let round of rounds' (click)='select(round);' class='card' >
+				<div class="well">
 					{{ round.name }}
 				</div>
 			</li>

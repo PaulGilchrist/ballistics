@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 import { Target } from '../../models/target.model';
 import { DataService } from '../../services/data.service';
@@ -11,23 +10,20 @@ import { DataService } from '../../services/data.service';
 })
 export class TargetComponent implements OnInit {
 
-	public isOpen = true;
+	isOpen = true;
+    target: Target = null;
 
-	@Output() onChange = new EventEmitter();
-
-	constructor(public dataService: DataService) {}
+	constructor(private dataService: DataService) {}
 
 	ngOnInit() {
-		this.dataService.getTarget().subscribe();
-		// Initialize tooltips just for this component
-		// $(document).ready(() => {
-		// 	$('target [data-toggle="tooltip"]').tooltip({ container: 'body' });
-		// });
+		this.dataService.getTarget().subscribe(target => {
+            this.target = target;
+        });
 	}
 
 	change(isValid: boolean) {
 		if(isValid) {
-			this.onChange.emit();
+            this.dataService.updateTarget(this.target);
 		}
 	}
 

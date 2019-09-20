@@ -1,84 +1,71 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { Firearm } from '../../models/firearm.model';
+import { Status } from '../../models/status.model';
+
+import { DataService } from '../../services/data.service';
 
 @Component({
 	selector: 'app-firearm',
 	styleUrls: ['./firearm.component.css'],
 	templateUrl: './firearm.component.html'
 })
-export class FirearmComponent {
+export class FirearmComponent implements OnInit {
 
-	public editedFirearm: Firearm = null;
-	public isOpen = true;
+	firearms: Firearm[] = null;
+	firearm: Firearm = {
+        id: null,
+        name: null,
+        elevationTurretGradients: null,
+        reticleUnits: null,
+        rounds: [],
+        sightHeightInches: null,
+        turretUnits: null,
+        windageTurretGradients: null,
+        zeroRangeYards: null
+    };
+	isOpen = true;
+    status: Status = null;
+    get statusEnum() { return Status; }
 
-	private _firearm: Firearm = null;
-	@Input()
-	set firearm(firearm: Firearm) {
-		if (firearm) {
-			this.editedFirearm = {
-				id: firearm.id,
-				name: firearm.name,
-				elevationTurretGradients: firearm.elevationTurretGradients,
-				reticleUnits: firearm.reticleUnits,
-				rounds: firearm.rounds,
-				sightHeightInches: firearm.sightHeightInches,
-				turretUnits: firearm.turretUnits,
-				windageTurretGradients: firearm.windageTurretGradients,
-				zeroRangeYards: firearm.zeroRangeYards,
-			};
-		} else {
-			// Setup defaults
-			this.editedFirearm = {
-				id: null,
-				name: null,
-				elevationTurretGradients: null,
-				reticleUnits: null,
-				rounds: [],
-				sightHeightInches: null,
-				turretUnits: null,
-				windageTurretGradients: null,
-				zeroRangeYards: null,
-			};
-		}
-		// Save the initial settings so we can reset if requested
-		this._firearm = firearm;
+    constructor(private dataService: DataService, private toastrService: ToastrService) { }
+
+	ngOnInit(): void {
+		this.dataService.getFirearms().subscribe(firearms => {
+            this.firearms = firearms;
+        });
+		this.dataService.getFirearmId().subscribe(firearmId => {
+            if(this.firearms != null && firearmId != null) {
+                this.firearm = this.firearms.find(f => f.id===firearmId);
+            }
+        });
+		this.dataService.getStatus().subscribe(status => {
+            this.status = status;
+        });
 	}
 
-	private _mode = 'add';
-	@Input()
-	set mode(mode: string) {
-		// Acceptable modes are 'add' or 'edit'
-		this._mode = mode;
+	close(): void {
+		this.dataService.selectFirearm(null);
+		this.dataService.updateStatus(Status.SelectFirearm);
 	}
 
-	@Output() onChange = new EventEmitter<Firearm>();
-	@Output() onClose = new EventEmitter();
-	@Output() onDelete = new EventEmitter<Firearm>();
-	@Output() onSave = new EventEmitter<Firearm>();
-
-    constructor(private toastrService: ToastrService) { }
-
-	change(isValid: boolean) {
-		if(isValid) {
-			this.onChange.emit(this.editedFirearm);
-		}
-	}
-
-	close() {
-		this.onClose.emit();
-	}
-
-	delete() {
-		this.onDelete.emit(this._firearm);
+	delete(): void {
+		this.dataService.deleteFirearm(this.firearm.id);
+        this.toastrService.success('Deleted','Firearm Status');
+        this.close();
 	}
 
 	save(): void {
-		// Save changes to this firearm
-        this.toastrService.success('Firearm Saved', 'State Changed');
-		this.onSave.emit(this.editedFirearm);
+        console.log(this.firearm);
+        if(this.status===Status.AddFirearm) {
+		    this.dataService.insertFirearm(this.firearm);
+        } else {
+		    this.dataService.updateFirearm(this.firearm);
+        }
+		this.dataService.updateStatus(Status.SelectRound);
+        this.toastrService.success('Saved','Firearm Status');
 	}
 
 }

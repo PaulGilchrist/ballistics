@@ -15,25 +15,44 @@ import { DataService } from '../../services/data.service';
 })
 export class ChartComponent implements OnInit {
 
-	public isOpen = true;
-	public showMil = true;
-	public showMoA = true;
-	public showIPHY = true;
+	firearms: Firearm[] = null;
+	firearm: Firearm = null;
+	isOpen = true;
+    ranges: Range[] = null;
+	round: Round = null;
+	showMil = true;
+	showMoA = true;
+	showIPHY = true;
+	target: Target = null;
+	weather: Weather = null;
 
 	constructor(public dataService: DataService) {}
 
 	ngOnInit() {
-		// Assumes this component is not loaded until after we have a dataService with currentFirearm
-		this.showMil = this.dataService.currentFirearm.turretUnits===0 || this.dataService.currentFirearm.reticleUnits===0;
-		this.showMoA = this.dataService.currentFirearm.turretUnits===1 || this.dataService.currentFirearm.reticleUnits===1;
-		this.showIPHY = this.dataService.currentFirearm.turretUnits===3 || this.dataService.currentFirearm.reticleUnits===3;
-		this.dataService.getRangeData();
-		// Initialize tooltips just for this component
-		// $(document).ready(() => {
-		// 	$('chart [data-toggle="tooltip"]').tooltip({
-		// 		container: 'body',
-		// 		trigger: 'hover click'
-		// 	});
-		// });
+		this.dataService.getWeather().subscribe(weather => {
+            this.weather = weather;
+        });
+		this.dataService.getTarget().subscribe(target => {
+            this.target = target;
+        });
+		this.dataService.getFirearms().subscribe(firearms => {
+            this.firearms = firearms;
+        });
+		this.dataService.getFirearmId().subscribe(firearmId => {
+            if(this.firearms != null && firearmId != null) {
+                this.firearm = this.firearms.find(f => f.id===firearmId);
+                this.showMil = this.firearm.turretUnits===0 || this.firearm.reticleUnits===0;
+                this.showMoA = this.firearm.turretUnits===1 || this.firearm.reticleUnits===1;
+                this.showIPHY = this.firearm.turretUnits===3 || this.firearm.reticleUnits===3;
+            }
+        });
+		this.dataService.getRoundId().subscribe(roundId => {
+            if(this.firearm != null && roundId != null) {
+                this.round = this.firearm.rounds.find(r => r.id===roundId);
+            }
+        });
+		this.dataService.getRanges().subscribe(ranges => {
+            this.ranges = ranges;
+        });
 	}
 }

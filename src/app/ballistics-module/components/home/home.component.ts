@@ -1,8 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { combineLatest } from 'rxjs';
 
-import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
 import { Store } from '../../models/store.model';
+
+import { Firearm } from '../../models/firearm.model';
+import { Range } from '../../models/range.model';
+import { Status } from '../../models/status.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -15,31 +19,40 @@ declare var toastr: any;
 })
 export class HomeComponent implements OnInit {
 
-	public firearm: Firearm = null;
-	public firearmMode = 'select'; // Valid modes are 'add', 'edit', or 'select'
+	firearmId: string = null;
+	firearms: Firearm[] = null;
+    ranges: Range[] = null;
+	roundId: string = null;
+    status: Status = null;
+    get statusEnum() { return Status; }
 	public graphHeight = 300;
 	public graphType = 'line';
 	public graphWidth = 300;
-	public roundMode = 'select'; // Valid modes are 'add', 'edit', or 'select'
 
 	constructor(public dataService: DataService) {}
 
 	ngOnInit() {
+		this.dataService.getFirearmId().subscribe(firearmId => {
+            this.firearmId = firearmId;
+        });
 		this.dataService.getFirearms().subscribe(firearms => {
-			if(firearms && firearms.length > 0) {
-				this.firearmMode = 'select';
-			} else {
-				this.firearmMode = 'add';
-			}
-		});
+            this.firearms = firearms;
+        });
+		this.dataService.getRoundId().subscribe(roundId => {
+            this.roundId = roundId;
+        });
+		this.dataService.getStatus().subscribe(status => {
+            this.status = status;
+        });
+		this.dataService.getRanges().subscribe(ranges => {
+            this.ranges = ranges;
+            console.log(`getRanges() Subscription Returned`);
+        });
 	}
 
     exportData() {
-        const json = JSON.stringify({
-            firearms: this.dataService.firearms,
-            target: this.dataService.currentTarget,
-            weather: this.dataService.currentWeather
-        });
+        const store = this.dataService.export();
+        const json = JSON.stringify(store);
         const blob = new Blob([json],{type:'application/json'});
         const href = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -56,114 +69,12 @@ export class HomeComponent implements OnInit {
         } else {
             const reader = new FileReader();
             reader.onloadend = (e) => {
-                this.closeFirearm();
                 // handle data processing
                 const store: Store = JSON.parse(reader.result.toString());
-                this.dataService.firearms = store.firearms;
-                this.dataService.currentTarget = store.target;
-                this.dataService.currentWeather = store.weather;
-                console.log(store);
+                this.dataService.import(store);
             };
             reader.readAsText(event.target.files[0]);
         }
     }
-
-	addFirearm() {
-		this.firearmMode = 'add';
-	}
-
-	addRound() {
-		this.roundMode = 'add';
-	}
-
-	changeFirearm(firearm: Firearm) {
-		this.dataService.currentFirearm = firearm;
-		this.dataService.getRangeData();
-	}
-
-	changeRound(round: Round) {
-		this.dataService.currentRound = round;
-		this.dataService.getRangeData();
-	}
-
-	closeFirearm() {
-		// Reset the selected round and firearm to null
-		this.closeRound();
-		this.dataService.currentFirearm = this.firearm = null;
-		this.firearmMode = 'select';
-	}
-
-	closeRound() {
-		this.dataService.currentRound = null;
-		this.roundMode = 'select';
-		this.dataService.getRangeData();
-	}
-
-	deleteFirearm(firearm: Firearm) {
-		console.log('Home - deleteFirearm');
-		if(this.dataService.deleteFirearm(firearm)) {
-			toastr.info('Firearm deleted');
-			this.closeFirearm();
-		}
-	}
-
-	deleteRound(round: Round) {
-		console.log(round);
-		if(this.dataService.deleteRound(this.dataService.currentFirearm, round)) {
-			toastr.info('Round deleted');
-			this.closeRound();
-		}
-	}
-	saveFirearm(firearm: Firearm) {
-		if(this.firearmMode==='add') {
-			if(this.dataService.insertFirearm(firearm)) {
-				toastr.info('Firearm added');
-				this.selectFirearm(firearm);
-			}
-		} else {
-			if(this.dataService.updateFirearm(firearm)) {
-				toastr.info('Firearm updated');
-			}
-		}
-	}
-
-	saveRound(round: Round) {
-		if(this.roundMode==='add') {
-			if(this.dataService.insertRound(this.dataService.currentFirearm, round)) {
-				toastr.info('Round added');
-				this.selectRound(round);
-			}
-		} else {
-			if(this.dataService.updateRound(this.dataService.currentFirearm, round)) {
-				toastr.info('Round updated');
-			}
-		}
-	}
-
-	selectFirearm(firearm: Firearm) {
-		this.dataService.currentFirearm = this.firearm = firearm;
-		this.firearmMode = 'edit';
-		if(firearm.rounds && firearm.rounds.length > 0) {
-			this.roundMode = 'select';
-		} else {
-			this.roundMode = 'add';
-		}
-	}
-
-	selectRound(round: Round) {
-		this.dataService.currentRound = round;
-		this.roundMode = 'edit';
-		this.dataService.getRangeData();
-	}
-
-	changeTarget() {
-		this.dataService.updateTarget();
-		this.dataService.getRangeData();
-	}
-
-	changeWeather() {
-		this.dataService.updateWeather();
-		this.dataService.getRangeData();
-	}
 
 }

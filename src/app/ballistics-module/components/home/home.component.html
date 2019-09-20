@@ -7,14 +7,14 @@
         <label class="btn btn-info" (click)="exportData()">Export</label>
     </div>
     <div>
-        <div class='card'><app-weather (onChange)='changeWeather();'></app-weather></div>
-        <div class='card'><app-target (onChange)='changeTarget();'></app-target></div>
-        <div *ngIf="dataService.firearms && !dataService.currentFirearm && this.firearmMode!=='add'" class='card'><app-firearms [firearms]='dataService.firearms' (onAdd)='addFirearm();' (onSelect)='selectFirearm($event);'></app-firearms></div>
-        <div *ngIf="dataService.currentFirearm || this.firearmMode==='add'" class='card'><app-firearm [firearm]='firearm' [mode]='firearmMode' (onChange)='changeFirearm($event);' (onClose)='closeFirearm();' (onDelete)='deleteFirearm($event);' (onSave)='saveFirearm($event);'></app-firearm></div>
-        <div *ngIf="dataService.currentFirearm && !dataService.currentRound && this.roundMode!=='add'" class='card'><app-rounds [rounds]='dataService.currentFirearm.rounds' (onAdd)='addRound();' (onSelect)='selectRound($event);'></app-rounds></div>
-        <div *ngIf="dataService.currentFirearm && (dataService.currentRound || this.roundMode==='add')" class='card'><app-round [round]='dataService.currentRound' [mode]='roundMode' (onChange)='changeRound($event);' (onClose)='closeRound();' (onDelete)='deleteRound($event);' (onSave)='saveRound($event);'></app-round></div>
+        <div class='card'><app-weather></app-weather></div>
+        <div class='card'><app-target></app-target></div>
+        <div *ngIf="firearms!=null && firearmId==null && status!=statusEnum.AddFirearm" class='card'><app-firearms></app-firearms></div>
+        <div *ngIf="firearmId!=null || status==statusEnum.AddFirearm" class='card'><app-firearm></app-firearm></div>
+        <div *ngIf="firearmId!=null && roundId==null && status!=statusEnum.AddRound" class='card'><app-rounds></app-rounds></div>
+        <div *ngIf="roundId!=null || status==statusEnum.AddRound" class='card'><app-round></app-round></div>
     </div>
-    <div *ngIf='dataService.rangeData'>
+    <div *ngIf='ranges'>
 		<br/>
         <app-chart></app-chart>
 		<br/>
@@ -22,35 +22,35 @@
         <div>
             <div class="graph-inline">
                 <h3>Velocity (feet/sec)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="velocityFPS" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='0'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="velocityFPS" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='0'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Energy (foot pounds)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="energyFtLbs" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='0'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="energyFtLbs" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='0'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Time (seconds)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="timeSeconds" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='2'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="timeSeconds" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='2'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Drop (inches)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="dropInches" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='1'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="dropInches" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='1'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Elevation (inches)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="verticalPositionInches" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='1'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="verticalPositionInches" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='1'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Cross Wind Drift (inches)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="crossWindDriftInches" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='1'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="crossWindDriftInches" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='1'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Lead (inches)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="leadInches" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='1'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="leadInches" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='1'></d3-graph>
             </div>
             <div class="graph-inline">
                 <h3>Slant Hold (inches - hold low)</h3>
-                <d3-graph [type]="graphType" [data]="dataService.rangeData" xKey="rangeYards" yKey="slantDegrees" [width]="graphWidth" [height]="graphHeight" [labels]='all' [yToFixed]='1'></d3-graph>
+                <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="slantDegrees" [width]="graphWidth" [height]="graphHeight" labels='all' [yToFixed]='1'></d3-graph>
             </div>
         </div>
     </div>

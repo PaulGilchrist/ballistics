@@ -1,78 +1,71 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
+import { Status } from '../../models/status.model';
+
+import { DataService } from '../../services/data.service';
 
 @Component({
 	selector: 'app-round',
 	styleUrls: ['./round.component.css'],
 	templateUrl: './round.component.html'
 })
-export class RoundComponent {
+export class RoundComponent implements OnInit {
 
-	public editedRound: Round = null;
-	public isOpen = true;
+	firearmId: string = null;
+	firearms: Firearm[] = null;
+	round: Round = {
+        id: null,
+        name: null,
+        bulletBC: null,
+        bulletDiameterInches: null,
+        bulletWeightGrains: null,
+        muzzleVelocityFPS: null
+	};
+	isOpen = true;
+    status: Status = null;
+    get statusEnum() { return Status; }
 
-	private _mode = 'add';
-	@Input()
-	set mode(mode: string) {
-		// Acceptable modes are 'add' and 'edit'
-		this._mode = mode;
-	}
+    constructor(private dataService: DataService, private toastrService: ToastrService) { }
 
-	private _round: Round = null;
-	@Input()
-	set round(round: Round) {
-		if (round) {
-			this.editedRound = {
-				id: round.id,
-				name: round.name,
-				bulletBC: round.bulletBC,
-				bulletDiameterInches: round.bulletDiameterInches,
-				bulletWeightGrains: round.bulletWeightGrains,
-				muzzleVelocityFPS: round.muzzleVelocityFPS
-			};
-		} else {
-			// Setup defaults
-			this.editedRound = {
-				id: null,
-				name: null,
-				bulletBC: null,
-				bulletDiameterInches: null,
-				bulletWeightGrains: null,
-				muzzleVelocityFPS: null
-			};
-		}
-		// Save the initial settings so we can reset if requested
-		this._round = round;
-	}
-
-	@Output() onChange = new EventEmitter<Round>();
-	@Output() onClose = new EventEmitter();
-	@Output() onDelete = new EventEmitter<Round>();
-	@Output() onSave = new EventEmitter<Round>();
-
-    constructor(private toastrService: ToastrService) { }
-
-	change(isValid: boolean) {
-		if(isValid) {
-			this.onChange.emit(this.editedRound);
-		}
+	ngOnInit() {
+		this.dataService.getFirearms().subscribe(firearms => {
+            this.firearms = firearms;
+        });
+		this.dataService.getFirearmId().subscribe(firearmId => {
+            this.firearmId = firearmId;
+        });
+		this.dataService.getRoundId().subscribe(roundId => {
+            if(this.firearms != null && this.firearmId != null && roundId != null) {
+                this.round = this.firearms.find(f => f.id===this.firearmId).rounds.find(r => r.id===roundId);
+            }
+        });
+		this.dataService.getStatus().subscribe(status => {
+            this.status = status;
+        });
 	}
 
 	close() {
-		this.onClose.emit();
+		this.dataService.selectRound(null);
+		this.dataService.updateStatus(Status.SelectRound);
 	}
 
 	delete() {
-		this.onDelete.emit(this._round);
+		this.dataService.deleteRound(this.firearmId, this.round.id);
+        this.toastrService.success('Deleted','Round Status');
+        this.close();
 	}
 
 	save(): void {
-		// Save changes to this round
-        this.toastrService.success('Round Saved', 'State Changed');
-		this.onSave.emit(this.editedRound);
+        if(this.status===Status.AddRound) {
+		    this.dataService.insertRound(this.firearmId, this.round);
+        } else {
+		    this.dataService.updateRound(this.firearmId, this.round);
+        }
+        this.toastrService.success('Saved','Round Status');
 	}
 
 }
