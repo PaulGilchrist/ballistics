@@ -6,7 +6,7 @@ import { Firearm } from '../models/firearm.model';
 import { LengthEnum } from '../models/length-enum.model';
 import { Range } from '../models/range.model';
 import { Round } from '../models/round.model';
-import { Status } from '../models/status.model';
+import { StatusEnum } from '../models/status-enum.model';
 import { Store } from '../models/store.model';
 import { Target } from '../models/target.model';
 import { Weather } from '../models/weather.model';
@@ -41,7 +41,7 @@ export class DataService {
     private roundId = new BehaviorSubject<string>(null);
     roundId$ = this.roundId.asObservable();
 
-    private status = new BehaviorSubject<Status>(Status.SelectFirearm);
+    private status = new BehaviorSubject<StatusEnum>(StatusEnum.SelectFirearm);
     status$ = this.status.asObservable();
 
     private target = new BehaviorSubject<Target>({
@@ -213,7 +213,7 @@ export class DataService {
 		return this.roundId$;
 	}
 
-	public getStatus(): Observable<Status> {
+	public getStatus(): Observable<StatusEnum> {
 		const statusJson = localStorage.getItem('status');
 		if(statusJson) {
             this.status.next(JSON.parse(statusJson));
@@ -364,7 +364,7 @@ export class DataService {
 		return updated;
 	}
 
-	public updateStatus(status: Status): boolean {
+	public updateStatus(status: StatusEnum): boolean {
         localStorage.setItem('status', JSON.stringify(status));
         this.status.next(status);
         return true;

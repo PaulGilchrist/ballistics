@@ -16,7 +16,6 @@ import { DataService } from '../../services/data.service';
 })
 export class ChartComponent implements OnInit {
 
-    distanceInYards = true;;
 	firearms: Firearm[] = null;
 	firearm: Firearm = null;
 	isOpen = true;
@@ -27,6 +26,8 @@ export class ChartComponent implements OnInit {
 	showIPHY = true;
 	target: Target = null;
 	weather: Weather = null;
+    get lengthEnum() { return LengthEnum; }
+
 
 	constructor(public dataService: DataService) {}
 
@@ -36,7 +37,6 @@ export class ChartComponent implements OnInit {
         });
 		this.dataService.getTarget().subscribe(target => {
             this.target = target;
-            this.distanceInYards = target.distanceUnits===LengthEnum.Yards;
         });
 		this.dataService.getFirearms().subscribe(firearms => {
             this.firearms = firearms;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
-import { Status } from '../../models/status.model';
+import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -16,8 +16,8 @@ export class RoundsComponent implements OnInit {
 	firearms: Firearm[] = null;
 	rounds: Round[] = null;
 	isOpen = true;
-    status: Status = null;
-    get statusEnum() { return Status; }
+    status: StatusEnum = null;
+    get statusEnum() { return StatusEnum; }
 
     constructor(private dataService: DataService) { }
 
@@ -36,7 +36,7 @@ export class RoundsComponent implements OnInit {
 	}
 
 	add() {
-		this.dataService.updateStatus(Status.AddRound);
+		this.dataService.updateStatus(StatusEnum.AddRound);
 	}
 
 	select(round: Round) {

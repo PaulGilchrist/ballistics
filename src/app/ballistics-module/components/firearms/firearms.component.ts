@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model';
-import { Status } from '../../models/status.model';
+import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -24,12 +24,12 @@ export class FirearmsComponent implements OnInit {
 	}
 
 	add() {
-		this.dataService.updateStatus(Status.AddFirearm);
+		this.dataService.updateStatus(StatusEnum.AddFirearm);
 	}
 
 	select(firearm: Firearm) {
 		this.dataService.selectFirearm(firearm.id);
-		this.dataService.updateStatus(Status.SelectRound);
+		this.dataService.updateStatus(StatusEnum.SelectRound);
 	}
 
 }

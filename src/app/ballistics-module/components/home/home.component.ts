@@ -6,7 +6,7 @@ import { Store } from '../../models/store.model';
 
 import { Firearm } from '../../models/firearm.model';
 import { Range } from '../../models/range.model';
-import { Status } from '../../models/status.model';
+import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
 	firearms: Firearm[] = null;
     ranges: Range[] = null;
 	roundId: string = null;
-    status: Status = null;
-    get statusEnum() { return Status; }
+    status: StatusEnum = null;
+    get statusEnum() { return StatusEnum; }
 	public graphHeight = 300;
 	public graphType = 'line';
 	public graphWidth = 300;

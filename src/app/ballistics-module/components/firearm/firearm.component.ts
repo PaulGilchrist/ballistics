@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Firearm } from '../../models/firearm.model';
 import { LengthEnum } from '../../models/length-enum.model';
-import { Status } from '../../models/status.model';
+import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -29,8 +29,8 @@ export class FirearmComponent implements OnInit {
         zeroRange: null
     };
 	isOpen = true;
-    status: Status = null;
-    get statusEnum() { return Status; }
+    status: StatusEnum = null;
+    get statusEnum() { return StatusEnum; }
 
     constructor(private dataService: DataService, private toastrService: ToastrService) { }
 
@@ -50,7 +50,7 @@ export class FirearmComponent implements OnInit {
 
 	close(): void {
 		this.dataService.selectFirearm(null);
-		this.dataService.updateStatus(Status.SelectFirearm);
+		this.dataService.updateStatus(StatusEnum.SelectFirearm);
 	}
 
 	delete(): void {
@@ -60,12 +60,12 @@ export class FirearmComponent implements OnInit {
 	}
 
 	save(): void {
-        if(this.status===Status.AddFirearm) {
+        if(this.status===StatusEnum.AddFirearm) {
 		    this.dataService.insertFirearm(this.firearm);
         } else {
 		    this.dataService.updateFirearm(this.firearm);
         }
-		this.dataService.updateStatus(Status.SelectRound);
+		this.dataService.updateStatus(StatusEnum.SelectRound);
         this.toastrService.success('Saved','Firearm Status');
 	}
 

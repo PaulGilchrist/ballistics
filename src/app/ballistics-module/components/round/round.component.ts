@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Firearm } from '../../models/firearm.model';
 import { Round } from '../../models/round.model';
-import { Status } from '../../models/status.model';
+import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
 
@@ -26,8 +26,8 @@ export class RoundComponent implements OnInit {
         muzzleVelocityFPS: null
 	};
 	isOpen = true;
-    status: Status = null;
-    get statusEnum() { return Status; }
+    status: StatusEnum = null;
+    get statusEnum() { return StatusEnum; }
 
     constructor(private dataService: DataService, private toastrService: ToastrService) { }
 
@@ -50,7 +50,7 @@ export class RoundComponent implements OnInit {
 
 	close() {
 		this.dataService.selectRound(null);
-		this.dataService.updateStatus(Status.SelectRound);
+		this.dataService.updateStatus(StatusEnum.SelectRound);
 	}
 
 	delete() {
@@ -60,7 +60,7 @@ export class RoundComponent implements OnInit {
 	}
 
 	save(): void {
-        if(this.status===Status.AddRound) {
+        if(this.status===StatusEnum.AddRound) {
 		    this.dataService.insertRound(this.firearmId, this.round);
         } else {
 		    this.dataService.updateRound(this.firearmId, this.round);
