@@ -39,6 +39,8 @@
 * Done - Choose Meters or Yards
 * Done - Cleanup UI flex box code
 * Done - Chart highlights both transonic and subsonic speeds
+* Done - Fix Drop and Slant charts
+* Done - Ranging distance using known target size compared to size measured in reticle
 * New module for tracking shots fired (shooting log)
   * Should track firearm, load, weather, velocity, accuracy (inches from group center), notes
     * Accuracy should not be inches from point of aim, because that is more related to a correct zero, shooter ability, and weather reading than ammo accuracy
@@ -46,19 +48,14 @@
 
 ### Other Ideas for Later Addition
 
-* getDistanceYards (from target size and mils)
-* optimalRiflingTwist
-* speedOfSound (at different altitudes)
-* standardRelativeHumidity (at different altitudes)
-
 * clicksToReachMaximumPointBlankRangeZero
 * maxPointBlankRangeZeroYards
 * maximumPointBlankRange
-* rifleRecoilVelocity
-* rifleRecoilEnergy
-* sectionalDensity
+* optimalRiflingTwist (requires asking user for bullet length which would not be known unless reloading or pulling a bullet to measure)
+* rifleRecoilVelocity (requires rifle weight and powder weight - Powder weight would not be known unless reloading)
+* rifleRecoilEnergy (requires rifle weight and powder weight - Powder weight would not be known unless reloading)
+* sectionalDensity (requires bullet diameter)
 * What about making all the calculators available?
-  * getDistanceYards
   * degreesToRadians
   * inchesToIPHY
   * inchesToMil
@@ -66,5 +63,4 @@
   * milesPerHourToInchesPerSecond
   * radiansToDegrees
   * secant
-  * speedOfSound (at different altitudes)
   * weightDensityOfAir (at different altitudes)
