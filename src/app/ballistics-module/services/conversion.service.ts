@@ -36,6 +36,10 @@ export class ConversionService {
 	  }
 	}
 
+	metersToYards(meters: number) {
+	  return (meters / 0.9144);
+	}
+
 	milesPerHourToInchesPerSecond(inputVelocityMPH: number) {
 	  // Converts from a Miles Per Hour To Inches Per Second.
 	  return inputVelocityMPH * 17.6004;
@@ -49,6 +53,10 @@ export class ConversionService {
 	sec(angle: number) {
 	  // Secant
 	  return 1 / Math.cos(angle);
+	}
+
+	yardsToMeters(yards: number) {
+	  return (yards * 0.9144);
 	}
 
 }

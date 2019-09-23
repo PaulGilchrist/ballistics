@@ -44,7 +44,8 @@ export class DataService {
     status$ = this.status.asObservable();
 
     private target = new BehaviorSubject<Target>({
-        distanceYards: 1000,
+        distanceType: 0, // 0 = yards. 1 = meters
+        distance: 1000,
         chartStepping: 50,
         slantDegrees: 45,
         speedMPH: 3
@@ -134,14 +135,16 @@ export class DataService {
                     // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
                     const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometericPressureInchesHg, weather.relativeHumidityPercent);
                     const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, firearm.zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
-                    let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches;
+                    let currentCrossWindDriftInches: number, currentDropInches: number, currentEnergyFtLbs: number, currentLeadInches: number,  currentRangeMeters: number, currentRangeYards: number, currentTimeSeconds: number, currentVelocityFPS: number, currentVerticalPositionInches: number;
                     // Skip the first row
-                    let currentRangeYards = target.chartStepping;
+                    let currentRange = target.chartStepping;
                     /*
                         Here is a method that auto determines the maximum distance based on when the round goes subsonic, but takes control away from user
                         while ((currentVelocityFPS == null) || (currentVelocityFPS > this._atmosphericService.speedOfSoundAtSeaLevel)) {
                     */
-                    while (currentRangeYards <= target.distanceYards) {
+                    while (currentRange <= target.distance) {
+                        currentRangeMeters = target.distanceType===0 ? this._conversionService.yardsToMeters(currentRange): currentRange,
+                        currentRangeYards = target.distanceType===0 ? currentRange: this._conversionService.metersToYards(currentRange),
                         currentVelocityFPS = this._dragService.velocityFromRange(currentBallisticCoefficient, round.muzzleVelocityFPS, currentRangeYards);
                         currentEnergyFtLbs = this._dragService.energy(round.bulletWeightGrains, currentVelocityFPS);
                         currentTimeSeconds = this._dragService.time(currentBallisticCoefficient, round.muzzleVelocityFPS, currentVelocityFPS);
@@ -152,6 +155,7 @@ export class DataService {
                         currentLeadInches = this._dragService.lead(target.speedMPH, currentTimeSeconds);
                         const slantDropInches: number = currentDropInches * (1-Math.cos(this._conversionService.degreesToRadians(target.slantDegrees)));
                         const range: Range = {
+                            rangeMeters: currentRangeMeters,
                             rangeYards: currentRangeYards,
                             velocityFPS: currentVelocityFPS,
                             energyFtLbs: currentEnergyFtLbs,
@@ -177,7 +181,7 @@ export class DataService {
                             slantIPHY: this._conversionService.inchesToIPHY(slantDropInches, currentRangeYards)
                         };
                         rangeData.push(range);
-                        currentRangeYards += target.chartStepping;
+                        currentRange += target.chartStepping;
                     }
                     /*
                         Below is methods to ensure the table is neither too short or too long, but takes control away from user

@@ -1,4 +1,5 @@
 export interface Range {
+	rangeMeters: number;
 	rangeYards: number;
 	velocityFPS: number;
 	energyFtLbs: number;

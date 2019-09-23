@@ -1,5 +1,6 @@
 export interface Target {
-	distanceYards: number;
+	distanceType: number; // 0 = yards. 1 = meters
+	distance: number;
 	chartStepping: number;
 	slantDegrees: number;
 	speedMPH: number;
