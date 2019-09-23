@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { Firearm } from '../../models/firearm.model';
+import { LengthEnum } from '../../models/length-enum.model';
 import { Status } from '../../models/status.model';
 
 import { DataService } from '../../services/data.service';
@@ -24,7 +25,8 @@ export class FirearmComponent implements OnInit {
         sightHeightInches: null,
         turretUnits: null,
         windageTurretGradients: null,
-        zeroRangeYards: null
+        zeroRangeUnits: LengthEnum.Yards,
+        zeroRange: null
     };
 	isOpen = true;
     status: Status = null;

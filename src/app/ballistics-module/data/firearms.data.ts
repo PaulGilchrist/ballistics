@@ -1,4 +1,6 @@
 import { Firearm } from '../models/firearm.model';
+import { LengthEnum } from '../models/length-enum.model';
+
 export let FIREARMS: Array<Firearm> = [
 	{
 		id: '8f331a2c-ef70-4a64-a028-276bf27523c4',
@@ -18,7 +20,8 @@ export let FIREARMS: Array<Firearm> = [
 		sightHeightInches: 1.5,
 		turretUnits: 1,
 		windageTurretGradients: 2,
-		zeroRangeYards: 50
+        zeroRangeUnits: LengthEnum.Yards,
+		zeroRange: 50
 	},
 	{
 		id: '8a6b05a9-ecb7-4f62-8a73-c07df86209e5',
@@ -62,7 +65,8 @@ export let FIREARMS: Array<Firearm> = [
 		sightHeightInches: 2,
 		turretUnits: 0,
 		windageTurretGradients: 10,
-		zeroRangeYards: 100
+        zeroRangeUnits: LengthEnum.Yards,
+		zeroRange: 100
 	},
 	{
 		id: '7d7f9e4d-7c33-4e04-ad1e-602e6f5d35f9',
@@ -90,7 +94,8 @@ export let FIREARMS: Array<Firearm> = [
 		sightHeightInches: 2,
 		turretUnits: 0,
 		windageTurretGradients: 10,
-		zeroRangeYards: 100
+        zeroRangeUnits: LengthEnum.Yards,
+		zeroRange: 100
 	},
 	{
 		id: '479a565e-cfe9-4ddf-8bf2-292cf1b0ca4f',
@@ -134,6 +139,7 @@ export let FIREARMS: Array<Firearm> = [
 		sightHeightInches: 2,
 		turretUnits: 0,
 		windageTurretGradients: 10,
-		zeroRangeYards: 100
+        zeroRangeUnits: LengthEnum.Yards,
+		zeroRange: 100
 	}
 ];

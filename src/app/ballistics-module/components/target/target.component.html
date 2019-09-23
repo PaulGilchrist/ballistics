@@ -5,21 +5,15 @@
     </div>
 	<div class="card-body" [class.collapse]="!isOpen">
 		<form #form="ngForm" novalidate (change)='change(form.valid);'>
-			<div class="form-group" [class.has-error]="distanceTypeControl.invalid && distanceTypeControl.dirty">
-				<label class="control-label" data-toggle="tooltip" title="Distance in Meters or Yards">Distance Type</label>
-				<div class="input-group margin-bottom-sm">
-	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-repeat fa-fw"></i></div></div>
-					<select name="distanceType" [(ngModel)]="target.distanceType" #distanceTypeControl="ngModel" class="form-control" required>
-						<option [ngValue]='0'>Yards</option>
-						<option [ngValue]='1'>Meters</option>
-					</select>
-				</div>
-			</div>
 			<div class="form-group" [class.has-error]="distanceControl.invalid && distanceControl.dirty">
 				<label class="control-label" data-toggle="tooltip" title="Distance measured from the muzzle to the target">Distance</label>
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-bullseye fa-fw"></i></div></div>
 					<input type="number" name="distance" [(ngModel)]="target.distance" #distanceControl="ngModel" class="form-control" placeholder="Distance" required min="0" max="5000" step="5">
+                    <select name="distanceUnits" [(ngModel)]="target.distanceUnits" #distanceUnitsControl="ngModel" class="form-control" required>
+                        <option [ngValue]='0'>Yards</option>
+                        <option [ngValue]='1'>Meters</option>
+                    </select>
 				</div>
 				<div [hidden]="distanceControl.valid || distanceControl.pristine" class="alert alert-danger">
 					Distance is required to determine how far out to calculate ballistics data

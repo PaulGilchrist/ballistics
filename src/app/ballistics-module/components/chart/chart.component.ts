@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model';
+import { LengthEnum } from '../../models/length-enum.model';
 import { Range } from '../../models/range.model';
 import { Round } from '../../models/round.model';
 import { Target } from '../../models/target.model';
@@ -15,6 +16,7 @@ import { DataService } from '../../services/data.service';
 })
 export class ChartComponent implements OnInit {
 
+    distanceInYards = true;;
 	firearms: Firearm[] = null;
 	firearm: Firearm = null;
 	isOpen = true;
@@ -34,6 +36,7 @@ export class ChartComponent implements OnInit {
         });
 		this.dataService.getTarget().subscribe(target => {
             this.target = target;
+            this.distanceInYards = target.distanceUnits===LengthEnum.Yards;
         });
 		this.dataService.getFirearms().subscribe(firearms => {
             this.firearms = firearms;

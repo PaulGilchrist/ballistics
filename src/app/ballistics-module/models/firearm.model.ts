@@ -1,3 +1,4 @@
+import { LengthEnum } from './length-enum.model';
 import { Round } from './round.model';
 
 export interface Firearm {
@@ -14,5 +15,6 @@ export interface Firearm {
 	// Turret units 0=Mil, 1=MoA, 2=IPHY
 	turretUnits: number;
 	windageTurretGradients: number;
-	zeroRangeYards: number;
+	zeroRangeUnits: LengthEnum;
+	zeroRange: number;
 }

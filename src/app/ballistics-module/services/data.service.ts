@@ -3,6 +3,7 @@ import { BehaviorSubject, combineLatest, Observable, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { Firearm } from '../models/firearm.model';
+import { LengthEnum } from '../models/length-enum.model';
 import { Range } from '../models/range.model';
 import { Round } from '../models/round.model';
 import { Status } from '../models/status.model';
@@ -44,7 +45,7 @@ export class DataService {
     status$ = this.status.asObservable();
 
     private target = new BehaviorSubject<Target>({
-        distanceType: 0, // 0 = yards. 1 = meters
+        distanceUnits: LengthEnum.Yards,
         distance: 1000,
         chartStepping: 50,
         slantDegrees: 45,
@@ -134,7 +135,9 @@ export class DataService {
                     rangeData = [];
                     // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
                     const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometericPressureInchesHg, weather.relativeHumidityPercent);
-                    const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, firearm.zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
+                    const zeroRangeYards = firearm.zeroRangeUnits===LengthEnum.Yards ? firearm.zeroRange: this._conversionService.metersToYards(firearm.zeroRange);
+                    console.log(zeroRangeYards);
+                    const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
                     let currentCrossWindDriftInches: number, currentDropInches: number, currentEnergyFtLbs: number, currentLeadInches: number,  currentRangeMeters: number, currentRangeYards: number, currentTimeSeconds: number, currentVelocityFPS: number, currentVerticalPositionInches: number;
                     // Skip the first row
                     let currentRange = target.chartStepping;
@@ -143,8 +146,8 @@ export class DataService {
                         while ((currentVelocityFPS == null) || (currentVelocityFPS > this._atmosphericService.speedOfSoundAtSeaLevel)) {
                     */
                     while (currentRange <= target.distance) {
-                        currentRangeMeters = target.distanceType===0 ? this._conversionService.yardsToMeters(currentRange): currentRange,
-                        currentRangeYards = target.distanceType===0 ? currentRange: this._conversionService.metersToYards(currentRange),
+                        currentRangeMeters = target.distanceUnits===LengthEnum.Yards ? this._conversionService.yardsToMeters(currentRange): currentRange,
+                        currentRangeYards = target.distanceUnits===LengthEnum.Yards ? currentRange: this._conversionService.metersToYards(currentRange),
                         currentVelocityFPS = this._dragService.velocityFromRange(currentBallisticCoefficient, round.muzzleVelocityFPS, currentRangeYards);
                         currentEnergyFtLbs = this._dragService.energy(round.bulletWeightGrains, currentVelocityFPS);
                         currentTimeSeconds = this._dragService.time(currentBallisticCoefficient, round.muzzleVelocityFPS, currentVelocityFPS);
