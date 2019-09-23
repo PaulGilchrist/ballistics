@@ -6,20 +6,19 @@
         &nbsp;
         <label class="btn btn-info" (click)="exportData()">Export</label>
     </div>
-    <div>
-        <div class='card'><app-weather></app-weather></div>
-        <div class='card'><app-target></app-target></div>
-        <div *ngIf="firearms!=null && firearmId==null && status!=statusEnum.AddFirearm" class='card'><app-firearms></app-firearms></div>
-        <div *ngIf="firearmId!=null || status==statusEnum.AddFirearm" class='card'><app-firearm></app-firearm></div>
-        <div *ngIf="firearmId!=null && roundId==null" class='card'><app-rounds></app-rounds></div>
-        <div *ngIf="firearmId!=null && (roundId!=null || status==statusEnum.AddRound)" class='card'><app-round></app-round></div>
+    <div class="d-flex flex-row flex-wrap justify-content-center">
+        <app-weather></app-weather>
+        <app-target></app-target>
+        <app-firearms></app-firearms>
+        <app-firearm></app-firearm>
+        <app-rounds></app-rounds>
+        <app-round></app-round>
     </div>
     <div *ngIf='ranges'>
-		<br/>
         <app-chart></app-chart>
 		<br/>
         <button class='btn btn-success'(click)="graphType==='line' ? graphType='bar' : graphType='line'">Change Graph Type</button>
-        <div>
+        <div class="d-flex flex-fill flex-row flex-wrap justify-content-around">
             <div class="graph-inline">
                 <h3>Velocity (feet/sec)</h3>
                 <d3-graph [type]="graphType" [data]="ranges" xKey="rangeYards" yKey="velocityFPS" [width]="graphWidth" [height]="graphHeight" labels='none' [yToFixed]='0'></d3-graph>

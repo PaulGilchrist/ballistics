@@ -136,7 +136,6 @@ export class DataService {
                     // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
                     const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometericPressureInchesHg, weather.relativeHumidityPercent);
                     const zeroRangeYards = firearm.zeroRangeUnits===LengthEnum.Yards ? firearm.zeroRange: this._conversionService.metersToYards(firearm.zeroRange);
-                    console.log(zeroRangeYards);
                     const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
                     let currentCrossWindDriftInches: number, currentDropInches: number, currentEnergyFtLbs: number, currentLeadInches: number,  currentRangeMeters: number, currentRangeYards: number, currentTimeSeconds: number, currentVelocityFPS: number, currentVerticalPositionInches: number;
                     // Skip the first row

@@ -28,6 +28,7 @@ export class FirearmComponent implements OnInit {
         zeroRangeUnits: LengthEnum.Yards,
         zeroRange: null
     };
+    firearmId: string = null;
 	isOpen = true;
     status: StatusEnum = null;
     get statusEnum() { return StatusEnum; }
@@ -39,6 +40,7 @@ export class FirearmComponent implements OnInit {
             this.firearms = firearms;
         });
 		this.dataService.getFirearmId().subscribe(firearmId => {
+            this.firearmId = firearmId;
             if(this.firearms != null && firearmId != null) {
                 this.firearm = this.firearms.find(f => f.id===firearmId);
             }

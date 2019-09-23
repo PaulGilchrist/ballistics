@@ -25,6 +25,7 @@ export class RoundComponent implements OnInit {
         bulletWeightGrains: null,
         muzzleVelocityFPS: null
 	};
+	roundId: string = null;
 	isOpen = true;
     status: StatusEnum = null;
     get statusEnum() { return StatusEnum; }
@@ -39,6 +40,7 @@ export class RoundComponent implements OnInit {
             this.firearmId = firearmId;
         });
 		this.dataService.getRoundId().subscribe(roundId => {
+            this.roundId = roundId;
             if(this.firearms != null && this.firearmId != null && roundId != null) {
                 this.round = this.firearms.find(f => f.id===this.firearmId).rounds.find(r => r.id===roundId);
             }

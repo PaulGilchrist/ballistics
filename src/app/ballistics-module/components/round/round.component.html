@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="firearmId!=null && (roundId!=null || status==statusEnum.AddRound)" class="card">
     <div class="card-heading bg-dark text-light d-flex p-2">
 		<span *ngIf="status==statusEnum.AddRound">Add Round</span>
 		<span *ngIf="status!=statusEnum.AddRound">Round - {{ round.name }}</span>

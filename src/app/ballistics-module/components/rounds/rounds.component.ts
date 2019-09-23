@@ -13,7 +13,9 @@ import { DataService } from '../../services/data.service';
 })
 export class RoundsComponent implements OnInit {
 
+	firearmId: string = null;
 	firearms: Firearm[] = null;
+	roundId: string = null;
 	rounds: Round[] = null;
 	isOpen = true;
     status: StatusEnum = null;
@@ -26,11 +28,15 @@ export class RoundsComponent implements OnInit {
             this.firearms = firearms;
         });
 		this.dataService.getFirearmId().subscribe(firearmId => {
+            this.firearmId = firearmId;
             if(this.firearms != null && firearmId != null) {
                 this.rounds = this.firearms.find(f => f.id===firearmId).rounds;
             }
         });
-		this.dataService.getStatus().subscribe(status => {
+		this.dataService.getRoundId().subscribe(roundId => {
+            this.roundId = roundId;
+        });
+        this.dataService.getStatus().subscribe(status => {
             this.status = status;
         });
 	}
