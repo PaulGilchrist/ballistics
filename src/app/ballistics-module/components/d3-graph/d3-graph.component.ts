@@ -119,7 +119,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
 		const padding = 36;
 		const isDate: boolean = (this.xType==='date');
 		const xScale = this.scale(_this.xKey, [padding+5, _this.width-10], true);
-		const yScale = this.scale(_this.yKey, [_this.height-padding, 10], false);
+		const yScale = this.scale(_this.yKey, [_this.height-padding, 10], true);
 		const xAxisGen = d3.axisBottom(xScale);
 		if(isDate) {
 			xAxisGen.tickFormat(d3.timeFormat('%b'));
