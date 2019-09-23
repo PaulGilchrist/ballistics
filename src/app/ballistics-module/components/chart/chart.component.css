@@ -1,6 +1,9 @@
 .card-body {
 	padding: 5px
 }
+.card-footer {
+	background-color: rgb(227, 229, 237);
+}
 .font-size-small {
 	font-size: 0.8em;
 }

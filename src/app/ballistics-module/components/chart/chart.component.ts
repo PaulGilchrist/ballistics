@@ -7,6 +7,7 @@ import { Round } from '../../models/round.model';
 import { Target } from '../../models/target.model';
 import { Weather } from '../../models/weather.model';
 
+import { AtmosphericService } from '../../services/atmospheric.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -24,16 +25,18 @@ export class ChartComponent implements OnInit {
 	showMil = true;
 	showMoA = true;
 	showIPHY = true;
+    speedOfSound = 0;
 	target: Target = null;
 	weather: Weather = null;
     get lengthEnum() { return LengthEnum; }
 
 
-	constructor(public dataService: DataService) {}
+	constructor(public dataService: DataService, private atmosphericService: AtmosphericService) {}
 
 	ngOnInit() {
 		this.dataService.getWeather().subscribe(weather => {
             this.weather = weather;
+            this.speedOfSound = this.atmosphericService.speedOfSound(this.weather.altitudeFeet);
         });
 		this.dataService.getTarget().subscribe(target => {
             this.target = target;

@@ -38,6 +38,7 @@
 * Done - Convert to RxJs Event Driven design
 * Done - Choose Meters or Yards
 * Done - Cleanup UI flex box code
+* Done - Chart highlights both transonic and subsonic speeds
 * New module for tracking shots fired (shooting log)
   * Should track firearm, load, weather, velocity, accuracy (inches from group center), notes
     * Accuracy should not be inches from point of aim, because that is more related to a correct zero, shooter ability, and weather reading than ammo accuracy
