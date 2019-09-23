@@ -4,6 +4,7 @@ export interface Target {
 	distanceUnits: LengthEnum;
 	distance: number;
 	chartStepping: number;
+	sizeInches?: number;
 	slantDegrees: number;
 	speedMPH: number;
 }

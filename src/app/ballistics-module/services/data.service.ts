@@ -48,6 +48,7 @@ export class DataService {
         distanceUnits: LengthEnum.Yards,
         distance: 1000,
         chartStepping: 50,
+        sizeInches: 40,
         slantDegrees: 45,
         speedMPH: 3
     });
@@ -86,10 +87,6 @@ export class DataService {
         this.roundId.next(store.roundId);
         this.target.next(store.target);
         this.weather.next(store.weather);
-	}
-
-	getDistanceYards(actualTargetSizeInches: number, reticleViewedTargetSizeMils: number) {
-		return Math.round((actualTargetSizeInches/36) * 1000 / reticleViewedTargetSizeMils);
 	}
 
 	public getFirearmId(): Observable<string> {

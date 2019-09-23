@@ -55,6 +55,10 @@ export class ConversionService {
 	  return 1 / Math.cos(angle);
 	}
 
+	sizeToDistance(actualTargetSizeInches: number, reticleViewedTargetSizeMils: number) {
+		return Math.round((actualTargetSizeInches/36) * 1000 / reticleViewedTargetSizeMils);
+	}
+
 	yardsToMeters(yards: number) {
 	  return (yards * 0.9144);
 	}

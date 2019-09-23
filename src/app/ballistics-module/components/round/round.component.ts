@@ -7,6 +7,7 @@ import { Round } from '../../models/round.model';
 import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
+import { DragService } from '../../services/drag.service';
 
 @Component({
 	selector: 'app-round',
@@ -17,6 +18,7 @@ export class RoundComponent implements OnInit {
 
 	firearmId: string = null;
 	firearms: Firearm[] = null;
+    optimalRiflingTwist: number;
 	round: Round = {
         id: null,
         name: null,
@@ -30,7 +32,7 @@ export class RoundComponent implements OnInit {
     status: StatusEnum = null;
     get statusEnum() { return StatusEnum; }
 
-    constructor(private dataService: DataService, private toastrService: ToastrService) { }
+    constructor(private dataService: DataService, private dragService: DragService, private toastrService: ToastrService) { }
 
 	ngOnInit() {
 		this.dataService.getFirearms().subscribe(firearms => {
@@ -43,6 +45,7 @@ export class RoundComponent implements OnInit {
             this.roundId = roundId;
             if(this.firearms != null && this.firearmId != null && roundId != null) {
                 this.round = this.firearms.find(f => f.id===this.firearmId).rounds.find(r => r.id===roundId);
+                // optimalBarrelTwist = this.dragService.optimalRiflingTwist(this.round.bulletDiameterInches, this.round.bulletLengthInches);
             }
         });
 		this.dataService.getStatus().subscribe(status => {

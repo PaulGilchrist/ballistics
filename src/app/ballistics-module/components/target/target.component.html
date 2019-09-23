@@ -9,7 +9,7 @@
 				<label class="control-label" data-toggle="tooltip" title="Distance measured from the muzzle to the target">Distance</label>
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-bullseye fa-fw"></i></div></div>
-					<input type="number" name="distance" [(ngModel)]="target.distance" #distanceControl="ngModel" class="form-control" placeholder="Distance" required min="0" max="5000" step="5">
+					<input type="number" name="distance" [(ngModel)]="target.distance" #distanceControl="ngModel" class="form-control" placeholder="Distance" required min="0" max="5000" step="5" (change)="targetSizeMils=null">
                     <select name="distanceUnits" [(ngModel)]="target.distanceUnits" #distanceUnitsControl="ngModel" class="form-control" required>
                         <option [ngValue]='0'>Yards</option>
                         <option [ngValue]='1'>Meters</option>
@@ -17,6 +17,20 @@
 				</div>
 				<div [hidden]="distanceControl.valid || distanceControl.pristine" class="alert alert-danger">
 					Distance is required to determine how far out to calculate ballistics data
+				</div>
+			</div>
+			<div class="form-group" [class.has-error]="sizeInchesControl.invalid && sizeInchesControl.dirty">
+				<label class="control-label" data-toggle="tooltip" title="The size of the target in inches (optional).  Used in combination with the size of the target in Mils to determine the distance.">Size (Inches / Mils) - optional</label>
+				<div class="input-group margin-bottom-sm">
+	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-ellipsis-v fa-fw"></i></div></div>
+					<input type="number" name="sizeInches" [(ngModel)]="target.sizeInches" #sizeInchesControl="ngModel" class="form-control" placeholder="Inches" min="1" max="120" (change)="this.getDistance()">
+					<input type="number" name="targetSizeMils" [(ngModel)]="targetSizeMils" #targetSizeMilsControl="ngModel" class="form-control" placeholder="" min="0.1" max="100" step='0.1' (change)="this.getDistance()">
+				</div>
+				<div [hidden]="sizeInchesControl.valid || sizeInchesControl.pristine" class="alert alert-danger">
+					Target size should be between 1 and 120 inches.
+				</div>
+				<div [hidden]="targetSizeMilsControl.valid || targetSizeMilsControl.pristine" class="alert alert-danger">
+					Target Mils should be between 1 and 100.
 				</div>
 			</div>
 			<div class="form-group" [class.has-error]="chartSteppingControl.invalid && chartSteppingControl.dirty">
