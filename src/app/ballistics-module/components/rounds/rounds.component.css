@@ -30,10 +30,3 @@ li.card {
         margin-right: 5px;
     }
 }
-@media (min-width: 1200px) {
-    .card {
-        margin-left: 0px;
-        margin-right: 0px;
-        width: 282px;
-    }
-}
