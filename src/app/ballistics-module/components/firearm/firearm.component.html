@@ -58,10 +58,11 @@
 				<label class="control-label" data-toggle="tooltip" title="Number of elevation (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Elevation Turret (clicks per unit)</label>
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-align-center fa-fw"></i></div></div>
-					<select name="elevationTurretGradients" [(ngModel)]="firearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" class="form-control" required>
+					<select name="elevationTurretGradients" [(ngModel)]="firearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" class="form-control">
 						<option *ngIf='firearm.turretUnits!=0' [ngValue]='1'>1</option>
 						<option *ngIf='firearm.turretUnits!=0' [ngValue]='2'>2</option>
 						<option *ngIf='firearm.turretUnits!=0' [ngValue]='4'>4</option>
+						<option *ngIf='firearm.turretUnits==0' [ngValue]='5'>5</option>
 						<option *ngIf='firearm.turretUnits==0' [ngValue]='10'>10</option>
 					</select>
 					<select name="turretUnits" [(ngModel)]="firearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
@@ -71,17 +72,18 @@
 					</select>
 				</div>
 				<div [hidden]="elevationTurretGradientsControl.valid || elevationTurretGradientsControl.pristine" class="alert alert-danger">
-						Elevation turret gradients allows values 1,2,4 or 10 (# clicks per turret unti 1,2,4 for MoA and IPHY, and 10 for Mil)
+						Elevation turret gradients allows values 1,2,4 or 5,10 (# clicks per turret unti 1,2,4 for MoA and IPHY, and 5 or 10 for Mil)
 				</div>
 			</div>
 			<div class="form-group" [class.has-error]="windageTurretGradientsControl.invalid && windageTurretGradientsControl.dirty">
 				<label class="control-label" data-toggle="tooltip" title="Number of windage (up/down) turret clicks per turret unit.  Usually refered to as a fraction (ex: 1/4 MoA = 4 clicks per MoA)">Windage Turret (clicks per unit)</label>
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-repeat fa-fw"></i></div></div>
-					<select name="windageTurretGradients" [(ngModel)]="firearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" class="form-control" required>
+					<select name="windageTurretGradients" [(ngModel)]="firearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" class="form-control">
 						<option *ngIf='firearm.turretUnits!=0' [ngValue]='1'>1</option>
 						<option *ngIf='firearm.turretUnits!=0' [ngValue]='2'>2</option>
 						<option *ngIf='firearm.turretUnits!=0' [ngValue]='4'>4</option>
+						<option *ngIf='firearm.turretUnits==0' [ngValue]='5'>5</option>
 						<option *ngIf='firearm.turretUnits==0' [ngValue]='10'>10</option>
 					</select>
 					<select name="turretUnits" [(ngModel)]="firearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
@@ -91,7 +93,7 @@
 					</select>
 				</div>
 				<div [hidden]="windageTurretGradientsControl.valid || windageTurretGradientsControl.pristine" class="alert alert-danger">
-						Windage turret gradients allows values 1,2,4 or 10 (# clicks per turret unti 1,2,4 for MoA and IPHY, and 10 for Mil)
+						Windage turret gradients allows values 1,2,4 or 5,10 (# clicks per turret unti 1,2,4 for MoA and IPHY, and 5 or 10 for Mil)
 				</div>
 			</div>
 		</form>
