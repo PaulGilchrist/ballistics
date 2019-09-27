@@ -20,15 +20,6 @@ import { DragService } from './drag.service';
 
 @Injectable()
 export class DataService {
-	// Public variables
-    public store: Store = {
-        firearmId: null,
-        firearms: null,
-        roundId: null,
-        target: null,
-        weather: null
-    };
-
     private firearmId = new BehaviorSubject<string>(null);
     firearmId$ = this.firearmId.asObservable();
 
@@ -66,9 +57,6 @@ export class DataService {
 
 	public rangeData: Range[] = null;
 
-	public minRangeDataRows = 6;
-	public maxRangeDataRows = 20;
-
 	constructor(private _atmosphericService: AtmosphericService, private _conversionService: ConversionService, private _dragService: DragService) {}
 
 	public export(): Store {
@@ -76,6 +64,7 @@ export class DataService {
             firearmId: this.firearmId.getValue(),
             firearms: this.firearms.getValue(),
             roundId: this.roundId.getValue(),
+            status: this.status.getValue(),
             target: this.target.getValue(),
             weather: this.weather.getValue()
         };
@@ -85,6 +74,7 @@ export class DataService {
         this.firearmId.next(store.firearmId);
         this.firearms.next(store.firearms);
         this.roundId.next(store.roundId);
+        this.status.next(store.status);
         this.target.next(store.target);
         this.weather.next(store.weather);
 	}
@@ -137,10 +127,6 @@ export class DataService {
                     let currentCrossWindDriftInches: number, currentDropInches: number, currentEnergyFtLbs: number, currentLeadInches: number,  currentRangeMeters: number, currentRangeYards: number, currentTimeSeconds: number, currentVelocityFPS: number, currentVerticalPositionInches: number;
                     // Skip the first row
                     let currentRange = target.chartStepping;
-                    /*
-                        Here is a method that auto determines the maximum distance based on when the round goes subsonic, but takes control away from user
-                        while ((currentVelocityFPS == null) || (currentVelocityFPS > this._atmosphericService.speedOfSoundAtSeaLevel)) {
-                    */
                     while (currentRange <= target.distance) {
                         currentRangeMeters = target.distanceUnits===LengthEnum.Yards ? this._conversionService.yardsToMeters(currentRange): currentRange,
                         currentRangeYards = target.distanceUnits===LengthEnum.Yards ? currentRange: this._conversionService.metersToYards(currentRange),
@@ -182,23 +168,10 @@ export class DataService {
                         rangeData.push(range);
                         currentRange += target.chartStepping;
                     }
-                    /*
-                        Below is methods to ensure the table is neither too short or too long, but takes control away from user
-                    */
-                    // if(rangeData.length < this.minRangeDataRows) {
-                    // 	// Reduce the stepping to ensure we have a good sample of data between muzzle and subsonic
-                    // 	this.currentTarget.chartStepping = Math.floor(this.currentTarget.chartStepping / 2);
-                    // 	rangeData = this.getRangeData();
-                    // } else if(rangeData.length > this.maxRangeDataRows) {
-                    // 	// Increase the stepping to ensure we do not have too large of a chart
-                    // 	this.currentTarget.chartStepping = this.currentTarget.chartStepping * 2;
-                    // 	rangeData = this.getRangeData();
-                    // }
                 }
                 return rangeData;
             })
         );
-        // return this.ranges$;
 	}
 
 	public getRoundId(): Observable<string> {

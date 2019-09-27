@@ -16,18 +16,7 @@ import { DataService } from '../../services/data.service';
 export class FirearmComponent implements OnInit {
 
 	firearms: Firearm[] = null;
-	firearm: Firearm = {
-        id: null,
-        name: null,
-        elevationTurretGradients: null,
-        reticleUnits: null,
-        rounds: [],
-        sightHeightInches: null,
-        turretUnits: null,
-        windageTurretGradients: null,
-        zeroRangeUnits: LengthEnum.Yards,
-        zeroRange: null
-    };
+	firearm: Firearm = null;
     firearmId: string = null;
 	isOpen = true;
     status: StatusEnum = null;
@@ -36,6 +25,7 @@ export class FirearmComponent implements OnInit {
     constructor(private dataService: DataService, private toastrService: ToastrService) { }
 
 	ngOnInit(): void {
+        this.resetForm();
 		this.dataService.getFirearms().subscribe(firearms => {
             this.firearms = firearms;
         });
@@ -43,6 +33,8 @@ export class FirearmComponent implements OnInit {
             this.firearmId = firearmId;
             if(this.firearms != null && firearmId != null) {
                 this.firearm = this.firearms.find(f => f.id===firearmId);
+            } else {
+               this.resetForm();
             }
         });
 		this.dataService.getStatus().subscribe(status => {
@@ -60,6 +52,21 @@ export class FirearmComponent implements OnInit {
         this.toastrService.success('Deleted','Firearm Status');
         this.close();
 	}
+
+    resetForm(): void {
+        this.firearm = {
+            id: null,
+            name: null,
+            elevationTurretGradients: null,
+            reticleUnits: null,
+            rounds: [],
+            sightHeightInches: null,
+            turretUnits: null,
+            windageTurretGradients: null,
+            zeroRangeUnits: LengthEnum.Yards,
+            zeroRange: null
+        };
+    }
 
 	save(): void {
         if(this.status===StatusEnum.AddFirearm) {
