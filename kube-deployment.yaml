@@ -1,0 +1,45 @@
+#kubectl version
+#kubectl cluster-info
+#kubectl apply -f kube-deployment.yaml
+#kubectl get deployments ballistics-deployment
+#kubectl describe deployments ballistics-deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: ballistics-service
+  labels:
+    app: ballistics-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8082 # Exposed port on LoadBalancer
+      targetPort: 80 # Container port
+      protocol: TCP
+  selector: # Pods to load balance traffic to
+    app: ballistics-pod
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ballistics-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ballistics-pod
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: ballistics-pod
+    spec:
+      containers:
+        - name: front-end
+          image: paulgilchrist/ballistics
+          ports:
+            - containerPort: 80
+          livenessProbe: # Defines the health checking
+            tcpSocket: # TCP probe
+              port: 80
+            initialDelaySeconds: 30 # length of time to wait for a pod to initialize after pod startup, before applying health checking
+            timeoutSeconds: 1
+---

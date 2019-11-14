@@ -1,9 +1,10 @@
+# ng build --prod
 # docker build --rm -f "Dockerfile" -t paulgilchrist/ballistics:latest .
-# docker run -d -p 80:3000 paulgilchrist/ballistics
+# docker run -d -p 80:80 paulgilchrist/ballistics
 # docker rm -f <containerID>
-FROM paulgilchrist/node-web-server
-COPY dist /usr/src/app
-WORKDIR /usr/src/app
-EXPOSE 3000
-CMD [ "node", "index.js" ]
+FROM nginx:alpine
+LABEL author="Paul Gilchrist"
+COPY ./dist /usr/share/nginx/html
+EXPOSE 80 443
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
 # docker push paulgilchrist/ballistics
