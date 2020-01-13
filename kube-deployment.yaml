@@ -1,18 +1,23 @@
+#Documentation at https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
 #kubectl version
 #kubectl cluster-info
 #kubectl apply -f kube-deployment.yaml
-#kubectl get deployments ballistics-deployment
-#kubectl describe deployments ballistics-deployment
+#Pods are load balanced nodes. Replicasets are the load balanced cluster. Deployments are the combination of all replicasets making up and application
+#Some useful commands include <delete, describe, or get> <deployments, pods, replicasets, or services> [name]
+#Examples
+#   kubectl get deployments ballistics-deployment
+#   kubectl describe replicasets
 apiVersion: v1
 kind: Service
 metadata:
   name: ballistics-service
   labels:
     app: ballistics-service
+    tier: frontend
 spec:
   type: LoadBalancer
   ports:
-    - port: 8082 # Exposed port on LoadBalancer
+    - port: 8081 # Exposed port on LoadBalancer
       targetPort: 80 # Container port
       protocol: TCP
   selector: # Pods to load balance traffic to
@@ -26,6 +31,7 @@ spec:
   selector:
     matchLabels:
       app: ballistics-pod
+      tier: frontend
   replicas: 2 # tells deployment to run 2 pods matching the template
   template:
     metadata:
@@ -36,7 +42,7 @@ spec:
         - name: front-end
           image: paulgilchrist/ballistics
           ports:
-            - containerPort: 80
+            - containerPort: 80 # Must match what the Docker container exposes
           livenessProbe: # Defines the health checking
             tcpSocket: # TCP probe
               port: 80
