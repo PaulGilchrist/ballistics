@@ -32,7 +32,6 @@
     "@angular/pwa": "^0.803.4",
     "@angular/router": "^8.2.4",
     "@angular/service-worker": "^8.2.4",
-    "angular-cli-ghpages": "^0.6.2",
     "angular-confirmation-popover": "^4.2.1",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
