@@ -1,6 +1,6 @@
 {
-  "name": "angular-template",
-  "short_name": "angular-template",
+  "name": "ballistics",
+  "short_name": "ballistics",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
