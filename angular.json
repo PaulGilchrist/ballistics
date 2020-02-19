@@ -132,6 +132,10 @@
           "options": {}
         }
       }
-    }},
-  "defaultProject": "ballistics"
+    }
+  },
+  "defaultProject": "ballistics",
+  "cli": {
+    "analytics": "370640b0-a763-468b-97d3-b4d83ba981f6"
+  }
 }
