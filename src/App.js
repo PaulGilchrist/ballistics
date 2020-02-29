@@ -11,11 +11,22 @@ import css from './app.module.css';
 import Target from './components/Target';
 import Weather from './components/Weather';
 
+import FIREARMS from './data/firearms';
+
+
 const App = () => {
     // console.log(`Rendering App`);
     // Call it once in your app. At the root of your app is the best place
     toast.configure();
     // Get global data
+    let firearms;
+    const firearmsJson = localStorage.getItem('firearms');
+    if(firearmsJson) {
+       firearms = JSON.parse(firearmsJson);
+    } else {
+        firearms = FIREARMS;
+        localStorage.setItem('firearms', JSON.stringify(firearms));
+    }
     let target;
     const targetJson = localStorage.getItem('target');
     if(targetJson) {

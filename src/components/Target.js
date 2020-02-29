@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 
 import './target.css';
-import conversions from './../common/conversions'
+import conversions from '../utilities/conversions'
 
 const Target = (props) => {
     // console.log(`Rendering Target`);
