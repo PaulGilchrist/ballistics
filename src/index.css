@@ -1,0 +1,31 @@
+/*
+Try and keep global CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
+*/
+:root {
+  --color-blue: #337ab7;
+
+  --color-info: #5bc0de;
+  --color-success: #5cb85c;
+  --color-warning: #f0ad4e;
+  --color-danger: #d9534f;
+}
+.graph-inline {
+    display: inline-block;
+    padding: 0;
+}
+
+@media screen and (min-width: 576px) {
+    .card {
+        width: 49%;
+    }
+}
+@media screen and (min-width: 768px) {
+    .card {
+        width: 32%;
+    }
+}
+@media screen and (min-width: 992px) {
+    .card {
+        width: 24%;
+    }
+}

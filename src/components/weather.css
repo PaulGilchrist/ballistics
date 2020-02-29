@@ -1,0 +1,27 @@
+input:valid { border-left: 5px solid #42A948; /* green */}
+input:invalid { border-left: 5px solid #a94442; /* red */}
+/*
+Below settings compact vertical forms
+*/
+label.control-label {
+    margin-bottom: 0;
+}
+.card {
+    width: 289px;
+    margin-bottom: 10px;
+}
+.form-group {
+    margin-bottom: 5px;
+    text-align: left;
+}
+@media (min-width: 576px) {
+    .card {
+        width: 282px;
+    }
+}
+@media (min-width: 768px) {
+    .card {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
