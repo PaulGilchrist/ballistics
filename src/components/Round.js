@@ -19,195 +19,197 @@ const Round = (props) => {
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
     return (
-        <div className="card">
-            <div className="card-heading bg-dark text-light d-flex p-2">
-                { props.round.id==='Add' ? `Add Round` : `Round - ${props.round.name}`}
-                <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
+        <div className="ballistics-form">
+            <div className="card">
+                <div className="card-heading bg-dark text-light d-flex p-2">
+                    { props.round.id==='Add' ? `Add Round` : `Round - ${props.round.name}`}
+                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
+                </div>
+                <form onSubmit={handleSubmit(props.onSubmit)}>
+                    <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                        <input hidden name="id" defaultValue={props.round.id} type="text" ref={register}/>
+                        <div className="form-group">
+                            <label
+                                className="control-label"
+                                htmlFor="name"
+                                data-toggle="tooltip"
+                                title="Name used to identify this round unique to the firearm."
+                            >
+                                Name
+                            </label>
+                            <div className="input-group margin-bottom-sm">
+                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-text-o fa-fw"></i></div></div>
+                                <input
+                                    className="form-control"
+                                    defaultValue={props.round.name}
+                                    maxLength="50"
+                                    minLength="3"
+                                    name="name"
+                                    placeholder="Name"
+                                    ref={register({
+                                        maxLength: { value: 50, message: "Name has a maximum length of 50" },
+                                        minLength: { value: 3, message: "Name has a minimum length of 3" },
+                                        required: "Name is required"
+                                    })}
+                                    required
+                                    type="text"
+                                />
+                            </div>
+                            {errors.name && errors.name.message ?
+                                <div className="alert alert-danger">
+                                    {errors.name.message}
+                                </div>
+                                : null
+                            }
+                        </div>
+                        <div className="form-group">
+                            <label
+                                className="control-label"
+                                htmlFor="bulletDiameterInches"
+                                data-toggle="tooltip"
+                                title="Bullet diameter is required so wind resistance can be calculated properly.  Common diameters are 0.022 to 0.050 inches."
+                            >
+                                Bullet Diameter (inches)
+                            </label>
+                            <div className="input-group margin-bottom-sm">
+                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-superpowers fa-fw"></i></div></div>
+                                <input
+                                    className="form-control"
+                                    defaultValue={props.round.bulletDiameterInches}
+                                    max="1"
+                                    min="0.010"
+                                    name="bulletDiameterInches"
+                                    placeholder="Bullet Diameter (inches)"
+                                    ref={register({
+                                        max: { value: 1, message: "Bullet Diameter has a maximum value of 1" },
+                                        min: { value: 0.010, message: "Bullet Diameter has a minimum value of 0.010" },
+                                        required: "Bullet diameter is required so wind resistance can be calculated."
+                                    })}
+                                    required
+                                    step="0.001"
+                                    type="number"
+                                />
+                            </div>
+                            {errors.bulletDiameterInches && errors.bulletDiameterInches.message ?
+                                <div className="alert alert-danger">
+                                    {errors.bulletDiameterInches.message}
+                                </div>
+                                : null
+                            }
+                        </div>
+                        <div className="form-group">
+                            <label
+                                className="control-label"
+                                htmlFor="bulletWeightGrains"
+                                data-toggle="tooltip"
+                                title="Bullet weight is required, so inertia can be calculated properly."
+                            >
+                                Bullet Weight (grains)
+                            </label>
+                            <div className="input-group margin-bottom-sm">
+                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-balance-scale fa-fw"></i></div></div>
+                                <input
+                                    className="form-control"
+                                    defaultValue={props.round.bulletWeightGrains}
+                                    max="1000"
+                                    min="10"
+                                    name="bulletWeightGrains"
+                                    placeholder="Bullet Weight (grains)"
+                                    ref={register({
+                                        max: { value: 1000, message: "Bullet Weight has a maximum value of 1000" },
+                                        min: { value: 10, message: "Bullet Weight has a minimum value of 10" },
+                                        required: "Bullet Weight is required, so bullet drop can be calculated properly."
+                                    })}
+                                    required
+                                    step="1"
+                                    type="number"
+                                />
+                            </div>
+                            {errors.bulletWeightGrains && errors.bulletWeightGrains.message ?
+                                <div className="alert alert-danger">
+                                    {errors.bulletWeightGrains.message}
+                                </div>
+                                : null
+                            }
+                        </div>
+                        <div className="form-group">
+                            <label
+                                className="control-label"
+                                htmlFor="muzzleVelocityFPS"
+                                data-toggle="tooltip"
+                                title="Muzzle velocity is required, so bullet deceleration can be calculated properly."
+                            >
+                                Muzzle Velocity (FPS)
+                            </label>
+                            <div className="input-group margin-bottom-sm">
+                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-signal fa-fw"></i></div></div>
+                                <input
+                                    className="form-control"
+                                    defaultValue={props.round.muzzleVelocityFPS}
+                                    max="5000"
+                                    min="100"
+                                    name="muzzleVelocityFPS"
+                                    placeholder="Muzzle Velocity (FPS)"
+                                    ref={register({
+                                        max: { value: 5000, message: "Muzzle Velocity has a maximum value of 5000" },
+                                        min: { value: 100, message: "Muzzle Velocity has a minimum value of 100" },
+                                        required: "Muzzle Velocity is required, so bullet drop can be calculated properly."
+                                    })}
+                                    required
+                                    step="1"
+                                    type="number"
+                                />
+                            </div>
+                            {errors.muzzleVelocityFPS && errors.muzzleVelocityFPS.message ?
+                                <div className="alert alert-danger">
+                                    {errors.muzzleVelocityFPS.message}
+                                </div>
+                                : null
+                            }
+                        </div>
+                        <div className="form-group">
+                            <label
+                                className="control-label"
+                                htmlFor="bulletBC"
+                                data-toggle="tooltip"
+                                title="Bullet ballistic cooefficient is the aerodynamics of the bullet's ability to resist atmospheric density related deceleration."
+                            >
+                                Bullet Ballistic Cooefficient
+                            </label>
+                            <div className="input-group margin-bottom-sm">
+                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-google-wallet fa-fw"></i></div></div>
+                                <input
+                                    className="form-control"
+                                    defaultValue={props.round.bulletBC}
+                                    max="1"
+                                    min="0.010"
+                                    name="bulletBC"
+                                    placeholder="Bullet Ballistic Cooefficient"
+                                    ref={register({
+                                        max: { value: 1, message: "Bullet ballistic cooefficient has a maximum value of 1" },
+                                        min: { value: 0.010, message: "Bullet ballistic cooefficient has a minimum value of 0.010" },
+                                        required: "Bullet ballistic cooefficient is required, so wind resistance can be calculated properly."
+                                    })}
+                                    required
+                                    step="0.001"
+                                    type="number"
+                                />
+                            </div>
+                            {errors.bulletBC && errors.bulletBC.message ?
+                                <div className="alert alert-danger">
+                                    {errors.bulletBC.message}
+                                </div>
+                                : null
+                            }
+                        </div>
+                    </div>
+                    <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+                        <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
+                        <button className="btn btn-warning" onClick={props.onClose}> Close</button>&nbsp;
+                        <button className="btn btn-danger" onClick={props.onDelete}> Delete</button>
+                    </div>
+                </form>
             </div>
-            <form onSubmit={handleSubmit(props.onSubmit)}>
-                <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                    <input hidden name="id" defaultValue={props.round.id} type="text" ref={register}/>
-                    <div className="form-group">
-                        <label
-                            className="control-label"
-                            htmlFor="name"
-                            data-toggle="tooltip"
-                            title="Name used to identify this round unique to the firearm."
-                        >
-                            Name
-                        </label>
-                        <div className="input-group margin-bottom-sm">
-                            <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-text-o fa-fw"></i></div></div>
-                            <input
-                                className="form-control"
-                                defaultValue={props.round.name}
-                                maxLength="50"
-                                minLength="3"
-                                name="name"
-                                placeholder="Name"
-                                ref={register({
-                                    maxLength: { value: 50, message: "Name has a maximum length of 50" },
-                                    minLength: { value: 3, message: "Name has a minimum length of 3" },
-                                    required: "Name is required"
-                                })}
-                                required
-                                type="text"
-                            />
-                        </div>
-                        {errors.name && errors.name.message ?
-                            <div className="alert alert-danger">
-                                {errors.name.message}
-                            </div>
-                            : null
-                        }
-                    </div>
-                    <div className="form-group">
-                        <label
-                            className="control-label"
-                            htmlFor="bulletDiameterInches"
-                            data-toggle="tooltip"
-                            title="Bullet diameter is required so wind resistance can be calculated properly.  Common diameters are 0.022 to 0.050 inches."
-                        >
-                            Bullet Diameter (inches)
-                        </label>
-                        <div className="input-group margin-bottom-sm">
-                            <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-superpowers fa-fw"></i></div></div>
-                            <input
-                                className="form-control"
-                                defaultValue={props.round.bulletDiameterInches}
-                                max="1"
-                                min="0.010"
-                                name="bulletDiameterInches"
-                                placeholder="Bullet Diameter (inches)"
-                                ref={register({
-                                    max: { value: 1, message: "Bullet Diameter has a maximum value of 1" },
-                                    min: { value: 0.010, message: "Bullet Diameter has a minimum value of 0.010" },
-                                    required: "Bullet diameter is required so wind resistance can be calculated."
-                                })}
-                                required
-                                step="0.001"
-                                type="number"
-                            />
-                        </div>
-                        {errors.bulletDiameterInches && errors.bulletDiameterInches.message ?
-                            <div className="alert alert-danger">
-                                {errors.bulletDiameterInches.message}
-                            </div>
-                            : null
-                        }
-                    </div>
-                    <div className="form-group">
-                        <label
-                            className="control-label"
-                            htmlFor="bulletWeightGrains"
-                            data-toggle="tooltip"
-                            title="Bullet weight is required, so inertia can be calculated properly."
-                        >
-                            Bullet Weight (grains)
-                        </label>
-                        <div className="input-group margin-bottom-sm">
-                            <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-balance-scale fa-fw"></i></div></div>
-                            <input
-                                className="form-control"
-                                defaultValue={props.round.bulletWeightGrains}
-                                max="1000"
-                                min="10"
-                                name="bulletWeightGrains"
-                                placeholder="Bullet Weight (grains)"
-                                ref={register({
-                                    max: { value: 1000, message: "Bullet Weight has a maximum value of 1000" },
-                                    min: { value: 10, message: "Bullet Weight has a minimum value of 10" },
-                                    required: "Bullet Weight is required, so bullet drop can be calculated properly."
-                                })}
-                                required
-                                step="1"
-                                type="number"
-                            />
-                        </div>
-                        {errors.bulletWeightGrains && errors.bulletWeightGrains.message ?
-                            <div className="alert alert-danger">
-                                {errors.bulletWeightGrains.message}
-                            </div>
-                            : null
-                        }
-                    </div>
-                    <div className="form-group">
-                        <label
-                            className="control-label"
-                            htmlFor="muzzleVelocityFPS"
-                            data-toggle="tooltip"
-                            title="Muzzle velocity is required, so bullet deceleration can be calculated properly."
-                        >
-                            Muzzle Velocity (FPS)
-                        </label>
-                        <div className="input-group margin-bottom-sm">
-                            <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-signal fa-fw"></i></div></div>
-                            <input
-                                className="form-control"
-                                defaultValue={props.round.muzzleVelocityFPS}
-                                max="5000"
-                                min="100"
-                                name="muzzleVelocityFPS"
-                                placeholder="Muzzle Velocity (FPS)"
-                                ref={register({
-                                    max: { value: 5000, message: "Muzzle Velocity has a maximum value of 5000" },
-                                    min: { value: 100, message: "Muzzle Velocity has a minimum value of 100" },
-                                    required: "Muzzle Velocity is required, so bullet drop can be calculated properly."
-                                })}
-                                required
-                                step="1"
-                                type="number"
-                            />
-                        </div>
-                        {errors.muzzleVelocityFPS && errors.muzzleVelocityFPS.message ?
-                            <div className="alert alert-danger">
-                                {errors.muzzleVelocityFPS.message}
-                            </div>
-                            : null
-                        }
-                    </div>
-                    <div className="form-group">
-                        <label
-                            className="control-label"
-                            htmlFor="bulletBC"
-                            data-toggle="tooltip"
-                            title="Bullet ballistic cooefficient is the aerodynamics of the bullet's ability to resist atmospheric density related deceleration."
-                        >
-                            Bullet Ballistic Cooefficient
-                        </label>
-                        <div className="input-group margin-bottom-sm">
-                            <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-google-wallet fa-fw"></i></div></div>
-                            <input
-                                className="form-control"
-                                defaultValue={props.round.bulletBC}
-                                max="1"
-                                min="0.010"
-                                name="bulletBC"
-                                placeholder="Bullet Ballistic Cooefficient"
-                                ref={register({
-                                    max: { value: 1, message: "Bullet ballistic cooefficient has a maximum value of 1" },
-                                    min: { value: 0.010, message: "Bullet ballistic cooefficient has a minimum value of 0.010" },
-                                    required: "Bullet ballistic cooefficient is required, so wind resistance can be calculated properly."
-                                })}
-                                required
-                                step="0.001"
-                                type="number"
-                            />
-                        </div>
-                        {errors.bulletBC && errors.bulletBC.message ?
-                            <div className="alert alert-danger">
-                                {errors.bulletBC.message}
-                            </div>
-                            : null
-                        }
-                    </div>
-                </div>
-                <div className={`card-footer ${!isOpen ? 'collapse' : null}`} style={{position: 'absolute', bottom: 0, width: '100%'}}>
-                    <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
-                    <button className="btn btn-warning" onClick={props.onClose}> Close</button>&nbsp;
-                    <button className="btn btn-danger" onClick={props.onDelete}> Delete</button>
-                </div>
-            </form>
         </div>
     );
 }

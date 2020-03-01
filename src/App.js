@@ -8,6 +8,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import css from './app.module.css';
 
+import Chart from './components/Chart';
 import Firearm from './components/Firearm';
 import Firearms from './components/Firearms';
 import Round from './components/Round';
@@ -316,14 +317,16 @@ const App = () => {
                     :
                     <React.Fragment>
                         <Firearm firearm={firearm} onClose={() => handleFirearmOnClose()} onDelete={(firearm) => handleFirearmOnDelete(firearm)} onSubmit={(firearm) => handleFirearmOnSubmit(firearm)}/>
-                        <React.Fragment>
-                            {roundId===null ?
-                                <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd()} onSelect={(round) => handleRoundOnSelect(round)}/>
-                                :
-                                <Round round={round} onClose={() => handleRoundOnClose()} onDelete={(round) => handleRoundOnDelete(round)} onSubmit={(round) => handleRoundOnSubmit(round)}/>
-                            }
-                        </React.Fragment>
+                        {roundId===null ?
+                            <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd()} onSelect={(round) => handleRoundOnSelect(round)}/>
+                            :
+                            <Round round={round} onClose={() => handleRoundOnClose()} onDelete={(round) => handleRoundOnDelete(round)} onSubmit={(round) => handleRoundOnSubmit(round)}/>
+                        }
                     </React.Fragment>
+                }
+                {firearmId && roundId ?
+                    <Chart firearm={firearm} round={round} target={target} weather={weather}/>
+                    : null
                 }
             </div>
         </div>
