@@ -10,6 +10,7 @@ import css from './app.module.css';
 
 import Firearm from './components/Firearm';
 import Firearms from './components/Firearms';
+import Round from './components/Round';
 import Rounds from './components/Rounds';
 import Target from './components/Target';
 import Weather from './components/Weather';
@@ -21,12 +22,10 @@ import FIREARMS from './data/firearms';
 const App = () => {
     // Call it once in your app. At the root of your app is the best place
     toast.configure();
-    // Get global data
-
-    
+    // Get watched data
     const [firearmId, setFirearmId] = useState(localStorage.getItem('firearmId')); // GUID or null (none) or Blank (add)
-
-
+    const [roundId, setRoundId] = useState(localStorage.getItem('roundId')); // GUID or null (none) or Blank (add)
+    // Get unwatched data
     let firearms;
     const firearmsJson = localStorage.getItem('firearms');
     if(firearmsJson) {
@@ -35,7 +34,7 @@ const App = () => {
         firearms = FIREARMS;
         localStorage.setItem('firearms', JSON.stringify(firearms));
     }
-    // Get firearm from firearmId
+    // Get firearm from firearms array using firearmId
     let firearm = null;
     if(firearmId==='Add') {
         firearm = {
@@ -53,7 +52,22 @@ const App = () => {
     } else {
         firearm = firearms.find((f) => f.id===firearmId);
     }
-
+    // Get round from firearm.rounds array using roundId
+    let round = null;
+    if(firearm) {
+        if(roundId==='Add') {
+            round = {
+                id: 'Add',
+                name: '',
+                bulletDiameterInches: '',
+                bulletWeightGrains: '',
+                muzzleVelocityFPS: ''
+            }
+        } else if(firearm.rounds && firearm.rounds.length>0) {
+            round = firearm.rounds.find((r) => r.id===roundId);
+        }
+    }
+    // Get target
     let target;
     const targetJson = localStorage.getItem('target');
     if(targetJson) {
@@ -70,6 +84,7 @@ const App = () => {
         }
         localStorage.setItem('target', JSON.stringify(target));
     }
+    // Get weather
     let weather
     const weatherJson = localStorage.getItem('weather');
     if(weatherJson) {
@@ -85,6 +100,7 @@ const App = () => {
         }
         localStorage.setItem('weather', JSON.stringify(weather));
     }
+    // Event Handlers
     const handleFirearmOnAdd = () => {
         setFirearmId('Add');
         localStorage.setItem('firearmId', 'Add');
@@ -135,7 +151,7 @@ const App = () => {
                     draggable: true
                 });
             } else {
-                toast.error(`Name already exists - Firearm Not Added`, {
+                toast.error(`Name already exists - Firearm not added`, {
                     distance: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -148,7 +164,7 @@ const App = () => {
             // If not adding new firearm, find it in firearms array
             // If firearm name found then the id must also match
             if(firearmIndex!==-1 && firearms[firearmIndex].id!==firearm.id) {
-                toast.error(`Name already exists - Firearm Not Updated`, {
+                toast.error(`Name already exists - Firearm not updated`, {
                     distance: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -176,10 +192,94 @@ const App = () => {
         }
     }
     const handleRoundOnAdd = () => {
-        console.log(`handleRoundOnAdd`);
+        setRoundId('Add');
+        localStorage.setItem('roundId', 'Add');
+    }
+    const handleRoundOnClose = () => {
+        setRoundId(null);
+        localStorage.removeItem('roundId');
+    }
+    const handleRoundOnDelete = (round) => {
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        const roundIndex = firearm.rounds.findIndex((r) => r.id===round.id);
+        firearm.rounds.splice(roundIndex, 1);
+        localStorage.setItem('firearms', JSON.stringify(firearms));
+        localStorage.removeItem('roundId');
+        setRoundId(null);
+        toast.success(`Round Deleted`, {
+            distance: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true
+        });
     }
     const handleRoundOnSelect = (round) => {
-        console.log(`handleRoundOnSelect - ${round}`);
+        setRoundId(round.id);
+        localStorage.setItem('roundId', round.id);
+    }
+    const handleRoundOnSubmit = (round) => {
+        // Find by name rather than id to ensure the name remains unique
+        let roundIndex = firearm.rounds.findIndex((r) => r.name===round.name);
+        if(round.id==='Add') {
+            // Add new round if name does not already exist
+            if(roundIndex === -1) {
+                round.id = tools.guid();
+                firearm.rounds.push(round);
+                firearm.rounds.sort(tools.nameSort);
+                localStorage.setItem('firearms', JSON.stringify(firearms));
+                setRoundId(null);
+                toast.success(`Round Added`, {
+                    distance: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                });
+            } else {
+                toast.error(`Name already exists - Round not added`, {
+                    distance: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                });
+            }
+        } else {
+            // If not adding new firearm, find it in firearms array
+            // If round name found then the id must also match
+            if(roundIndex!==-1 && firearm.rounds[roundIndex].id!==round.id) {
+                toast.error(`Name already exists - Round not updated`, {
+                    distance: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                });
+            } else {
+                // If name not found, we must find the id which should always exist since it was used to launch the component to begin with
+                if(roundIndex===-1) {
+                    roundIndex = firearm.rounds.findIndex((r) => r.id===round.id);
+                }
+                firearm.rounds[roundIndex] = round
+                firearm.rounds.sort(tools.nameSort); // In case the name changed
+                localStorage.setItem('firearms', JSON.stringify(firearms));
+                toast.success(`Round Updated`, {
+                    distance: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                });
+            }
+        }
     }
     const handleTargetOnSubmit = (values) => {
         // Don't save sizeMils
@@ -205,6 +305,7 @@ const App = () => {
             draggable: true
         });
     }
+    // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>
             <div className="d-flex flex-row flex-wrap justify-content-center">
@@ -215,11 +316,13 @@ const App = () => {
                     :
                     <React.Fragment>
                         <Firearm firearm={firearm} onClose={() => handleFirearmOnClose()} onDelete={(firearm) => handleFirearmOnDelete(firearm)} onSubmit={(firearm) => handleFirearmOnSubmit(firearm)}/>
-                        {firearm.rounds && firearm.rounds.length>0 ?
-                            <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd()} onSelect={(round) => handleRoundOnSelect(round)}/>
-                            :
-                            null
-                        }
+                        <React.Fragment>
+                            {roundId===null ?
+                                <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd()} onSelect={(round) => handleRoundOnSelect(round)}/>
+                                :
+                                <Round round={round} onClose={() => handleRoundOnClose()} onDelete={(round) => handleRoundOnDelete(round)} onSubmit={(round) => handleRoundOnSubmit(round)}/>
+                            }
+                        </React.Fragment>
                     </React.Fragment>
                 }
             </div>

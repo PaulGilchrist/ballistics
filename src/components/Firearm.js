@@ -47,12 +47,12 @@ const Firearm = (props) => {
                                 className="form-control"
                                 defaultValue={props.firearm.name}
                                 maxLength="50"
-                                minLength="0"
+                                minLength="3"
                                 name="name"
                                 placeholder="Name"
                                 ref={register({
-                                    maxLength: { value: 50000, message: "Name has a maximum length of 50" },
-                                    minLength: { value: 0, message: "Name has a minimum length of 3" },
+                                    maxLength: { value: 50, message: "Name has a maximum length of 50" },
+                                    minLength: { value: 3, message: "Name has a minimum length of 3" },
                                     required: "Name is required"
                                 })}
                                 required
@@ -86,7 +86,7 @@ const Firearm = (props) => {
                                 placeholder="Sight Height (inches)"
                                 ref={register({
                                     max: { value: 5, message: "Sight Height has a maximum value of 5" },
-                                    min: { value: 0.25, message: "Sight Height has a minimum value of 0.5" },
+                                    min: { value: 0.25, message: "Sight Height has a minimum value of 0.25" },
                                     required: "Sight Height is required"
                                 })}
                                 required

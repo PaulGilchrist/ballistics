@@ -30,7 +30,7 @@ const Firearms = (props) => {
                     ))}
                 </ul>
             </div>
-            <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+            <div className={`card-footer ${!isOpen ? 'collapse' : null}`} style={{position: 'absolute', bottom: 0, width: '100%'}}>
                 <button className="btn btn-default" onClick={() => props.onAdd()}><span className="fa fa-plus"></span> Add Firearm</button>&nbsp;
             </div>
         </div>

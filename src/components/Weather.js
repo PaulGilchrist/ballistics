@@ -39,7 +39,7 @@ const Weather = (props) => {
                             <input
                                 className="form-control"
                                 defaultValue={props.values.altitudeFeet}
-                                max="5000"
+                                max="50000"
                                 min="0"
                                 name="altitudeFeet"
                                 placeholder="Altitude (feet)"
@@ -215,7 +215,7 @@ const Weather = (props) => {
                                 name="windAngleDegrees"
                                 placeholder="Wind Angle (degrees)"
                                 ref={register({
-                                    max: { value: 90, message: "windVelocity has a maximum value of 900" },
+                                    max: { value: 90, message: "windVelocity has a maximum value of 90" },
                                     min: { value: 0, message: "windVelocity has a minimum value of 0" },
                                     required: "Wind Angle is required to determine the winds vector impact on bullet drift"
                                 })}
