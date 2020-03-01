@@ -5,7 +5,7 @@ const conversions = {
     pi: 3.14159265358979,
     degreesToRadians: (degrees) => {
         // Converts from a Degree To A Radian Angle.
-        return degrees * this.pi / 180;
+        return degrees * conversions.pi / 180;
     },
     inchesToIPHY: (inches, currentRange) => {
         // Converts from Inches ToInches per 100 Yards
@@ -13,11 +13,11 @@ const conversions = {
     },
     inchesToMil: (inches, currentRange) => {
         // Converts from Inches To MinutesOfAngle.
-        return (inches * 100 / this.mil / currentRange);
+        return (inches * 100 / conversions.mil / currentRange);
     },
     inchesToMinutesOfAngle: (inches, currentRange) => {
         // Converts from Inches To MinutesOfAngle.
-        return (inches * 100 / this.minuteOfAngle / currentRange);
+        return (inches * 100 / conversions.minuteOfAngle / currentRange);
     },
     isEven: (input) => {
         // Returns true if the inputed integer is an even number
@@ -36,7 +36,7 @@ const conversions = {
     },
     radiansToDegrees: (radians) => {
         // Converts from a Radian To A Degree Angle.
-        return radians * 180 / this.pi;
+        return radians * 180 / conversions.pi;
     },
     sec: (angle) => {
         // Secant

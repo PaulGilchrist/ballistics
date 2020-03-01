@@ -13,12 +13,12 @@ const atmospherics = {
     weightDensityOfAirAtSeaLevel: 0.0751, // Pounds Per Cubic Foot
     altitudeAdjustmentFactor: (altitude) => {
         // Used to adjust from the standard altitude (sea level) to the current altitude.
-        return this.interpolateArray(this.altitudeAdjustmentFactorTable, altitude / 1000);
+        return atmospherics.interpolateArray(atmospherics.altitudeAdjustmentFactorTable, altitude / 1000);
     },
     barometricPressureAdjustmentFactor: (altitude, barometricPressure) => {
         // The Barometric Pressure Adjustment Factor Compares The Barometric Pressure (Inches Hg)
         //     At A Given altitude (Feet) To The Standard Barometric Pressure At That altitude.
-        const standardBarometricPressure = this.interpolateArray(this.barometricPressureTable, altitude / 1000);
+        const standardBarometricPressure = atmospherics.interpolateArray(atmospherics.barometricPressureTable, altitude / 1000);
         return (barometricPressure - standardBarometricPressure) / standardBarometricPressure;
     },
     interpolateArray: (array, arrayIndex) => {
@@ -44,12 +44,12 @@ const atmospherics = {
     relativeHumidityAdjustmentFactor: (altitude, temperature, barometricPressure, relativeHumidity) => {
         // The Relative Humidity Adjustment Factor Compares The Relative Humidity (Percentage)
         //     At A Given altitude (Feet) To The Standard Relative Humidity At That altitude.
-        const standardVaporPressureOfWater = this.interpolateArray(this.vaporPressureOfWaterTable, temperature / 2);
+        const standardVaporPressureOfWater = atmospherics.interpolateArray(atmospherics.vaporPressureOfWaterTable, temperature / 2);
         return 0.995 * (barometricPressure / (barometricPressure - 0.3783 * relativeHumidity * standardVaporPressureOfWater));
     },
     speedOfSound: (altitude) => {
         // Speed Of Sound (Feet Per Second) At A Given Altitude (Feet).
-        return this.speedOfSoundFactor(altitude) * this.speedOfSoundAtSeaLevel;
+        return atmospherics.speedOfSoundFactor(altitude) * atmospherics.speedOfSoundAtSeaLevel;
     },
     speedOfSoundFactor: (altitude) => {
         // The Speed Of Sound Factor Compares The Speed Of Sound (Feet Per Second)
@@ -59,20 +59,20 @@ const atmospherics = {
     standardRelativeHumidity: (altitude) => {
         // The Relative Humidity Adjustment Factor Compares The Relative Humidity (Percentage)
         //     At A Given altitude (Feet) To The Standard Relative Humidity At That altitude.
-        const standardTemperature = this.interpolateArray(this.temperatureTable, altitude / 1000);
-        const standardVaporPressureOfWater = this.interpolateArray(this.vaporPressureOfWaterTable, standardTemperature / 2);
-        const standardBarometricPressure = this.interpolateArray(this.barometricPressureTable, altitude / 1000);
+        const standardTemperature = atmospherics.interpolateArray(atmospherics.temperatureTable, altitude / 1000);
+        const standardVaporPressureOfWater = atmospherics.interpolateArray(atmospherics.vaporPressureOfWaterTable, standardTemperature / 2);
+        const standardBarometricPressure = atmospherics.interpolateArray(atmospherics.barometricPressureTable, altitude / 1000);
         return (standardBarometricPressure - (0.995 * standardBarometricPressure)) / (0.3783 * standardVaporPressureOfWater);
     },
     temperatureAdjustmentFactor: (altitude, temperature) => {
         // The temperature Adjustment Factor Compares The temperature (Degrees F)
         //     At A Given altitude (Feet) To The Standard temperature At That altitude.
-        const standardTemperature = this.interpolateArray(this.temperatureTable, altitude / 1000);
+        const standardTemperature = atmospherics.interpolateArray(atmospherics.temperatureTable, altitude / 1000);
         return (temperature - standardTemperature) / (459.6 + standardTemperature);
     },
     weightDensityOfAir: (altitude) => {
         // Barometric Pressure (Inches Hg) At A Given Altitude (Feet)
-        return this.weightDensityOfAirAtSeaLevel * Math.exp(-0.0000302149 * altitude);
+        return atmospherics.weightDensityOfAirAtSeaLevel * Math.exp(-0.0000302149 * altitude);
     }
 }
 

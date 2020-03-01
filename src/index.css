@@ -6,6 +6,18 @@
   --color-warning: #f0ad4e;
   --color-danger: #d9534f;
 }
+.ballistics-chart .card-body {
+	padding: 5px
+}
+.ballistics-chart .card-footer {
+	background-color: rgb(227, 229, 237);
+}
+.ballistics-chart .font-size-small {
+	font-size: 0.7em;
+}
+.ballistics-chart .tooltip {
+	position: fixed;
+}
 .ballistics-form .card {
     margin-bottom: 10px;
     width: 289px;
@@ -39,8 +51,10 @@
     padding: 10px;
     text-align: center;
 }
-
 @media screen and (min-width: 576px) {
+    .ballistics-chart .font-size-small {
+        font-size: 0.8em;
+    }
     .ballistics-form .card {
         width: 282px;
     }
@@ -51,3 +65,16 @@
         margin-right: 5px;
     }
 }
+@media (min-width: 992px) {
+    .ballistics-chart .font-size-small {
+        font-size: 0.9em;
+    }
+}
+@media (min-width: 1200px) {
+    .ballistics-chart .card {
+        width: 1200px;
+    }
+}
+
+
+

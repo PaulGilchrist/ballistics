@@ -3,7 +3,7 @@ const FIREARMS = [
 		id: '8f331a2c-ef70-4a64-a028-276bf27523c4',
 		name: '10/22',
 		elevationTurretGradients: 2, // MoA and IPHY are 1, 2 or 4 displayed as 1, 1/2, 1/4 per click
-		reticleUnits: 'MOA', // 0=Mil, 1=MoA, 2=IPHY
+		reticleUnits: 'MoA', // 0=Mil, 1=MoA, 2=IPHY
 		rounds: [
 			{
 				id: 'e67e903e-2a22-4cfc-a1a9-e9c92adf6e5b',
@@ -15,7 +15,7 @@ const FIREARMS = [
 			}
 		],
 		sightHeightInches: 1.5,
-		turretUnits: 'MOA',
+		turretUnits: 'MoA',
 		windageTurretGradients: 2,
         zeroRangeUnits: 'Yards',
 		zeroRange: 50

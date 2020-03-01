@@ -6,6 +6,15 @@ const tools = {
 			return v.toString(16);
 		});
 	},
+    jsonParseNumbers: (inputObject) => {
+        return JSON.parse(inputObject, (k, v) => {
+            if(typeof v === "object") {
+                return v;
+            } else {
+                return isNaN(v) ? v : Number(v);
+            }
+        });
+    },
 	nameSort: (a, b) => {
 		if(a.name < b.name) {
 			return -1;

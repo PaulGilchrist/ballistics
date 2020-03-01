@@ -15,6 +15,8 @@ import Round from './components/Round';
 import Rounds from './components/Rounds';
 import Target from './components/Target';
 import Weather from './components/Weather';
+import conversions from './utilities/conversions'
+import drag from './utilities/drag'
 import tools from './utilities/tools'
 
 import FIREARMS from './data/firearms';
@@ -30,7 +32,7 @@ const App = () => {
     let firearms;
     const firearmsJson = localStorage.getItem('firearms');
     if(firearmsJson) {
-       firearms = JSON.parse(firearmsJson);
+       firearms = tools.jsonParseNumbers(firearmsJson);
     } else {
         firearms = FIREARMS;
         localStorage.setItem('firearms', JSON.stringify(firearms));
@@ -44,11 +46,11 @@ const App = () => {
             elevationTurretGradients: 10,
             reticleUnits: 'Mil',
             rounds: [],
-            sightHeightInches: '2.0',
+            sightHeightInches: 2.0,
             turretUnits: 'Mil',
-            windageTurretGradients: '10',
+            windageTurretGradients: 10,
             zeroRangeUnits: 'Yards',
-            zeroRange: '100'
+            zeroRange: 100
         }
     } else {
         firearm = firearms.find((f) => f.id===firearmId);
@@ -60,9 +62,9 @@ const App = () => {
             round = {
                 id: 'Add',
                 name: '',
-                bulletDiameterInches: '',
-                bulletWeightGrains: '',
-                muzzleVelocityFPS: ''
+                bulletDiameterInches: null,
+                bulletWeightGrains: null,
+                muzzleVelocityFPS: null
             }
         } else if(firearm.rounds && firearm.rounds.length>0) {
             round = firearm.rounds.find((r) => r.id===roundId);
@@ -72,14 +74,14 @@ const App = () => {
     let target;
     const targetJson = localStorage.getItem('target');
     if(targetJson) {
-       target = JSON.parse(targetJson);
+        target = tools.jsonParseNumbers(targetJson);
     } else {
         target = {
             distanceUnits: 'Yards', // Yards or Meters
             distance: 1000,
             chartStepping: 50,
             sizeInches: 40,
-            sizeMils: '',
+            sizeMils: null,
             slantDegrees: 45,
             speedMPH: 3
         }
@@ -89,7 +91,7 @@ const App = () => {
     let weather
     const weatherJson = localStorage.getItem('weather');
     if(weatherJson) {
-       weather = JSON.parse(weatherJson);
+        weather = tools.jsonParseNumbers(weatherJson);
     } else {
         weather = {
             altitudeFeet: 0,
@@ -100,6 +102,59 @@ const App = () => {
             windAngleDegrees: 90
         }
         localStorage.setItem('weather', JSON.stringify(weather));
+    }
+    // Get Chart Data
+    const rangeData = [];
+    if(weather && target && firearm && round) {
+        // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
+        const currentBallisticCoefficient = drag.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometricPressureInchesHg, weather.relativeHumidityPercent);
+        const zeroRangeYards = firearm.zeroRangeUnits==='Yards' ? firearm.zeroRange: conversions.metersToYards(firearm.zeroRange);
+        const muzzleAngleDegrees = drag.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
+        let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches,  currentRangeMeters, currentRangeYards, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches;
+        // Skip the first row
+        let currentRange = target.chartStepping;
+        //console.log(currentRange <= target.distance);
+        while (currentRange <= target.distance) {
+            currentRangeMeters = target.distanceUnits==='Yards' ? conversions.yardsToMeters(currentRange) : currentRange;
+            currentRangeYards = target.distanceUnits==='Yards' ? currentRange : conversions.metersToYards(currentRange);
+            currentVelocityFPS = drag.velocityFromRange(currentBallisticCoefficient, round.muzzleVelocityFPS, currentRangeYards);
+            currentEnergyFtLbs = drag.energy(round.bulletWeightGrains, currentVelocityFPS);
+            currentTimeSeconds = drag.time(currentBallisticCoefficient, round.muzzleVelocityFPS, currentVelocityFPS);
+            currentDropInches = drag.drop(round.muzzleVelocityFPS, currentVelocityFPS, currentTimeSeconds);
+            currentVerticalPositionInches = drag.verticalPosition(firearm.sightHeightInches, muzzleAngleDegrees, currentRangeYards, currentDropInches);
+            // Cross Winds take on full range value regardless of Slant To Target
+            currentCrossWindDriftInches = drag.crossWindDrift(currentRangeYards, currentTimeSeconds, weather.windAngleDegrees, weather.windVelocityMPH, muzzleAngleDegrees, round.muzzleVelocityFPS);
+            currentLeadInches = drag.lead(target.speedMPH, currentTimeSeconds);
+            const slantDropInches = currentDropInches * (1-Math.cos(conversions.degreesToRadians(target.slantDegrees)));
+            const range = {
+                rangeMeters: currentRangeMeters,
+                rangeYards: currentRangeYards,
+                velocityFPS: currentVelocityFPS,
+                energyFtLbs: currentEnergyFtLbs,
+                timeSeconds: currentTimeSeconds,
+                dropInches: currentDropInches,
+                verticalPositionInches: -currentVerticalPositionInches,  // Go negative to reflect how much scope dial up is needed
+                crossWindDriftInches: currentCrossWindDriftInches,
+                leadInches: currentLeadInches,
+                slantDegrees: target.slantDegrees,
+                // //Al the remaining properties are computed
+                verticalPositionMil: conversions.inchesToMil(-currentVerticalPositionInches, currentRangeYards),
+                verticalPositionMoA: conversions.inchesToMinutesOfAngle(-currentVerticalPositionInches, currentRangeYards),
+                verticalPositionIPHY: conversions.inchesToIPHY(-currentVerticalPositionInches, currentRangeYards),
+                crossWindDriftMil: conversions.inchesToMil(currentCrossWindDriftInches, currentRangeYards),
+                crossWindDriftMoA: conversions.inchesToMinutesOfAngle(currentCrossWindDriftInches, currentRangeYards),
+                crossWindDriftIPHY: conversions.inchesToIPHY(currentCrossWindDriftInches, currentRangeYards),
+                leadMil: conversions.inchesToMil(currentLeadInches, currentRangeYards),
+                leadMoA: conversions.inchesToMinutesOfAngle(currentLeadInches, currentRangeYards),
+                leadIPHY: conversions.inchesToIPHY(currentLeadInches, currentRangeYards),
+                slantDropInches: slantDropInches,
+                slantMil: conversions.inchesToMil(slantDropInches, currentRangeYards),
+                slantMoA: conversions.inchesToMinutesOfAngle(slantDropInches, currentRangeYards),
+                slantIPHY: conversions.inchesToIPHY(slantDropInches, currentRangeYards)
+            };
+            rangeData.push(range);
+            currentRange += target.chartStepping;
+        }
     }
     // Event Handlers
     const handleFirearmOnAdd = () => {
@@ -324,8 +379,13 @@ const App = () => {
                         }
                     </React.Fragment>
                 }
+            </div>
+            <div className="d-flex flex-fill justify-content-center">
                 {firearmId && roundId ?
-                    <Chart firearm={firearm} round={round} target={target} weather={weather}/>
+                    <React.Fragment>
+                        <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather}/>
+                        <br/>
+                    </React.Fragment>
                     : null
                 }
             </div>
