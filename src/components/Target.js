@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 
-import './target.css';
 import conversions from '../utilities/conversions'
 
 const Target = (props) => {
-    // console.log(`Rendering Target`);
     /*
     props = {
         values: {
@@ -37,8 +35,8 @@ const Target = (props) => {
                 Target
                 <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
             </div>
-            <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                <form onSubmit={handleSubmit(props.onSubmit)}>
+            <form onSubmit={handleSubmit(props.onSubmit)}>
+                <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
                     <div className="form-group">
                         <label
                             className="control-label"
@@ -241,11 +239,11 @@ const Target = (props) => {
                             : null
                         }
                     </div>
-                    <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
-                        <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div className={`card-footer ${!isOpen ? 'collapse' : null}`} style={{position: 'absolute', bottom: 0, width: '100%'}}>
+                    <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
+                </div>
+            </form>
         </div>
     );
 }

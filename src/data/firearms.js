@@ -2,8 +2,8 @@ const FIREARMS = [
 	{
 		id: '8f331a2c-ef70-4a64-a028-276bf27523c4',
 		name: '10/22',
-		elevationTurretGradients: 2,
-		reticleUnits: 1,
+		elevationTurretGradients: 2, // MoA and IPHY are 1, 2 or 4 displayed as 1, 1/2, 1/4 per click
+		reticleUnits: 'MOA', // 0=Mil, 1=MoA, 2=IPHY
 		rounds: [
 			{
 				id: 'e67e903e-2a22-4cfc-a1a9-e9c92adf6e5b',
@@ -15,16 +15,16 @@ const FIREARMS = [
 			}
 		],
 		sightHeightInches: 1.5,
-		turretUnits: 1,
+		turretUnits: 'MOA',
 		windageTurretGradients: 2,
-        zeroRangeUnits: 0,
+        zeroRangeUnits: 'Yards',
 		zeroRange: 50
 	},
 	{
 		id: '8a6b05a9-ecb7-4f62-8a73-c07df86209e5',
 		name: 'CTR',
 		elevationTurretGradients: 10,
-		reticleUnits: 0,
+		reticleUnits: 'Mil',
 		rounds: [
 			{
 				id: 'ba665537-7653-43c0-82a6-6410972fee09',
@@ -60,16 +60,16 @@ const FIREARMS = [
 			}
 		],
 		sightHeightInches: 2,
-		turretUnits: 0,
+		turretUnits: 'Mil',
 		windageTurretGradients: 10,
-        zeroRangeUnits: 0,
+        zeroRangeUnits: 'Yards',
 		zeroRange: 100
 	},
 	{
 		id: '7d7f9e4d-7c33-4e04-ad1e-602e6f5d35f9',
 		name: 'OBR',
 		elevationTurretGradients: 10,
-		reticleUnits: 0,
+		reticleUnits: 'Mil',
 		rounds: [
 			{
 				id: 'fb97d392-97cc-4289-80ad-fc1fc50e4ab3',
@@ -89,16 +89,16 @@ const FIREARMS = [
 			}
 		],
 		sightHeightInches: 2,
-		turretUnits: 0,
+		turretUnits: 'Mil',
 		windageTurretGradients: 10,
-        zeroRangeUnits: 0,
+        zeroRangeUnits: 'Yards',
 		zeroRange: 100
 	},
 	{
 		id: '479a565e-cfe9-4ddf-8bf2-292cf1b0ca4f',
 		name: 'SPR',
 		elevationTurretGradients: 10,
-		reticleUnits: 0,
+		reticleUnits: 'Mil',
 		rounds: [
 			{
 				id: '93a7b0dc-c106-4fd5-8c68-16aa0caa7165',
@@ -134,9 +134,9 @@ const FIREARMS = [
 			}
 		],
 		sightHeightInches: 2,
-		turretUnits: 0,
+		turretUnits: 'Mil',
 		windageTurretGradients: 10,
-        zeroRangeUnits: 0,
+        zeroRangeUnits: 'Yards',
 		zeroRange: 100
 	}
 

@@ -3,29 +3,50 @@ Try and keep global CSS to a minimum and mainly to global variables.  This preve
 */
 :root {
   --color-blue: #337ab7;
-
   --color-info: #5bc0de;
   --color-success: #5cb85c;
   --color-warning: #f0ad4e;
   --color-danger: #d9534f;
 }
+.card {
+    width: 289px;
+    margin-bottom: 10px;
+}
+.card-footer  {
+    padding: 10px;
+}
+.form-group {
+    margin-bottom: 5px;
+    text-align: left;
+}
 .graph-inline {
     display: inline-block;
     padding: 0;
 }
-
+.well {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+}
+input:valid { border-left: 5px solid #42A948; /* green */}
+input:invalid { border-left: 5px solid #a94442; /* red */}
+label.control-label {
+    margin-bottom: 0;
+}
+li.card {
+    cursor: pointer;
+    width: 100%;
+}
 @media screen and (min-width: 576px) {
     .card {
-        width: 49%;
+        width: 282px;
     }
 }
 @media screen and (min-width: 768px) {
     .card {
-        width: 32%;
-    }
-}
-@media screen and (min-width: 992px) {
-    .card {
-        width: 24%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
