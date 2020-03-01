@@ -7,7 +7,7 @@ const Target = (props) => {
     /*
     props = {
         values: {
-            distanceUnits // 0=Yards, 1=Meters
+            distanceUnits // Yards or Meters
             distance
             chartStepping
             sizeInches
@@ -25,7 +25,7 @@ const Target = (props) => {
         // Given the size of a target in both inches and mils, will calculate and update the distance
         if(values.sizeInches !== '' && values.sizeMils !== '') {
             const distanceYards = conversions.sizeToDistance(values.sizeInches, values.sizeMils);
-            const distance = Math.round(values.distanceUnits==="0" ? distanceYards : conversions.yardsToMeters(distanceYards));
+            const distance = Math.round(values.distanceUnits==="Yards" ? distanceYards : conversions.yardsToMeters(distanceYards));
             setValue('distance', distance);
         }
     }
@@ -72,8 +72,8 @@ const Target = (props) => {
                                     required: true
                                 })}
                             >
-                                <option value='0'>Yards</option>
-                                <option value='1'>Meters</option>
+                                <option value='Yards'>Yards</option>
+                                <option value='Meters'>Meters</option>
                             </select>
                         </div>
                         {errors.distance && errors.distance.message ?

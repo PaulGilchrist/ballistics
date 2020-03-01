@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-const Firearms = (props) => {
+const Rounds = (props) => {
     /*
     props = {
-        firearms: [{
-            id 
-	        name
-	        ...
+        rounds: [{
+            id
+            name
+            ...
         }]
         onAdd()
         onSelect()
@@ -16,15 +16,15 @@ const Firearms = (props) => {
     return (
         <div className="card">
             <div className="card-heading bg-dark text-light d-flex p-2">
-                Select Firearm
+                Select Round
                 <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
             </div>
             <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
                 <ul className="list-inline">
-                    {props.firearms.map((firearm) => (
-                        <li onClick={() => props.onSelect(firearm)} className='card' key={firearm.id}>
+                    {props.rounds.map((round) => (
+                        <li onClick={() => props.onSelect(round)} className='card' key={round.id}>
                             <div className="well">
-                                {firearm.name}
+                                {round.name}
                             </div>
                         </li>
                     ))}
@@ -37,4 +37,4 @@ const Firearms = (props) => {
     );
 }
 
-export default Firearms;
+export default Rounds;

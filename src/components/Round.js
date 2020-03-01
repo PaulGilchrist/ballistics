@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 
-const Firearm = (props) => {
+const Round = (props) => {
     /*
     props = {
-        firearm: {
-            id 
-	        name
-	        elevationTurretGradients
-	        reticleUnits
-	        rounds
-	        sightHeightInches
-	        turretUnits
-	        windageTurretGradients
-	        zeroRangeUnits
-	        zeroRange
+        round: {
+            id
+            name
+            bulletDiameterInches
+            bulletWeightGrains
+            muzzleVelocityFPS
         }
         onCancel()
         onDelete()
@@ -278,4 +273,4 @@ const Firearm = (props) => {
     );
 }
 
-export default Firearm;
+export default Round;
