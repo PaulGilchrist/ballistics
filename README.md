@@ -4,4 +4,6 @@
 
 ## ToDo
 
-Delete confirmation dialogs
+* Delete confirmation dialogs
+* Add Export functionality
+* Add Graphs

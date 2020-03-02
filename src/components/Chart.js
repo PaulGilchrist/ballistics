@@ -6,16 +6,10 @@ const Chart = (props) => {
     /*
     props = {
         firearm: {
-            id 
 	        name
-	        elevationTurretGradients
 	        reticleUnits
-	        rounds
-	        sightHeightInches
 	        turretUnits
-	        windageTurretGradients
-	        zeroRangeUnits
-	        zeroRange
+            ...
         }
         rangeData: [{
             rangeMeters
@@ -44,29 +38,22 @@ const Chart = (props) => {
             slantIPHY
         }]
         round: {
-            id
             name
-            bulletDiameterInches
-            bulletWeightGrains
-            muzzleVelocityFPS
+            ...
         }
         target: {
             distanceUnits // Yards or Meters
-            distance
-            chartStepping
-            sizeInches
-            sizeMils
             slantDegrees
             speedMPH
+            ...
         }
         weather: {
-            altitudeFeet
-            temperatureDegreesFahrenheit
-            barometricPressureInchesHg
-            relativeHumidityPercent
-            windVelocityMPH
-            windAngleDegrees
-        }    }
+           -altitudeFeet
+            -windVelocityMPH
+            -windAngleDegrees
+            ...
+        }
+    }]
     */
     const [isOpen, setIsOpen] = useState(true);
     const showMil = props.firearm.turretUnits==='Mil' || props.firearm.reticleUnits==='Mil';
