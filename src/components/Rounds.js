@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './form.css'
 
 const Rounds = (props) => {
     /*
@@ -14,7 +15,7 @@ const Rounds = (props) => {
     */
     const [isOpen, setIsOpen] = useState(true);
     return (
-        <div className="ballistics-form">
+        <div className="bal-form">
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     Select Round

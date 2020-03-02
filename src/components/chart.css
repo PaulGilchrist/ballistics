@@ -1,0 +1,27 @@
+.bal-chart .card-body {
+	padding: 5px
+}
+.bal-chart .card-footer {
+	background-color: rgb(227, 229, 237);
+}
+.bal-chart .font-size-small {
+	font-size: 0.7em;
+}
+.bal-chart .tooltip {
+	position: fixed;
+}
+@media screen and (min-width: 576px) {
+    .bal-chart .font-size-small {
+        font-size: 0.8em;
+    }
+}
+@media (min-width: 992px) {
+    .bal-chart .font-size-small {
+        font-size: 0.9em;
+    }
+}
+@media (min-width: 1200px) {
+    .bal-chart .card {
+        width: 1200px;
+    }
+}

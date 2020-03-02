@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import './form.css'
 
 const Firearm = (props) => {
     /*
@@ -24,7 +25,7 @@ const Firearm = (props) => {
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
     return (
-        <div className="ballistics-form">
+        <div className="bal-form">
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     { props.firearm.id==='Add' ? `Add Firearm` : `Firearm - ${props.firearm.name}`}

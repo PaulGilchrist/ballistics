@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import './form.css'
 
 import conversions from '../utilities/conversions'
 
@@ -30,7 +31,7 @@ const Target = (props) => {
         }
     }
     return (
-        <div className="ballistics-form">
+        <div className="bal-form">
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     Target
