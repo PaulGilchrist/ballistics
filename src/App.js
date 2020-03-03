@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import css from './app.module.css';
 
 import Chart from './components/Chart';
+import D3Graph from './components/D3Graph';
 import Firearm from './components/Firearm';
 import Firearms from './components/Firearms';
 import Round from './components/Round';
@@ -27,7 +28,9 @@ const App = () => {
     toast.configure();
     // Get watched data
     const [firearmId, setFirearmId] = useState(localStorage.getItem('firearmId')); // GUID or null (none) or Blank (add)
+    const [graphType, setGraphType] = useState('line');
     const [roundId, setRoundId] = useState(localStorage.getItem('roundId')); // GUID or null (none) or Blank (add)
+
     // Getter functions
     const getFirearm = (firearms, firearmId) => {
         // Get firearm from firearms array using firearmId
@@ -315,6 +318,9 @@ const App = () => {
             }
         }
     }
+    const handleGraphTypeChange = () => {
+        graphType==='line' ? setGraphType('bar') : setGraphType('line');
+    }
     const handleRoundOnAdd = () => {
         setRoundId('Add');
         localStorage.setItem('roundId', 'Add');
@@ -436,6 +442,8 @@ const App = () => {
     let target = getTarget();
     let weather = getWeather();
     let rangeData = getRangeData(weather, target, firearm, round);
+    const graphHeight = 300;
+	const graphWidth = 300;
     // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>
@@ -464,13 +472,51 @@ const App = () => {
             </div>
             <div className="d-flex flex-fill justify-content-center">
                 {firearmId && roundId ?
-                    <React.Fragment>
-                        <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather}/>
-                        <br/>
-                    </React.Fragment>
+                    <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather}/>
                     : null
                 }
             </div>
+            {firearmId && roundId ?
+                <React.Fragment>
+                    <br/>
+                    <button className='btn btn-success' onClick={handleGraphTypeChange}>Change Graph Type</button>
+                    <div className="d-flex flex-fill flex-row flex-wrap justify-content-center">
+                        <div className="graph-inline">
+                            <h3>Velocity (feet/sec)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="velocityFPS" width={graphWidth} height={graphHeight} labels="none" yToFixed={0} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Energy (foot pounds)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="energyFtLbs" width={graphWidth} height={graphHeight} labels="none" yToFixed={0} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Time (seconds)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="timeSeconds" width={graphWidth} height={graphHeight} labels="none" yToFixed={2} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Drop (inches)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="dropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Elevation (inches)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="verticalPositionInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Cross Wind Drift (inches)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="crossWindDriftInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Lead (inches)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="leadInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
+                        </div>
+                        <div className="graph-inline">
+                            <h3>Slant Hold (inches - hold low)</h3>
+                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="slantDropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
+                        </div>
+                    </div>
+                </React.Fragment>
+                : null
+            }
         </div>
     );
 }
