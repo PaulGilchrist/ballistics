@@ -189,7 +189,6 @@ const App = () => {
                 console.log(store);
                 localStorage.setItem('firearms', JSON.stringify(store.firearms));
                 firearms = store.firearms;
-                //status = store.status;
                 localStorage.setItem('target', JSON.stringify(store.target));
                 target = store.target;
                 localStorage.setItem('weather', JSON.stringify(store.weather));
@@ -210,6 +209,21 @@ const App = () => {
         }
     }
     const handleDataExport = () => {
+        const json = JSON.stringify({
+            firearmId: firearmId,
+            firearms:firearms,
+            roundId: roundId,
+            target: target,
+            weather: weather           
+        });
+        const blob = new Blob([json],{type:'application/json'});
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = 'ballisticsData.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
     const handleFirearmOnAdd = () => {
         setFirearmId('Add');
