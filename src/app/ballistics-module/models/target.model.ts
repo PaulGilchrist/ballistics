@@ -1,7 +1,5 @@
-import { LengthEnum } from './length-enum.model';
-
 export interface Target {
-	distanceUnits: LengthEnum;
+	distanceUnits: string; // 'Yards' or 'Meters'
 	distance: number;
 	chartStepping: number;
 	sizeInches?: number;

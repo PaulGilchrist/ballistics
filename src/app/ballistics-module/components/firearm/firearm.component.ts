@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { Firearm } from '../../models/firearm.model';
-import { LengthEnum } from '../../models/length-enum.model';
 import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
@@ -36,6 +35,7 @@ export class FirearmComponent implements OnInit {
             } else {
                this.resetForm();
             }
+            console.log( this.firearm);
         });
 		this.dataService.getStatus().subscribe(status => {
             this.status = status;
@@ -58,12 +58,12 @@ export class FirearmComponent implements OnInit {
             id: null,
             name: null,
             elevationTurretGradients: null,
-            reticleUnits: null,
+            reticleUnits: 'Mil',
             rounds: [],
             sightHeightInches: null,
-            turretUnits: null,
+            turretUnits: 'Mil',
             windageTurretGradients: null,
-            zeroRangeUnits: LengthEnum.Yards,
+            zeroRangeUnits: 'Yards',
             zeroRange: null
         };
     }

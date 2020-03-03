@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<div class="form-group" [class.has-error]="temperatureDegreesFahrenheitControl.invalid && temperatureDegreesFahrenheitControl.dirty">
-				<label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Temperature (fahrenheit)</label>
+				<label class="control-label" data-toggle="tooltip" title="Degree or intensity of heat in the atmosphere.">Temperature (fahrenheit)</label>
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-snowflake-o fa-fw"></i></div></div>
 					<input type="number" name="temperatureDegreesFahrenheit" [(ngModel)]="weather.temperatureDegreesFahrenheit" #temperatureDegreesFahrenheitControl="ngModel" class="form-control" placeholder="Temperature (fahrenheit)" required min="0" max="200">
@@ -25,14 +25,14 @@
 					Temperature is required to determine atmospheric density
 				</div>
 			</div>
-			<div class="form-group" [class.has-error]="barometericPressureInchesHgControl.invalid && barometericPressureInchesHgControl.dirty">
-				<label class="control-label" data-toggle="tooltip" title="Distance above sea level. Altitude is used to determine atmospheric density.">Barometeric Pressure (in Hg)</label>
+			<div class="form-group" [class.has-error]="barometricPressureInchesHgControl.invalid && barometricPressureInchesHgControl.dirty">
+				<label class="control-label" data-toggle="tooltip" title="Air pressure in the atmosphere measured in inches Hg.">barometric Pressure (in Hg)</label>
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-cloud fa-fw"></i></div></div>
-					<input type="number" name="barometericPressureInchesHg" [(ngModel)]="weather.barometericPressureInchesHg" #barometericPressureInchesHgControl="ngModel" class="form-control" placeholder="Barometeric Pressure (in Hg)" required min="0" max="100">
+					<input type="number" name="barometricPressureInchesHg" [(ngModel)]="weather.barometricPressureInchesHg" #barometricPressureInchesHgControl="ngModel" class="form-control" placeholder="barometric Pressure (in Hg)" required min="0" max="100">
 				</div>
-				<div [hidden]="barometericPressureInchesHgControl.valid || barometericPressureInchesHgControl.pristine" class="alert alert-danger">
-					Barometeric Pressure is required to determine atmospheric density
+				<div [hidden]="barometricPressureInchesHgControl.valid || barometricPressureInchesHgControl.pristine" class="alert alert-danger">
+					barometric Pressure is required to determine atmospheric density
 				</div>
 			</div>
 			<div class="form-group" [class.has-error]="relativeHumidityPercentControl.invalid && relativeHumidityPercentControl.dirty">

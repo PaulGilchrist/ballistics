@@ -3,7 +3,6 @@ import { BehaviorSubject, combineLatest, Observable, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { Firearm } from '../models/firearm.model';
-import { LengthEnum } from '../models/length-enum.model';
 import { Range } from '../models/range.model';
 import { Round } from '../models/round.model';
 import { StatusEnum } from '../models/status-enum.model';
@@ -36,7 +35,7 @@ export class DataService {
     status$ = this.status.asObservable();
 
     private target = new BehaviorSubject<Target>({
-        distanceUnits: LengthEnum.Yards,
+        distanceUnits: 'Yards',
         distance: 1000,
         chartStepping: 50,
         sizeInches: 40,
@@ -48,7 +47,7 @@ export class DataService {
     private weather = new BehaviorSubject<Weather>({
         altitudeFeet: 0,
         temperatureDegreesFahrenheit: 59,
-        barometericPressureInchesHg: 29.53,
+        barometricPressureInchesHg: 29.53,
         relativeHumidityPercent: 78,
         windVelocityMPH: 10,
         windAngleDegrees: 90
@@ -121,15 +120,15 @@ export class DataService {
                 if(weather && target && firearm && round) {
                     rangeData = [];
                     // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
-                    const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometericPressureInchesHg, weather.relativeHumidityPercent);
-                    const zeroRangeYards = firearm.zeroRangeUnits===LengthEnum.Yards ? firearm.zeroRange: this._conversionService.metersToYards(firearm.zeroRange);
+                    const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometricPressureInchesHg, weather.relativeHumidityPercent);
+                    const zeroRangeYards = firearm.zeroRangeUnits==='Yards' ? firearm.zeroRange: this._conversionService.metersToYards(firearm.zeroRange);
                     const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
                     let currentCrossWindDriftInches: number, currentDropInches: number, currentEnergyFtLbs: number, currentLeadInches: number,  currentRangeMeters: number, currentRangeYards: number, currentTimeSeconds: number, currentVelocityFPS: number, currentVerticalPositionInches: number;
                     // Skip the first row
                     let currentRange = target.chartStepping;
                     while (currentRange <= target.distance) {
-                        currentRangeMeters = target.distanceUnits===LengthEnum.Yards ? this._conversionService.yardsToMeters(currentRange): currentRange,
-                        currentRangeYards = target.distanceUnits===LengthEnum.Yards ? currentRange: this._conversionService.metersToYards(currentRange),
+                        currentRangeMeters = target.distanceUnits==='Yards' ? this._conversionService.yardsToMeters(currentRange): currentRange;
+                        currentRangeYards = target.distanceUnits==='Yards' ? currentRange: this._conversionService.metersToYards(currentRange);
                         currentVelocityFPS = this._dragService.velocityFromRange(currentBallisticCoefficient, round.muzzleVelocityFPS, currentRangeYards);
                         currentEnergyFtLbs = this._dragService.energy(round.bulletWeightGrains, currentVelocityFPS);
                         currentTimeSeconds = this._dragService.time(currentBallisticCoefficient, round.muzzleVelocityFPS, currentVelocityFPS);
@@ -150,7 +149,7 @@ export class DataService {
                             crossWindDriftInches: currentCrossWindDriftInches,
                             leadInches: currentLeadInches,
                             slantDegrees: target.slantDegrees,
-                            // //Al the remaining properties are computed
+                            // All the remaining properties are computed
                             verticalPositionMil: this._conversionService.inchesToMil(-currentVerticalPositionInches, currentRangeYards),
                             verticalPositionMoA: this._conversionService.inchesToMinutesOfAngle(-currentVerticalPositionInches, currentRangeYards),
                             verticalPositionIPHY: this._conversionService.inchesToIPHY(-currentVerticalPositionInches, currentRangeYards),

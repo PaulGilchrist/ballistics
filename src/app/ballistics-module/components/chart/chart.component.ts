@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Firearm } from '../../models/firearm.model';
-import { LengthEnum } from '../../models/length-enum.model';
 import { Range } from '../../models/range.model';
 import { Round } from '../../models/round.model';
 import { Target } from '../../models/target.model';
@@ -28,8 +27,6 @@ export class ChartComponent implements OnInit {
     speedOfSound = 0;
 	target: Target = null;
 	weather: Weather = null;
-    get lengthEnum() { return LengthEnum; }
-
 
 	constructor(public dataService: DataService, private atmosphericService: AtmosphericService) {}
 
@@ -47,9 +44,9 @@ export class ChartComponent implements OnInit {
 		this.dataService.getFirearmId().subscribe(firearmId => {
             if(this.firearms != null && firearmId != null) {
                 this.firearm = this.firearms.find(f => f.id===firearmId);
-                this.showMil = this.firearm.turretUnits===0 || this.firearm.reticleUnits===0;
-                this.showMoA = this.firearm.turretUnits===1 || this.firearm.reticleUnits===1;
-                this.showIPHY = this.firearm.turretUnits===3 || this.firearm.reticleUnits===3;
+                this.showMil = this.firearm.turretUnits==='Mil' || this.firearm.reticleUnits==='Mil';
+                this.showMoA = this.firearm.turretUnits==='MoA' || this.firearm.reticleUnits==='MoA';
+                this.showIPHY = this.firearm.turretUnits==='IPHY' || this.firearm.reticleUnits==='IPHY';
             }
         });
 		this.dataService.getRoundId().subscribe(roundId => {

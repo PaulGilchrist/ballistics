@@ -1,4 +1,3 @@
-import { LengthEnum } from './length-enum.model';
 import { Round } from './round.model';
 
 export interface Firearm {
@@ -8,13 +7,11 @@ export interface Firearm {
 	// MoA and IPHY are 1, 2 or 4 displayed in select as 1, 1/2, 1/4 per click
 	// Mil scopes are always 10 clicks per Mil shown as 1/10
 	elevationTurretGradients: number;
-	// Reticle units 0=Mil, 1=MoA, 2=IPHY
-	reticleUnits: number;
+	reticleUnits: string; // 'Mil', 'MoA', or 'IPHY'
 	rounds: Array<Round>;
 	sightHeightInches: number;
-	// Turret units 0=Mil, 1=MoA, 2=IPHY
-	turretUnits: number;
+	turretUnits: string; // 'Mil', 'MoA', or 'IPHY'
 	windageTurretGradients: number;
-	zeroRangeUnits: LengthEnum;
+	zeroRangeUnits: string; // 'Yards' or 'Meters'
 	zeroRange: number;
 }

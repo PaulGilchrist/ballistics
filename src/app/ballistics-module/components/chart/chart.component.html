@@ -9,7 +9,7 @@
                 <thead>
                     <tr>
                         <th data-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
-                            Range<br>{{target.distanceUnits===lengthEnum.Yards ? '(yards)': '(meters)'}}
+                            Range<br>{{target.distanceUnits==='Yards' ? '(yards)': '(meters)'}}
                         </th>
                         <th data-toggle="tooltip" title="Velocity of the bullet in feet per second">
                             Velocity<br>(FPS)
@@ -103,7 +103,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor='let range of ranges' [class.text-danger]="range.velocityFPS<=speedOfSound" [class.text-warning]="range.velocityFPS<=speedOfSound*1.2 && range.velocityFPS>speedOfSound">
-                        <td>{{target.distanceUnits===lengthEnum.Yards ? range.rangeYards: range.rangeMeters}}</td>
+                        <td>{{target.distanceUnits==='Yards' ? range.rangeYards: range.rangeMeters}}</td>
                         <td>{{range.velocityFPS.toFixed(0)}}</td>
                         <td class="d-none d-sm-table-cell">{{range.energyFtLbs.toFixed(0)}}</td>
                         <td class="d-none d-sm-table-cell">{{range.timeSeconds.toFixed(3)}}</td>

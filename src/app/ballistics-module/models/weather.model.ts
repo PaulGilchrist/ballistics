@@ -1,7 +1,7 @@
 export interface Weather {
 	altitudeFeet: number;
 	temperatureDegreesFahrenheit: number;
-	barometericPressureInchesHg: number;
+	barometricPressureInchesHg: number;
 	relativeHumidityPercent: number;
 	windVelocityMPH: number;
 	windAngleDegrees: number;

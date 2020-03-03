@@ -32,8 +32,8 @@
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-circle-o fa-fw"></i></div></div>
 					<input type="number" name="zeroRange" [(ngModel)]="firearm.zeroRange" #zeroRangeControl="ngModel" class="form-control" placeholder="Zero Range" required min="25" max="3000" >
                     <select name="zeroRangeUnits" [(ngModel)]="firearm.zeroRangeUnits" #zeroRangeUnitsControl="ngModel" class="form-control" required>
-                        <option [ngValue]='0'>Yards</option>
-                        <option [ngValue]='1'>Meters</option>
+                        <option>Yards</option>
+                        <option>Meters</option>
                     </select>
 				</div>
 				<div [hidden]="zeroRangeControl.valid || zeroRangeControl.pristine" class="alert alert-danger">
@@ -45,9 +45,9 @@
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-spinner fa-fw"></i></div></div>
 					<select name="reticleUnits" [(ngModel)]="firearm.reticleUnits" #reticleUnitsControl="ngModel" class="form-control" required>
-						<option [ngValue]='0'>Mil</option>
-						<option [ngValue]='1'>MoA</option>
-						<option [ngValue]='2'>IPHY</option>
+						<option>Mil</option>
+						<option>MoA</option>
+						<option>IPHY</option>
 					</select>
 				</div>
 				<div [hidden]="reticleUnitsControl.valid || reticleUnitsControl.pristine" class="alert alert-danger">
@@ -59,16 +59,16 @@
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-align-center fa-fw"></i></div></div>
 					<select name="elevationTurretGradients" [(ngModel)]="firearm.elevationTurretGradients" #elevationTurretGradientsControl="ngModel" class="form-control">
-						<option *ngIf='firearm.turretUnits!=0' [ngValue]='1'>1</option>
-						<option *ngIf='firearm.turretUnits!=0' [ngValue]='2'>2</option>
-						<option *ngIf='firearm.turretUnits!=0' [ngValue]='4'>4</option>
-						<option *ngIf='firearm.turretUnits==0' [ngValue]='5'>5</option>
-						<option *ngIf='firearm.turretUnits==0' [ngValue]='10'>10</option>
+						<option *ngIf='firearm.turretUnits!="Mil"' [ngValue]='1'>1</option>
+						<option *ngIf='firearm.turretUnits!="Mil"' [ngValue]='2'>2</option>
+						<option *ngIf='firearm.turretUnits!="Mil"' [ngValue]='4'>4</option>
+						<option *ngIf='firearm.turretUnits=="Mil"' [ngValue]='5'>5</option>
+						<option *ngIf='firearm.turretUnits=="Mil"' [ngValue]='10'>10</option>
 					</select>
 					<select name="turretUnits" [(ngModel)]="firearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
-						<option [ngValue]='0'>Mil</option>
-						<option [ngValue]='1'>MoA</option>
-						<option [ngValue]='2'>IPHY</option>
+						<option>Mil</option>
+						<option>MoA</option>
+						<option>IPHY</option>
 					</select>
 				</div>
 				<div [hidden]="elevationTurretGradientsControl.valid || elevationTurretGradientsControl.pristine" class="alert alert-danger">
@@ -80,16 +80,16 @@
 				<div class="input-group margin-bottom-sm">
 	                <div class="input-group-prepend"><div class="input-group-text"><i class="fa fa-repeat fa-fw"></i></div></div>
 					<select name="windageTurretGradients" [(ngModel)]="firearm.windageTurretGradients" #windageTurretGradientsControl="ngModel" class="form-control">
-						<option *ngIf='firearm.turretUnits!=0' [ngValue]='1'>1</option>
-						<option *ngIf='firearm.turretUnits!=0' [ngValue]='2'>2</option>
-						<option *ngIf='firearm.turretUnits!=0' [ngValue]='4'>4</option>
-						<option *ngIf='firearm.turretUnits==0' [ngValue]='5'>5</option>
-						<option *ngIf='firearm.turretUnits==0' [ngValue]='10'>10</option>
+						<option *ngIf='firearm.turretUnits!="Mil"' [ngValue]='1'>1</option>
+						<option *ngIf='firearm.turretUnits!="Mil"' [ngValue]='2'>2</option>
+						<option *ngIf='firearm.turretUnits!="Mil"' [ngValue]='4'>4</option>
+						<option *ngIf='firearm.turretUnits=="Mil"' [ngValue]='5'>5</option>
+						<option *ngIf='firearm.turretUnits=="Mil"' [ngValue]='10'>10</option>
 					</select>
 					<select name="turretUnits" [(ngModel)]="firearm.turretUnits" #turretUnitsControl="ngModel" class="form-control" required>
-						<option [ngValue]='0'>Mil</option>
-						<option [ngValue]='1'>MoA</option>
-						<option [ngValue]='2'>IPHY</option>
+						<option>Mil</option>
+						<option>MoA</option>
+						<option>IPHY</option>
 					</select>
 				</div>
 				<div [hidden]="windageTurretGradientsControl.valid || windageTurretGradientsControl.pristine" class="alert alert-danger">
