@@ -146,7 +146,7 @@ const drag = {
 		const altitudeAdjustmentFactor = atmospherics.altitudeAdjustmentFactor(altitudeFeet);
 		const temperatureAdjustmentFactor = atmospherics.temperatureAdjustmentFactor(altitudeFeet, temperatureFahrenheit);
 		const barometricPressureAdjustmentFactor = atmospherics.barometricPressureAdjustmentFactor(altitudeFeet, barometricPressureInchesHg);
-		const relativeHumidityAdjustmentFactor = atmospherics.relativeHumidityAdjustmentFactor(altitudeFeet, temperatureFahrenheit, barometricPressureInchesHg, relativeHumidityPercent / 100);
+		const relativeHumidityAdjustmentFactor = atmospherics.relativeHumidityAdjustmentFactor(temperatureFahrenheit, barometricPressureInchesHg, relativeHumidityPercent / 100);
 		return ballisticCoefficient * (altitudeAdjustmentFactor * (1 + temperatureAdjustmentFactor - barometricPressureAdjustmentFactor) * relativeHumidityAdjustmentFactor);
 	},
 	muzzleAngleDegreesForZeroRange: (muzzleVelocityFPS, zeroRangeYards, scopeHeightInches, ballisticCoefficient) => {

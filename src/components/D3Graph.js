@@ -22,6 +22,7 @@ const D3Graph = (props) => {
             d3Utils.draw(props.type, d3Container.current, tooltip, props.data, props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel);
         },[props.type, props.data, props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel]
     )
+
     return (
         <div ref={d3Container} />
     );

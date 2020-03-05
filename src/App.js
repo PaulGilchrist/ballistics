@@ -31,7 +31,7 @@ const App = () => {
     const [graphType, setGraphType] = useState('line');
     const [roundId, setRoundId] = useState(localStorage.getItem('roundId')); // GUID or null (none) or Blank (add)
 
-    // Getter functions
+    // Getter functions (all should be pure functions)
     const getFirearm = (firearms, firearmId) => {
         // Get firearm from firearms array using firearmId
         let firearm;

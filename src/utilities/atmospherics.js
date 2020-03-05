@@ -41,7 +41,7 @@ const atmospherics = {
         }
         return result;
     },
-    relativeHumidityAdjustmentFactor: (altitude, temperature, barometricPressure, relativeHumidity) => {
+    relativeHumidityAdjustmentFactor: (temperature, barometricPressure, relativeHumidity) => {
         // The Relative Humidity Adjustment Factor Compares The Relative Humidity (Percentage)
         //     At A Given altitude (Feet) To The Standard Relative Humidity At That altitude.
         const standardVaporPressureOfWater = atmospherics.interpolateArray(atmospherics.vaporPressureOfWaterTable, temperature / 2);
