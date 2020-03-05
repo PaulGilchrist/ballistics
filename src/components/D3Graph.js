@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3'
 
-import d3Utils from './../utilities/d3-utils';
+import d3Utils from 'pg-d3-utils';
 
 const D3Graph = (props) => {
     /* The useRef Hook creates a variable that "holds on" to a value across rendering
@@ -15,7 +15,7 @@ const D3Graph = (props) => {
         () => {
             const tooltip = d3.select('body')
                 .append('div')
-                .attr('class', 'd3-tooltip')
+                .attr('class', 'd3-utils-tooltip')
                 .style('opacity', 0)
                 .style('pointer-events', 'none')
                 .style('position', 'absolute');

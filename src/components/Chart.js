@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './chart.css'
-import atmospherics from './../utilities/atmospherics';
+import atmospherics from 'pg-atmospherics';
 
 const Chart = (props) => {
     /*

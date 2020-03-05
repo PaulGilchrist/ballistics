@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {toast}  from 'react-toastify' // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
+import ballistics from 'pg-ballistics'
+import utilities from 'pg-utilities'
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import 'animate.css/animate.min.css';
@@ -16,8 +18,6 @@ import Round from './components/Round';
 import Rounds from './components/Rounds';
 import Target from './components/Target';
 import Weather from './components/Weather';
-import ballistics from './utilities/ballistics'
-import tools from './utilities/tools'
 
 import FIREARMS from './data/firearms';
 
@@ -56,7 +56,7 @@ const App = () => {
         let firearms;
         const firearmsJson = localStorage.getItem('firearms');
         if(firearmsJson) {
-            firearms = tools.jsonParseNumbers(firearmsJson);
+            firearms = utilities.jsonParseNumbers(firearmsJson);
         } else {
             firearms = FIREARMS;
             localStorage.setItem('firearms', JSON.stringify(firearms));
@@ -85,7 +85,7 @@ const App = () => {
         let target;
         const targetJson = localStorage.getItem('target');
         if(targetJson) {
-            target = tools.jsonParseNumbers(targetJson);
+            target = utilities.jsonParseNumbers(targetJson);
         } else {
             target = {
                 distanceUnits: 'Yards', // Yards or Meters
@@ -104,7 +104,7 @@ const App = () => {
         let weather;
         const weatherJson = localStorage.getItem('weather');
         if(weatherJson) {
-            weather = tools.jsonParseNumbers(weatherJson);
+            weather = utilities.jsonParseNumbers(weatherJson);
         } else {
             weather = {
                 altitudeFeet: 0,
@@ -133,7 +133,7 @@ const App = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 // handle data processing
-                const store = tools.jsonParseNumbers(reader.result.toString());
+                const store = utilities.jsonParseNumbers(reader.result.toString());
                 console.log(store);
                 localStorage.setItem('firearms', JSON.stringify(store.firearms));
                 firearms = store.firearms;
@@ -211,9 +211,9 @@ const App = () => {
         if(firearm.id==='Add') {
             // Add new firearm if name does not already exist
             if(firearmIndex === -1) {
-                firearm.id = tools.guid();
+                firearm.id = utilities.guid();
                 firearms.push(firearm);
-                firearms.sort(tools.nameSort);
+                firearms.sort(utilities.nameSort);
                 localStorage.setItem('firearms', JSON.stringify(firearms));
                 setFirearmId(null);
                 toast.success(`Firearm Added`, {
@@ -252,7 +252,7 @@ const App = () => {
                     firearmIndex = firearms.findIndex((f) => f.id===firearm.id);
                 }
                 firearms[firearmIndex] = firearm
-                firearms.sort(tools.nameSort); // In case the name changed
+                firearms.sort(utilities.nameSort); // In case the name changed
                 localStorage.setItem('firearms', JSON.stringify(firearms));
                 toast.success(`Firearm Updated`, {
                     distance: "top-center",
@@ -304,9 +304,9 @@ const App = () => {
         if(round.id==='Add') {
             // Add new round if name does not already exist
             if(roundIndex === -1) {
-                round.id = tools.guid();
+                round.id = utilities.guid();
                 firearm.rounds.push(round);
-                firearm.rounds.sort(tools.nameSort);
+                firearm.rounds.sort(utilities.nameSort);
                 localStorage.setItem('firearms', JSON.stringify(firearms));
                 setRoundId(null);
                 toast.success(`Round Added`, {
@@ -345,7 +345,7 @@ const App = () => {
                     roundIndex = firearm.rounds.findIndex((r) => r.id===round.id);
                 }
                 firearm.rounds[roundIndex] = round
-                firearm.rounds.sort(tools.nameSort); // In case the name changed
+                firearm.rounds.sort(utilities.nameSort); // In case the name changed
                 localStorage.setItem('firearms', JSON.stringify(firearms));
                 toast.success(`Round Updated`, {
                     distance: "top-center",

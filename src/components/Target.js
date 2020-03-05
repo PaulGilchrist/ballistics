@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './form.css'
 
-import conversions from '../utilities/conversions'
+import conversions from 'pg-conversions';
 
 const Target = (props) => {
     /*
