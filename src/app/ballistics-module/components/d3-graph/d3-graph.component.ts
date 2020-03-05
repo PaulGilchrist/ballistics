@@ -12,7 +12,7 @@ declare var _:any;
 @Component({
 	encapsulation: ViewEncapsulation.None,
 	selector: './d3-graph',
-	styleUrls: ['./d3-graph.component.css'],
+	styleUrls: [],
 	template: ''
 })
 export class D3GraphComponent implements OnInit, OnChanges {

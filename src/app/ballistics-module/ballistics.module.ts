@@ -8,11 +8,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ToastrModule } from 'ngx-toastr';
 
 /* Services */
-import { AtmosphericService } from './services/atmospheric.service';
-import { BallisticsService } from './services/ballistics.service';
-import { ConversionService } from './services/conversion.service';
 import { DataService } from './services/data.service';
-import { DragService } from './services/drag.service';
 /* Components */
 import { ChartComponent } from './components/chart/chart.component';
 import { D3GraphComponent } from './components/d3-graph/d3-graph.component';
@@ -49,11 +45,7 @@ import { WeatherComponent } from './components/weather/weather.component';
         ToastrModule.forRoot()
 	],
 	providers: [
-		AtmosphericService,
-		BallisticsService,
-		ConversionService,
-		DataService,
-		DragService
+		DataService
 	]
 })
 export class BallisticsModule {}

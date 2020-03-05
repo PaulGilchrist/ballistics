@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DataService } from '../../services/data.service';
-import { ConversionService } from '../../services/conversion.service';
+import conversions from 'pg-conversions';
 
 import { Target } from '../../models/target.model';
 
@@ -16,7 +16,7 @@ export class TargetComponent implements OnInit {
     target: Target = null;
     targetSizeMils: number = null;
 
-	constructor(private dataService: DataService, private conversionService: ConversionService) {}
+	constructor(private dataService: DataService) {}
 
 	ngOnInit(): void {
 		this.dataService.getTarget().subscribe(target => {
@@ -33,8 +33,8 @@ export class TargetComponent implements OnInit {
     getDistance(): void {
         // Given the size of a target in both inches and mils, will calculate and update the distance
         if(this.target != null && this.target.sizeInches != null && this.targetSizeMils != null) {
-            const distanceYards = this.conversionService.sizeToDistance(this.target.sizeInches, this.targetSizeMils);
-            this.target.distance = this.target.distanceUnits==='Yards' ? distanceYards : this.conversionService.yardsToMeters(distanceYards);
+            const distanceYards = conversions.sizeToDistance(this.target.sizeInches, this.targetSizeMils);
+            this.target.distance = this.target.distanceUnits==='Yards' ? distanceYards : conversions.yardsToMeters(distanceYards);
         }
     }
 

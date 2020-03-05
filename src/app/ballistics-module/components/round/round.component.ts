@@ -7,7 +7,7 @@ import { Round } from '../../models/round.model';
 import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
-import { DragService } from '../../services/drag.service';
+import drag from 'pg-drag';
 
 @Component({
 	selector: 'app-round',
@@ -25,7 +25,7 @@ export class RoundComponent implements OnInit {
     status: StatusEnum = null;
     get statusEnum() { return StatusEnum; }
 
-    constructor(private dataService: DataService, private dragService: DragService, private toastrService: ToastrService) { }
+    constructor(private dataService: DataService, private toastrService: ToastrService) { }
 
 	ngOnInit(): void {
         this.resetForm();

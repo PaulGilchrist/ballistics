@@ -6,7 +6,7 @@ import { Round } from '../../models/round.model';
 import { Target } from '../../models/target.model';
 import { Weather } from '../../models/weather.model';
 
-import { AtmosphericService } from '../../services/atmospheric.service';
+import atmospherics from 'pg-atmospherics';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -28,12 +28,12 @@ export class ChartComponent implements OnInit {
 	target: Target = null;
 	weather: Weather = null;
 
-	constructor(public dataService: DataService, private atmosphericService: AtmosphericService) {}
+	constructor(public dataService: DataService) {}
 
 	ngOnInit() {
 		this.dataService.getWeather().subscribe(weather => {
             this.weather = weather;
-            this.speedOfSound = this.atmosphericService.speedOfSound(this.weather.altitudeFeet);
+            this.speedOfSound = atmospherics.speedOfSound(this.weather.altitudeFeet);
         });
 		this.dataService.getTarget().subscribe(target => {
             this.target = target;

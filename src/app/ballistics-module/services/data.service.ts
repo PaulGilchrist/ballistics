@@ -12,10 +12,8 @@ import { Weather } from '../models/weather.model';
 
 import { FIREARMS } from '../data/firearms.data';
 
-import { AtmosphericService } from './atmospheric.service';
-import { ConversionService } from './conversion.service';
-import { DragService } from './drag.service';
-
+import ballistics from 'pg-ballistics';
+import utilities from 'pg-utilities';
 
 @Injectable()
 export class DataService {
@@ -55,8 +53,6 @@ export class DataService {
     weather$ = this.weather.asObservable();
 
 	public rangeData: Range[] = null;
-
-	constructor(private _atmosphericService: AtmosphericService, private _conversionService: ConversionService, private _dragService: DragService) {}
 
 	public export(): Store {
         return {
@@ -104,7 +100,6 @@ export class DataService {
             this.getRoundId()
         ]).pipe(
             map(([weather, target, firearms, firearmId, roundId]) => {
-                let rangeData: Range[] = null;
                 let firearm = null;
                 let round = null;
                 if(firearms) {
@@ -117,58 +112,7 @@ export class DataService {
                         }
                     }
                 }
-                if(weather && target && firearm && round) {
-                    rangeData = [];
-                    // Loop through from Range = 0 to the maximum range and display the ballistics table at each chart stepping range.
-                    const currentBallisticCoefficient = this._dragService.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometricPressureInchesHg, weather.relativeHumidityPercent);
-                    const zeroRangeYards = firearm.zeroRangeUnits==='Yards' ? firearm.zeroRange: this._conversionService.metersToYards(firearm.zeroRange);
-                    const muzzleAngleDegrees = this._dragService.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
-                    let currentCrossWindDriftInches: number, currentDropInches: number, currentEnergyFtLbs: number, currentLeadInches: number,  currentRangeMeters: number, currentRangeYards: number, currentTimeSeconds: number, currentVelocityFPS: number, currentVerticalPositionInches: number;
-                    // Skip the first row
-                    let currentRange = target.chartStepping;
-                    while (currentRange <= target.distance) {
-                        currentRangeMeters = target.distanceUnits==='Yards' ? this._conversionService.yardsToMeters(currentRange): currentRange;
-                        currentRangeYards = target.distanceUnits==='Yards' ? currentRange: this._conversionService.metersToYards(currentRange);
-                        currentVelocityFPS = this._dragService.velocityFromRange(currentBallisticCoefficient, round.muzzleVelocityFPS, currentRangeYards);
-                        currentEnergyFtLbs = this._dragService.energy(round.bulletWeightGrains, currentVelocityFPS);
-                        currentTimeSeconds = this._dragService.time(currentBallisticCoefficient, round.muzzleVelocityFPS, currentVelocityFPS);
-                        currentDropInches = this._dragService.drop(round.muzzleVelocityFPS, currentVelocityFPS, currentTimeSeconds);
-                        currentVerticalPositionInches = this._dragService.verticalPosition(firearm.sightHeightInches, muzzleAngleDegrees, currentRangeYards, currentDropInches);
-                        // Cross Winds take on full range value regardless of Slant To Target
-                        currentCrossWindDriftInches = this._dragService.crossWindDrift(currentRangeYards, currentTimeSeconds, weather.windAngleDegrees, weather.windVelocityMPH, muzzleAngleDegrees, round.muzzleVelocityFPS);
-                        currentLeadInches = this._dragService.lead(target.speedMPH, currentTimeSeconds);
-                        const slantDropInches: number = currentDropInches * (1-Math.cos(this._conversionService.degreesToRadians(target.slantDegrees)));
-                        const range: Range = {
-                            rangeMeters: currentRangeMeters,
-                            rangeYards: currentRangeYards,
-                            velocityFPS: currentVelocityFPS,
-                            energyFtLbs: currentEnergyFtLbs,
-                            timeSeconds: currentTimeSeconds,
-                            dropInches: currentDropInches,
-                            verticalPositionInches: -currentVerticalPositionInches,  // Go negative to reflect how much scope dial up is needed
-                            crossWindDriftInches: currentCrossWindDriftInches,
-                            leadInches: currentLeadInches,
-                            slantDegrees: target.slantDegrees,
-                            // All the remaining properties are computed
-                            verticalPositionMil: this._conversionService.inchesToMil(-currentVerticalPositionInches, currentRangeYards),
-                            verticalPositionMoA: this._conversionService.inchesToMinutesOfAngle(-currentVerticalPositionInches, currentRangeYards),
-                            verticalPositionIPHY: this._conversionService.inchesToIPHY(-currentVerticalPositionInches, currentRangeYards),
-                            crossWindDriftMil: this._conversionService.inchesToMil(currentCrossWindDriftInches, currentRangeYards),
-                            crossWindDriftMoA: this._conversionService.inchesToMinutesOfAngle(currentCrossWindDriftInches, currentRangeYards),
-                            crossWindDriftIPHY: this._conversionService.inchesToIPHY(currentCrossWindDriftInches, currentRangeYards),
-                            leadMil: this._conversionService.inchesToMil(currentLeadInches, currentRangeYards),
-                            leadMoA: this._conversionService.inchesToMinutesOfAngle(currentLeadInches, currentRangeYards),
-                            leadIPHY: this._conversionService.inchesToIPHY(currentLeadInches, currentRangeYards),
-                            slantDropInches: slantDropInches,
-                            slantMil: this._conversionService.inchesToMil(slantDropInches, currentRangeYards),
-                            slantMoA: this._conversionService.inchesToMinutesOfAngle(slantDropInches, currentRangeYards),
-                            slantIPHY: this._conversionService.inchesToIPHY(slantDropInches, currentRangeYards)
-                        };
-                        rangeData.push(range);
-                        currentRange += target.chartStepping;
-                    }
-                }
-                return rangeData;
+                return ballistics.getRangeData(weather, target, firearm, round);
             })
         );
 	}
@@ -245,21 +189,21 @@ export class DataService {
 
 	public insertFirearm(firearm: Firearm): boolean {
 		// Gernerate new unique id
-		firearm.id = this.guid();
+		firearm.id = utilities.guid();
         const firearms = this.firearms.getValue();
 		firearms.push(firearm);
-		firearms.sort(this.nameSort);
+		firearms.sort(utilities.nameSort);
         this.updateFirearms(firearms);
         return true;
 	}
 
 	public insertRound(firearmId: string, round: Round): boolean {
 		// Gernerate new unique id
-		round.id = this.guid();
+		round.id = utilities.guid();
         const firearms = this.firearms.getValue();
         const firearm = firearms.find(f => f.id === firearmId);
         firearm.rounds.push(round);
-		firearm.rounds.sort(this.nameSort);
+		firearm.rounds.sort(utilities.nameSort);
         this.updateFirearms(firearms);
         return true;
 	}
@@ -291,7 +235,7 @@ export class DataService {
         if(found) {
             if(nameChanged) {
                 // Name may have been changed
-                firearms.sort(this.nameSort);
+                firearms.sort(utilities.nameSort);
             }
             updated = this.updateFirearms(firearms);
         }
@@ -321,7 +265,7 @@ export class DataService {
                 }
                 if(nameChanged) {
                     // Name may have been changed
-                    firearms[i].rounds.sort(this.nameSort);
+                    firearms[i].rounds.sort(utilities.nameSort);
                 }
                 break;
             }
@@ -348,23 +292,6 @@ export class DataService {
         localStorage.setItem('weather', JSON.stringify(weather));
         this.weather.next(weather);
         return true;
-	}
-
-	guid() {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-			return v.toString(16);
-		});
-	}
-
-	public nameSort(a: any, b: any) {
-		if(a.name < b.name) {
-			return -1;
-		} else if (b.name < a.name) {
-			return 1;
-		} else {
-			return 0;
-		}
 	}
 
 }

@@ -2,13 +2,13 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~font-awesome/css/font-awesome.css';
 @import '~ngx-toastr/toastr-bs4-alert';
+@import '~pg-d3-utils/d3-utils.css';
 
 /*
 Try and keep global CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
 */
 :root {
   --color-blue: #337ab7;
-
   --color-info: #5bc0de;
   --color-success: #5cb85c;
   --color-warning: #f0ad4e;
