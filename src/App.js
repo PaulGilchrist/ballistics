@@ -174,7 +174,9 @@ const App = () => {
         document.body.removeChild(link);
     }
     const handleFirearmOnAdd = () => {
+        setRoundId(null);
         setFirearmId('Add');
+        localStorage.removeItem('roundId');
         localStorage.setItem('firearmId', 'Add');
     }
     const handleFirearmOnClose = () => {
@@ -407,21 +409,22 @@ const App = () => {
                     :
                     <React.Fragment>
                         <Firearm firearm={firearm} onClose={() => handleFirearmOnClose()} onDelete={(firearm) => handleFirearmOnDelete(firearm)} onSubmit={(firearm) => handleFirearmOnSubmit(firearm)}/>
-                        {roundId===null ?
+                        {firearmId!=='Add' ? roundId===null ?
                             <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd()} onSelect={(round) => handleRoundOnSelect(round)}/>
                             :
                             <Round round={round} onClose={() => handleRoundOnClose()} onDelete={(round) => handleRoundOnDelete(round)} onSubmit={(round) => handleRoundOnSubmit(round)}/>
+                            : null
                         }
                     </React.Fragment>
                 }
             </div>
             <div className="d-flex flex-fill justify-content-center">
-                {firearmId && roundId ?
+                {firearmId && roundId && roundId!=='Add' ?
                     <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather}/>
                     : null
                 }
             </div>
-            {firearmId && roundId ?
+            {firearmId && roundId && roundId!=='Add' ?
                 <React.Fragment>
                     <br/>
                     <button className='btn btn-success' onClick={handleGraphTypeChange}>Change Graph Type</button>

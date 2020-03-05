@@ -3,7 +3,7 @@
     width: 289px;
 }
 .bal-form .card-body  {
-    height: 490px;
+    min-height: 490px;
 }
 .bal-form .card-footer  {
     padding: 10px;
