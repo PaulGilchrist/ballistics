@@ -35,7 +35,6 @@ export class FirearmComponent implements OnInit {
             } else {
                this.resetForm();
             }
-            console.log( this.firearm);
         });
 		this.dataService.getStatus().subscribe(status => {
             this.status = status;
