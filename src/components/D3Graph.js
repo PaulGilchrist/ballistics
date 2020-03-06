@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3'
 
 import d3Utils from 'pg-d3-utils';
+import utilities from 'pg-utilities';
 
 const D3Graph = (props) => {
     /* The useRef Hook creates a variable that "holds on" to a value across rendering
@@ -19,7 +20,7 @@ const D3Graph = (props) => {
                 .style('opacity', 0)
                 .style('pointer-events', 'none')
                 .style('position', 'absolute');
-            d3Utils.draw(props.type, d3Container.current, tooltip, props.data, props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel);
+            d3Utils.draw(props.type, d3Container.current, tooltip, utilities.abs(props.data, props.yKey), props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel);
         },[props.type, props.data, props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel]
     )
 
