@@ -18,7 +18,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "http://localhost:3000",
+  "homepage": "http://PaulGilchrist.github.io/ballistics-react",
   "license": "MIT",
   "private": true,
   "name": "ballistics-react",
@@ -27,10 +27,12 @@
     "url": "https://github.com/PaulGilchrist/ballistics-react.git"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "version": "0.1.0",
   "dependencies": {
@@ -59,6 +61,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.4.0",
+    "gh-pages": "^2.2.0",
     "prettier": "^1.19.1"
   }
 }
