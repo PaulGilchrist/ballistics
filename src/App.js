@@ -180,6 +180,7 @@ const App = () => {
         localStorage.setItem('firearmId', 'Add');
     }
     const handleFirearmOnClose = () => {
+        setRoundId(null);
         setFirearmId(null);
         localStorage.removeItem('firearmId');
     }
