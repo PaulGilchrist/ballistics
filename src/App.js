@@ -25,6 +25,15 @@ import FIREARMS from './data/firearms';
 const App = () => {
     // Call it once in your app. At the root of your app is the best place
     toast.configure();
+
+    // Local storage will contain
+    //     firearms (with their included rounds)
+    //     firearmId (the current firearm)
+    //     roundId (the current rount)
+    //     target
+    //     weather
+    // This data can also be imported from or exported to a single JSON file
+
     // Get watched data
     const [firearmId, setFirearmId] = useState(localStorage.getItem('firearmId')); // GUID or null (none) or Blank (add)
     const [graphType, setGraphType] = useState('line');
