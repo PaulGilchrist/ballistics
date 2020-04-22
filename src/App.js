@@ -1,4 +1,26 @@
 import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    // Actions
+    deleteFirearm,
+    deleteRound,
+    insertFirearm,
+    insertRound,
+    selectFirearm,
+    selectRound,
+    updateFirearm,
+    updateFirearms,
+    updateRound,
+    updateTarget,
+    updateWeather,
+    // Selectors
+    selectorFirearmId,
+    selectorFirearms,
+    selectorRoundId,
+    selectorTarget,
+    selectorWeather
+} from './appSlice';
+
 import {toast}  from 'react-toastify' // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
 import ballistics from 'pg-ballistics'
 import utilities from 'pg-utilities'
@@ -19,63 +41,39 @@ import Rounds from './components/Rounds';
 import Target from './components/Target';
 import Weather from './components/Weather';
 
-import FIREARMS from './data/firearms';
-
 
 const App = () => {
     // Call it once in your app. At the root of your app is the best place
     toast.configure();
 
-    // Local storage will contain
-    //     firearms (with their included rounds)
-    //     firearmId (the current firearm)
-    //     roundId (the current rount)
-    //     target
-    //     weather
-    // This data can also be imported from or exported to a single JSON file
-
-    // Get watched data
-    const [firearmId, setFirearmId] = useState(localStorage.getItem('firearmId')); // GUID or null (none) or Blank (add)
-    const [graphType, setGraphType] = useState('line');
-    const [roundId, setRoundId] = useState(localStorage.getItem('roundId')); // GUID or null (none) or Blank (add)
-
     // Getter functions (all should be pure functions)
     const getFirearm = (firearms, firearmId) => {
         // Get firearm from firearms array using firearmId
-        let firearm;
-        if(firearmId==='Add') {
-            firearm = {
-                id: 'Add',
-                name: '',
-                elevationTurretGradients: 10,
-                reticleUnits: 'Mil',
-                rounds: [],
-                sightHeightInches: 2.0,
-                turretUnits: 'Mil',
-                windageTurretGradients: 10,
-                zeroRangeUnits: 'Yards',
-                zeroRange: 100
+        let firearm = null;
+        if(firearmId != null) {
+            if(firearmId==='Add') {
+                firearm = {
+                    id: 'Add',
+                    name: '',
+                    elevationTurretGradients: 10,
+                    reticleUnits: 'Mil',
+                    rounds: [],
+                    sightHeightInches: 2.0,
+                    turretUnits: 'Mil',
+                    windageTurretGradients: 10,
+                    zeroRangeUnits: 'Yards',
+                    zeroRange: 100
+                }
+            } else {
+                firearm = firearms.find((f) => f.id===firearmId);
             }
-        } else {
-            firearm = firearms.find((f) => f.id===firearmId);
         }
         return firearm;
     }
-    const getFirearms = () => {
-        let firearms;
-        const firearmsJson = localStorage.getItem('firearms');
-        if(firearmsJson) {
-            firearms = utilities.jsonParseNumbers(firearmsJson);
-        } else {
-            firearms = FIREARMS;
-            localStorage.setItem('firearms', JSON.stringify(firearms));
-        }
-        return firearms;
-    }
     const getRound = (firearm, roundId) => {
         // Get round from firearm.rounds array using roundId
-        let round;
-        if(firearm) {
+        let round = null;
+        if(firearm != null && roundId != null) {
             if(roundId==='Add') {
                 round = {
                     id: 'Add',
@@ -89,43 +87,6 @@ const App = () => {
             }
         }
         return round;
-    }
-    const getTarget = () => {
-        let target;
-        const targetJson = localStorage.getItem('target');
-        if(targetJson) {
-            target = utilities.jsonParseNumbers(targetJson);
-        } else {
-            target = {
-                distanceUnits: 'Yards', // Yards or Meters
-                distance: 1000,
-                chartStepping: 50,
-                sizeInches: 40,
-                sizeMils: null,
-                slantDegrees: 45,
-                speedMPH: 3
-            }
-            localStorage.setItem('target', JSON.stringify(target));
-        }
-        return target;
-    }
-    const getWeather = () => {
-        let weather;
-        const weatherJson = localStorage.getItem('weather');
-        if(weatherJson) {
-            weather = utilities.jsonParseNumbers(weatherJson);
-        } else {
-            weather = {
-                altitudeFeet: 0,
-                temperatureDegreesFahrenheit: 59,
-                barometricPressureInchesHg: 29.53,
-                relativeHumidityPercent: 78,
-                windVelocityMPH: 10,
-                windAngleDegrees: 90
-            }
-            localStorage.setItem('weather', JSON.stringify(weather));
-        }
-        return weather;
     }
     // Event Handlers
     const handleDataImport = (event) => {
@@ -142,25 +103,14 @@ const App = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 // handle data processing
-                const store = utilities.jsonParseNumbers(reader.result.toString());
-                console.log(store);
-                localStorage.setItem('firearms', JSON.stringify(store.firearms));
-                firearms = store.firearms;
-                localStorage.setItem('target', JSON.stringify(store.target));
-                target = store.target;
-                localStorage.setItem('weather', JSON.stringify(store.weather));
-                weather = store.weather;
-                if(store.firearmId) {
-                    console.log(store.firearmId);
-                    localStorage.setItem('firearmId', store.firearmId);
-                    firearm = getFirearm(firearms, store.firearmId);
-                    setFirearmId(store.firearmId);
-                    if(store.roundId) {
-                        localStorage.setItem('roundId', store.roundId);
-                        round = getRound(firearm, store.roundId);
-                        setRoundId(store.roundId);
-                    }
-                }
+                const importedState = utilities.jsonParseNumbers(reader.result.toString());
+                console.log(`Imported State`);
+                console.log(importedState);
+                dispatch(updateFirearms(importedState.firearms));
+                dispatch(updateTarget(importedState.target));
+                dispatch(updateWeather(importedState.weather));
+                dispatch(selectFirearm(importedState.firearmId));
+                dispatch(selectRound(importedState.roundId));
             };
             reader.readAsText(event.target.files[0]);
         }
@@ -168,10 +118,10 @@ const App = () => {
     const handleDataExport = () => {
         const json = JSON.stringify({
             firearmId: firearmId,
-            firearms:firearms,
+            firearms: firearms,
             roundId: roundId,
             target: target,
-            weather: weather           
+            weather: weather
         });
         const blob = new Blob([json],{type:'application/json'});
         const href = URL.createObjectURL(blob);
@@ -183,72 +133,105 @@ const App = () => {
         document.body.removeChild(link);
     }
     const handleFirearmOnAdd = () => {
-        setRoundId(null);
-        setFirearmId('Add');
-        localStorage.removeItem('roundId');
-        localStorage.setItem('firearmId', 'Add');
+        dispatch(selectRound(null));
+        dispatch(selectFirearm('Add'));
     }
     const handleFirearmOnClose = () => {
-        setRoundId(null);
-        setFirearmId(null);
-        localStorage.removeItem('firearmId');
+        dispatch(selectRound(null));
+        dispatch(selectFirearm(null));
     }
     const handleFirearmOnDelete = (firearm) => {
         ////////////////////////////////////////////////////////////////////////////////
         /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
-        const firearmIndex = firearms.findIndex((f) => f.id===firearm.id);
-        firearms.splice(firearmIndex, 1);
-        localStorage.setItem('firearms', JSON.stringify(firearms));
-        localStorage.removeItem('firearmId');
-        setFirearmId(null);
-        toast.success(`Firearm Deleted`, {
-            distance: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-        });
+        if(firearms.find((f) => f.id===firearm.id) === undefined) {
+            toast.error(`Firearm Not Found`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+        } else {
+            if(firearmId===firearm.id) {
+                dispatch(selectRound(null));
+                dispatch(selectFirearm(null));
+            }
+            dispatch(deleteFirearm(firearm.id));
+            toast.success(`Firearm Deleted`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+        }
     }
     const handleFirearmOnSelect = (firearm) => {
-        setFirearmId(firearm.id);
-        localStorage.setItem('firearmId', firearm.id);
+        dispatch(selectFirearm(firearm.id));
     }
     const handleFirearmOnSubmit = (firearm) => {
         // Find by name rather than id to ensure the name remains unique
-        let firearmIndex = firearms.findIndex((f) => f.name===firearm.name);
-        if(firearm.id==='Add') {
-            // Add new firearm if name does not already exist
-            if(firearmIndex === -1) {
-                firearm.id = utilities.guid();
-                firearms.push(firearm);
-                firearms.sort(utilities.nameSort);
-                localStorage.setItem('firearms', JSON.stringify(firearms));
-                setFirearmId(null);
-                toast.success(`Firearm Added`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
-            } else {
-                toast.error(`Name already exists - Firearm not added`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
-            }
+        if(firearms.find((f) => f.name===firearm.name) !== undefined) {
+            toast.error(`Name already exists - Firearm not added`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+        } else if(firearm.id==='Add') {
+            dispatch(insertFirearm(firearm));
+            dispatch(selectFirearm(firearm.id));
+            toast.success(`Firearm Added`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
         } else {
-            // If not adding new firearm, find it in firearms array
-            // If firearm name found then the id must also match
-            if(firearmIndex!==-1 && firearms[firearmIndex].id!==firearm.id) {
-                toast.error(`Name already exists - Firearm not updated`, {
+            dispatch(updateFirearm(firearm));
+            toast.success(`Firearm Updated`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+        }
+    }
+    const handleGraphTypeChange = () => {
+        graphType==='line' ? setGraphType('bar') : setGraphType('line');
+    }
+    const handleRoundOnAdd = () => {
+        dispatch(selectRound('Add'));
+    }
+    const handleRoundOnClose = () => {
+        dispatch(selectRound(null));
+    }
+    const handleRoundOnDelete = (firearmId, round) => {
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        const firearmIndex = firearms.findIndex((f) => f.id===firearmId);
+        if(firearmIndex === -1) {
+            toast.error(`Firearm Not Found`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+        } else {
+            if(firearms[firearmIndex].find((r) => r.id===round.id) === undefined) {
+                toast.error(`Round Not Found`, {
                     distance: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -257,14 +240,11 @@ const App = () => {
                     draggable: true
                 });
             } else {
-                // If name not found, we must find the id which should always exist since it was used to launch the component to begin with
-                if(firearmIndex===-1) {
-                    firearmIndex = firearms.findIndex((f) => f.id===firearm.id);
+                if(roundId===round.id) {
+                    dispatch(selectRound(null));
                 }
-                firearms[firearmIndex] = firearm
-                firearms.sort(utilities.nameSort); // In case the name changed
-                localStorage.setItem('firearms', JSON.stringify(firearms));
-                toast.success(`Firearm Updated`, {
+                dispatch(deleteRound({firearmId: firearmId, roundId: round.id}));
+                toast.success(`Round Deleted`, {
                     distance: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -275,59 +255,23 @@ const App = () => {
             }
         }
     }
-    const handleGraphTypeChange = () => {
-        graphType==='line' ? setGraphType('bar') : setGraphType('line');
-    }
-    const handleRoundOnAdd = () => {
-        setRoundId('Add');
-        localStorage.setItem('roundId', 'Add');
-    }
-    const handleRoundOnClose = () => {
-        setRoundId(null);
-        localStorage.removeItem('roundId');
-    }
-    const handleRoundOnDelete = (round) => {
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-        const roundIndex = firearm.rounds.findIndex((r) => r.id===round.id);
-        firearm.rounds.splice(roundIndex, 1);
-        localStorage.setItem('firearms', JSON.stringify(firearms));
-        localStorage.removeItem('roundId');
-        setRoundId(null);
-        toast.success(`Round Deleted`, {
-            distance: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-        });
-    }
     const handleRoundOnSelect = (round) => {
-        setRoundId(round.id);
-        localStorage.setItem('roundId', round.id);
+        dispatch(selectRound(round.id));
     }
-    const handleRoundOnSubmit = (round) => {
-        // Find by name rather than id to ensure the name remains unique
-        let roundIndex = firearm.rounds.findIndex((r) => r.name===round.name);
-        if(round.id==='Add') {
-            // Add new round if name does not already exist
-            if(roundIndex === -1) {
-                round.id = utilities.guid();
-                firearm.rounds.push(round);
-                firearm.rounds.sort(utilities.nameSort);
-                localStorage.setItem('firearms', JSON.stringify(firearms));
-                setRoundId(null);
-                toast.success(`Round Added`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
-            } else {
+    const handleRoundOnSubmit = (firearmId, round) => {
+        const firearmIndex = firearms.findIndex((f) => f.id===firearmId);
+        if(firearmIndex === -1) {
+            toast.error(`Firearm Not Found`, {
+                distance: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+        } else {
+            // Find by name rather than id to ensure the name remains unique
+            if(firearms[firearmIndex].rounds.find((r) => r.name===round.name) !== undefined) {
                 toast.error(`Name already exists - Round not added`, {
                     distance: "top-center",
                     autoClose: 2000,
@@ -336,12 +280,10 @@ const App = () => {
                     pauseOnHover: true,
                     draggable: true
                 });
-            }
-        } else {
-            // If not adding new firearm, find it in firearms array
-            // If round name found then the id must also match
-            if(roundIndex!==-1 && firearm.rounds[roundIndex].id!==round.id) {
-                toast.error(`Name already exists - Round not updated`, {
+            } else if(round.id==='Add') {
+                dispatch(insertRound(round));
+                dispatch(selectRound(round.id));
+                toast.success(`Firearm Added`, {
                     distance: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -350,13 +292,7 @@ const App = () => {
                     draggable: true
                 });
             } else {
-                // If name not found, we must find the id which should always exist since it was used to launch the component to begin with
-                if(roundIndex===-1) {
-                    roundIndex = firearm.rounds.findIndex((r) => r.id===round.id);
-                }
-                firearm.rounds[roundIndex] = round
-                firearm.rounds.sort(utilities.nameSort); // In case the name changed
-                localStorage.setItem('firearms', JSON.stringify(firearms));
+                dispatch(updateRound(round));
                 toast.success(`Round Updated`, {
                     distance: "top-center",
                     autoClose: 2000,
@@ -371,7 +307,7 @@ const App = () => {
     const handleTargetOnSubmit = (values) => {
         // Don't save sizeMils
         values.sizeMils = null;
-        localStorage.setItem('target', JSON.stringify(values));
+        dispatch(updateTarget(values));
         toast.success(`Target Data Saved`, {
             distance: "top-center",
             autoClose: 2000,
@@ -382,7 +318,7 @@ const App = () => {
         });
     }
     const handleWeatherOnSubmit = (values) => {
-        localStorage.setItem('weather', JSON.stringify(values));
+        dispatch(updateWeather(values));
         toast.success('Weather Data Saved', {
             position: "top-center",
             autoClose: 2000,
@@ -392,12 +328,17 @@ const App = () => {
             draggable: true
         });
     }
+    // Get watched data
+    const dispatch = useDispatch();
+    let firearmId = useSelector(selectorFirearmId);
+    let firearms = useSelector(selectorFirearms);
+    let roundId = useSelector(selectorRoundId);
+    let target = useSelector(selectorTarget);
+    let weather = useSelector(selectorWeather);
+    const [graphType, setGraphType] = useState('line');
     // Get unwatched data
-    let firearms = getFirearms();
     let firearm = getFirearm(firearms, firearmId);
     let round = getRound(firearm, roundId);
-    let target = getTarget();
-    let weather = getWeather();
     let rangeData = ballistics.getRangeData(weather, target, firearm, round);
     const graphHeight = 300;
 	const graphWidth = 300;
@@ -419,22 +360,22 @@ const App = () => {
                     :
                     <React.Fragment>
                         <Firearm firearm={firearm} onClose={() => handleFirearmOnClose()} onDelete={(firearm) => handleFirearmOnDelete(firearm)} onSubmit={(firearm) => handleFirearmOnSubmit(firearm)}/>
-                        {firearmId!=='Add' ? roundId===null ?
+                        {firearmId!=='Add' ? round==null ?
                             <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd()} onSelect={(round) => handleRoundOnSelect(round)}/>
                             :
-                            <Round round={round} onClose={() => handleRoundOnClose()} onDelete={(round) => handleRoundOnDelete(round)} onSubmit={(round) => handleRoundOnSubmit(round)}/>
+                            <Round round={round} onClose={() => handleRoundOnClose()} onDelete={(round) => handleRoundOnDelete(firearm.id, round)} onSubmit={(round) => handleRoundOnSubmit(round)}/>
                             : null
                         }
                     </React.Fragment>
                 }
             </div>
             <div className="d-flex flex-fill justify-content-center">
-                {firearmId && roundId && roundId!=='Add' ?
+                {firearm && round && roundId!=='Add' ?
                     <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather}/>
                     : null
                 }
             </div>
-            {firearmId && roundId && roundId!=='Add' ?
+            {firearm && round && roundId!=='Add' ?
                 <React.Fragment>
                     <br/>
                     <button className='btn btn-success' onClick={handleGraphTypeChange}>Change Graph Type</button>
