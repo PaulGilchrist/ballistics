@@ -44,7 +44,7 @@
     "pg-atmospherics": "^1.0.1",
     "pg-ballistics": "^1.0.0",
     "pg-conversions": "^1.0.1",
-    "pg-d3-utils": "1.0.9",
+    "pg-d3-utils": "1.0.13",
     "pg-drag": "1.0.0",
     "pg-utilities": "1.0.4",
     "popper.js": "1.16.1",
