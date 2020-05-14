@@ -409,7 +409,7 @@ const App = () => {
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="leadInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Slant Hold (inches - hold low)</h3>
+                            <h3>Slant (inches - hold low)</h3>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="slantDropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                     </div>

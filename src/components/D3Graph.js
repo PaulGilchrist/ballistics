@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
+import './d3graph.css'
+
 import * as d3 from 'd3'
 
 import d3Utils from 'pg-d3-utils';
-import utilities from 'pg-utilities';
 
 const D3Graph = (props) => {
     /* The useRef Hook creates a variable that "holds on" to a value across rendering
@@ -14,14 +15,32 @@ const D3Graph = (props) => {
        for instance inserting elements into the DOM using D3 */
     useEffect(
         () => {
+            // Create a tooltip that will remain hidden until hover
             const tooltip = d3.select('body')
                 .append('div')
-                .attr('class', 'd3-utils-tooltip')
+                .attr('class', 'd3-tooltip')
                 .style('opacity', 0)
                 .style('pointer-events', 'none')
                 .style('position', 'absolute');
-            d3Utils.draw(props.type, d3Container.current, tooltip, utilities.abs(props.data, props.yKey), props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel);
-        },[props.type, props.data, props.width, props.height, props.xType, props.xKey, props.yKey, props.xToFixed, props.yToFixed, props.labels, props.warningLevel]
+            // Set initial values from querystring if they existing
+            d3Utils.draw({
+                data: props.data, // this.abs(this.data, this.yKey)
+                el: d3Container.current,
+                height: props.height,
+                labels: props.labels,
+                padding: 50,
+                tooltip,
+                type: props.type,
+                warningLevel: props.warningLevel,
+                width: props.width,
+                xKey: props.xKey,
+                xToFixed: props.xToFixed,
+                xType: props.xType,
+                yKey: props.yKey,
+                yToFixed: props.yToFixed,
+                zKey: null
+            });
+        },[props.data, props.height, props.labels, props.padding, props.type, props.warningLevel, props.width, props.xKey, props.xToFixed, props.xType, props.yKey, props.yToFixed, props.zKey]
     )
 
     return (

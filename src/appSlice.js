@@ -44,6 +44,11 @@ if(weatherJson) {
     localStorage.setItem('weather', JSON.stringify(initialWeather));
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+// Use createAsyncThunk() if adding any async side effects to a reducer
+// https://redux-toolkit.js.org/api/createAsyncThunk
+////////////////////////////////////////////////////////////////////////////////////////////
+
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
@@ -78,22 +83,6 @@ export const appSlice = createSlice({
                 state.firearms[firearmIndex].rounds.splice(roundIndex, 1);
                 localStorage.setItem('firearms', JSON.stringify(state.firearms));
             }
-        }
-    },
-    getWeather: (state) => {
-        const weatherJson = localStorage.getItem('weather');
-        if(weatherJson) {
-            state.weather = utilities.jsonParseNumbers(weatherJson);
-        } else {
-            state.weather = {
-                altitudeFeet: 0,
-                temperatureDegreesFahrenheit: 59,
-                barometricPressureInchesHg: 29.53,
-                relativeHumidityPercent: 78,
-                windVelocityMPH: 10,
-                windAngleDegrees: 90
-            };
-            localStorage.setItem('weather', JSON.stringify(state.weather));
         }
     },
     insertFirearm: (state, action) => {
