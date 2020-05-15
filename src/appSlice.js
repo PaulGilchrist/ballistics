@@ -94,7 +94,7 @@ export const appSlice = createSlice({
             if(firearmIndex === -1) {
                 firearm.id = utilities.guid();
                 state.firearms.push(firearm);
-                state.firearms.sort(utilities.nameSort);
+                utilities.sort(state.firearms, 'name');
                 localStorage.setItem('firearms', JSON.stringify(state.firearms));
             }
         }
@@ -111,7 +111,7 @@ export const appSlice = createSlice({
                 if(roundIndex === -1) {
                     round.id = utilities.guid();
                     state.firearms[firearmIndex].rounds.push(round);
-                    state.firearms[firearmIndex].rounds.sort(utilities.nameSort);
+                    utilities.sort(state.firearms[firearmIndex].rounds, 'name');
                     localStorage.setItem('firearms', JSON.stringify(state.firearms));
                 }
             }
