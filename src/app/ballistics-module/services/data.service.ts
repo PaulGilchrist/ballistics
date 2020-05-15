@@ -192,7 +192,7 @@ export class DataService {
 		firearm.id = utilities.guid();
         const firearms = this.firearms.getValue();
 		firearms.push(firearm);
-		firearms.sort(utilities.nameSort);
+        utilities.sort(firearms, 'name');
         this.updateFirearms(firearms);
         return true;
 	}
@@ -203,7 +203,7 @@ export class DataService {
         const firearms = this.firearms.getValue();
         const firearm = firearms.find(f => f.id === firearmId);
         firearm.rounds.push(round);
-		firearm.rounds.sort(utilities.nameSort);
+        utilities.sort(firearm.rounds, 'name');
         this.updateFirearms(firearms);
         return true;
 	}
@@ -235,7 +235,7 @@ export class DataService {
         if(found) {
             if(nameChanged) {
                 // Name may have been changed
-                firearms.sort(utilities.nameSort);
+                utilities.sort(firearms, 'name');
             }
             updated = this.updateFirearms(firearms);
         }
@@ -265,7 +265,7 @@ export class DataService {
                 }
                 if(nameChanged) {
                     // Name may have been changed
-                    firearms[i].rounds.sort(utilities.nameSort);
+                    utilities.sort(firearms[i].rounds, 'name');
                 }
                 break;
             }

@@ -46,7 +46,7 @@
     "pg-conversions": "^1.0.1",
     "pg-d3-utils": "1.0.13",
     "pg-drag": "1.0.1",
-    "pg-utilities": "1.0.4",
+    "pg-utilities": "1.0.5",
     "popper.js": "1.16.1",
     "rxjs": "^6.5.5",
     "tslib": "^2.0.0",
