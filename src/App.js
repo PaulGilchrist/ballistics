@@ -381,35 +381,35 @@ const App = () => {
                     <button className='btn btn-success' onClick={handleGraphTypeChange}>Change Graph Type</button>
                     <div className="d-flex flex-fill flex-row flex-wrap justify-content-center">
                         <div className="graph-inline">
-                            <h3>Velocity (feet/sec)</h3>
+                            <h4>Velocity (feet/sec)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="velocityFPS" width={graphWidth} height={graphHeight} labels="none" yToFixed={0} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Energy (foot pounds)</h3>
+                            <h4>Energy (foot pounds)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="energyFtLbs" width={graphWidth} height={graphHeight} labels="none" yToFixed={0} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Time (seconds)</h3>
+                            <h4>Time (seconds)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="timeSeconds" width={graphWidth} height={graphHeight} labels="none" yToFixed={2} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Drop (inches)</h3>
+                            <h4>Drop (inches)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="dropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Elevation (inches)</h3>
+                            <h4>Elevation (inches)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="verticalPositionInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Cross Wind Drift (inches)</h3>
+                            <h4>Cross Wind Drift (inches)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="crossWindDriftInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Lead (inches)</h3>
+                            <h4>Lead (inches)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="leadInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                         <div className="graph-inline">
-                            <h3>Slant (inches - hold low)</h3>
+                            <h4>Slant (inches - hold low)</h4>
                             <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="slantDropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
                         </div>
                     </div>
