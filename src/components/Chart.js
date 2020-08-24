@@ -68,7 +68,7 @@ const Chart = (props) => {
                 </div>
                 <div className="card-body">
                     <div className="table-responsive">
-                        <table className="table table-condensed table-striped table-hover font-size-small">
+                        <table id="ballisticsTable" className="table table-condensed table-striped table-hover font-size-small">
                             <thead>
                                 <tr>
                                     <th data-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
