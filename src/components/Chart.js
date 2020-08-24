@@ -55,19 +55,18 @@ const Chart = (props) => {
         }
     }]
     */
-    const [isOpen, setIsOpen] = useState(true);
     const showMil = props.firearm.turretUnits==='Mil' || props.firearm.reticleUnits==='Mil';
     const showMoA = props.firearm.turretUnits==='MoA' || props.firearm.reticleUnits==='MoA';
     const showIPHY = props.firearm.turretUnits==='IPHY' || props.firearm.reticleUnits==='IPHY';
     const speedOfSound = atmospherics.speedOfSound(props.weather.altitudeFeet);
     return (
         <div className="bal-chart">
-            <div className="card">
-                <div className="card-heading bg-dark text-light d-flex p-2">
-                    Range Chart - Firearm ({props.firearm.name}) - Round ({props.round.name})
-                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
+            <div className="card" id="chart">
+                <div className="card-heading bg-dark text-light">
+                    <span>Range Chart - Firearm ({props.firearm.name}) - Round ({props.round.name})</span>
+                    <button className='btn btn-secondary' onClick={props.onPrintChart}> Print</button>
                 </div>
-                <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                <div className="card-body">
                     <div className="table-responsive">
                         <table className="table table-condensed table-striped table-hover font-size-small">
                             <thead>

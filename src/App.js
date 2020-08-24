@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { jsPDF } from 'jspdf';
+import htmlToImage from 'html-to-image';
+
 import {
     // Actions
     deleteFirearm,
@@ -27,7 +31,7 @@ import utilities from 'pg-utilities'
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import 'animate.css/animate.min.css';
-import 'bootstrap/dist/css//bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import css from './app.module.css';
@@ -206,8 +210,21 @@ const App = () => {
             });
         }
     }
-    const handleGraphTypeChange = () => {
+    const handleGraphTypeChange = (firearm, round) => {
         graphType==='line' ? setGraphType('bar') : setGraphType('line');
+    }
+    const handleOnPrintChart = (firearm, round) => {
+        console.log('print');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const element = document.getElementById('chart');
+        htmlToImage.toPng(element)
+            .then((dataUrl) => {
+                const img = new Image();
+                img.src = dataUrl;
+                pdf.setLineWidth(1);
+                pdf.addImage(img, 'PNG', 0, 0, 210, 200);
+                pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
+            });
     }
     const handleRoundOnAdd = () => {
         dispatch(selectRound('Add'));
@@ -371,7 +388,7 @@ const App = () => {
             </div>
             <div className="d-flex flex-fill justify-content-center">
                 {firearm && round && roundId!=='Add' ?
-                    <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather}/>
+                    <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather} onPrintChart={() => handleOnPrintChart(firearm, round)}/>
                     : null
                 }
             </div>

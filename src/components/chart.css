@@ -1,6 +1,13 @@
 .bal-chart .card-body {
 	padding: 5px
 }
+.bal-chart .card-heading {
+    align-items: center;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: auto 60px;
+    width: 100%;
+}
 .bal-chart .card-footer {
 	background-color: rgb(227, 229, 237);
 }
