@@ -14,7 +14,7 @@
         <app-rounds></app-rounds>
         <app-round></app-round>
     </div>
-    <div *ngIf='ranges'>
+    <div *ngIf='ranges != null && ranges.length>0'>
         <app-chart class="d-flex flex-fill justify-content-center"></app-chart>
 		<br/>
         <button class='btn btn-success'(click)="graphType==='line' ? graphType='bar' : graphType='line'">Change Graph Type</button>

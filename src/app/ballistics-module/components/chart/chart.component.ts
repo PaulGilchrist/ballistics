@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+import { jsPDF } from 'jspdf';
+import htmlToImage from 'html-to-image';
 
 import { Firearm } from '../../models/firearm.model';
 import { Range } from '../../models/range.model';
@@ -25,10 +28,24 @@ export class ChartComponent implements OnInit {
 	showMoA = true;
 	showIPHY = true;
     speedOfSound = 0;
+    tableHtml = null;
 	target: Target = null;
 	weather: Weather = null;
 
 	constructor(public dataService: DataService) {}
+
+    print() {
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const element = document.getElementById('chart');
+        htmlToImage.toPng(element)
+            .then((dataUrl) => {
+                const img = new Image();
+                img.src = dataUrl;
+                pdf.setLineWidth(1);
+                pdf.addImage(img, 'PNG', 0, 0, 210, 200);
+                pdf.save(`Range Chart - Firearm (${this.firearm.name}) - Round (${this.round.name}).pdf`);
+            });
+    }
 
 	ngOnInit() {
 		this.dataService.getWeather().subscribe(weather => {

@@ -1,7 +1,7 @@
-<div *ngIf='ranges' class="card">
-	<div class="card-heading bg-dark text-light d-flex p-2">
-        Range Chart - Firearm ({{firearm.name}}) - Round ({{round.name}})
-        <i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
+<div *ngIf='ranges' class="card" id="chart">
+    <div class="card-heading bg-dark text-light">
+        <span>Chart - Firearm ({{firearm.name}}) - Round ({{round.name}})</span>
+        <button class='btn btn-secondary' (click)='print();'> Print</button>
     </div>
     <div class="card-body" [class.collapse]="!isOpen">
         <div class="table-responsive">
@@ -129,7 +129,7 @@
             </table>
         </div>
     </div>
-	<div class="card-footer text-light d-flex p-2 justify-content-around">
+    <div class="card-footer text-light d-flex p-2 justify-content-around">
         <span class="text-warning">Orange text denotes transnonic flight</span>
         <span class="text-danger">Red text denotes subsonic flight</span>
     </div>
