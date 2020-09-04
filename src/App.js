@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable'
-import htmlToImage from 'html-to-image';
 
 import {
     // Actions
@@ -220,15 +219,6 @@ const App = () => {
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center'});
         pdf.autoTable({ html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 }});
         pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
-        // const element = document.getElementById('chart');
-        // htmlToImage.toPng(element)
-        //     .then((dataUrl) => {
-        //         const img = new Image();
-        //         img.src = dataUrl;
-        //         pdf.setLineWidth(1);
-        //         pdf.addImage(img, 'PNG', 0, 50, 210, 200);
-        //         pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
-        //     });
     }
     const handleRoundOnAdd = () => {
         dispatch(selectRound('Add'));
