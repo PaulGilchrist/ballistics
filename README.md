@@ -18,6 +18,8 @@
 8. Build and launch application (debug mode)
     * ng serve
 
+Can test production build using the command `http-server -p 8080 -c-1 dist/`
+
 ## Azure Deployment
 
 * Create Azure Web App (Free App Service plan tier usually enough for Angular apps)

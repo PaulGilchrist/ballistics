@@ -1,7 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
+declare const require: any;
 import { jsPDF } from 'jspdf';
-import htmlToImage from 'html-to-image';
+require('jspdf-autotable');
 
 import { Firearm } from '../../models/firearm.model';
 import { Range } from '../../models/range.model';
@@ -36,15 +37,11 @@ export class ChartComponent implements OnInit {
 
     print() {
         const pdf = new jsPDF('p', 'mm', 'a4');
-        const element = document.getElementById('chart');
-        htmlToImage.toPng(element)
-            .then((dataUrl) => {
-                const img = new Image();
-                img.src = dataUrl;
-                pdf.setLineWidth(1);
-                pdf.addImage(img, 'PNG', 0, 0, 210, 200);
-                pdf.save(`Range Chart - Firearm (${this.firearm.name}) - Round (${this.round.name}).pdf`);
-            });
+        pdf.text([`Range Chart - Firearm (${this.firearm.name}) - Round (${this.round.name})`, ``], 104, 10, { align: 'center'});
+        /* tslint:disable */
+        pdf.autoTable({ html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 }});
+        /* tslint:enable */
+        pdf.save(`Range Chart - Firearm (${this.firearm.name}) - Round (${this.round.name}).pdf`);
     }
 
 	ngOnInit() {
