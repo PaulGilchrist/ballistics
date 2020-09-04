@@ -38,9 +38,8 @@ export class ChartComponent implements OnInit {
     print() {
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${this.firearm.name}) - Round (${this.round.name})`, ``], 104, 10, { align: 'center'});
-        /* tslint:disable */
+        // @ts-ignore 2339
         pdf.autoTable({ html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 }});
-        /* tslint:enable */
         pdf.save(`Range Chart - Firearm (${this.firearm.name}) - Round (${this.round.name}).pdf`);
     }
 
