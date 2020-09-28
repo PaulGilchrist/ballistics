@@ -18,7 +18,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "http://PaulGilchrist.github.io/ballistics-react",
+  "homepage": "https://paulgilchrist.github.io/ballistics-react",
   "license": "MIT",
   "private": true,
   "name": "ballistics-react",

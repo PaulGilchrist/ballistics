@@ -1,0 +1,10 @@
+# npm run build
+# docker build --rm -f "DockerfileWin" -t paulgilchrist/ballistics-react-windows:latest .
+# docker run -d -p 80:80 paulgilchrist/ballistics-react-windows
+# docker rm -f <containerID>
+FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+RUN powershell -NoProfile -Command Remove-Item -Recurse C:\inetpub\wwwroot\*
+WORKDIR /inetpub/wwwroot
+COPY ./build .
+EXPOSE 80 443
+# docker push paulgilchrist/ballistics-react-windows

@@ -1,4 +1,4 @@
-# ng build --prod
+# npm run build
 # docker build --rm -f "Dockerfile" -t paulgilchrist/ballistics-react:latest .
 # docker run -d -p 80:80 paulgilchrist/ballistics-react
 # docker rm -f <containerID>
