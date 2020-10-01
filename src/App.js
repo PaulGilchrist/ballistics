@@ -218,7 +218,13 @@ const App = () => {
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center'});
         pdf.autoTable({ html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 }});
-        pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
+        const pdfString = pdf.output('datauristring');
+        const embed = `<embed width='100%' height='100%' src='${pdfString}'/>`;
+        const x = window.open();
+        x.document.open();
+        x.document.write(embed);
+        x.document.close();
+        // pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
     }
     const handleRoundOnAdd = () => {
         dispatch(selectRound('Add'));
