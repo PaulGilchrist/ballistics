@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './chart.css'
 import atmospherics from 'pg-atmospherics';
 

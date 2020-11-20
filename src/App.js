@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { jsPDF } from 'jspdf';
+// eslint-disable-next-line no-unused-vars
 import autoTable from 'jspdf-autotable';
 
 import {
@@ -359,6 +360,8 @@ const App = () => {
     let rangeData = ballistics.getRangeData(weather, target, firearm, round);
     const graphHeight = 300;
 	const graphWidth = 300;
+    console.log(firearmId);
+    console.log(firearm);
     // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>
