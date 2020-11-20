@@ -360,8 +360,6 @@ const App = () => {
     let rangeData = ballistics.getRangeData(weather, target, firearm, round);
     const graphHeight = 300;
 	const graphWidth = 300;
-    console.log(firearmId);
-    console.log(firearm);
     // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>
