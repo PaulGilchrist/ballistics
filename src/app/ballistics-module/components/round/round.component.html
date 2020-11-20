@@ -1,7 +1,7 @@
-<div *ngIf="firearmId!=null && (roundId!=null || status==statusEnum.AddRound)" class="card">
+<div *ngIf="firearmId!=null && (roundId!=null || status==statusEnum.addRound)" class="card">
     <div class="card-heading bg-dark text-light d-flex p-2">
-		<span *ngIf="status==statusEnum.AddRound">Add Round</span>
-		<span *ngIf="status!=statusEnum.AddRound">Round - {{ round.name }}</span>
+		<span *ngIf="status==statusEnum.addRound">Add Round</span>
+		<span *ngIf="status!=statusEnum.addRound">Round - {{ round.name }}</span>
 		<i class="fa fa-fw ml-auto" [class.fa-chevron-right]="!isOpen" [class.fa-chevron-down]="isOpen" (click)="isOpen=!isOpen"></i>
 	</div>
 	<div class="card-body" [class.collapse]="!isOpen">
@@ -59,11 +59,11 @@
 		</form>
 	</div>
 	<div class="card-footer" [class.collapse]="!isOpen">
-		<div *ngIf="status==statusEnum.AddRound">
+		<div *ngIf="status==statusEnum.addRound">
 			<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
 			<button class='btn btn-danger' (click)='close();'> Cancel</button>
 		</div>
-		<div *ngIf="status!=statusEnum.AddRound">
+		<div *ngIf="status!=statusEnum.addRound">
 			<button type="submit" class="btn btn-success" [disabled]="form.pristine || form.invalid" (click)='save()'><i class="fa fa-check"></i> Save</button>&nbsp;
 			<button class='btn btn-warning' (click)='close();'> Close</button>&nbsp;
 			<button class='btn btn-danger' mwlConfirmationPopover [popoverTitle]="'Confirm Delete'" [popoverMessage]="'Delete this firearm?'" placement="top" (confirm)="delete()"> Delete</button>

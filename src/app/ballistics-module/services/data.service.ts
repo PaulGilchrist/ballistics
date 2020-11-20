@@ -29,7 +29,7 @@ export class DataService {
     private roundId = new BehaviorSubject<string>(null);
     roundId$ = this.roundId.asObservable();
 
-    private status = new BehaviorSubject<StatusEnum>(StatusEnum.SelectFirearm);
+    private status = new BehaviorSubject<StatusEnum>(StatusEnum.selectFirearm);
     status$ = this.status.asObservable();
 
     private target = new BehaviorSubject<Target>({
@@ -168,12 +168,12 @@ export class DataService {
 	public deleteRound(firearmId: string, roundId: string): boolean {
 		let deleted = false;
         const firearms = this.firearms.getValue();
-		for(let i = 0; i < firearms.length; i++) {
-			if(firearms[i].id === firearmId) {
-				const rounds = firearms[i].rounds;
-                for(let j = 0; j < firearms[i].rounds.length; j++) {
-                    if(firearms[i].rounds[j].id === roundId) {
-                        firearms[i].rounds.splice(j, 1);
+		for(const firearm of firearms) {
+			if(firearm.id === firearmId) {
+				const rounds = firearm.rounds;
+                for(let j = 0; j < firearm.rounds.length; j++) {
+                    if(firearm.rounds[j].id === roundId) {
+                        firearm.rounds.splice(j, 1);
                         deleted = true;
                         break;
                     }
@@ -253,19 +253,19 @@ export class DataService {
         let found = false;
         let nameChanged = false;
         const firearms = this.firearms.getValue();
-        for(let i = 0; i < firearms.length; i++) {
-            if(firearms[i].id === firearmId) {
-                for(let j = 0; j < firearms[i].rounds.length; j++) {
-                    if(firearms[i].rounds[j].id === round.id) {
-                        nameChanged = (firearms[i].rounds[j].name !== round.name);
-                        firearms[i].rounds[j] = round;
+        for(const firearm of firearms) {
+            if(firearm.id === firearmId) {
+                for(let j = 0; j < firearm.rounds.length; j++) {
+                    if(firearm.rounds[j].id === round.id) {
+                        nameChanged = (firearm.rounds[j].name !== round.name);
+                        firearm.rounds[j] = round;
                         found = true;
                         break;
                     }
                 }
                 if(nameChanged) {
                     // Name may have been changed
-                    utilities.sort(firearms[i].rounds, 'name');
+                    utilities.sort(firearm.rounds, 'name');
                 }
                 break;
             }

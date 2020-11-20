@@ -33,12 +33,12 @@ export class FirearmsComponent implements OnInit {
 	}
 
 	add() {
-		this.dataService.updateStatus(StatusEnum.AddFirearm);
+		this.dataService.updateStatus(StatusEnum.addFirearm);
 	}
 
 	select(firearm: Firearm) {
 		this.dataService.selectFirearm(firearm.id);
-		this.dataService.updateStatus(StatusEnum.SelectRound);
+		this.dataService.updateStatus(StatusEnum.selectRound);
 	}
 
 }

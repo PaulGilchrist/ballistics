@@ -1,6 +1,6 @@
 export enum StatusEnum {
-    AddFirearm,
-    AddRound,
-    SelectFirearm,
-    SelectRound
+    addFirearm,
+    addRound,
+    selectFirearm,
+    selectRound
 }

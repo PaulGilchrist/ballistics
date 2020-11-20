@@ -43,7 +43,7 @@ export class FirearmComponent implements OnInit {
 
 	close(): void {
 		this.dataService.selectFirearm(null);
-		this.dataService.updateStatus(StatusEnum.SelectFirearm);
+		this.dataService.updateStatus(StatusEnum.selectFirearm);
 	}
 
 	delete(): void {
@@ -68,12 +68,12 @@ export class FirearmComponent implements OnInit {
     }
 
 	save(): void {
-        if(this.status===StatusEnum.AddFirearm) {
+        if(this.status===StatusEnum.addFirearm) {
 		    this.dataService.insertFirearm(this.firearm);
         } else {
 		    this.dataService.updateFirearm(this.firearm);
         }
-		this.dataService.updateStatus(StatusEnum.SelectRound);
+		this.dataService.updateStatus(StatusEnum.selectRound);
         this.toastrService.success('Saved','Firearm Status');
 	}
 

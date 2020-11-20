@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: 'home', component: BallisticsModule },
         ],
-            { preloadingStrategy: NoPreloading }
+            { preloadingStrategy: NoPreloading, relativeLinkResolution: 'legacy' }
         ),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],

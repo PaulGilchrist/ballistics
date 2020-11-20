@@ -42,7 +42,7 @@ export class RoundsComponent implements OnInit {
 	}
 
 	add() {
-		this.dataService.updateStatus(StatusEnum.AddRound);
+		this.dataService.updateStatus(StatusEnum.addRound);
 	}
 
 	select(round: Round) {

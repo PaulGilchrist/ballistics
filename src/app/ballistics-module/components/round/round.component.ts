@@ -52,7 +52,7 @@ export class RoundComponent implements OnInit {
 
 	close(): void {
 		this.dataService.selectRound(null);
-		this.dataService.updateStatus(StatusEnum.SelectRound);
+		this.dataService.updateStatus(StatusEnum.selectRound);
 	}
 
 	delete(): void {
@@ -73,7 +73,7 @@ export class RoundComponent implements OnInit {
     }
 
 	save(): void {
-        if(this.status===StatusEnum.AddRound) {
+        if(this.status===StatusEnum.addRound) {
 		    this.dataService.insertRound(this.firearmId, this.round);
         } else {
 		    this.dataService.updateRound(this.firearmId, this.round);

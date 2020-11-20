@@ -10,8 +10,6 @@ import { StatusEnum } from '../../models/status-enum.model';
 
 import { DataService } from '../../services/data.service';
 
-declare var toastr: any;
-
 @Component({
 	selector: 'app-home',
 	styleUrls: ['./home.component.css'],

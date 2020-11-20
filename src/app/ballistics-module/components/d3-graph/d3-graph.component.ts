@@ -42,7 +42,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
         }
     }
 
-    abs(input: object[], field: string) {
+    abs(input: any[], field: string) {
         return input.map((i) => {
             i[field] = Math.abs(i[field]);
             return i;

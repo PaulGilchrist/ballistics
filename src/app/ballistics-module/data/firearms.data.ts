@@ -1,6 +1,6 @@
 import { Firearm } from '../models/firearm.model';
 
-export let FIREARMS: Array<Firearm> = [
+export const FIREARMS: Array<Firearm> = [
 	{
 		id: '8f331a2c-ef70-4a64-a028-276bf27523c4',
 		name: '10/22',
