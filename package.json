@@ -1,72 +1,72 @@
 {
-  "authors": [
-    "Paul Gilchrist"
-  ],
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    "authors": [
+        "Paul Gilchrist"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "description": "Takes original React tutorial and modernizes and slightly extends it",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "homepage": "https://paulgilchrist.github.io/ballistics-react",
-  "license": "MIT",
-  "private": true,
-  "name": "ballistics-react",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PaulGilchrist/ballistics-react.git"
-  },
-  "scripts": {
-    "build": "react-scripts build",
-    "deploy": "gh-pages -d build",
-    "predeploy": "npm run build",
-    "start": "react-scripts start",
-    "test": "react-scripts test"
-  },
-  "version": "0.1.0",
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0",
-    "animate.css": "^4.1.1",
-    "bootstrap": "^4.5.2",
-    "d3": "^6.2.0",
-    "d3-selection": "^2.0.0",
-    "d3-transition": "^2.0.0",
-    "font-awesome": "^4.7.0",
-    "jspdf": "^2.1.1",
-    "jspdf-autotable": "^3.5.13",
-    "pg-atmospherics": "^1.0.1",
-    "pg-ballistics": "^1.0.1",
-    "pg-conversions": "^1.0.1",
-    "pg-d3-utils": "1.0.14",
-    "pg-drag": "1.0.1",
-    "pg-utilities": "1.0.7",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-hook-form": "^6.8.6",
-    "react-redux": "^7.2.1",
-    "react-scripts": "3.4.3",
-    "react-toastify": "^6.0.8",
-    "redux": "^4.0.5"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.4",
-    "@testing-library/user-event": "^12.1.6",
-    "eslint": "^6.6.0",
-    "eslint-plugin-react": "^7.21.2",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "gh-pages": "^3.1.0",
-    "prettier": "^2.1.2",
-    "redux-devtools": "^3.7.0"
-  }
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "description": "Takes original React tutorial and modernizes and slightly extends it",
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "homepage": "https://paulgilchrist.github.io/ballistics-react",
+    "license": "MIT",
+    "private": true,
+    "name": "ballistics-react",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PaulGilchrist/ballistics-react.git"
+    },
+    "scripts": {
+        "build": "react-scripts build",
+        "deploy": "gh-pages -d build",
+        "predeploy": "npm run build",
+        "start": "react-scripts start",
+        "test": "react-scripts test"
+    },
+    "version": "0.1.0",
+    "dependencies": {
+        "@reduxjs/toolkit": "^1.4.0",
+        "animate.css": "^4.1.1",
+        "bootstrap": "^4.5.2",
+        "d3": "^6.2.0",
+        "d3-selection": "^2.0.0",
+        "d3-transition": "^2.0.0",
+        "font-awesome": "^4.7.0",
+        "jspdf": "^2.1.1",
+        "jspdf-autotable": "^3.5.13",
+        "pg-atmospherics": "^1.0.1",
+        "pg-ballistics": "^1.0.1",
+        "pg-conversions": "^1.0.1",
+        "pg-d3-utils": "1.0.14",
+        "pg-drag": "1.0.1",
+        "pg-utilities": "1.0.7",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-hook-form": "^6.8.6",
+        "react-redux": "^7.2.1",
+        "react-scripts": "3.4.3",
+        "react-toastify": "^6.0.8",
+        "redux": "^4.0.5"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.0.4",
+        "@testing-library/user-event": "^12.1.6",
+        "eslint": "^6.6.0",
+        "eslint-plugin-react": "^7.21.2",
+        "eslint-plugin-react-hooks": "^4.1.2",
+        "gh-pages": "^3.1.0",
+        "prettier": "^2.1.2",
+        "redux-devtools": "^3.7.0"
+    }
 }
