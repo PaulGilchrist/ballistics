@@ -39,7 +39,7 @@
     "d3-transition": "^2.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
-    "jspdf": "2.1.0",
+    "jspdf": "2.3.1",
     "jspdf-autotable": "^3.5.10",
     "ngx-toastr": "~13.0.0",
     "pg-atmospherics": "^1.0.1",
