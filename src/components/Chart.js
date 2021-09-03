@@ -2,69 +2,22 @@ import React from 'react';
 import './chart.css'
 import atmospherics from 'pg-atmospherics';
 
-const Chart = (props) => {
-    /*
-    props = {
-        firearm: {
-	        name
-	        reticleUnits
-	        turretUnits
-            ...
-        }
-        rangeData: [{
-            rangeMeters
-            rangeYards
-            velocityFPS
-            energyFtLbs
-            timeSeconds
-            dropInches
-            verticalPositionInches
-            crossWindDriftInches
-            leadInches
-            slantDegrees
-            // All the remaining properties are computed
-            verticalPositionMil
-            verticalPositionMoA
-            verticalPositionIPHY
-            crossWindDriftMil
-            crossWindDriftMoA
-            crossWindDriftIPHY
-            leadMil
-            leadMoA
-            leadIPHY
-            slantDropInches
-            slantMil
-            slantMoA
-            slantIPHY
-        }]
-        round: {
-            name
-            ...
-        }
-        target: {
-            distanceUnits // Yards or Meters
-            slantDegrees
-            speedMPH
-            ...
-        }
-        weather: {
-           -altitudeFeet
-            -windVelocityMPH
-            -windAngleDegrees
-            ...
-        }
-    }]
-    */
-    const showMil = props.firearm.turretUnits==='Mil' || props.firearm.reticleUnits==='Mil';
-    const showMoA = props.firearm.turretUnits==='MoA' || props.firearm.reticleUnits==='MoA';
-    const showIPHY = props.firearm.turretUnits==='IPHY' || props.firearm.reticleUnits==='IPHY';
-    const speedOfSound = atmospherics.speedOfSound(props.weather.altitudeFeet);
+const Chart = ({firearm, rangeData, round, targetData, weatherData, onPrintChart}) => {
+    const { name: firearmName, reticleUnits, turretUnits } = firearm;
+    const { name: roundName } = round;
+    const { distanceUnits, slantDegrees, speedMPH } = targetData;
+    const { altitudeFeet, windVelocityMPH, windAngleDegrees } = weatherData;
+
+    const showMil = turretUnits==='Mil' || reticleUnits==='Mil';
+    const showMoA = turretUnits==='MoA' || reticleUnits==='MoA';
+    const showIPHY = turretUnits==='IPHY' || reticleUnits==='IPHY';
+    const speedOfSound = atmospherics.speedOfSound(altitudeFeet);
     return (
         <div className="bal-chart">
             <div className="card" id="chart">
                 <div className="card-heading bg-dark text-light">
-                    <span>Range Chart - Firearm ({props.firearm.name}) - Round ({props.round.name})</span>
-                    <button className='btn btn-secondary' onClick={props.onPrintChart}> Print</button>
+                    <span>Range Chart - Firearm ({firearmName}) - Round ({roundName})</span>
+                    <button className='btn btn-secondary' onClick={onPrintChart}> Print</button>
                 </div>
                 <div className="card-body">
                     <div className="table-responsive">
@@ -72,7 +25,7 @@ const Chart = (props) => {
                             <thead>
                                 <tr>
                                     <th data-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
-                                        Range<br/>{props.target.distanceUnits==='Yards' ? '(yards)': '(meters)'}
+                                        Range<br/>{distanceUnits==='Yards' ? '(yards)': '(meters)'}
                                     </th>
                                     <th data-toggle="tooltip" title="Velocity of the bullet in feet per second">
                                         Velocity<br/>(FPS)
@@ -109,15 +62,15 @@ const Chart = (props) => {
                                     }
                                     <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
                                         Wind<br/>
-                                        {props.weather.windVelocityMPH} MPH<br/>
-                                        {props.weather.windAngleDegrees} deg<br/>
+                                        {windVelocityMPH} MPH<br/>
+                                        {windAngleDegrees} deg<br/>
                                         (inch)
                                     </th>
                                     {showMil ? 
                                         <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
                                             Wind<br/>
-                                            {props.weather.windVelocityMPH} MPH<br/>
-                                            {props.weather.windAngleDegrees} deg<br/>
+                                            {windVelocityMPH} MPH<br/>
+                                            {windAngleDegrees} deg<br/>
                                             (Mil)
                                         </th>
                                         : null
@@ -125,8 +78,8 @@ const Chart = (props) => {
                                     {showMoA ? 
                                         <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
                                             Wind<br/>
-                                            {props.weather.windVelocityMPH} MPH<br/>
-                                            {props.weather.windAngleDegrees} deg<br/>
+                                            {windVelocityMPH} MPH<br/>
+                                            {windAngleDegrees} deg<br/>
                                             (MoA)
                                         </th>
                                         : null
@@ -134,21 +87,21 @@ const Chart = (props) => {
                                     {showIPHY ? 
                                         <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
                                             Wind<br/>
-                                            {props.weather.windVelocityMPH} MPH<br/>
-                                            {props.weather.windAngleDegrees} deg<br/>
+                                            {windVelocityMPH} MPH<br/>
+                                            {windAngleDegrees} deg<br/>
                                             (IPHY)
                                         </th>
                                         : null
                                     }
                                     <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
                                         Lead<br/>
-                                        {props.target.speedMPH} MPH<br/>
+                                        {speedMPH} MPH<br/>
                                         (inch)
                                     </th>
                                     {showMil ? 
                                         <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
                                             Lead<br/>
-                                            {props.target.speedMPH} MPH<br/>
+                                            {speedMPH} MPH<br/>
                                             (Mil)
                                         </th>
                                         : null
@@ -156,7 +109,7 @@ const Chart = (props) => {
                                     {showMoA ? 
                                         <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
                                             Lead<br/>
-                                            {props.target.speedMPH} MPH<br/>
+                                            {speedMPH} MPH<br/>
                                             (MoA)
                                         </th>
                                         : null
@@ -164,20 +117,20 @@ const Chart = (props) => {
                                     {showIPHY ? 
                                         <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
                                             Lead<br/>
-                                            {props.target.speedMPH} MPH<br/>
+                                            {speedMPH} MPH<br/>
                                             (IPHY)
                                         </th>
                                         : null
                                     }
                                     <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
                                         Slant<br/>
-                                        {props.target.slantDegrees} deg<br/>
+                                        {slantDegrees} deg<br/>
                                         (inch)
                                     </th>
                                     {showMil ? 
                                         <th data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
                                             Slant<br/>
-                                            {props.target.slantDegrees} deg<br/>
+                                            {slantDegrees} deg<br/>
                                             (Mil)
                                         </th>
                                         : null
@@ -185,7 +138,7 @@ const Chart = (props) => {
                                     {showMoA ? 
                                         <th data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
                                             Slant<br/>
-                                            {props.target.slantDegrees} deg<br/>
+                                            {slantDegrees} deg<br/>
                                             (MoA)
                                         </th>
                                         : null
@@ -193,7 +146,7 @@ const Chart = (props) => {
                                     {showIPHY ? 
                                         <th data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
                                             Slant<br/>
-                                            {props.target.slantDegrees} deg<br/>
+                                            {slantDegrees} deg<br/>
                                             (IPHY)
                                         </th>
                                         : null
@@ -201,67 +154,70 @@ const Chart = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.rangeData.map((range, index) => (
-                                    <tr key={index} className={range.velocityFPS<=speedOfSound ? 'text-danger' : range.velocityFPS<=speedOfSound*1.2 && range.velocityFPS>speedOfSound ? 'text-warning' : null}>
-                                        <td>{props.target.distanceUnits==='Yards' ? range.rangeYards : range.rangeMeters}</td>
-                                        <td>{range.velocityFPS.toFixed(0)}</td>
-                                        <td className="d-none d-sm-table-cell">{range.energyFtLbs.toFixed(0)}</td>
-                                        <td className="d-none d-sm-table-cell">{range.timeSeconds.toFixed(3)}</td>
-                                        <td className="d-none d-sm-table-cell">{range.dropInches.toFixed(1)}</td>
-                                        <td className='d-none d-md-table-cell'>{range.verticalPositionInches.toFixed(1)}</td>
-                                        {showMil ?
-                                            <td>{range.verticalPositionMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showMoA ?
-                                            <td>{range.verticalPositionMoA.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showIPHY ?
-                                            <td>{range.verticalPositionIPHY.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        <td className='d-none d-md-table-cell'>{range.crossWindDriftInches.toFixed(1)}</td>
-                                        {showMil ?
-                                            <td>{range.crossWindDriftMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showMoA ?
-                                            <td>{range.crossWindDriftMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showIPHY ?
-                                            <td>{range.crossWindDriftMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        <td className='d-none d-md-table-cell'>{range.leadInches.toFixed(1)}</td>
-                                        {showMil ?
-                                            <td>{range.leadMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showMoA ?
-                                            <td>{range.leadMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showIPHY ?
-                                            <td>{range.leadMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        <td className='d-none d-md-table-cell'>{range.slantDropInches.toFixed(1)}</td>
-                                        {showMil ?
-                                            <td>{range.slantMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showMoA ?
-                                            <td>{range.slantMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                        {showIPHY ?
-                                            <td>{range.slantMil.toFixed(1)}</td>
-                                            : null
-                                        }
-                                    </tr>
-                                ))}
+                                {rangeData.map((rangeData, index) => {
+                                    const { rangeMeters, rangeYards, velocityFPS, energyFtLbs, timeSeconds, dropInches, verticalPositionInches, crossWindDriftInches, leadInches, verticalPositionMil, verticalPositionMoA, verticalPositionIPHY, crossWindDriftMil, crossWindDriftMoA, crossWindDriftIPHY, leadMil, leadMoA, leadIPHY, slantDropInches, slantMil, slantMoA, slantIPHY } = rangeData;
+                                    return (
+                                        <tr key={index} className={velocityFPS<=speedOfSound ? 'text-danger' : velocityFPS<=speedOfSound*1.2 && velocityFPS>speedOfSound ? 'text-warning' : null}>
+                                            <td>{distanceUnits==='Yards' ? rangeYards : rangeMeters}</td>
+                                            <td>{velocityFPS.toFixed(0)}</td>
+                                            <td className="d-none d-sm-table-cell">{energyFtLbs.toFixed(0)}</td>
+                                            <td className="d-none d-sm-table-cell">{timeSeconds.toFixed(3)}</td>
+                                            <td className="d-none d-sm-table-cell">{dropInches.toFixed(1)}</td>
+                                            <td className='d-none d-md-table-cell'>{verticalPositionInches.toFixed(1)}</td>
+                                            {showMil ?
+                                                <td>{verticalPositionMil.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showMoA ?
+                                                <td>{verticalPositionMoA.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showIPHY ?
+                                                <td>{verticalPositionIPHY.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            <td className='d-none d-md-table-cell'>{crossWindDriftInches.toFixed(1)}</td>
+                                            {showMil ?
+                                                <td>{crossWindDriftMil.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showMoA ?
+                                                <td>{crossWindDriftMoA.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showIPHY ?
+                                                <td>{crossWindDriftIPHY.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            <td className='d-none d-md-table-cell'>{leadInches.toFixed(1)}</td>
+                                            {showMil ?
+                                                <td>{leadMil.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showMoA ?
+                                                <td>{leadMoA.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showIPHY ?
+                                                <td>{leadIPHY.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            <td className='d-none d-md-table-cell'>{slantDropInches.toFixed(1)}</td>
+                                            {showMil ?
+                                                <td>{slantMil.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showMoA ?
+                                                <td>{slantMoA.toFixed(1)}</td>
+                                                : null
+                                            }
+                                            {showIPHY ?
+                                                <td>{slantIPHY.toFixed(1)}</td>
+                                                : null
+                                            }
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

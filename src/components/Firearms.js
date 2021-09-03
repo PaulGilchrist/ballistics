@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import './form.css'
 
-const Firearms = (props) => {
-    /*
-    props = {
-        firearms: [{
-            id 
-	        name
-	        ...
-        }]
-        onAdd()
-        onSelect()
-    }
-    */
+const Firearms = ({firearms, onAdd, onSelect}) => {
     const [isOpen, setIsOpen] = useState(true);
     return (
         <div className="bal-form">
@@ -23,8 +12,8 @@ const Firearms = (props) => {
                 </div>
                 <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
                     <ul className="list-inline">
-                        {props.firearms.map((firearm) => (
-                            <li onClick={() => props.onSelect(firearm)} className='card' key={firearm.id}>
+                        {firearms.map((firearm) => (
+                            <li onClick={() => onSelect(firearm)} className='card' key={firearm.id}>
                                 <div className="well">
                                     {firearm.name}
                                 </div>
@@ -33,7 +22,7 @@ const Firearms = (props) => {
                     </ul>
                 </div>
                 <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
-                    <button className="btn btn-default" onClick={() => props.onAdd()}><span className="fa fa-plus"></span> Add Firearm</button>&nbsp;
+                    <button className="btn btn-default" onClick={() => onAdd()}><span className="fa fa-plus"></span> Add Firearm</button>&nbsp;
                 </div>
             </div>
         </div>

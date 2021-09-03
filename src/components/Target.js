@@ -4,21 +4,8 @@ import './form.css'
 
 import conversions from 'pg-conversions';
 
-const Target = (props) => {
-    /*
-    props = {
-        values: {
-            distanceUnits // Yards or Meters
-            distance
-            chartStepping
-            sizeInches
-            sizeMils
-            slantDegrees
-            speedMPH
-        }
-        onSubmit()
-    }
-    */
+const Target = ({targetData, onSubmit}) => {
+    const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMPH} = targetData;
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, getValues, handleSubmit, setValue } = useForm({ mode: 'onBlur' });
     const setDistance = () => {
@@ -37,7 +24,7 @@ const Target = (props) => {
                     Target
                     <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
-                <form onSubmit={handleSubmit(props.onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
                         <div className="form-group">
                             <label
@@ -52,7 +39,7 @@ const Target = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-bullseye fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.distance}
+                                    defaultValue={distance}
                                     max="5000"
                                     min="0"
                                     name="distance"
@@ -68,7 +55,7 @@ const Target = (props) => {
                                 />
                                 <select
                                     className="form-control"
-                                    defaultValue={props.values.distanceUnits}
+                                    defaultValue={distanceUnits}
                                     name="distanceUnits"
                                     ref={register({
                                         required: true
@@ -98,7 +85,7 @@ const Target = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-ellipsis-v fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.sizeInches}
+                                    defaultValue={sizeInches}
                                     max="120"
                                     min="1"
                                     name="sizeInches"
@@ -112,7 +99,7 @@ const Target = (props) => {
                                 />
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.sizeMils}
+                                    defaultValue={sizeMils}
                                     max="100"
                                     min="0.1"
                                     name="sizeMils"
@@ -152,7 +139,7 @@ const Target = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-bars fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.chartStepping}
+                                    defaultValue={chartStepping}
                                     max="500"
                                     min="10"
                                     name="chartStepping"
@@ -186,7 +173,7 @@ const Target = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-location-arrow fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.slantDegrees}
+                                    defaultValue={slantDegrees}
                                     max="500"
                                     min="10"
                                     name="slantDegrees"
@@ -220,7 +207,7 @@ const Target = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-car fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.speedMPH}
+                                    defaultValue={speedMPH}
                                     max="500"
                                     min="1"
                                     name="speedMPH"

@@ -211,7 +211,7 @@ const App = () => {
             });
         }
     }
-    const handleGraphTypeChange = (firearm, round) => {
+    const handleGraphTypeChange = () => {
         graphType==='line' ? setGraphType('bar') : setGraphType('line');
     }
     const handleOnPrintChart = (firearm, round) => {
@@ -371,8 +371,8 @@ const App = () => {
                 <label className="btn btn-info" onClick={handleDataExport}>Export</label>
             </div>
             <div className="d-flex flex-row flex-wrap justify-content-center">
-                <Weather values={weather} onSubmit={(values) => handleWeatherOnSubmit(values)}/>
-                <Target values={target} onSubmit={(values) => handleTargetOnSubmit(values)}/>
+                <Weather weatherData={weather} onSubmit={(values) => handleWeatherOnSubmit(values)}/>
+                <Target targetData={target} onSubmit={(values) => handleTargetOnSubmit(values)}/>
                 {firearmId===null ?
                     <Firearms firearms={firearms} onAdd={() => handleFirearmOnAdd()} onSelect={(firearm) => handleFirearmOnSelect(firearm)}/>
                     :
@@ -389,7 +389,7 @@ const App = () => {
             </div>
             <div className="d-flex flex-fill justify-content-center">
                 {firearm && round && roundId!=='Add' ?
-                    <Chart firearm={firearm} rangeData={rangeData} round={round} target={target} weather={weather} onPrintChart={() => handleOnPrintChart(firearm, round)}/>
+                    <Chart firearm={firearm} rangeData={rangeData} round={round} targetData={target} weatherData={weather} onPrintChart={() => handleOnPrintChart(firearm, round)}/>
                     : null
                 }
             </div>

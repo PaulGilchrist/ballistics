@@ -2,20 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './form.css'
 
-const Weather = (props) => {
-    /*
-    props = {
-        values: {
-            altitudeFeet
-            temperatureDegreesFahrenheit
-            barometricPressureInchesHg
-            relativeHumidityPercent
-            windVelocityMPH
-            windAngleDegrees
-        }
-        onSubmit()
-    }
-    */
+const Weather = ({weatherData, onSubmit}) => {
+    const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMPH, windAngleDegrees } = weatherData;
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
     return (
@@ -25,7 +13,7 @@ const Weather = (props) => {
                     Weather
                     <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
-                <form onSubmit={handleSubmit(props.onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
                         <div className="form-group">
                             <label
@@ -40,7 +28,7 @@ const Weather = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-globe fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.altitudeFeet}
+                                    defaultValue={altitudeFeet}
                                     max="50000"
                                     min="0"
                                     name="altitudeFeet"
@@ -74,7 +62,7 @@ const Weather = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-snowflake-o fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.temperatureDegreesFahrenheit}
+                                    defaultValue={temperatureDegreesFahrenheit}
                                     max="200"
                                     min="0"
                                     name="temperatureDegreesFahrenheit"
@@ -108,7 +96,7 @@ const Weather = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-cloud fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.barometricPressureInchesHg}
+                                    defaultValue={barometricPressureInchesHg}
                                     max="100"
                                     min="0"
                                     name="barometricPressureInchesHg"
@@ -143,7 +131,7 @@ const Weather = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-tint fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.relativeHumidityPercent}
+                                    defaultValue={relativeHumidityPercent}
                                     max="100"
                                     min="0"
                                     name="relativeHumidityPercent"
@@ -177,7 +165,7 @@ const Weather = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-flag fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.windVelocityMPH}
+                                    defaultValue={windVelocityMPH}
                                     max="200"
                                     min="0"
                                     name="windVelocityMPH"
@@ -211,7 +199,7 @@ const Weather = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-line-chart fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.values.windAngleDegrees}
+                                    defaultValue={windAngleDegrees}
                                     max="90"
                                     min="0"
                                     name="windAngleDegrees"

@@ -2,33 +2,20 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './form.css'
 
-const Round = (props) => {
-    /*
-    props = {
-        round: {
-            id
-            name
-            bulletDiameterInches
-            bulletWeightGrains
-            muzzleVelocityFPS
-        }
-        onCancel()
-        onDelete()
-        onSubmit()
-    }
-    */
+const Round = ({round, onClose, onDelete, onSubmit}) => {
+    const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS } = round;
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
     return (
         <div className="bal-form">
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
-                    { props.round.id==='Add' ? `Add Round` : `Round - ${props.round.name}`}
+                    { id==='Add' ? `Add Round` : `Round - ${name}`}
                     <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
-                <form onSubmit={handleSubmit(props.onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                        <input hidden name="id" defaultValue={props.round.id} type="text" ref={register}/>
+                        <input hidden name="id" defaultValue={id} type="text" ref={register}/>
                         <div className="form-group">
                             <label
                                 className="control-label"
@@ -42,7 +29,7 @@ const Round = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-text-o fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.round.name}
+                                    defaultValue={name}
                                     maxLength="50"
                                     minLength="3"
                                     name="name"
@@ -76,7 +63,7 @@ const Round = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-superpowers fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.round.bulletDiameterInches}
+                                    defaultValue={bulletDiameterInches}
                                     max="1"
                                     min="0.010"
                                     name="bulletDiameterInches"
@@ -111,7 +98,7 @@ const Round = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-balance-scale fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.round.bulletWeightGrains}
+                                    defaultValue={bulletWeightGrains}
                                     max="1000"
                                     min="10"
                                     name="bulletWeightGrains"
@@ -146,7 +133,7 @@ const Round = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-signal fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.round.muzzleVelocityFPS}
+                                    defaultValue={muzzleVelocityFPS}
                                     max="5000"
                                     min="100"
                                     name="muzzleVelocityFPS"
@@ -181,7 +168,7 @@ const Round = (props) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-google-wallet fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={props.round.bulletBC}
+                                    defaultValue={bulletBC}
                                     max="1"
                                     min="0.010"
                                     name="bulletBC"
@@ -206,8 +193,8 @@ const Round = (props) => {
                     </div>
                     <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
-                        <button className="btn btn-warning" onClick={props.onClose}> Close</button>&nbsp;
-                        <button className="btn btn-danger" onClick={props.onDelete}> Delete</button>
+                        <button className="btn btn-warning" onClick={onClose}> Close</button>&nbsp;
+                        <button className="btn btn-danger" onClick={onDelete}> Delete</button>
                     </div>
                 </form>
             </div>
