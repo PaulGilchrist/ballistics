@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import './form.css'
 
 const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
-    const { id, name, elevationTurretGradients, reticleUnits, rounds, sightHeightInches, turretUnits, windageTurretGradients, zeroRangeUnits, zeroRange } = firearm;
+    const { id, name, elevationTurretGradients, reticleUnits, sightHeightInches, turretUnits, windageTurretGradients, zeroRangeUnits, zeroRange } = firearm;
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
     return (
