@@ -256,6 +256,9 @@ const App = () => {
                 const importedState = utilities.jsonParseNumbers(reader.result.toString());
                 console.log(`Imported State`);
                 console.log(importedState);
+                // Remove old selections
+                selectFirearm(null, null);
+                selectRound(null, null, null);
                 updateFirearms(importedState.firearms);
                 updateTarget(importedState.target);
                 updateWeather(importedState.weather);
