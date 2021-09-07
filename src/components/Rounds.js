@@ -3,6 +3,9 @@ import './form.css'
 
 const Rounds = ({rounds, onAdd, onSelect}) => {
     const [isOpen, setIsOpen] = useState(true);
+    if(!rounds) {
+        return null;
+    }
     return (
         <div className="bal-form">
             <div className="card">

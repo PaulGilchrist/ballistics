@@ -49,7 +49,6 @@
         "pg-conversions": "^1.0.1",
         "pg-d3-utils": "1.0.14",
         "pg-drag": "1.0.1",
-        "pg-utilities": "1.0.7",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-hook-form": "^6.8.6",

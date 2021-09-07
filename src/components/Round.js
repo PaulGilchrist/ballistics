@@ -6,6 +6,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
     const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS } = round;
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
+    if(!round) {
+        return null;
+    }
     return (
         <div className="bal-form">
             <div className="card">
@@ -193,8 +196,8 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                     </div>
                     <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
-                        <button className="btn btn-warning" onClick={onClose}> Close</button>&nbsp;
-                        <button className="btn btn-danger" onClick={onDelete}> Delete</button>
+                        <button className="btn btn-warning" onClick={() => onClose()}> Close</button>&nbsp;
+                        <button className="btn btn-danger" onClick={() => onDelete(round)}> Delete</button>
                     </div>
                 </form>
             </div>

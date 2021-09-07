@@ -7,7 +7,7 @@ import FIREARMS from './data/firearms';
 
 import { toast } from 'react-toastify' // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
 import ballistics from 'pg-ballistics'
-import utilities from 'pg-utilities'
+import utilities from './js/utilities'
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import 'animate.css/animate.min.css';
@@ -42,6 +42,7 @@ const App = () => {
     }
     const [firearms, setFirearms] = useState(initialfirearms);
     const deleteFirearm = (firearms, firearmId) => {
+        console.log('deleteFirearm');
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex !== -1) {
             firearms.splice(firearmIndex, 1)
@@ -49,6 +50,7 @@ const App = () => {
         }
     }
     const deleteRound = (firearms, firearmId, roundId) => {
+        console.log('deleteRound');
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex !== -1) {
             const roundIndex = firearms[firearmIndex].rounds.findIndex((r) => r.id === roundId);
@@ -59,11 +61,13 @@ const App = () => {
         }
     }
     const insertFirearm = (firearms, firearm) => {
+        console.log('insertFirearm');
         if (firearm.id === 'Add') {
             // Make sure it does not already exist
             let firearmIndex = firearms.findIndex((f) => f.name === firearm.name);
             if (firearmIndex === -1) {
                 firearm.id = utilities.guid();
+                firearm.rounds = [];
                 firearms.push(firearm);
                 utilities.sort(firearms, 'name');
                 updateFirearms(firearms);
@@ -71,6 +75,7 @@ const App = () => {
         }
     }
     const insertRound = (firearms, firearmId, round) => {
+        console.log('insertRound');
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex !== -1) {
             if (round.id === 'Add') {
@@ -86,6 +91,7 @@ const App = () => {
         }
     }
     const updateFirearm = (firearms, firearm) => {
+        console.log('updateFirearm');
         const firearmIndex = firearms.findIndex((f) => f.id === firearm.id);
         if (firearmIndex !== -1) {
             // Do not update the rounds
@@ -95,10 +101,12 @@ const App = () => {
         }
     }
     const updateFirearms = (firearms) => {
+        console.log('updateFirearms');
         setFirearms(firearms);
         localStorage.setItem('firearms', JSON.stringify(firearms));
     }
     const updateRound = (firearms, firearmId, round) => {
+        console.log('updateRound');
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex !== -1) {
             let roundIndex = firearms[firearmIndex].rounds.findIndex((r) => r.name === round.name);
@@ -127,6 +135,7 @@ const App = () => {
     }
     const [target, setTarget] = useState(initialTarget);
     const updateTarget = (target) => {
+        console.log('updateTarget');
         setTarget(target);
         localStorage.setItem('target', JSON.stringify(target));
     }
@@ -148,12 +157,14 @@ const App = () => {
     }
     const [weather, setWeather] = useState(initialWeather);
     const updateWeather = (weather) => {
+        console.log('updateWeather');
         setWeather(weather);
         localStorage.setItem('weather', JSON.stringify(weather));
     }
     // Firearm Selected
     const [firearmId, setFirearmId] = useState(localStorage.getItem('firearmId'));
     const selectFirearm = (firearms, firearmId) => {
+        console.log('selectFirearm');
         setFirearmId(null);
         localStorage.removeItem('firearmId');
         if (firearmId != null) {
@@ -167,6 +178,7 @@ const App = () => {
     // Round Selected
     const [roundId, setRoundId] = useState(localStorage.getItem('roundId'));
     const selectRound = (firearms, firearmId, roundId) => {
+        console.log('selectRound');
         // action must pass roundId.  firearmId must already have been selected
         setRoundId(null);
         localStorage.removeItem('roundId');
@@ -183,6 +195,7 @@ const App = () => {
     }
     // Getter functions (all should be pure functions)
     const getFirearm = (firearms, firearmId) => {
+        console.log('getFirearm');
         // Get firearm from firearms array using firearmId
         let firearm = null;
         if (firearmId != null) {
@@ -206,6 +219,7 @@ const App = () => {
         return firearm;
     }
     const getRound = (firearm, roundId) => {
+        console.log('getRound');
         // Get round from firearm.rounds array using roundId
         let round = null;
         if (firearm != null && roundId != null) {
@@ -225,6 +239,7 @@ const App = () => {
     }
     // Event Handlers
     const handleDataImport = (event) => {
+        console.log('handleDataImport');
         if (!event.target.files || event.target.files.length !== 1) {
             toast.error(`No file selected`, {
                 distance: "top-center",
@@ -251,6 +266,7 @@ const App = () => {
         }
     }
     const handleDataExport = (firearms, firearmId, roundId, target, weather) => {
+        console.log('handleDataExport');
         const json = JSON.stringify({
             firearmId,
             firearms,
@@ -268,10 +284,12 @@ const App = () => {
         document.body.removeChild(link);
     }
     const handleFirearmOnAdd = (firearms) => {
+        console.log('handleFirearmOnAdd');
         selectRound(null, null, null);
         selectFirearm(firearms, 'Add');
     }
     const handleFirearmOnClose = () => {
+        console.log('handleFirearmOnClose');
         selectRound(null, null, null);
         selectFirearm(null, null);
     }
@@ -279,16 +297,9 @@ const App = () => {
         ////////////////////////////////////////////////////////////////////////////////
         /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
-        if (firearms.find((f) => f.id === firearm.id) === undefined) {
-            toast.error(`Firearm Not Found`, {
-                distance: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
-        } else {
+        console.log('handleFirearmOnDelete');
+        if (firearms.find((f) => f.id === firearm.id) !== undefined) {
+            console.log('deleteFirearm');
             selectRound(null, null, null);
             selectFirearm(null, null);
             deleteFirearm(firearms, firearm.id);
@@ -303,21 +314,14 @@ const App = () => {
         }
     }
     const handleFirearmOnSelect = (firearms, firearm) => {
+        console.log('handleFirearmOnSelect');
         selectFirearm(firearms, firearm.id);
     }
     const handleFirearmOnSubmit = (firearms, firearm) => {
+        console.log('handleFirearmOnSubmit');
         // Find by name rather than id to ensure the name remains unique
         if (firearm.id === 'Add') {
-            if (firearms.find((f) => f.name === firearm.name) !== undefined) {
-                toast.error(`Name already exists - Firearm not added`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
-            } else {
+            if (firearms.find((f) => f.name === firearm.name) === undefined) {
                 insertFirearm(firearms, firearm);
                 selectFirearm(firearms, firearm.id);
                 toast.success(`Firearm Added`, {
@@ -343,9 +347,11 @@ const App = () => {
         }
     }
     const handleGraphTypeChange = (graphType) => {
+        console.log('handleGraphTypeChange');
         graphType === 'line' ? setGraphType('bar') : setGraphType('line');
     }
     const handleOnPrintChart = (firearm, round) => {
+        console.log('handleOnPrintChart');
         console.log('print');
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center' });
@@ -359,12 +365,15 @@ const App = () => {
         // pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
     }
     const handleRoundOnAdd = (firearms, firearmId) => {
+        console.log('handleRoundOnAdd');
         selectRound(firearms, firearmId, 'Add');
     }
     const handleRoundOnClose = () => {
+        console.log('handleRoundOnClose');
         selectRound(null, null, null);
     }
     const handleRoundOnDelete = (firearms, firearmId, round) => {
+        console.log('handleRoundOnDelete');
         ////////////////////////////////////////////////////////////////////////////////
         /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
@@ -379,16 +388,7 @@ const App = () => {
                 draggable: true
             });
         } else {
-            if (firearms[firearmIndex].find((r) => r.id === round.id) === undefined) {
-                toast.error(`Round Not Found`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
-            } else {
+            if (firearms[firearmIndex].rounds.find((r) => r.id === round.id) !== undefined) {
                 if (roundId === round.id) {
                     selectRound(firearms, firearmId, null);
                 }
@@ -405,9 +405,11 @@ const App = () => {
         }
     }
     const handleRoundOnSelect = (firearms, firearmId, round) => {
+        console.log('handleRoundOnSelect');
         selectRound(firearms, firearmId, round.id);
     }
     const handleRoundOnSubmit = (firearms, firearmId, round) => {
+        console.log('handleRoundOnSubmit');
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex === -1) {
             toast.error(`Firearm Not Found`, {
@@ -421,16 +423,7 @@ const App = () => {
         } else {
             // Find by name rather than id to ensure the name remains unique
             if (round.id === 'Add') {
-                if (firearms[firearmIndex].rounds.find((r) => r.name === round.name) !== undefined) {
-                    toast.error(`Name already exists - Round not added`, {
-                        distance: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true
-                    });
-                } else {
+                if (firearms[firearmIndex].rounds.find((r) => r.name === round.name) === undefined) {
                     insertRound(firearms, firearmId, round);
                     selectRound(firearms, firearmId, round.id);
                     toast.success(`Firearm Added`, {
@@ -457,6 +450,7 @@ const App = () => {
         }
     }
     const handleTargetOnSubmit = (targetData) => {
+        console.log('handleTargetOnSubmit');
         // Convert form strings back to numbers
         updateTarget({
             chartStepping: Number(targetData.chartStepping),
@@ -477,6 +471,7 @@ const App = () => {
         });
     }
     const handleWeatherOnSubmit = (weatherData) => {
+        console.log('handleWeatherOnSubmit');
         updateWeather(weatherData);
         toast.success('Weather Data Saved', {
             position: "top-center",
@@ -511,7 +506,7 @@ const App = () => {
                     <Firearms firearms={firearms} onAdd={() => handleFirearmOnAdd(firearms)} onSelect={(firearm) => handleFirearmOnSelect(firearms, firearm)} />
                     :
                     <React.Fragment>
-                        <Firearm firearm={firearm} onClose={() => handleFirearmOnClose()} onDelete={(firearm) => handleFirearmOnDelete(firearms, firearm)} onSubmit={(firearm) => handleFirearmOnSubmit(firearms, firearm)} />
+                        <Firearm firearm={firearm} onClose={() => handleFirearmOnClose()} onDelete={(firearm) => handleFirearmOnDelete(firearms, firearm)} onSubmit={(firearm) => handleFirearmOnSubmit(firearms, firearm)}/>
                         {firearmId !== 'Add' ? round == null ?
                             <Rounds rounds={firearm.rounds} onAdd={() => handleRoundOnAdd(firearms, firearmId)} onSelect={(round) => handleRoundOnSelect(firearms, firearmId, round)} />
                             :

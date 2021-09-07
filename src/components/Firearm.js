@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './form.css'
 
-const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
-    const { id, name, elevationTurretGradients, reticleUnits, sightHeightInches, turretUnits, windageTurretGradients, zeroRangeUnits, zeroRange } = firearm;
+const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
     const [isOpen, setIsOpen] = useState(true);
     const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
+    if(!firearm) {
+        return null;
+    }
     return (
         <div className="bal-form">
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
-                    { id==='Add' ? `Add Firearm` : `Firearm - ${name}`}
+                    { firearm.id==='Add' ? `Add Firearm` : `Firearm - ${firearm.name}`}
                     <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                        <input hidden name="id" defaultValue={id} type="text" ref={register}/>
+                        <input hidden name="id" defaultValue={firearm.id} type="text" ref={register}/>
                         <div className="form-group">
                             <label
                                 className="control-label"
@@ -29,7 +31,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-file-o fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={name}
+                                    defaultValue={firearm.name}
                                     maxLength="50"
                                     minLength="3"
                                     name="name"
@@ -63,7 +65,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-crosshairs fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={sightHeightInches}
+                                    defaultValue={firearm.sightHeightInches}
                                     max="5"
                                     min="0.25"
                                     name="sightHeightInches"
@@ -98,7 +100,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-circle-o fa-fw"></i></div></div>
                                 <input
                                     className="form-control"
-                                    defaultValue={zeroRange}
+                                    defaultValue={firearm.zeroRange}
                                     max="3000"
                                     min="25"
                                     name="zeroRange"
@@ -113,7 +115,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 />
                                 <select
                                     className="form-control"
-                                    defaultValue={zeroRangeUnits}
+                                    defaultValue={firearm.zeroRangeUnits}
                                     name="zeroRangeUnits"
                                     ref={register({
                                         required: true
@@ -143,7 +145,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-spinner fa-fw"></i></div></div>
                                 <select
                                     className="form-control"
-                                    defaultValue={reticleUnits}
+                                    defaultValue={firearm.reticleUnits}
                                     name="reticleUnits"
                                     ref={register({
                                         required: true
@@ -174,7 +176,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-align-center fa-fw"></i></div></div>
                                 <select
                                     className="form-control"
-                                    defaultValue={elevationTurretGradients}
+                                    defaultValue={firearm.elevationTurretGradients}
                                     name="elevationTurretGradients"
                                     ref={register({
                                         required: true
@@ -188,7 +190,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 </select>
                                 <select
                                     className="form-control"
-                                    defaultValue={turretUnits}
+                                    defaultValue={firearm.turretUnits}
                                     name="turretUnits"
                                     ref={register({
                                         required: true
@@ -219,7 +221,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-repeat fa-fw"></i></div></div>
                                 <select
                                     className="form-control"
-                                    defaultValue={windageTurretGradients}
+                                    defaultValue={firearm.windageTurretGradients}
                                     name="windageTurretGradients"
                                     ref={register({
                                         required: true
@@ -233,7 +235,7 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                                 </select>
                                 <select
                                     className="form-control"
-                                    defaultValue={turretUnits}
+                                    defaultValue={firearm.turretUnits}
                                     name="turretUnits"
                                     ref={register({
                                         required: true
@@ -254,8 +256,8 @@ const Firearm = ({firearm, onClose, onDelete, onSubmit}) => {
                     </div>
                     <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
-                        <button className="btn btn-warning" onClick={onClose}> Close</button>&nbsp;
-                        <button className="btn btn-danger" onClick={onDelete}> Delete</button>
+                        <button className="btn btn-warning" onClick={() => onClose()}> Close</button>&nbsp;
+                        <button className="btn btn-danger" onClick={() => onDelete(firearm)}> Delete</button>
                     </div>
                 </form>
             </div>
