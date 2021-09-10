@@ -36,7 +36,7 @@ const Target = ({targetData, onSubmit}) => {
                                 Distance
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-bullseye fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-bullseye fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={distance}
@@ -82,7 +82,7 @@ const Target = ({targetData, onSubmit}) => {
                                 Size (Inches / Mils) - optional
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-ellipsis-v fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-ellipsis-v fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={sizeInches}
@@ -136,7 +136,7 @@ const Target = ({targetData, onSubmit}) => {
                                 Chart Stepping (yards)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-bars fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-bars fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={chartStepping}
@@ -170,7 +170,7 @@ const Target = ({targetData, onSubmit}) => {
                                 Slant (degrees)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-location-arrow fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-location-arrow fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={slantDegrees}
@@ -204,7 +204,7 @@ const Target = ({targetData, onSubmit}) => {
                                 Speed (MPH)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-car fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-car fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={speedMPH}

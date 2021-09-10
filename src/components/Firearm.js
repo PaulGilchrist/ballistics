@@ -28,7 +28,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 Name
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-file-o fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-file-o fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={firearm.name}
@@ -62,7 +62,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 Sight Height (inches)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-crosshairs fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-crosshairs fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={firearm.sightHeightInches}
@@ -97,7 +97,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 Zero Range
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-circle-o fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-circle-o fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={firearm.zeroRange}
@@ -142,7 +142,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 Reticle Units
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-spinner fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-spinner fa-fw"></i></span>
                                 <select
                                     className="form-control"
                                     defaultValue={firearm.reticleUnits}
@@ -173,7 +173,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 Elevation Turret (clicks per unit)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-align-center fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-align-center fa-fw"></i></span>
                                 <select
                                     className="form-control"
                                     defaultValue={firearm.elevationTurretGradients}
@@ -218,7 +218,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 Windage Turret (clicks per unit)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-repeat fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-repeat fa-fw"></i></span>
                                 <select
                                     className="form-control"
                                     defaultValue={firearm.windageTurretGradients}

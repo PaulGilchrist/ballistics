@@ -25,7 +25,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                 Altitude (feet)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-globe fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-globe fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={altitudeFeet}
@@ -59,7 +59,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                 Temperature (fahrenheit)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-snowflake-o fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-snowflake-o fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={temperatureDegreesFahrenheit}
@@ -93,7 +93,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                 Barometric Pressure (in Hg)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-cloud fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-cloud fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={barometricPressureInchesHg}
@@ -128,7 +128,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                 Relative Humidity (%)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-tint fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-tint fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={relativeHumidityPercent}
@@ -162,7 +162,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                 Wind Velocity (MPH)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-flag fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-flag fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={windVelocityMPH}
@@ -196,7 +196,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                 Wind Angle (degrees)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-line-chart fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-line-chart fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={windAngleDegrees}

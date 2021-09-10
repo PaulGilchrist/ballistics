@@ -29,7 +29,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 Name
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-text-o fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-text-o fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={name}
@@ -63,7 +63,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 Bullet Diameter (inches)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-superpowers fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-superpowers fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={bulletDiameterInches}
@@ -98,7 +98,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 Bullet Weight (grains)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-balance-scale fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-balance-scale fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={bulletWeightGrains}
@@ -133,7 +133,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 Muzzle Velocity (FPS)
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-signal fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-signal fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={muzzleVelocityFPS}
@@ -168,7 +168,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 Bullet Ballistic Cooefficient
                             </label>
                             <div className="input-group margin-bottom-sm">
-                                <div className="input-group-prepend"><div className="input-group-text"><i className="fa fa-google-wallet fa-fw"></i></div></div>
+                                <span className="input-group-text"><i className="fa fa-google-wallet fa-fw"></i></span>
                                 <input
                                     className="form-control"
                                     defaultValue={bulletBC}
