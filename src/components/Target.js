@@ -7,7 +7,7 @@ import conversions from 'pg-conversions';
 const Target = ({targetData, onSubmit}) => {
     const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMPH} = targetData;
     const [isOpen, setIsOpen] = useState(true);
-    const { register, errors, getValues, handleSubmit, setValue } = useForm({ mode: 'onBlur' });
+    const { register, getValues, handleSubmit, setValue, formState: { errors } } = useForm({ mode: 'onBlur' });
     const setDistance = () => {
         const values = getValues();
         // Given the size of a target in both inches and mils, will calculate and update the distance
@@ -42,10 +42,9 @@ const Target = ({targetData, onSubmit}) => {
                                     defaultValue={distance}
                                     max="5000"
                                     min="0"
-                                    name="distance"
                                     onBlur={() => setValue('sizeMils', '')}
                                     placeholder="Distance"
-                                    ref={register({
+                                    {...register("distance", {
                                         max: { value: 5000, message: "Distance has a maximum value of 5000" },
                                         min: { value: 0, message: "Distance has a minimum value of 0" },
                                         required: "Distance is required to determine how far out to calculate ballistics data"
@@ -56,8 +55,7 @@ const Target = ({targetData, onSubmit}) => {
                                 <select
                                     className="form-control"
                                     defaultValue={distanceUnits}
-                                    name="distanceUnits"
-                                    ref={register({
+                                    {...register("distanceUnits", {
                                         required: true
                                     })}
                                 >
@@ -88,10 +86,9 @@ const Target = ({targetData, onSubmit}) => {
                                     defaultValue={sizeInches}
                                     max="120"
                                     min="1"
-                                    name="sizeInches"
                                     placeholder="Size (inches)"
                                     onBlur={async () => setDistance()}
-                                    ref={register({
+                                    {...register("sizeInches", {
                                         max: { value: 120, message: "Size (inches) has a maximum value of 120" },
                                         min: { value: 1, message: "Size (inches) has a minimum value of 1" },
                                     })}
@@ -102,10 +99,9 @@ const Target = ({targetData, onSubmit}) => {
                                     defaultValue={sizeMils}
                                     max="100"
                                     min="0.1"
-                                    name="sizeMils"
                                     onBlur={() => setDistance()}
                                     placeholder="Size (mils)"
-                                    ref={register({
+                                    {...register("sizeMils", {
                                         max: { value: 100, message: "Size (mils) has a maximum value of 100" },
                                         min: { value: 0.1, message: "Size (mils) has a minimum value of 0.1" },
                                     })}
@@ -142,9 +138,8 @@ const Target = ({targetData, onSubmit}) => {
                                     defaultValue={chartStepping}
                                     max="500"
                                     min="10"
-                                    name="chartStepping"
                                     placeholder="Chart Stepping (yards)"
-                                    ref={register({
+                                    {...register("chartStepping", {
                                         max: { value: 500, message: "Chart Stepping has a maximum value of 500" },
                                         min: { value: 10, message: "Chart Stepping has a minimum value of 10" },
                                         required: "Chart Stepping is required to determine how many rows to calculate"
@@ -176,9 +171,8 @@ const Target = ({targetData, onSubmit}) => {
                                     defaultValue={slantDegrees}
                                     max="500"
                                     min="10"
-                                    name="slantDegrees"
                                     placeholder="Slant (degrees)"
-                                    ref={register({
+                                    {...register("slantDegrees", {
                                         max: { value: 500, message: "Slant has a maximum value of 500" },
                                         min: { value: 10, message: "Slant has a minimum value of 10" },
                                         required: "Slant is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
@@ -210,9 +204,8 @@ const Target = ({targetData, onSubmit}) => {
                                     defaultValue={speedMPH}
                                     max="500"
                                     min="1"
-                                    name="speedMPH"
                                     placeholder="Speed (MPH)"
-                                    ref={register({
+                                    {...register("speedMPH", {
                                         max: { value: 500, message: "Speed has a maximum value of 500" },
                                         min: { value: 1, message: "Speed has a minimum value of 1" },
                                         required: "Target speed is required to determine horizontal lead hold or scope adjustments needed."

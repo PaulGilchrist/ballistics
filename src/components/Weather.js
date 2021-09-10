@@ -5,7 +5,7 @@ import './form.css'
 const Weather = ({weatherData, onSubmit}) => {
     const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMPH, windAngleDegrees } = weatherData;
     const [isOpen, setIsOpen] = useState(true);
-    const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     return (
         <div className="bal-form">
             <div className="card weather">
@@ -33,7 +33,7 @@ const Weather = ({weatherData, onSubmit}) => {
                                     min="0"
                                     name="altitudeFeet"
                                     placeholder="Altitude (feet)"
-                                    ref={register({
+                                    {...register("altitudeFeet", {
                                         max: { value: 50000, message: "Altitude has a maximum value of 50000" },
                                         min: { value: 0, message: "Altitude has a minimum value of 0" },
                                         required: "Altitude is required to determine atmospheric density"
@@ -41,13 +41,13 @@ const Weather = ({weatherData, onSubmit}) => {
                                     required
                                     type="number"
                                 />
+                                {errors.altitudeFeet && errors.altitudeFeet.message ?
+                                    <div className="alert alert-danger">
+                                        {errors.altitudeFeet.message}
+                                    </div>
+                                    : null
+                                }
                             </div>
-                            {errors.altitudeFeet && errors.altitudeFeet.message ?
-                                <div className="alert alert-danger">
-                                    {errors.altitudeFeet.message}
-                                </div>
-                                : null
-                            }
                         </div>
                         <div className="form-group">
                             <label
@@ -65,9 +65,8 @@ const Weather = ({weatherData, onSubmit}) => {
                                     defaultValue={temperatureDegreesFahrenheit}
                                     max="200"
                                     min="0"
-                                    name="temperatureDegreesFahrenheit"
                                     placeholder="Temperature (fahrenheit)"
-                                    ref={register({
+                                    {...register("temperatureDegreesFahrenheit", {
                                         max: { value: 200, message: "Temperature has a maximum value of 200" },
                                         min: { value: 0, message: "Temperature has a minimum value of 0" },
                                         required: "Temperature is required to determine atmospheric density"
@@ -99,9 +98,8 @@ const Weather = ({weatherData, onSubmit}) => {
                                     defaultValue={barometricPressureInchesHg}
                                     max="100"
                                     min="0"
-                                    name="barometricPressureInchesHg"
                                     placeholder="Barometric Pressure (in Hg)"
-                                    ref={register({
+                                    {...register("barometricPressureInchesHg", {
                                         max: { value: 100, message: "Barometric Pressure has a maximum value of 100" },
                                         min: { value: 0, message: "Barometric Pressure has a minimum value of 0" },
                                         required: "Barometric Pressure is required to determine atmospheric density"
@@ -134,9 +132,8 @@ const Weather = ({weatherData, onSubmit}) => {
                                     defaultValue={relativeHumidityPercent}
                                     max="100"
                                     min="0"
-                                    name="relativeHumidityPercent"
                                     placeholder="Relative Humidity (%)"
-                                    ref={register({
+                                    {...register("relativeHumidityPercent", {
                                         max: { value: 100, message: "Relative Humidity has a maximum value of 100" },
                                         min: { value: 0, message: "Relative Humidity has a minimum value of 0" },
                                         required: "Relative Humidity is required to determine atmospheric density"
@@ -168,9 +165,8 @@ const Weather = ({weatherData, onSubmit}) => {
                                     defaultValue={windVelocityMPH}
                                     max="200"
                                     min="0"
-                                    name="windVelocityMPH"
                                     placeholder="Wind Velocity (MPH)"
-                                    ref={register({
+                                    {...register("windVelocityMPH", {
                                         max: { value: 200, message: "Wind Velocity has a maximum value of 200" },
                                         min: { value: 0, message: "Wind Velocity has a minimum value of 0" },
                                         required: "Wind Velocity is required to calculate bullet drift"
@@ -202,9 +198,8 @@ const Weather = ({weatherData, onSubmit}) => {
                                     defaultValue={windAngleDegrees}
                                     max="90"
                                     min="0"
-                                    name="windAngleDegrees"
                                     placeholder="Wind Angle (degrees)"
-                                    ref={register({
+                                    {...register("windAngleDegrees", {
                                         max: { value: 90, message: "windVelocity has a maximum value of 90" },
                                         min: { value: 0, message: "windVelocity has a minimum value of 0" },
                                         required: "Wind Angle is required to determine the winds vector impact on bullet drift"

@@ -4,7 +4,7 @@ import './form.css'
 
 const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
     const [isOpen, setIsOpen] = useState(true);
-    const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     if(!firearm) {
         return null;
     }
@@ -17,7 +17,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                        <input hidden name="id" defaultValue={firearm.id} type="text" ref={register}/>
+                        <input hidden name="id" defaultValue={firearm.id} type="text" {...register}/>
                         <div className="form-group">
                             <label
                                 className="control-label"
@@ -36,7 +36,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     minLength="3"
                                     name="name"
                                     placeholder="Name"
-                                    ref={register({
+                                    {...register("name", {
                                         maxLength: { value: 50, message: "Name has a maximum length of 50" },
                                         minLength: { value: 3, message: "Name has a minimum length of 3" },
                                         required: "Name is required"
@@ -70,7 +70,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     min="0.25"
                                     name="sightHeightInches"
                                     placeholder="Sight Height (inches)"
-                                    ref={register({
+                                    {...register("sightHeightInches", {
                                         max: { value: 5, message: "Sight Height has a maximum value of 5" },
                                         min: { value: 0.25, message: "Sight Height has a minimum value of 0.25" },
                                         required: "Sight Height is required"
@@ -105,7 +105,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     min="25"
                                     name="zeroRange"
                                     placeholder="Zero Range"
-                                    ref={register({
+                                    {...register("zeroRange", {
                                         max: { value: 3000, message: "Zero Range has a maximum value of 3000" },
                                         min: { value: 10, message: "Zero Range has a minimum value of 10" },
                                         required: "Zero Range is required, so bullet drop can be calculated properly"
@@ -117,7 +117,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.zeroRangeUnits}
                                     name="zeroRangeUnits"
-                                    ref={register({
+                                    {...register("zeroRangeUnits", {
                                         required: true
                                     })}
                                 >
@@ -147,7 +147,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.reticleUnits}
                                     name="reticleUnits"
-                                    ref={register({
+                                    {...register("reticleUnits", {
                                         required: true
                                     })}
                                 >
@@ -178,7 +178,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.elevationTurretGradients}
                                     name="elevationTurretGradients"
-                                    ref={register({
+                                    {...register("elevationTurretGradients", {
                                         required: true
                                     })}
                                 >
@@ -192,7 +192,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.turretUnits}
                                     name="turretUnits"
-                                    ref={register({
+                                    {...register("turretUnits", {
                                         required: true
                                     })}
                                 >
@@ -223,7 +223,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.windageTurretGradients}
                                     name="windageTurretGradients"
-                                    ref={register({
+                                    {...register("windageTurretGradients", {
                                         required: true
                                     })}
                                 >
@@ -237,7 +237,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.turretUnits}
                                     name="turretUnits"
-                                    ref={register({
+                                    {...register("turretUnits", {
                                         required: true
                                     })}
                                 >

@@ -5,7 +5,7 @@ import './form.css'
 const Round = ({round, onClose, onDelete, onSubmit}) => {
     const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS } = round;
     const [isOpen, setIsOpen] = useState(true);
-    const { register, errors, handleSubmit } = useForm({ mode: 'onBlur' });
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     if(!round) {
         return null;
     }
@@ -18,7 +18,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                        <input hidden name="id" defaultValue={id} type="text" ref={register}/>
+                        <input hidden name="id" defaultValue={id} type="text" {...register}/>
                         <div className="form-group">
                             <label
                                 className="control-label"
@@ -37,7 +37,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                     minLength="3"
                                     name="name"
                                     placeholder="Name"
-                                    ref={register({
+                                    {...register("name", {
                                         maxLength: { value: 50, message: "Name has a maximum length of 50" },
                                         minLength: { value: 3, message: "Name has a minimum length of 3" },
                                         required: "Name is required"
@@ -71,7 +71,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                     min="0.010"
                                     name="bulletDiameterInches"
                                     placeholder="Bullet Diameter (inches)"
-                                    ref={register({
+                                    {...register("bulletDiameterInches", {
                                         max: { value: 1, message: "Bullet Diameter has a maximum value of 1" },
                                         min: { value: 0.010, message: "Bullet Diameter has a minimum value of 0.010" },
                                         required: "Bullet diameter is required so wind resistance can be calculated."
@@ -106,7 +106,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                     min="10"
                                     name="bulletWeightGrains"
                                     placeholder="Bullet Weight (grains)"
-                                    ref={register({
+                                    {...register("bulletWeightGrains", {
                                         max: { value: 1000, message: "Bullet Weight has a maximum value of 1000" },
                                         min: { value: 10, message: "Bullet Weight has a minimum value of 10" },
                                         required: "Bullet Weight is required, so bullet drop can be calculated properly."
@@ -141,7 +141,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                     min="100"
                                     name="muzzleVelocityFPS"
                                     placeholder="Muzzle Velocity (FPS)"
-                                    ref={register({
+                                    {...register("muzzleVelocityFPS", {
                                         max: { value: 5000, message: "Muzzle Velocity has a maximum value of 5000" },
                                         min: { value: 100, message: "Muzzle Velocity has a minimum value of 100" },
                                         required: "Muzzle Velocity is required, so bullet drop can be calculated properly."
@@ -176,7 +176,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                     min="0.010"
                                     name="bulletBC"
                                     placeholder="Bullet Ballistic Cooefficient"
-                                    ref={register({
+                                    {...register("bulletBC", {
                                         max: { value: 1, message: "Bullet ballistic cooefficient has a maximum value of 1" },
                                         min: { value: 0.010, message: "Bullet ballistic cooefficient has a minimum value of 0.010" },
                                         required: "Bullet ballistic cooefficient is required, so wind resistance can be calculated properly."
