@@ -5,9 +5,9 @@ import autoTable from 'jspdf-autotable';
 
 import FIREARMS from './data/firearms';
 
-import { toast } from 'react-toastify' // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
-import ballistics from 'pg-ballistics'
-import utilities from './js/utilities'
+import { toast } from 'react-toastify'; // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
+import ballistics from 'pg-ballistics';
+import utilities from 'pg-utilities';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import 'animate.css/animate.min.css';
