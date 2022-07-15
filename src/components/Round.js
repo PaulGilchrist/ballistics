@@ -18,7 +18,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
-                        <input hidden name="id" defaultValue={id} type="text" {...register}/>
+                        <input hidden name="id" defaultValue={id} type="text" {...register("id")}/>
                         <div className="form-group">
                             <label
                                 className="control-label"
