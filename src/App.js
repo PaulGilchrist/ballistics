@@ -62,7 +62,7 @@ const App = () => {
     }
     const insertFirearm = (firearms, firearm) => {
         console.log('insertFirearm');
-        if (firearm.id === 'Add') {
+        if (firearmId === 'Add') {
             // Make sure it does not already exist
             let firearmIndex = firearms.findIndex((f) => f.name === firearm.name);
             if (firearmIndex === -1) {
@@ -78,7 +78,7 @@ const App = () => {
         console.log('insertRound');
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex !== -1) {
-            if (round.id === 'Add') {
+            if (roundId === 'Add') {
                 // Make sure it does not already exist
                 let roundIndex = firearms[firearmIndex].rounds.findIndex((r) => r.name === round.name);
                 if (roundIndex === -1) {
@@ -323,7 +323,7 @@ const App = () => {
     const handleFirearmOnSubmit = (firearms, firearm) => {
         console.log('handleFirearmOnSubmit');
         // Find by name rather than id to ensure the name remains unique
-        if (firearm.id === 'Add') {
+        if (firearmId === 'Add') {
             if (firearms.find((f) => f.name === firearm.name) === undefined) {
                 insertFirearm(firearms, firearm);
                 selectFirearm(firearms, firearm.id);
@@ -337,6 +337,7 @@ const App = () => {
                 });
             }
         } else {
+            firearm.id = firearmId;
             updateFirearm(firearms, firearm);
             selectFirearm(firearms, firearm.id);
             toast.success(`Firearm Updated`, {
@@ -425,7 +426,7 @@ const App = () => {
             });
         } else {
             // Find by name rather than id to ensure the name remains unique
-            if (round.id === 'Add') {
+            if (roundId === 'Add') {
                 if (firearms[firearmIndex].rounds.find((r) => r.name === round.name) === undefined) {
                     insertRound(firearms, firearmId, round);
                     selectRound(firearms, firearmId, round.id);
@@ -439,6 +440,7 @@ const App = () => {
                     });
                 }
             } else {
+                round.id = roundId;
                 updateRound(firearms, firearmId, round);
                 selectRound(firearms, firearmId, round.id);
                 toast.success(`Round Updated`, {
