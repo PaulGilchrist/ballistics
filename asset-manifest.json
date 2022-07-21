@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/ballistics-react/static/css/main.d93e8171.chunk.css",
+    "main.css": "/ballistics-react/static/css/main.17185b73.chunk.css",
     "main.js": "/ballistics-react/static/js/main.29f5d400.chunk.js",
     "main.js.map": "/ballistics-react/static/js/main.29f5d400.chunk.js.map",
     "runtime-main.js": "/ballistics-react/static/js/runtime-main.a4e03262.js",
@@ -16,7 +16,7 @@
     "static/js/5.7add2661.chunk.js.map": "/ballistics-react/static/js/5.7add2661.chunk.js.map",
     "index.html": "/ballistics-react/index.html",
     "static/css/3.3141e48f.chunk.css.map": "/ballistics-react/static/css/3.3141e48f.chunk.css.map",
-    "static/css/main.d93e8171.chunk.css.map": "/ballistics-react/static/css/main.d93e8171.chunk.css.map",
+    "static/css/main.17185b73.chunk.css.map": "/ballistics-react/static/css/main.17185b73.chunk.css.map",
     "static/js/2.b0685be6.chunk.js.LICENSE.txt": "/ballistics-react/static/js/2.b0685be6.chunk.js.LICENSE.txt",
     "static/js/3.535a7a9b.chunk.js.LICENSE.txt": "/ballistics-react/static/js/3.535a7a9b.chunk.js.LICENSE.txt",
     "static/js/4.e134f2ca.chunk.js.LICENSE.txt": "/ballistics-react/static/js/4.e134f2ca.chunk.js.LICENSE.txt",
@@ -27,7 +27,7 @@
     "static/js/runtime-main.a4e03262.js",
     "static/css/3.3141e48f.chunk.css",
     "static/js/3.535a7a9b.chunk.js",
-    "static/css/main.d93e8171.chunk.css",
+    "static/css/main.17185b73.chunk.css",
     "static/js/main.29f5d400.chunk.js"
   ]
 }
