@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/ballistics-react/static/css/main.17185b73.chunk.css",
-    "main.js": "/ballistics-react/static/js/main.29f5d400.chunk.js",
-    "main.js.map": "/ballistics-react/static/js/main.29f5d400.chunk.js.map",
+    "main.js": "/ballistics-react/static/js/main.decbb10f.chunk.js",
+    "main.js.map": "/ballistics-react/static/js/main.decbb10f.chunk.js.map",
     "runtime-main.js": "/ballistics-react/static/js/runtime-main.a4e03262.js",
     "runtime-main.js.map": "/ballistics-react/static/js/runtime-main.a4e03262.js.map",
     "static/js/2.b0685be6.chunk.js": "/ballistics-react/static/js/2.b0685be6.chunk.js",
@@ -28,6 +28,6 @@
     "static/css/3.3141e48f.chunk.css",
     "static/js/3.535a7a9b.chunk.js",
     "static/css/main.17185b73.chunk.css",
-    "static/js/main.29f5d400.chunk.js"
+    "static/js/main.decbb10f.chunk.js"
   ]
 }
