@@ -4,17 +4,15 @@ import './form.css'
 
 const Weather = ({weatherData, onSubmit}) => {
     const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMPH, windAngleDegrees } = weatherData;
-    const [isOpen, setIsOpen] = useState(true);
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     return (
         <div className="bal-form">
             <div className="card weather">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     Weather
-                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-body`}>
                         <div className="form-group">
                             <label
                                 className="control-label"
@@ -216,7 +214,7 @@ const Weather = ({weatherData, onSubmit}) => {
                             }
                         </div>
                     </div>
-                    <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-footer`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
                     </div>
                 </form>

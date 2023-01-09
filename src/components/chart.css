@@ -17,6 +17,13 @@
 .bal-chart .tooltip {
 	position: fixed;
 }
+/* These are needed to stop Bootstrap .tabkle-striped from changing the font */
+.text-danger > * {
+    color: rgb(220, 53, 69) !important;
+}
+.text-warning > * {
+    color: rgb(255, 193, 7) !important;
+}
 @media screen and (min-width: 576px) {
     .bal-chart .font-size-small {
         font-size: 0.8em;

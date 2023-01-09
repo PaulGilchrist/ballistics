@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './form.css'
 
 const Rounds = ({rounds, onAdd, onSelect}) => {
-    const [isOpen, setIsOpen] = useState(true);
     if(!rounds) {
         return null;
     }
@@ -11,9 +10,8 @@ const Rounds = ({rounds, onAdd, onSelect}) => {
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     Select Round
-                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
-                <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                <div className={`card-body`}>
                     <ul className="list-inline">
                         {rounds.map((round) => (
                             <li onClick={() => onSelect(round)} className='card' key={round.id}>
@@ -24,7 +22,7 @@ const Rounds = ({rounds, onAdd, onSelect}) => {
                         ))}
                     </ul>
                 </div>
-                <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+                <div className={`card-footer`}>
                     <button className="btn btn-default" onClick={() => onAdd()}><span className="fa fa-plus"></span> Add Round</button>&nbsp;
                 </div>
             </div>

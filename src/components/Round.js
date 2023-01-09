@@ -4,7 +4,6 @@ import './form.css'
 
 const Round = ({round, onClose, onDelete, onSubmit}) => {
     const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS } = round;
-    const [isOpen, setIsOpen] = useState(true);
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     if(!round) {
         return null;
@@ -14,10 +13,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     { id==='Add' ? `Add Round` : `Round - ${name}`}
-                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-body`}>
                         <input hidden name="id" defaultValue={id} type="text" {...register("id")}/>
                         <div className="form-group">
                             <label
@@ -194,7 +192,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                             }
                         </div>
                     </div>
-                    <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-footer`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
                         <button className="btn btn-warning" onClick={() => onClose()}> Close</button>&nbsp;
                         <button className="btn btn-danger" onClick={() => onDelete(round)}> Delete</button>

@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import './form.css'
 
 const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
-    const [isOpen, setIsOpen] = useState(true);
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     if(!firearm) {
         return null;
@@ -13,10 +12,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     { firearm.id==='Add' ? `Add Firearm` : `Firearm - ${firearm.name}`}
-                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-body`}>
                         <input hidden name="id" defaultValue={firearm.id} type="text" {...register("id")}/>
                         <div className="form-group">
                             <label
@@ -254,7 +252,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                             }
                         </div>
                     </div>
-                    <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-footer`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
                         <button className="btn btn-warning" onClick={() => onClose()}> Close</button>&nbsp;
                         <button className="btn btn-danger" onClick={() => onDelete(firearm)}> Delete</button>

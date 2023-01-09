@@ -6,7 +6,6 @@ import conversions from 'pg-conversions';
 
 const Target = ({targetData, onSubmit}) => {
     const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMPH} = targetData;
-    const [isOpen, setIsOpen] = useState(true);
     const { register, getValues, handleSubmit, setValue, formState: { errors } } = useForm({ mode: 'onBlur' });
     const setDistance = () => {
         const values = getValues();
@@ -22,10 +21,9 @@ const Target = ({targetData, onSubmit}) => {
             <div className="card">
                 <div className="card-heading bg-dark text-light d-flex p-2">
                     Target
-                    <i className={`fa fa-fw ml-auto ${isOpen ? 'fa-chevron-down' : 'fa-chevron-right'}`} onClick={() => setIsOpen(!isOpen)}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={`card-body ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-body`}>
                         <div className="form-group">
                             <label
                                 className="control-label"
@@ -222,7 +220,7 @@ const Target = ({targetData, onSubmit}) => {
                             }
                         </div>
                     </div>
-                    <div className={`card-footer ${!isOpen ? 'collapse' : null}`}>
+                    <div className={`card-footer`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
                     </div>
                 </form>

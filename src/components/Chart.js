@@ -153,7 +153,7 @@ const Chart = ({firearm, rangeData, round, targetData, weatherData, onPrintChart
                                     }
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className='table-group-divider'>
                                 {rangeData.map((rangeData, index) => {
                                     const { rangeMeters, rangeYards, velocityFPS, energyFtLbs, timeSeconds, dropInches, verticalPositionInches, crossWindDriftInches, leadInches, verticalPositionMil, verticalPositionMoA, verticalPositionIPHY, crossWindDriftMil, crossWindDriftMoA, crossWindDriftIPHY, leadMil, leadMoA, leadIPHY, slantDropInches, slantMil, slantMoA, slantIPHY } = rangeData;
                                     return (
