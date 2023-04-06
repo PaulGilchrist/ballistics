@@ -1,33 +1,26 @@
 {
   "files": {
-    "main.css": "/ballistics-react/static/css/main.17185b73.chunk.css",
-    "main.js": "/ballistics-react/static/js/main.decbb10f.chunk.js",
-    "main.js.map": "/ballistics-react/static/js/main.decbb10f.chunk.js.map",
-    "runtime-main.js": "/ballistics-react/static/js/runtime-main.a4e03262.js",
-    "runtime-main.js.map": "/ballistics-react/static/js/runtime-main.a4e03262.js.map",
-    "static/js/2.b0685be6.chunk.js": "/ballistics-react/static/js/2.b0685be6.chunk.js",
-    "static/js/2.b0685be6.chunk.js.map": "/ballistics-react/static/js/2.b0685be6.chunk.js.map",
-    "static/css/3.3141e48f.chunk.css": "/ballistics-react/static/css/3.3141e48f.chunk.css",
-    "static/js/3.535a7a9b.chunk.js": "/ballistics-react/static/js/3.535a7a9b.chunk.js",
-    "static/js/3.535a7a9b.chunk.js.map": "/ballistics-react/static/js/3.535a7a9b.chunk.js.map",
-    "static/js/4.e134f2ca.chunk.js": "/ballistics-react/static/js/4.e134f2ca.chunk.js",
-    "static/js/4.e134f2ca.chunk.js.map": "/ballistics-react/static/js/4.e134f2ca.chunk.js.map",
-    "static/js/5.7add2661.chunk.js": "/ballistics-react/static/js/5.7add2661.chunk.js",
-    "static/js/5.7add2661.chunk.js.map": "/ballistics-react/static/js/5.7add2661.chunk.js.map",
+    "main.css": "/ballistics-react/static/css/main.f6e02532.css",
+    "main.js": "/ballistics-react/static/js/main.498a9822.js",
+    "static/js/498.91c448b5.chunk.js": "/ballistics-react/static/js/498.91c448b5.chunk.js",
+    "static/js/703.90d9ef6f.chunk.js": "/ballistics-react/static/js/703.90d9ef6f.chunk.js",
+    "static/js/528.87316199.chunk.js": "/ballistics-react/static/js/528.87316199.chunk.js",
+    "static/js/787.874fa83f.chunk.js": "/ballistics-react/static/js/787.874fa83f.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/ballistics-react/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
     "index.html": "/ballistics-react/index.html",
-    "static/css/3.3141e48f.chunk.css.map": "/ballistics-react/static/css/3.3141e48f.chunk.css.map",
-    "static/css/main.17185b73.chunk.css.map": "/ballistics-react/static/css/main.17185b73.chunk.css.map",
-    "static/js/2.b0685be6.chunk.js.LICENSE.txt": "/ballistics-react/static/js/2.b0685be6.chunk.js.LICENSE.txt",
-    "static/js/3.535a7a9b.chunk.js.LICENSE.txt": "/ballistics-react/static/js/3.535a7a9b.chunk.js.LICENSE.txt",
-    "static/js/4.e134f2ca.chunk.js.LICENSE.txt": "/ballistics-react/static/js/4.e134f2ca.chunk.js.LICENSE.txt",
-    "static/js/5.7add2661.chunk.js.LICENSE.txt": "/ballistics-react/static/js/5.7add2661.chunk.js.LICENSE.txt",
-    "static/media/font-awesome.min.css": "/ballistics-react/static/media/fontawesome-webfont.f691f37e.woff"
+    "main.f6e02532.css.map": "/ballistics-react/static/css/main.f6e02532.css.map",
+    "main.498a9822.js.map": "/ballistics-react/static/js/main.498a9822.js.map",
+    "498.91c448b5.chunk.js.map": "/ballistics-react/static/js/498.91c448b5.chunk.js.map",
+    "703.90d9ef6f.chunk.js.map": "/ballistics-react/static/js/703.90d9ef6f.chunk.js.map",
+    "528.87316199.chunk.js.map": "/ballistics-react/static/js/528.87316199.chunk.js.map",
+    "787.874fa83f.chunk.js.map": "/ballistics-react/static/js/787.874fa83f.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.a4e03262.js",
-    "static/css/3.3141e48f.chunk.css",
-    "static/js/3.535a7a9b.chunk.js",
-    "static/css/main.17185b73.chunk.css",
-    "static/js/main.decbb10f.chunk.js"
+    "static/css/main.f6e02532.css",
+    "static/js/main.498a9822.js"
   ]
 }
