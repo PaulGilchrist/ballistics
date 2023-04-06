@@ -135,7 +135,7 @@ const Target = ({targetData, onSubmit}) => {
                                     className="form-control"
                                     defaultValue={chartStepping}
                                     max="500"
-                                    min="10"
+                                    min="1"
                                     placeholder="Chart Stepping (yards)"
                                     {...register("chartStepping", {
                                         max: { value: 500, message: "Chart Stepping has a maximum value of 500" },
