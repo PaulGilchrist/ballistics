@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
 // eslint-disable-next-line no-unused-vars
 import autoTable from 'jspdf-autotable';
-import stringify from 'csv-stringify';
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 
@@ -30,8 +29,6 @@ import Weather from './components/Weather';
 
 
 const App = () => {
-    // Call it once in your app. At the root of your app is the best place
-    toast.configure();
     // Get watched data
     const [graphType, setGraphType] = useState('line');
     // Firearms Array
