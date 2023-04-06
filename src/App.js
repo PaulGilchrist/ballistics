@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
 // eslint-disable-next-line no-unused-vars
 import autoTable from 'jspdf-autotable';
+import stringify from 'csv-stringify';
+import Papa from 'papaparse';
+import { saveAs } from 'file-saver';
 
 import FIREARMS from './data/firearms';
 
@@ -262,13 +265,7 @@ const App = () => {
             weather
         });
         const blob = new Blob([json], { type: 'application/json' });
-        const href = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = href;
-        link.download = 'ballisticsData.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        saveAs(blob, 'ballisticsData.json');
     }
     const handleFirearmOnAdd = (firearms) => {
         selectRound(null, null, null);
@@ -329,6 +326,12 @@ const App = () => {
     }
     const handleGraphTypeChange = (graphType) => {
         graphType === 'line' ? setGraphType('bar') : setGraphType('line');
+    }
+    const handleOnExportChart = (firearm, round) => {
+        const csvString = Papa.unparse(rangeData);
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+        const fileName = `Range Chart - Firearm (${firearm.name}) - Round (${round.name}).csv`
+        saveAs(blob, fileName);
     }
     const handleOnPrintChart = (firearm, round) => {
         const pdf = new jsPDF('p', 'mm', 'a4');
@@ -489,7 +492,7 @@ const App = () => {
             </div>
             <div className="d-flex flex-fill justify-content-center">
                 {firearm && round && roundId !== 'Add' ?
-                    <Chart firearm={firearm} rangeData={rangeData} round={round} targetData={target} weatherData={weather} onPrintChart={() => handleOnPrintChart(firearm, round)} />
+                    <Chart firearm={firearm} rangeData={rangeData} round={round} targetData={target} weatherData={weather} onExportChart={() => handleOnExportChart(firearm, round)} onPrintChart={() => handleOnPrintChart(firearm, round)} />
                     : null
                 }
             </div>

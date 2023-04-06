@@ -2,7 +2,7 @@ import React from 'react';
 import './chart.css'
 import atmospherics from 'pg-atmospherics';
 
-const Chart = ({firearm, rangeData, round, targetData, weatherData, onPrintChart}) => {
+const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChart, onPrintChart}) => {
     const { name: firearmName, reticleUnits, turretUnits } = firearm;
     const { name: roundName } = round;
     const { distanceUnits, slantDegrees, speedMPH } = targetData;
@@ -17,7 +17,9 @@ const Chart = ({firearm, rangeData, round, targetData, weatherData, onPrintChart
             <div className="card" id="chart">
                 <div className="card-heading bg-dark text-light">
                     <span>Range Chart - Firearm ({firearmName}) - Round ({roundName})</span>
-                    <button className='btn btn-secondary' onClick={onPrintChart}> Print</button>
+                    <div className='card-heading-spacer'></div>
+                    <button className='btn btn-secondary card-heading-button' onClick={onExportChart}> Export</button>
+                    <button className='btn btn-secondary card-heading-button' onClick={onPrintChart}> Print</button>
                 </div>
                 <div className="card-body">
                     <div className="table-responsive">

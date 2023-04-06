@@ -2,12 +2,19 @@
 	padding: 5px
 }
 .bal-chart .card-heading {
-    align-items: center;
-    display: grid;
-    justify-items: center;
-    grid-template-columns: auto 60px;
-    width: 100%;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+    height: 100%; /* Set the height of the container to 100% */
+    padding-left: 5px;
 }
+.card-heading-spacer {
+    flex-grow: 1; /* Expand to fill the remaining space */
+}
+.card-heading-button {
+    margin: 5px 10px 5px 0px;
+}
+
 .bal-chart .card-footer {
 	background-color: rgb(227, 229, 237);
 }
