@@ -139,7 +139,7 @@ const Target = ({targetData, onSubmit}) => {
                                     placeholder="Chart Stepping (yards)"
                                     {...register("chartStepping", {
                                         max: { value: 500, message: "Chart Stepping has a maximum value of 500" },
-                                        min: { value: 10, message: "Chart Stepping has a minimum value of 10" },
+                                        min: { value: 1, message: "Chart Stepping has a minimum value of 1" },
                                         required: "Chart Stepping is required to determine how many rows to calculate"
                                     })}
                                     required
