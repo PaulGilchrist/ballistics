@@ -164,18 +164,18 @@ const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChar
                                             <td>{velocityFPS.toFixed(0)}</td>
                                             <td className="d-none d-sm-table-cell">{energyFtLbs.toFixed(0)}</td>
                                             <td className="d-none d-sm-table-cell">{timeSeconds.toFixed(3)}</td>
-                                            <td className="d-none d-sm-table-cell">{dropInches.toFixed(1)}</td>
-                                            <td className='d-none d-md-table-cell'>{verticalPositionInches.toFixed(1)}</td>
+                                            <td className="d-none d-sm-table-cell">{-dropInches.toFixed(1)}</td>
+                                            <td className='d-none d-md-table-cell'>{-verticalPositionInches.toFixed(1)}</td>
                                             {showMil ?
-                                                <td>{verticalPositionMil.toFixed(1)}</td>
+                                                <td>{-verticalPositionMil.toFixed(1)}</td>
                                                 : null
                                             }
                                             {showMoA ?
-                                                <td>{verticalPositionMoA.toFixed(1)}</td>
+                                                <td>{-verticalPositionMoA.toFixed(1)}</td>
                                                 : null
                                             }
                                             {showIPHY ?
-                                                <td>{verticalPositionIPHY.toFixed(1)}</td>
+                                                <td>{-verticalPositionIPHY.toFixed(1)}</td>
                                                 : null
                                             }
                                             <td className='d-none d-md-table-cell'>{crossWindDriftInches.toFixed(1)}</td>
