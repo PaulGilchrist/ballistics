@@ -100,7 +100,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                     className="form-control"
                                     defaultValue={firearm.zeroRange}
                                     max="3000"
-                                    min="25"
+                                    min="10"
                                     name="zeroRange"
                                     placeholder="Zero Range"
                                     {...register("zeroRange", {
