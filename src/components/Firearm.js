@@ -74,7 +74,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: "Sight Height is required"
                                     })}
                                     required
-                                    step="0.05"
+                                    step="0.0005"
                                     type="number"
                                 />
                             </div>
