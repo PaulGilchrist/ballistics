@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ballistics-react/static/css/main.f6e02532.css",
-    "main.js": "/ballistics-react/static/js/main.5a951946.js",
+    "main.js": "/ballistics-react/static/js/main.c9479d88.js",
     "static/js/498.91c448b5.chunk.js": "/ballistics-react/static/js/498.91c448b5.chunk.js",
     "static/js/703.90d9ef6f.chunk.js": "/ballistics-react/static/js/703.90d9ef6f.chunk.js",
     "static/js/528.87316199.chunk.js": "/ballistics-react/static/js/528.87316199.chunk.js",
@@ -11,9 +11,10 @@
     "static/media/fontawesome-webfont.ttf?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
     "static/media/fontawesome-webfont.woff?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
     "static/media/fontawesome-webfont.woff2?v=4.7.0": "/ballistics-react/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "service-worker.js": "/ballistics-react/service-worker.js",
     "index.html": "/ballistics-react/index.html",
     "main.f6e02532.css.map": "/ballistics-react/static/css/main.f6e02532.css.map",
-    "main.5a951946.js.map": "/ballistics-react/static/js/main.5a951946.js.map",
+    "main.c9479d88.js.map": "/ballistics-react/static/js/main.c9479d88.js.map",
     "498.91c448b5.chunk.js.map": "/ballistics-react/static/js/498.91c448b5.chunk.js.map",
     "703.90d9ef6f.chunk.js.map": "/ballistics-react/static/js/703.90d9ef6f.chunk.js.map",
     "528.87316199.chunk.js.map": "/ballistics-react/static/js/528.87316199.chunk.js.map",
@@ -21,6 +22,6 @@
   },
   "entrypoints": [
     "static/css/main.f6e02532.css",
-    "static/js/main.5a951946.js"
+    "static/js/main.c9479d88.js"
   ]
 }
