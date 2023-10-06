@@ -1,3 +1,4 @@
+# helm upgrade --install ballistics helm -n apps --create-namespace --dry-run --debug 
 apiVersion: v2
 name: ballistics
 description: Ballistics application
