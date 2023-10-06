@@ -1,0 +1,8 @@
+# docker-compose up -d
+version: '3'
+services:
+  ballistics-react:
+    image: paulgilchrist/ballistics-react
+    ports:
+      - "8081:80"
+    container_name: ballistics-react
