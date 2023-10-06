@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: {{.Chart.Name}} # has to match .spec.template.metadata.labels to select the pods that are part of this deployment
+  minReadySeconds: 5 # how long after a new pod is ready before removing an old pod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}} # has to match .spec.selector.matchLabels so this pod template will be selected
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: ballistics
+        image: paulgilchrist/ballistics-react:latest
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1.5Gi
+          requests:
+            cpu: 50m
+            memory: 0.5Gi

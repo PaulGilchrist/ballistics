@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ballistics
+description: Ballistics application
+keywords:
+  - ballistics
+  - react
+type: application
+appVersion: 1.0.0
+version: 0.1.0
