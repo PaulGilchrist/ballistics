@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: 8081
+      port: {{.Values.port}}
       targetPort: 80
   selector:
     app: {{.Chart.Name}}

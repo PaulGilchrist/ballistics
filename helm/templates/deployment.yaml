@@ -22,7 +22,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: ballistics
-        image: paulgilchrist/ballistics-react:latest
+        image: paulgilchrist/ballistics-react:{{.Values.image.tag}}
         ports:
         - containerPort: 80
           name: http
