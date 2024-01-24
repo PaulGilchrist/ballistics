@@ -488,7 +488,7 @@ const App = () => {
                     : null
                 }
             </div>
-            {firearm && round && roundId !== 'Add' ?
+            {/* {firearm && round && roundId !== 'Add' ?
                 <React.Fragment>
                     <br />
                     <button className='btn btn-success' onClick={() => handleGraphTypeChange(graphType)}>Change Graph Type</button>
@@ -528,7 +528,7 @@ const App = () => {
                     </div>
                 </React.Fragment>
                 : null
-            }
+            } */}
         </div>
     );
 }
