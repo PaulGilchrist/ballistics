@@ -11,7 +11,7 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
     return (
         <div className="bal-form">
             <div className="card">
-                <div className="card-heading bg-dark text-light d-flex p-2">
+                <div className="card-heading d-flex p-2">
                     { id==='Add' ? `Add Round` : `Round - ${name}`}
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>

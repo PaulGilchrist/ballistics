@@ -10,7 +10,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
     return (
         <div className="bal-form">
             <div className="card">
-                <div className="card-heading bg-dark text-light d-flex p-2">
+                <div className="card-heading d-flex p-2">
                     { firearm.id==='Add' ? `Add Firearm` : `Firearm - ${firearm.name}`}
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>

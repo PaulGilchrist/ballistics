@@ -1,0 +1,24 @@
+.d3-utils .d3-default {
+    fill: #337ab7; /* Bootstrap success=#5cb85c, info=#5bc0de */
+}
+.d3-utils .d3-warning {
+    fill: #f0ad4e; /* Bootstrap warning=#f0ad4e, danger=#d9534f */
+}
+.d3-utils .d3-path {
+    stroke: #337ab7;
+    stroke-width: 2;
+}
+.d3-utils .d3-tooltip {
+    /* Only used by d3-graph directive */
+    /* background-color: #ffffff; */
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+    padding: 5px;
+}
+.d3-utils path, .d3-utils line, .d3-axis path, .d3-axis line {
+    stroke: #337ab7;
+}
+.d3-utils .d3-axis text {
+    font-family: sans-serif;
+    font-size: 10px;
+}

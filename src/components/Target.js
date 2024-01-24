@@ -19,7 +19,7 @@ const Target = ({targetData, onSubmit}) => {
     return (
         <div className="bal-form">
             <div className="card">
-                <div className="card-heading bg-dark text-light d-flex p-2">
+                <div className="card-heading d-flex p-2">
                     Target
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>

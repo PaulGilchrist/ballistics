@@ -1,10 +1,77 @@
 /*
 Try and keep global SCSS and CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
 */
-:root {    
-  --color-blue: #337ab7;
-  --color-info: #5bc0de;
-  --color-success: #5cb85c;
-  --color-warning: #f0ad4e;
-  --color-danger: #d9534f;
+@import 'react-toastify/dist/ReactToastify.min.css';
+@import 'animate.css/animate.min.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'font-awesome/css/font-awesome.min.css';
+
+:root {
+    --background-color-main: #000;
+    --color-main: #ddd;
+    --background-color-header: #202320;
+    --color-header: lightgreen;
+    --background-color-card: #111;
+    --color-card: #eee;
+    --bs-body-bg: var(--background-color-main);
+    --bs-body-color: var(--color-main);
+    color-scheme: light dark;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-synthesis: none;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.btn-info {
+    color: var(--background-color-header);
+    background-color: var(--color-header);
+}
+.card {
+    background-color: var(--background-color-card);
+    color: var(--color-card);
+}
+
+.card-heading {
+    background-color: var(--background-color-header);
+    color: var(--color-header);
+    font-weight: 600;
+}
+
+.form-control {
+    background-color: var(--background-color-main);
+    color: var(--color-main);
+}
+
+.input-group-text {
+    background-color: var(--background-color-header);
+    color: var(--color-header);
+}
+
+thead {
+    background-color: var(--background-color-header);
+    color: var(--color-header);
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: var(--background-color-main);
+    color: var(--color-main);
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: var(--background-color-body);
+    color: var(--color-header-body);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color-main: #fff;
+        --color-main: #333;
+        --background-color-header: #bbb;
+        --color-header: #070;
+        --background-color-card: #eee;
+        --color-card: #222;
+    }
 }

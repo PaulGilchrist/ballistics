@@ -10,12 +10,7 @@ import FIREARMS from './data/firearms';
 import { toast } from 'react-toastify'; // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
 import ballistics from 'pg-ballistics';
 import utilities from 'pg-utilities';
-import 'react-toastify/dist/ReactToastify.min.css';
 
-import 'animate.css/animate.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.min.css';
-import 'react-toastify/dist/ReactToastify.min.css';
 import css from './app.module.css';
 
 import Chart from './components/Chart';

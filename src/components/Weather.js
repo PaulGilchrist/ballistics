@@ -8,7 +8,7 @@ const Weather = ({weatherData, onSubmit}) => {
     return (
         <div className="bal-form">
             <div className="card weather">
-                <div className="card-heading bg-dark text-light d-flex p-2">
+                <div className="card-heading d-flex p-2">
                     Weather
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>

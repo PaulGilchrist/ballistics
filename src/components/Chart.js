@@ -15,7 +15,7 @@ const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChar
     return (
         <div className="bal-chart">
             <div className="card" id="chart">
-                <div className="card-heading bg-dark text-light">
+                <div className="card-heading">
                     <span>Range Chart - Firearm ({firearmName}) - Round ({roundName})</span>
                     <div className='card-heading-spacer'></div>
                     <button className='btn btn-secondary card-heading-button' onClick={onExportChart}> Export</button>
