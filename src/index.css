@@ -32,11 +32,13 @@ Try and keep global SCSS and CSS to a minimum and mainly to global variables.  T
 }
 .card {
     background-color: var(--background-color-card);
+    border-radius: 8px;
     color: var(--color-card);
 }
 
 .card-heading {
     background-color: var(--background-color-header);
+    border-radius: 8px 8px 0 0;
     color: var(--color-header);
     font-weight: 600;
 }
