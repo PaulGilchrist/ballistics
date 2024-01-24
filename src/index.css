@@ -8,11 +8,12 @@ Try and keep global SCSS and CSS to a minimum and mainly to global variables.  T
 
 :root {
     --background-color-main: #000;
-    --color-main: #ddd;
-    --background-color-header: #202320;
-    --color-header: lightgreen;
+    --color-main: #aaa;
+    --background-color-header: #333030;
+    --color-header: #d00;
     --background-color-card: #111;
-    --color-card: #eee;
+    --color-card: #bbb;
+
     --bs-body-bg: var(--background-color-main);
     --bs-body-color: var(--color-main);
     color-scheme: light dark;
@@ -70,7 +71,7 @@ thead {
         --background-color-main: #fff;
         --color-main: #333;
         --background-color-header: #bbb;
-        --color-header: #070;
+        --color-header: #700;
         --background-color-card: #eee;
         --color-card: #222;
     }

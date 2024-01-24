@@ -13,8 +13,8 @@
     margin-bottom: 5px;
     text-align: left;
 }
-.bal-form input:valid { border-left: 5px solid #42A948; /* green */}
-.bal-form input:invalid { border-left: 5px solid #a94442; /* red */}
+/* .bal-form input:valid { border-left: 5px solid #42A948;} */
+.bal-form input:invalid { border-left: 5px solid #a94442;}
 .bal-form li.card {
     cursor: pointer;
     width: 100%;
