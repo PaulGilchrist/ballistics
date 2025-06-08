@@ -18,13 +18,13 @@
     "eslintConfig": {
         "extends": "react-app"
     },
-    "homepage": "https://paulgilchrist.github.io/ballistics-react",
+    "homepage": "https://paulgilchrist.github.io/ballistics",
     "license": "MIT",
     "private": true,
-    "name": "ballistics-react",
+    "name": "ballistics",
     "repository": {
         "type": "git",
-        "url": "https://github.com/PaulGilchrist/ballistics-react.git"
+        "url": "https://github.com/PaulGilchrist/ballistics.git"
     },
     "scripts": {
         "build": "react-scripts build",
@@ -42,8 +42,8 @@
         "d3-transition": "^3.0.1",
         "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
-        "jspdf": "^2.5.1",
-        "jspdf-autotable": "^3.5.28",
+        "jspdf": "^3.0.1",
+        "jspdf-autotable": "^5.0.2",
         "papaparse": "^5.4.1",
         "pg-atmospherics": "^1.0.1",
         "pg-ballistics": "^1.0.1",
@@ -54,7 +54,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.43.9",
-        "react-scripts": "^5.0.1",
+        "react-scripts": "^0.0.0",
         "react-toastify": "^9.1.2",
         "web-vitals": "^2.1.4"
     },
