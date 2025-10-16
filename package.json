@@ -42,7 +42,7 @@
         "d3-transition": "^3.0.1",
         "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
-        "jspdf": "^3.0.1",
+        "jspdf": "^3.0.3",
         "jspdf-autotable": "^5.0.2",
         "papaparse": "^5.4.1",
         "pg-atmospherics": "^1.0.1",
