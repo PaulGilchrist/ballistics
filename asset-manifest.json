@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/ballistics/static/css/main.6bf651c9.css",
+    "main.js": "/ballistics/static/js/main.0a3ff05f.js",
+    "static/js/239.680455eb.chunk.js": "/ballistics/static/js/239.680455eb.chunk.js",
+    "static/js/977.34445816.chunk.js": "/ballistics/static/js/977.34445816.chunk.js",
+    "static/js/455.0e38782d.chunk.js": "/ballistics/static/js/455.0e38782d.chunk.js",
+    "static/js/453.eb107c2d.chunk.js": "/ballistics/static/js/453.eb107c2d.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/ballistics/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/ballistics/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/ballistics/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/ballistics/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/ballistics/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "service-worker.js": "/ballistics/service-worker.js",
+    "index.html": "/ballistics/index.html",
+    "main.6bf651c9.css.map": "/ballistics/static/css/main.6bf651c9.css.map",
+    "main.0a3ff05f.js.map": "/ballistics/static/js/main.0a3ff05f.js.map",
+    "239.680455eb.chunk.js.map": "/ballistics/static/js/239.680455eb.chunk.js.map",
+    "977.34445816.chunk.js.map": "/ballistics/static/js/977.34445816.chunk.js.map",
+    "455.0e38782d.chunk.js.map": "/ballistics/static/js/455.0e38782d.chunk.js.map",
+    "453.eb107c2d.chunk.js.map": "/ballistics/static/js/453.eb107c2d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6bf651c9.css",
+    "static/js/main.0a3ff05f.js"
+  ]
+}
