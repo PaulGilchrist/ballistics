@@ -161,9 +161,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 className="control-label"
                                 htmlFor="bulletBC"
                                 data-toggle="tooltip"
-                                title="Bullet ballistic cooefficient is the aerodynamics of the bullet's ability to resist atmospheric density related deceleration."
+                                title="Bullet ballistic coefficient is the aerodynamics of the bullet's ability to resist atmospheric density related deceleration."
                             >
-                                Bullet Ballistic Cooefficient
+                                Bullet Ballistic Coefficient
                             </label>
                             <div className="input-group margin-bottom-sm">
                                 <span className="input-group-text"><i className="fa fa-google-wallet fa-fw"></i></span>
@@ -173,11 +173,11 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                     max="1"
                                     min="0.010"
                                     name="bulletBC"
-                                    placeholder="Bullet Ballistic Cooefficient"
+                                    placeholder="Bullet Ballistic Coefficient"
                                     {...register("bulletBC", {
-                                        max: { value: 1, message: "Bullet ballistic cooefficient has a maximum value of 1" },
-                                        min: { value: 0.010, message: "Bullet ballistic cooefficient has a minimum value of 0.010" },
-                                        required: "Bullet ballistic cooefficient is required, so wind resistance can be calculated properly."
+                                        max: { value: 1, message: "Bullet ballistic coefficient has a maximum value of 1" },
+                                        min: { value: 0.010, message: "Bullet ballistic coefficient has a minimum value of 0.010" },
+                                        required: "Bullet ballistic coefficient is required, so wind resistance can be calculated properly."
                                     })}
                                     required
                                     step="0.001"

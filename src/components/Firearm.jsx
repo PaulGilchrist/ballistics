@@ -55,7 +55,7 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 className="control-label"
                                 htmlFor="sightHeightInches"
                                 data-toggle="tooltip"
-                                title="Measured form bore centerline to scope centerline. Common heights are 1.5 to 2 inches."
+                                title="Measured from bore centerline to scope centerline. Common heights are 1.5 to 2 inches."
                             >
                                 Sight Height (inches)
                             </label>
