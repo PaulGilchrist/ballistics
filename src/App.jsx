@@ -34,7 +34,6 @@ const App = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
     }
     // Get watched data
-    const [graphType, setGraphType] = useState('line');
     // Firearms Array
     const [firearms, setFirearms] = useState(() => {
         const firearmsJson = localStorage.getItem('firearms');
@@ -328,9 +327,6 @@ const App = () => {
                 draggable: true
             });
         }
-    }
-    const handleGraphTypeChange = (graphType) => {
-        graphType === 'line' ? setGraphType('bar') : setGraphType('line');
     }
     const handleOnExportChart = (firearm, round) => {
         const csvString = Papa.unparse(rangeData);
