@@ -39,7 +39,7 @@ const utilities = {
 	},
     isDate: (value) => {
         var dateFormat;
-        if (toString.call(value) === '[object Date]') {
+        if (Object.prototype.toString.call(value) === '[object Date]') {
             return true;
         }
         if (typeof value.replace === 'function') {
