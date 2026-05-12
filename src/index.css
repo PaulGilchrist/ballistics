@@ -1,7 +1,7 @@
 /*
 Try and keep global SCSS and CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
 */
-@import 'react-toastify/dist/ReactToastify.min.css';
+@import 'react-toastify/dist/ReactToastify.css';
 @import 'animate.css/animate.min.css';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'font-awesome/css/font-awesome.min.css';
