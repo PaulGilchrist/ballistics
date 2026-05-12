@@ -1,6 +1,7 @@
-const axios = require('axios');
-const https = require('https');
-const jwtWebToken = require('jsonwebtoken');
+import axios from 'axios';
+import https from 'https';
+import jwtWebToken from 'jsonwebtoken';
+import utilities from './utilities.js';
 
 const jwt = {
     decode: (encodedJwt) => {
@@ -19,7 +20,7 @@ const jwt = {
     },
     extractHeader: (encodedJwt) => {
         // id token will be decoded to get the username
-        let decodedJwt = utilities.jwt.decode(encodedJwt);
+        let decodedJwt = jwt.decode(encodedJwt);
         if(decodedJwt) {
             try {
                 return JSON.parse(utilities.base64Decode(decodedJwt.header));
@@ -31,7 +32,7 @@ const jwt = {
     },
     extractSignature: (encodedJwt) => {
         // id token will be decoded to get the username
-        let decodedJwt = utilities.jwt.decode(encodedJwt);
+        let decodedJwt = jwt.decode(encodedJwt);
         if(decodedJwt) {
             try {
                 return JSON.parse(utilities.base64Decode(decodedJwt.signature));
@@ -43,7 +44,7 @@ const jwt = {
     },
     extractToken: (encodedJwt) => {
         // id token will be decoded to get the username
-        let decodedJwt = utilities.jwt.decode(encodedJwt);
+        let decodedJwt = jwt.decode(encodedJwt);
         let base64Jwt = null;
         if(decodedJwt) {
             base64Jwt = decodedJwt.payload;
@@ -58,7 +59,7 @@ const jwt = {
         return null;
     },
     verify: async (encodedJwt) => {
-        const header = utilities.jwt.extractHeader(encodedJwt);
+        const header = jwt.extractHeader(encodedJwt);
         // Get Azure configuration
         // const configuration = await axios.request({
         //     data: null,            
@@ -92,4 +93,4 @@ const jwt = {
     }
 }
 
-module.exports = jwt;
+export default jwt;
