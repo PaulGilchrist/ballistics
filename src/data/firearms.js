@@ -92,10 +92,10 @@ const FIREARMS = [
 			{
 				"id": "7389439e-b3f2-45aa-8867-ebe69819fc46",
 				"name": "Hornady ELD-M 75",
-				"bulletDiameterInches": ".224",
-				"bulletWeightGrains": "75",
-				"muzzleVelocityFPS": "2254",
-				"bulletBC": "0.467"
+				"bulletDiameterInches": 0.224,
+				"bulletWeightGrains": 75,
+				"muzzleVelocityFPS": 2254,
+				"bulletBC": 0.467
 			},
 			{
 				"id": "f4f9e005-c43e-494e-a903-eaaf0d21404a",
@@ -129,18 +129,18 @@ const FIREARMS = [
 			{
 				"id": "cd6966ab-1685-480c-b9ae-02d0197a4ecd",
 				"name": "Hornady ELD-M 75",
-				"bulletDiameterInches": ".224",
-				"bulletWeightGrains": "75",
-				"muzzleVelocityFPS": "2486",
-				"bulletBC": "0.467"
+				"bulletDiameterInches": 0.224,
+				"bulletWeightGrains": 75,
+				"muzzleVelocityFPS": 2486,
+				"bulletBC": 0.467
 			},
 			{
 				"id": "1502c546-38ff-4143-ab50-27faca532102",
 				"name": "Sierra MK 77",
-				"bulletDiameterInches": "0.224",
-				"bulletWeightGrains": "77",
-				"muzzleVelocityFPS": "2486",
-				"bulletBC": "0.372"
+				"bulletDiameterInches": 0.224,
+				"bulletWeightGrains": 77,
+				"muzzleVelocityFPS": 2486,
+				"bulletBC": 0.372
 			},
 			{
 				"id": "8e07274d-2489-4fc5-893e-97831a395c06",
@@ -174,18 +174,18 @@ const FIREARMS = [
 			{
 				"id": "abe8f65c-9e6b-4adf-8625-4f4ceab8cb1f",
 				"name": "FGMM 77",
-				"bulletDiameterInches": "0.224",
-				"bulletWeightGrains": "77",
-				"muzzleVelocityFPS": "2650",
-				"bulletBC": "0.372"
+				"bulletDiameterInches": 0.224,
+				"bulletWeightGrains": 77,
+				"muzzleVelocityFPS": 2650,
+				"bulletBC": 0.372
 			},
 			{
 				"id": "3ee6e048-3330-4522-b8ff-28d2c8683624",
 				"name": "Hornady ELD-M 75",
-				"bulletDiameterInches": ".224",
-				"bulletWeightGrains": "75",
-				"muzzleVelocityFPS": "2650",
-				"bulletBC": "0.467"
+				"bulletDiameterInches": 0.224,
+				"bulletWeightGrains": 75,
+				"muzzleVelocityFPS": 2650,
+				"bulletBC": 0.467
 			},
 			{
 				"id": "1f3303a9-8bd9-4e0b-bc4b-002073c2edf8",
@@ -256,18 +256,18 @@ const FIREARMS = [
 			{
 				"id": "de066d4e-1164-4233-99fc-72db1ccdae0e",
 				"name": "6.5 Grendal",
-				"bulletDiameterInches": "0.264",
-				"bulletWeightGrains": "123",
-				"muzzleVelocityFPS": "2495",
-				"bulletBC": "0.506"
+				"bulletDiameterInches": 0.264,
+				"bulletWeightGrains": 123,
+				"muzzleVelocityFPS": 2495,
+				"bulletBC": 0.506
 			},
 			{
 				"id": "0b00d5b7-1774-46c8-8e89-c316e6ec15d7",
 				"name": "6mm ARC",
-				"bulletDiameterInches": "0.243",
-				"bulletWeightGrains": "108",
-				"muzzleVelocityFPS": "2631",
-				"bulletBC": "0.536"
+				"bulletDiameterInches": 0.243,
+				"bulletWeightGrains": 108,
+				"muzzleVelocityFPS": 2631,
+				"bulletBC": 0.536
 			},
 			{
 				"id": "21386bc8-9b0e-4787-82e5-2f062b47e2c9",
