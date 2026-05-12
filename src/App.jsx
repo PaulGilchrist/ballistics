@@ -336,10 +336,10 @@ const App = () => {
         const fileName = `Range Chart - Firearm (${firearm.name}) - Round (${round.name}).csv`
         saveAs(blob, fileName);
     }
-    const handleOnPrintChart = (firearm, round) => {
+    const handleOnPrintChart = async (firearm, round) => {
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center' });
-        autoTable(pdf, { html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
+        await autoTable(pdf, { html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
         const pdfBlob = pdf.output('blob');
         const pdfBlobUrl = URL.createObjectURL(pdfBlob);
         pdfBlobRef = pdfBlob; // keep a reference to prevent GC
