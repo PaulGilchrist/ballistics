@@ -28,7 +28,8 @@ const drag = {
 	},
 	drop: (muzzleVelocityFPS, currentVelocityFPS, currentTimeSeconds) => {
 		// Calculates how far the bullet falls (inches) due to gravity, if their were no angle at the muzzle.
-		const falls = atmospherics.dropTable[Math.floor((currentVelocityFPS / muzzleVelocityFPS) * 100 + 0.5)];
+		const index = Math.min(99, Math.max(0, Math.floor((currentVelocityFPS / muzzleVelocityFPS) * 100 + 0.5)));
+		const falls = atmospherics.dropTable[index];
 		return -(falls * Math.pow(currentTimeSeconds, 2));
 	},
 	energy: (bulletWeightGrains, currentVelocityFPS) => {
