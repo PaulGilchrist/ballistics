@@ -224,9 +224,9 @@ const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChar
                         </table>
                     </div>
                 </div>
-                <div className="card-footer text-light d-flex p-2 justify-content-around">
-                    <span className="text-warning">Orange text denotes transnonic flight</span>
-                    <span className="text-danger">Red text denotes subsonic flight</span>
+                <div className="card-footer card-footer-text d-flex p-2 justify-content-around">
+                    <span className="chart-legend-warning">Orange text denotes transnonic flight</span>
+                    <span className="chart-legend-danger">Red text denotes subsonic flight</span>
                 </div>
             </div>
         </div>

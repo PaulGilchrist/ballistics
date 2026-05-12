@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="build-date" content="2025-06-08T15:00:00Z">
     <link rel="icon" type="image/png" href="/ballistics/ballistics-icon.png">
     <link rel="apple-touch-icon" href="/ballistics/ballistics-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="description"
       content="Advanced Rifle Ballistics Calculator"
     />
     <link rel="manifest" href="/ballistics/manifest.json" />
     <title>Ballistics</title>
-    <script type="module" crossorigin src="/ballistics/assets/index-DSmJW7TU.js"></script>
-    <link rel="stylesheet" crossorigin href="/ballistics/assets/index-yTH9hv3Z.css">
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <script type="module" crossorigin src="/ballistics/assets/index-D6hO7HwK.js"></script>
+    <link rel="stylesheet" crossorigin href="/ballistics/assets/index-DZu1iON0.css">
   <link rel="manifest" href="/ballistics/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/ballistics/registerSW.js"></script></head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -1,39 +1,121 @@
 /*
-Try and keep global SCSS and CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
+Global styles: CSS custom properties for theming, plus minimal class overrides.
+Keep this file focused on variables and layout so components remain portable.
 */
 @import 'react-toastify/dist/ReactToastify.css';
 @import 'animate.css/animate.min.css';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'font-awesome/css/font-awesome.min.css';
 
+/* ===== Dark theme (default) ===== */
 :root {
-    --background-color-main: #000;
-    --color-main: #aaa;
-    --background-color-header: #333030;
-    --color-header: #d00;
-    --background-color-card: #111;
-    --color-card: #bbb;
+    /* Core palette */
+    --background-color-main: #121212;
+    --background-color-body: #1a1a1a;
+    --background-color-header: #2d2d2d;
+    --background-color-card: #1e1e1e;
+    --background-color-card-footer: #252525;
+    --background-color-well: #1a1a1a;
+    --background-color-input: #121212;
 
+    --color-main: #d0d0d0;
+    --color-header: #e06b3f;
+    --color-header-body: #c0c0c0;
+    --color-card: #d0d0d0;
+    --color-card-footer: #a0a0a0;
+    --color-well: #c0c0c0;
+    --color-input: #d0d0d0;
+    --color-input-border: #444;
+    --color-link: #e06b3f;
+    --color-link-hover: #f08a5f;
+    --color-table-stripe: #1a1a1a;
+
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.6);
+    --shadow-well: inset 0 1px 4px rgba(0, 0, 0, 0.4);
+    --border-color: #3a3a3a;
+
+    /* Bootstrap overrides */
     --bs-body-bg: var(--background-color-main);
     --bs-body-color: var(--color-main);
-    color-scheme: light dark;
+
+    /* Typography */
+    color-scheme: dark;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-synthesis: none;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.6;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* ===== Light theme (manual toggle via [data-theme="light"]) ===== */
+[data-theme="light"] {
+    --background-color-main: #ffffff;
+    --background-color-body: #f5f5f5;
+    --background-color-header: #e8e8e8;
+    --background-color-card: #ffffff;
+    --background-color-card-footer: #f0f0f0;
+    --background-color-well: #f5f5f5;
+    --background-color-input: #ffffff;
+
+    --color-main: #333333;
+    --color-header: #c0562a;
+    --color-header-body: #555555;
+    --color-card: #333333;
+    --color-card-footer: #666666;
+    --color-well: #444444;
+    --color-input: #333333;
+    --color-input-border: #cccccc;
+    --color-link: #c0562a;
+    --color-link-hover: #a04520;
+    --color-table-stripe: #f5f5f5;
+
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-well: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+    --border-color: #e0e0e0;
+
+    --bs-body-bg: var(--background-color-main);
+    --bs-body-color: var(--color-main);
+
+    color-scheme: light;
+}
+
+/* ===== Component overrides ===== */
+
+/* Buttons */
 .btn-info {
     color: var(--background-color-header);
     background-color: var(--color-header);
+    border-color: var(--color-header);
 }
+
+/* btn-default alias for Bootstrap 5's btn-secondary */
+.btn-default {
+    color: var(--color-main);
+    background-color: var(--background-color-header);
+    border: 1px solid var(--border-color);
+}
+.btn-default:hover {
+    color: var(--color-header);
+    background-color: var(--background-color-card);
+    border-color: var(--color-header);
+}
+
+/* Cards */
 .card {
     background-color: var(--background-color-card);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     color: var(--color-card);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s ease;
+}
+.card:hover {
+    box-shadow: var(--shadow-card-hover);
 }
 
 .card-heading {
@@ -43,38 +125,101 @@ Try and keep global SCSS and CSS to a minimum and mainly to global variables.  T
     font-weight: 600;
 }
 
+.card-footer {
+    background-color: var(--background-color-card-footer);
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 8px 8px;
+    color: var(--color-card-footer);
+}
+
+/* Wells */
+.well {
+    background-color: var(--background-color-well);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--color-well);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow-well);
+}
+
+/* Forms */
 .form-control {
-    background-color: var(--background-color-main);
-    color: var(--color-main);
+    background-color: var(--background-color-input);
+    color: var(--color-input);
+    border-color: var(--color-input-border);
+}
+.form-control:focus {
+    border-color: var(--color-header);
+    box-shadow: 0 0 0 0.2rem rgba(224, 107, 63, 0.25);
 }
 
 .input-group-text {
     background-color: var(--background-color-header);
     color: var(--color-header);
+    border-color: var(--color-input-border);
 }
 
+/* Tables */
 thead {
     background-color: var(--background-color-header);
     color: var(--color-header);
 }
 
-.table-striped>tbody>tr:nth-of-type(even) {
+.table-striped > tbody > tr:nth-of-type(even) {
     background-color: var(--background-color-main);
     color: var(--color-main);
 }
 
-.table-striped>tbody>tr:nth-of-type(odd) {
+.table-striped > tbody > tr:nth-of-type(odd) {
     background-color: var(--background-color-body);
     color: var(--color-header-body);
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        --background-color-main: #fff;
-        --color-main: #333;
-        --background-color-header: #bbb;
-        --color-header: #700;
-        --background-color-card: #eee;
-        --color-card: #222;
-    }
+/* Theme toggle button */
+.theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    padding: 0.4rem 0.6rem;
+    font-size: 1.1rem;
+    color: var(--color-header);
+    background-color: var(--background-color-header);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.theme-toggle-btn:hover {
+    background-color: var(--background-color-card);
+    color: var(--color-link-hover);
+}
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* Links */
+a {
+    color: var(--color-link);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: var(--color-link-hover);
+}
+
+/* Scrollbar (Webkit) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--background-color-main);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-header);
 }

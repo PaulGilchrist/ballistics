@@ -1,5 +1,5 @@
 // 06062025
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 // eslint-disable-next-line no-unused-vars
 import autoTable from 'jspdf-autotable';
@@ -24,6 +24,15 @@ import Weather from './components/Weather';
 
 
 const App = () => {
+    // Theme
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+    const toggleTheme = () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark');
+    }
     // Get watched data
     const [graphType, setGraphType] = useState('line');
     // Firearms Array
@@ -464,6 +473,10 @@ const App = () => {
                 </label>
                 &nbsp;
                 <label className="btn btn-info" onClick={() => handleDataExport(firearms, firearmId, roundId, target, weather)}>Export</label>
+                &nbsp;
+                <button className="theme-toggle-btn" onClick={toggleTheme}>
+                    <i className={theme === 'dark' ? 'fa fa-sun-o' : 'fa fa-moon-o'}></i>
+                </button>
             </div>
             <div className="d-flex flex-row flex-wrap justify-content-center">
                 <Weather weatherData={weather} onSubmit={(weatherData) => handleWeatherOnSubmit(weatherData)} />

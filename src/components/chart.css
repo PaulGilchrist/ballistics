@@ -1,45 +1,92 @@
-.bal-chart .card-body {
-	padding: 5px
-}
-.bal-chart .card-heading {
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center the text horizontally */
-    align-items: center; /* Center the text vertically */
-    height: 100%; /* Set the height of the container to 100% */
-    padding-left: 5px;
-}
-.card-heading-spacer {
-    flex-grow: 1; /* Expand to fill the remaining space */
-}
-.card-heading-button {
-    margin: 5px 10px 5px 0px;
+/* Chart card: full-width on mobile, constrained on larger screens */
+.bal-chart .card {
+    width: 100%;
+    max-width: 100%;
 }
 
+/* Card body: improved padding for better spacing */
+.bal-chart .card-body {
+    padding: 8px;
+}
+
+/* Card heading: improved padding and flex layout */
+.bal-chart .card-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 10px 12px;
+}
+
+/* Heading spacer: fills remaining space */
+.card-heading-spacer {
+    flex-grow: 1;
+}
+
+/* Heading button: smaller on mobile */
+.card-heading-button {
+    margin: 4px 6px 4px 0;
+    font-size: 0.85em;
+}
+
+/* Font size: responsive scaling */
 .bal-chart .font-size-small {
-	font-size: 0.7em;
+    font-size: 0.75em;
 }
+
+/* Tooltip: fixed positioning */
 .bal-chart .tooltip {
-	position: fixed;
+    position: fixed;
 }
-/* These are needed to stop Bootstrap .tabkle-striped from changing the font */
-.text-danger > * {
-    color: rgb(255, 0, 0) !important;
+
+/* Table: horizontal scrolling on iPhone */
+.bal-chart .table-responsive {
+    min-width: 700px;
+    -webkit-overflow-scrolling: touch;
 }
-.text-warning > * {
-    color: rgb(255, 140, 0) !important;
+
+/* Table cells: centered alignment and proper padding */
+.bal-chart th {
+    color: var(--color-header);
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px 4px;
 }
+
+.bal-chart td {
+    color: var(--color-main);
+    text-align: center;
+    padding: 6px 4px;
+    white-space: nowrap;
+}
+
+/* Striped rows: inherit color from the <tr> so Bootstrap doesn't override */
+.bal-chart .table-striped > tbody > tr > td {
+    color: inherit;
+}
+
+.bal-chart .table-striped > tbody > tr > th {
+    color: inherit;
+}
+
+/* Responsive font size: 576px */
 @media screen and (min-width: 576px) {
     .bal-chart .font-size-small {
-        font-size: 0.8em;
+        font-size: 0.85em;
     }
 }
+
+/* Responsive font size: 992px */
 @media (min-width: 992px) {
     .bal-chart .font-size-small {
-        font-size: 0.9em;
+        font-size: 0.95em;
     }
 }
+
+/* Larger screens: constrain card width */
 @media (min-width: 1200px) {
     .bal-chart .card {
         width: 1200px;
+        max-width: 1200px;
     }
 }
