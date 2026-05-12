@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import './form.css'
 
+import config from '../config';
 import conversions from './../utils/conversions';
 
 const Target = ({targetData, onSubmit}) => {
@@ -38,13 +39,13 @@ const Target = ({targetData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={distance}
-                                    max="5000"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.TARGET.DISTANCE.max}
+                                    min={config.VALIDATION_LIMITS.TARGET.DISTANCE.min}
                                     onBlur={() => setValue('sizeMils', '')}
                                     placeholder="Distance"
                                     {...register("distance", {
-                                        max: { value: 5000, message: "Distance has a maximum value of 5000" },
-                                        min: { value: 0, message: "Distance has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.TARGET.DISTANCE.max, message: "Distance has a maximum value of 5000" },
+                                        min: { value: config.VALIDATION_LIMITS.TARGET.DISTANCE.min, message: "Distance has a minimum value of 0" },
                                         required: "Distance is required to determine how far out to calculate ballistics data"
                                     })}
                                     required
@@ -82,26 +83,26 @@ const Target = ({targetData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={sizeInches}
-                                    max="120"
-                                    min="1"
+                                    max={config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.max}
+                                    min={config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.min}
                                     placeholder="Size (inches)"
                                     onBlur={async () => setDistance()}
                                     {...register("sizeInches", {
-                                        max: { value: 120, message: "Size (inches) has a maximum value of 120" },
-                                        min: { value: 1, message: "Size (inches) has a minimum value of 1" },
+                                        max: { value: config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.max, message: "Size (inches) has a maximum value of 120" },
+                                        min: { value: config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.min, message: "Size (inches) has a minimum value of 1" },
                                     })}
                                     type="number"
                                 />
                                 <input
                                     className="form-control"
                                     defaultValue={sizeMils}
-                                    max="100"
-                                    min="0.1"
+                                    max={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max}
+                                    min={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min}
                                     onBlur={() => setDistance()}
                                     placeholder="Size (mils)"
                                     {...register("sizeMils", {
-                                        max: { value: 100, message: "Size (mils) has a maximum value of 100" },
-                                        min: { value: 0.1, message: "Size (mils) has a minimum value of 0.1" },
+                                        max: { value: config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max, message: "Size (mils) has a maximum value of 100" },
+                                        min: { value: config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min, message: "Size (mils) has a minimum value of 0.1" },
                                     })}
                                     step="0.1"
                                     type="number"
@@ -134,12 +135,12 @@ const Target = ({targetData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={chartStepping}
-                                    max="500"
-                                    min="1"
+                                    max={config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.max}
+                                    min={config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.min}
                                     placeholder="Chart Stepping (yards)"
                                     {...register("chartStepping", {
-                                        max: { value: 500, message: "Chart Stepping has a maximum value of 500" },
-                                        min: { value: 1, message: "Chart Stepping has a minimum value of 1" },
+                                        max: { value: config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.max, message: "Chart Stepping has a maximum value of 500" },
+                                        min: { value: config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.min, message: "Chart Stepping has a minimum value of 1" },
                                         required: "Chart Stepping is required to determine how many rows to calculate"
                                     })}
                                     required
@@ -167,12 +168,12 @@ const Target = ({targetData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={slantDegrees}
-                                    max="500"
-                                    min="10"
+                                    max={config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.max}
+                                    min={config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.min}
                                     placeholder="Slant (degrees)"
                                     {...register("slantDegrees", {
-                                        max: { value: 500, message: "Slant has a maximum value of 500" },
-                                        min: { value: 10, message: "Slant has a minimum value of 10" },
+                                        max: { value: config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.max, message: "Slant has a maximum value of 500" },
+                                        min: { value: config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.min, message: "Slant has a minimum value of 10" },
                                         required: "Slant is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
                                     })}
                                     required
@@ -200,12 +201,12 @@ const Target = ({targetData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={speedMPH}
-                                    max="500"
-                                    min="1"
+                                    max={config.VALIDATION_LIMITS.TARGET.SPEED_MPH.max}
+                                    min={config.VALIDATION_LIMITS.TARGET.SPEED_MPH.min}
                                     placeholder="Speed (MPH)"
                                     {...register("speedMPH", {
-                                        max: { value: 500, message: "Speed has a maximum value of 500" },
-                                        min: { value: 1, message: "Speed has a minimum value of 1" },
+                                        max: { value: config.VALIDATION_LIMITS.TARGET.SPEED_MPH.max, message: "Speed has a maximum value of 500" },
+                                        min: { value: config.VALIDATION_LIMITS.TARGET.SPEED_MPH.min, message: "Speed has a minimum value of 1" },
                                         required: "Target speed is required to determine horizontal lead hold or scope adjustments needed."
                                     })}
                                     required

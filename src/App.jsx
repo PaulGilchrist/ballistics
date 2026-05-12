@@ -13,6 +13,7 @@ import ballistics from './utils/ballistics';
 import utilities from './utils/utilities';
 
 import css from './app.module.css';
+import config from './config';
 
 import Chart from './components/Chart';
 import Firearm from './components/Firearm';
@@ -24,6 +25,20 @@ import Weather from './components/Weather';
 
 
 let pdfBlobRef = null;
+
+/**
+ * Convert config UPPER_SNAKE_CASE keys to camelCase for state initialization.
+ * e.g. ALTITUDE_FEET -> altitudeFeet, SPEED_MPH -> speedMPH
+ */
+const convertConfigToCamelCase = (configObj) => {
+    const camelCaseObj = {};
+    for (const [key, value] of Object.entries(configObj)) {
+        const camelKey = key.charAt(0).toLowerCase() + key.slice(1)
+            .replace(/_([A-Z])/g, (match, letter) => letter.toLowerCase());
+        camelCaseObj[camelKey] = value;
+    }
+    return camelCaseObj;
+}
 
 const App = () => {
     // Theme
@@ -125,15 +140,7 @@ const App = () => {
         if (targetJson) {
             return utilities.jsonParseNumbers(targetJson);
         }
-        const defaults = {
-            chartStepping: 50,
-            distance: 1000,
-            distanceUnits: 'Yards', // Yards or Meters
-            sizeInches: 40,
-            sizeMils: null,
-            slantDegrees: 45,
-            speedMPH: 3
-        };
+        const defaults = { ...convertConfigToCamelCase(config.DEFAULTS.TARGET), sizeMils: null };
         localStorage.setItem('target', JSON.stringify(defaults));
         return defaults;
     });
@@ -147,14 +154,7 @@ const App = () => {
         if (weatherJson) {
             return utilities.jsonParseNumbers(weatherJson);
         }
-        const defaults = {
-            altitudeFeet: 0,
-            temperatureDegreesFahrenheit: 59,
-            barometricPressureInchesHg: 29.53,
-            relativeHumidityPercent: 78,
-            windVelocityMPH: 10,
-            windAngleDegrees: 90
-        };
+        const defaults = convertConfigToCamelCase(config.DEFAULTS.WEATHER);
         localStorage.setItem('weather', JSON.stringify(defaults));
         return defaults;
     });
@@ -201,14 +201,8 @@ const App = () => {
                 firearm = {
                     id: 'Add',
                     name: '',
-                    elevationTurretGradients: 10,
-                    reticleUnits: 'Mil',
                     rounds: [],
-                    sightHeightInches: 2.0,
-                    turretUnits: 'Mil',
-                    windageTurretGradients: 10,
-                    zeroRangeUnits: 'Yards',
-                    zeroRange: 100
+                    ...convertConfigToCamelCase(config.DEFAULTS.FIREARM)
                 }
             } else {
                 firearm = firearms.find((f) => f.id === firearmId);
@@ -237,14 +231,7 @@ const App = () => {
     // Event Handlers
     const handleDataImport = (event) => {
         if (!event.target.files || event.target.files.length !== 1) {
-            toast.error(`No file selected`, {
-                distance: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
+            toast.error(`No file selected`, config.TOAST_OPTIONS);
         } else {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -287,14 +274,7 @@ const App = () => {
                 selectRound(null, null, null);
                 selectFirearm(null, null);
                 deleteFirearm(firearms, firearm.id);
-                toast.success(`Firearm Deleted`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
+                toast.success(`Firearm Deleted`, config.TOAST_OPTIONS);
             }
         }
     }
@@ -307,26 +287,12 @@ const App = () => {
             if (!firearms.find((f) => f.name === firearm.name)) {
                 insertFirearm(firearms, firearm);
                 selectFirearm(firearms, firearm.id);
-                toast.success(`Firearm Added`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
+                toast.success(`Firearm Added`, config.TOAST_OPTIONS);
             }
         } else {
             updateFirearm(firearms, firearm);
             selectFirearm(firearms, firearm.id);
-            toast.success(`Firearm Updated`, {
-                distance: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
+            toast.success(`Firearm Updated`, config.TOAST_OPTIONS);
         }
     }
     const handleOnExportChart = (firearm, round) => {
@@ -355,28 +321,14 @@ const App = () => {
         if (window.confirm(`Are you sure you want to delete "${round.name}"?`)) {
             const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
             if (firearmIndex === -1) {
-                toast.error(`Firearm Not Found`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
+                toast.error(`Firearm Not Found`, config.TOAST_OPTIONS);
             } else {
                 if (firearms[firearmIndex].rounds.find((r) => r.id === round.id)) {
                     if (roundId === round.id) {
                         selectRound(firearms, firearmId, null);
                     }
                     deleteRound(firearms, firearmId, round.id);
-                    toast.success(`Round Deleted`, {
-                        distance: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true
-                    });
+            toast.success(`Round Deleted`, config.TOAST_OPTIONS);
                 }
             }
         }
@@ -387,40 +339,19 @@ const App = () => {
     const handleRoundOnSubmit = (firearms, firearmId, round) => {
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex === -1) {
-            toast.error(`Firearm Not Found`, {
-                distance: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
+            toast.error(`Firearm Not Found`, config.TOAST_OPTIONS);
         } else {
             // Find by name rather than id to ensure the name remains unique
             if (round.id === 'Add') {
                 if (!firearms[firearmIndex].rounds.find((r) => r.name === round.name)) {
                     insertRound(firearms, firearmId, round);
                     selectRound(firearms, firearmId, round.id);
-                    toast.success(`Firearm Added`, {
-                        distance: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true
-                    });
+            toast.success(`Firearm Added`, config.TOAST_OPTIONS);
                 }
             } else {
                 updateRound(firearms, firearmId, round);
                 selectRound(firearms, firearmId, round.id);
-                toast.success(`Round Updated`, {
-                    distance: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
+            toast.success(`Round Updated`, config.TOAST_OPTIONS);
             }
         }
     }
@@ -435,33 +366,19 @@ const App = () => {
             slantDegrees: Number(targetData.slantDegrees),
             speedMPH: Number(targetData.speedMPH)
         });
-        toast.success(`Target Data Saved`, {
-            distance: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-        });
+        toast.success(`Target Data Saved`, config.TOAST_OPTIONS);
     }
     const handleWeatherOnSubmit = (weatherData) => {
         updateWeather(weatherData);
-        toast.success('Weather Data Saved', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-        });
+        toast.success('Weather Data Saved', config.TOAST_OPTIONS);
     }
 
     // Get unwatched data
     let firearm = getFirearm(firearms, firearmId);
     let round = getRound(firearm, roundId);
     let rangeData = ballistics.getRangeData(weather, target, firearm, round);
-    const graphHeight = 300;
-    const graphWidth = 300;
+    const graphHeight = config.CHART.GRAPH_HEIGHT;
+    const graphWidth = config.CHART.GRAPH_WIDTH;
     // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>

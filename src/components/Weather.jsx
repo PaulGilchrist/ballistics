@@ -1,6 +1,16 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import config from '../config';
 import './form.css'
+
+const WEATHER_FIELD_CONFIG = {
+    altitudeFeet: 'ALTITUDE_FEET',
+    temperatureDegreesFahrenheit: 'TEMPERATURE_DEGREES_FAHRENHEIT',
+    barometricPressureInchesHg: 'BAROMETRIC_PRESSURE_INCHES_HG',
+    relativeHumidityPercent: 'RELATIVE_HUMIDITY_PERCENT',
+    windVelocityMPH: 'WIND_VELOCITY_MPH',
+    windAngleDegrees: 'WIND_ANGLE_DEGREES',
+};
 
 const Weather = ({weatherData, onSubmit}) => {
     const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMPH, windAngleDegrees } = weatherData;
@@ -27,13 +37,13 @@ const Weather = ({weatherData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={altitudeFeet}
-                                    max="50000"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.altitudeFeet].max}
+                                    min={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.altitudeFeet].min}
                                     name="altitudeFeet"
                                     placeholder="Altitude (feet)"
                                     {...register("altitudeFeet", {
-                                        max: { value: 50000, message: "Altitude has a maximum value of 50000" },
-                                        min: { value: 0, message: "Altitude has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.altitudeFeet].max, message: "Altitude has a maximum value of 50000" },
+                                        min: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.altitudeFeet].min, message: "Altitude has a minimum value of 0" },
                                         required: "Altitude is required to determine atmospheric density"
                                     })}
                                     required
@@ -61,12 +71,12 @@ const Weather = ({weatherData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={temperatureDegreesFahrenheit}
-                                    max="200"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.temperatureDegreesFahrenheit].max}
+                                    min={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.temperatureDegreesFahrenheit].min}
                                     placeholder="Temperature (fahrenheit)"
                                     {...register("temperatureDegreesFahrenheit", {
-                                        max: { value: 200, message: "Temperature has a maximum value of 200" },
-                                        min: { value: 0, message: "Temperature has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.temperatureDegreesFahrenheit].max, message: "Temperature has a maximum value of 200" },
+                                        min: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.temperatureDegreesFahrenheit].min, message: "Temperature has a minimum value of 0" },
                                         required: "Temperature is required to determine atmospheric density"
                                     })}
                                     required
@@ -94,12 +104,12 @@ const Weather = ({weatherData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={barometricPressureInchesHg}
-                                    max="100"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.barometricPressureInchesHg].max}
+                                    min={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.barometricPressureInchesHg].min}
                                     placeholder="Barometric Pressure (in Hg)"
                                     {...register("barometricPressureInchesHg", {
-                                        max: { value: 100, message: "Barometric Pressure has a maximum value of 100" },
-                                        min: { value: 0, message: "Barometric Pressure has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.barometricPressureInchesHg].max, message: "Barometric Pressure has a maximum value of 100" },
+                                        min: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.barometricPressureInchesHg].min, message: "Barometric Pressure has a minimum value of 0" },
                                         required: "Barometric Pressure is required to determine atmospheric density"
                                     })}
                                     required
@@ -128,12 +138,12 @@ const Weather = ({weatherData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={relativeHumidityPercent}
-                                    max="100"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.relativeHumidityPercent].max}
+                                    min={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.relativeHumidityPercent].min}
                                     placeholder="Relative Humidity (%)"
                                     {...register("relativeHumidityPercent", {
-                                        max: { value: 100, message: "Relative Humidity has a maximum value of 100" },
-                                        min: { value: 0, message: "Relative Humidity has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.relativeHumidityPercent].max, message: "Relative Humidity has a maximum value of 100" },
+                                        min: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.relativeHumidityPercent].min, message: "Relative Humidity has a minimum value of 0" },
                                         required: "Relative Humidity is required to determine atmospheric density"
                                     })}
                                     required
@@ -161,12 +171,12 @@ const Weather = ({weatherData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={windVelocityMPH}
-                                    max="200"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windVelocityMPH].max}
+                                    min={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windVelocityMPH].min}
                                     placeholder="Wind Velocity (MPH)"
                                     {...register("windVelocityMPH", {
-                                        max: { value: 200, message: "Wind Velocity has a maximum value of 200" },
-                                        min: { value: 0, message: "Wind Velocity has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windVelocityMPH].max, message: "Wind Velocity has a maximum value of 200" },
+                                        min: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windVelocityMPH].min, message: "Wind Velocity has a minimum value of 0" },
                                         required: "Wind Velocity is required to calculate bullet drift"
                                     })}
                                     required
@@ -194,12 +204,12 @@ const Weather = ({weatherData, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={windAngleDegrees}
-                                    max="90"
-                                    min="0"
+                                    max={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windAngleDegrees].max}
+                                    min={config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windAngleDegrees].min}
                                     placeholder="Wind Angle (degrees)"
                                     {...register("windAngleDegrees", {
-                                        max: { value: 90, message: "windVelocity has a maximum value of 90" },
-                                        min: { value: 0, message: "windVelocity has a minimum value of 0" },
+                                        max: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windAngleDegrees].max, message: "windVelocity has a maximum value of 90" },
+                                        min: { value: config.VALIDATION_LIMITS.WEATHER[WEATHER_FIELD_CONFIG.windAngleDegrees].min, message: "windVelocity has a minimum value of 0" },
                                         required: "Wind Angle is required to determine the winds vector impact on bullet drift"
                                     })}
                                     required

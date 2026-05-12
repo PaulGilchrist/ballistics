@@ -1,11 +1,11 @@
 // All functions are pure functions
 
+import config from '../config';
 import atmospherics from './atmospherics';
 import conversions from './conversions';
 import INGALS from './ingals.data';
 
 const drag = {
-    gravity: 32.176,     // Feet Per Second Per Second
     clicksToReachMaximumPointblankRangeZero: (ballisticCoefficient, scopeHeightInches, scopeElevationClicksPerMOA, maximumOrdinate, muzzleVelocityFPS, muzzleAngleDegrees) => {
         // Calculates how many up or down clicks to adjust the scope to change from the current zero to the maximum point blank range zero.  Maximum point blank range is the maximum range at
         //     which the user can shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
@@ -18,23 +18,23 @@ const drag = {
         // Calculate the drop (inches) of the bullet at the new time and velocity
         const dropAtMaxPointBlankRangeZero = drag.drop(muzzleVelocityFPS, velocityAtMaxPointBlankRangeZero, timeAtMaxPointBlankRangeZero);
         // Calculate the vertical position (inches) of the bullet at the given drop
-        const verticalPositionAtMaxPointBlankRangeZero = (-scopeHeightInches / 12) + ((dropAtMaxPointBlankRangeZero / 12) + (maxPointBlankRangeZeroYards * 3) * Math.tan(conversions.degreesToRadians(muzzleAngleDegrees))) * 12;
+        const verticalPositionAtMaxPointBlankRangeZero = (-scopeHeightInches / config.PHYSICS.INCHES_PER_FOOT) + ((dropAtMaxPointBlankRangeZero / config.PHYSICS.INCHES_PER_FOOT) + (maxPointBlankRangeZeroYards * config.PHYSICS.FEET_PER_YARD) * Math.tan(conversions.degreesToRadians(muzzleAngleDegrees))) * config.PHYSICS.INCHES_PER_FOOT;
         // Calculate the number of scope clicks needed to correct the above calculated vertical position making the new vertical position zero.
         return -(conversions.inchesToMinutesOfAngle(verticalPositionAtMaxPointBlankRangeZero, maxPointBlankRangeZeroYards) * scopeElevationClicksPerMOA);
     },
     crossWindDrift: (currentRangeYards, currentTimeSeconds, crossWindAngleDegrees, crossWindVelocityMPH, muzzleAngleDegrees, muzzleVelocityFPS) => {
         // Calculates how far the bullet drifts (inches) due to wind.
-        return (Math.sin(conversions.degreesToRadians(crossWindAngleDegrees)) * conversions.milesPerHourToInchesPerSecond(crossWindVelocityMPH) / 12 * (currentTimeSeconds - (currentRangeYards * 3) / (muzzleVelocityFPS * Math.cos(conversions.degreesToRadians(muzzleAngleDegrees))))) * 12;
+        return (Math.sin(conversions.degreesToRadians(crossWindAngleDegrees)) * conversions.milesPerHourToInchesPerSecond(crossWindVelocityMPH) / config.PHYSICS.INCHES_PER_FOOT * (currentTimeSeconds - (currentRangeYards * config.PHYSICS.FEET_PER_YARD) / (muzzleVelocityFPS * Math.cos(conversions.degreesToRadians(muzzleAngleDegrees))))) * config.PHYSICS.INCHES_PER_FOOT;
     },
     drop: (muzzleVelocityFPS, currentVelocityFPS, currentTimeSeconds) => {
         // Calculates how far the bullet falls (inches) due to gravity, if their were no angle at the muzzle.
         const index = Math.min(99, Math.max(0, Math.floor((currentVelocityFPS / muzzleVelocityFPS) * 100 + 0.5)));
-        const falls = atmospherics.dropTable[index];
+        const falls = config.ATMOSPHERIC_TABLES.DROP_TABLE[index];
         return -(falls * Math.pow(currentTimeSeconds, 2));
     },
     energy: (bulletWeightGrains, currentVelocityFPS) => {
         // Calculates the kinetic energy (foot pounds) retained in the bullet.
-        return bulletWeightGrains * Math.pow(currentVelocityFPS, 2) / (drag.gravity * 7000 * 2);
+        return bulletWeightGrains * Math.pow(currentVelocityFPS, 2) / (config.PHYSICS.GRAVITY_FPS * config.PHYSICS.BULLET_WEIGHT_GRAINS_PER_POUND * 2);
     },
     ingalsSpaceFromVelocity: (currentVelocity) => {
         // Returns the space value from the Ingals table at the given velocity.
@@ -119,7 +119,7 @@ const drag = {
     maximumPointBlankRange: (ballisticCoefficient, muzzleVelocityFPS, maximumOrdinate) => {
         // Calculate the maximum range at which the user can shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
         // Time (seconds)it takes to reach the range having a maximum ordinate supplied above
-        const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
+        const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / config.PHYSICS.FEET_PER_YARD, 0.5);
         // Velocity (feet per second) of the bullet at the above calculated time
         const velocityAtTimeToMaximumOrdinate = drag.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
         // Drop (inches) of the bullet at the above given time and velocity***
@@ -138,7 +138,7 @@ const drag = {
         // Maximum Point Blank Range Zero (yards) is the range that the user should zero his/her rifle to obtain their maximum point blank range.
         // This range allows a user to shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
         // Time (seconds)it takes to reach the range having a maximum ordinate supplied above
-        const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
+        const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / config.PHYSICS.FEET_PER_YARD, 0.5);
         // Velocity (feet per second) of the bullet at the above calculated time
         const velocityAtTimeToMaximumOrdinate = drag.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
         // Given the velocity at the point blank range zero, calculate the actual range to zero the rifle
@@ -170,19 +170,19 @@ const drag = {
     },
     range: (ballisticCoefficient, muzzleVelocityFPS, currentVelocityFPS) => {
         // Calculates the range (yards) of the bullet at a given velocity.
-        return ballisticCoefficient * (drag.ingalsSpaceFromVelocity(currentVelocityFPS) - drag.ingalsSpaceFromVelocity(muzzleVelocityFPS)) / 3;
+        return ballisticCoefficient * (drag.ingalsSpaceFromVelocity(currentVelocityFPS) - drag.ingalsSpaceFromVelocity(muzzleVelocityFPS)) / config.PHYSICS.FEET_PER_YARD;
     },
     rifleRecoilVelocity: (bulletWeightGrains, muzzleVelocityFPS, powderWeightGrains, rifleWeightPounds) => {
         // Calculates the amount of rearward velocity (feet per second) of the rifle upon firing.
-        return (bulletWeightGrains * muzzleVelocityFPS + powderWeightGrains * 4000) / (rifleWeightPounds * 7000);
+        return (bulletWeightGrains * muzzleVelocityFPS + powderWeightGrains * config.PHYSICS.POWDER_VELOCITY_FPS) / (rifleWeightPounds * config.PHYSICS.BULLET_WEIGHT_GRAINS_PER_POUND);
     },
     rifleRecoilEnergy: (bulletWeightGrains, muzzleVelocityFPS, powderWeightGrains, rifleWeightPounds) => {
         // Calculates the amount of rearward force (foot pounds) of the rifle upon firing.
-        return rifleWeightPounds * Math.pow(drag.rifleRecoilVelocity(bulletWeightGrains, muzzleVelocityFPS, powderWeightGrains, rifleWeightPounds), 2) / (drag.gravity * 2);
+        return rifleWeightPounds * Math.pow(drag.rifleRecoilVelocity(bulletWeightGrains, muzzleVelocityFPS, powderWeightGrains, rifleWeightPounds), 2) / (config.PHYSICS.GRAVITY_FPS * 2);
     },
     sectionalDensity: (bulletWeightGrains, bulletDiameterInches) => {
         // Calculates the mass per given diameter of the bullet.  Used in determining form factor.
-        return bulletWeightGrains / (7000 * Math.pow(bulletDiameterInches, 2));
+        return bulletWeightGrains / (config.PHYSICS.BULLET_WEIGHT_GRAINS_PER_POUND * Math.pow(bulletDiameterInches, 2));
     },
     time: (ballisticCoefficient, muzzleVelocityFPS, currentVelocityFPS) => {
         // Calculates the amount of time (seconds) it takes the bullet to slow from the initial velocity to a specific lower velocity.
@@ -190,7 +190,7 @@ const drag = {
     },
     velocityFromRange: (ballisticCoefficient, muzzleVelocityFPS, currentRangeYards) => {
         // Calculates the velocity (feet per second) remaining in the bullet at a given range (yards).
-        const currentSpace = drag.ingalsSpaceFromVelocity(muzzleVelocityFPS) + ((currentRangeYards * 3) / ballisticCoefficient);
+        const currentSpace = drag.ingalsSpaceFromVelocity(muzzleVelocityFPS) + ((currentRangeYards * config.PHYSICS.FEET_PER_YARD) / ballisticCoefficient);
         return drag.ingalsVelocityFromSpace(currentSpace);
     },
     velocityFromTime: (ballisticCoefficient, muzzleVelocityFPS, currentTimeSeconds) => {
@@ -199,7 +199,7 @@ const drag = {
     },
     verticalPosition: (scopeHeightInches, muzzleAngleDegrees, currentRangeYards, currentDropInches) => {
         // Calculates how far the bullet falls (inches) due to gravity, taking into account the angle of the muzzle.
-        return (currentDropInches+(currentRangeYards*36)*Math.tan(conversions.degreesToRadians(muzzleAngleDegrees)))-scopeHeightInches;
+        return (currentDropInches+(currentRangeYards*config.PHYSICS.INCHES_PER_YARD)*Math.tan(conversions.degreesToRadians(muzzleAngleDegrees)))-scopeHeightInches;
     }
 }
 

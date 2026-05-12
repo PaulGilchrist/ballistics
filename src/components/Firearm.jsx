@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import config from '../config';
 import './form.css'
 
 const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
@@ -30,13 +31,11 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={firearm.name}
-                                    maxLength="50"
-                                    minLength="3"
                                     name="name"
                                     placeholder="Name"
                                     {...register("name", {
-                                        maxLength: { value: 50, message: "Name has a maximum length of 50" },
-                                        minLength: { value: 3, message: "Name has a minimum length of 3" },
+                                        maxLength: { value: config.VALIDATION_LIMITS.FIREARM.NAME.maxLength, message: `Name has a maximum length of ${config.VALIDATION_LIMITS.FIREARM.NAME.maxLength}` },
+                                        minLength: { value: config.VALIDATION_LIMITS.FIREARM.NAME.minLength, message: `Name has a minimum length of ${config.VALIDATION_LIMITS.FIREARM.NAME.minLength}` },
                                         required: "Name is required"
                                     })}
                                     required
@@ -64,13 +63,11 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={firearm.sightHeightInches}
-                                    max="5"
-                                    min="0.25"
                                     name="sightHeightInches"
                                     placeholder="Sight Height (inches)"
                                     {...register("sightHeightInches", {
-                                        max: { value: 5, message: "Sight Height has a maximum value of 5" },
-                                        min: { value: 0.25, message: "Sight Height has a minimum value of 0.25" },
+                                        max: { value: config.VALIDATION_LIMITS.FIREARM.SIGHT_HEIGHT_INCHES.max, message: `Sight Height has a maximum value of ${config.VALIDATION_LIMITS.FIREARM.SIGHT_HEIGHT_INCHES.max}` },
+                                        min: { value: config.VALIDATION_LIMITS.FIREARM.SIGHT_HEIGHT_INCHES.min, message: `Sight Height has a minimum value of ${config.VALIDATION_LIMITS.FIREARM.SIGHT_HEIGHT_INCHES.min}` },
                                         required: "Sight Height is required"
                                     })}
                                     required
@@ -99,13 +96,11 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={firearm.zeroRange}
-                                    max="3000"
-                                    min="10"
                                     name="zeroRange"
                                     placeholder="Zero Range"
                                     {...register("zeroRange", {
-                                        max: { value: 3000, message: "Zero Range has a maximum value of 3000" },
-                                        min: { value: 10, message: "Zero Range has a minimum value of 10" },
+                                        max: { value: config.VALIDATION_LIMITS.FIREARM.ZERO_RANGE.max, message: `Zero Range has a maximum value of ${config.VALIDATION_LIMITS.FIREARM.ZERO_RANGE.max}` },
+                                        min: { value: config.VALIDATION_LIMITS.FIREARM.ZERO_RANGE.min, message: `Zero Range has a minimum value of ${config.VALIDATION_LIMITS.FIREARM.ZERO_RANGE.min}` },
                                         required: "Zero Range is required, so bullet drop can be calculated properly"
                                     })}
                                     required
@@ -119,8 +114,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: true
                                     })}
                                 >
-                                    <option value='Yards'>Yards</option>
-                                    <option value='Meters'>Meters</option>
+                                    {config.OPTIONS.DISTANCE_UNITS.map(unit => (
+                                        <option key={unit} value={unit}>{unit}</option>
+                                    ))}
                                 </select>
                             </div>
                             {errors.zeroRange && errors.zeroRange.message ?
@@ -149,9 +145,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: true
                                     })}
                                 >
-                                    <option value='Mil'>Mil</option>
-                                    <option value='MoA'>MoA</option>
-                                    <option value='IPHY'>IPHY</option>
+                                    {config.OPTIONS.RETICLE_UNITS.map(unit => (
+                                        <option key={unit} value={unit}>{unit}</option>
+                                    ))}
                                 </select>
                             </div>
                             {errors.reticleUnits && errors.reticleUnits.message ?
@@ -180,11 +176,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: true
                                     })}
                                 >
-                                    <option value='1'>1</option>
-                                    <option value='2'>2</option>
-                                    <option value='4'>4</option>
-                                    <option value='5'>5</option>
-                                    <option value='10'>10</option>
+                                    {config.OPTIONS.TURRET_GRADIENTS.map(gradient => (
+                                        <option key={gradient} value={gradient}>{gradient}</option>
+                                    ))}
                                 </select>
                                 <select
                                     className="form-control"
@@ -194,9 +188,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: true
                                     })}
                                 >
-                                    <option value='Mil'>Mil</option>
-                                    <option value='MoA'>MoA</option>
-                                    <option value='IPHY'>IPHY</option>
+                                    {config.OPTIONS.TURRET_UNITS.map(unit => (
+                                        <option key={unit} value={unit}>{unit}</option>
+                                    ))}
                                 </select>
                             </div>
                             {errors.elevationTurretGradients && errors.elevationTurretGradients.message ?
@@ -225,11 +219,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: true
                                     })}
                                 >
-                                    <option value='1'>1</option>
-                                    <option value='2'>2</option>
-                                    <option value='4'>4</option>
-                                    <option value='5'>5</option>
-                                    <option value='10'>10</option>
+                                    {config.OPTIONS.TURRET_GRADIENTS.map(gradient => (
+                                        <option key={gradient} value={gradient}>{gradient}</option>
+                                    ))}
                                 </select>
                                 <select
                                     className="form-control"
@@ -239,9 +231,9 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                                         required: true
                                     })}
                                 >
-                                    <option value='Mil'>Mil</option>
-                                    <option value='MoA'>MoA</option>
-                                    <option value='IPHY'>IPHY</option>
+                                    {config.OPTIONS.TURRET_UNITS.map(unit => (
+                                        <option key={unit} value={unit}>{unit}</option>
+                                    ))}
                                 </select>
                             </div>
                             {errors.windageTurretGradients && errors.windageTurretGradients.message ?

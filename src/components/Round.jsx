@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import config from '../config';
 import './form.css'
 
 const Round = ({round, onClose, onDelete, onSubmit}) => {
@@ -31,13 +32,13 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={name}
-                                    maxLength="50"
-                                    minLength="3"
+                                    maxLength={config.VALIDATION_LIMITS.ROUND.NAME.maxLength}
+                                    minLength={config.VALIDATION_LIMITS.ROUND.NAME.minLength}
                                     name="name"
                                     placeholder="Name"
                                     {...register("name", {
-                                        maxLength: { value: 50, message: "Name has a maximum length of 50" },
-                                        minLength: { value: 3, message: "Name has a minimum length of 3" },
+                                        maxLength: { value: config.VALIDATION_LIMITS.ROUND.NAME.maxLength, message: "Name has a maximum length of 50" },
+                                        minLength: { value: config.VALIDATION_LIMITS.ROUND.NAME.minLength, message: "Name has a minimum length of 3" },
                                         required: "Name is required"
                                     })}
                                     required
@@ -65,13 +66,13 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={bulletDiameterInches}
-                                    max="1"
-                                    min="0.010"
+                                    max={config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.max}
+                                    min={config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.min}
                                     name="bulletDiameterInches"
                                     placeholder="Bullet Diameter (inches)"
                                     {...register("bulletDiameterInches", {
-                                        max: { value: 1, message: "Bullet Diameter has a maximum value of 1" },
-                                        min: { value: 0.010, message: "Bullet Diameter has a minimum value of 0.010" },
+                                        max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.max, message: "Bullet Diameter has a maximum value of 1" },
+                                        min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.min, message: "Bullet Diameter has a minimum value of 0.010" },
                                         required: "Bullet diameter is required so wind resistance can be calculated."
                                     })}
                                     required
@@ -100,13 +101,13 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={bulletWeightGrains}
-                                    max="1000"
-                                    min="10"
+                                    max={config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.max}
+                                    min={config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.min}
                                     name="bulletWeightGrains"
                                     placeholder="Bullet Weight (grains)"
                                     {...register("bulletWeightGrains", {
-                                        max: { value: 1000, message: "Bullet Weight has a maximum value of 1000" },
-                                        min: { value: 10, message: "Bullet Weight has a minimum value of 10" },
+                                        max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.max, message: "Bullet Weight has a maximum value of 1000" },
+                                        min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.min, message: "Bullet Weight has a minimum value of 10" },
                                         required: "Bullet Weight is required, so bullet drop can be calculated properly."
                                     })}
                                     required
@@ -135,13 +136,13 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={muzzleVelocityFPS}
-                                    max="5000"
-                                    min="100"
+                                    max={config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.max}
+                                    min={config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.min}
                                     name="muzzleVelocityFPS"
                                     placeholder="Muzzle Velocity (FPS)"
                                     {...register("muzzleVelocityFPS", {
-                                        max: { value: 5000, message: "Muzzle Velocity has a maximum value of 5000" },
-                                        min: { value: 100, message: "Muzzle Velocity has a minimum value of 100" },
+                                        max: { value: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.max, message: "Muzzle Velocity has a maximum value of 5000" },
+                                        min: { value: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.min, message: "Muzzle Velocity has a minimum value of 100" },
                                         required: "Muzzle Velocity is required, so bullet drop can be calculated properly."
                                     })}
                                     required
@@ -170,13 +171,13 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 <input
                                     className="form-control"
                                     defaultValue={bulletBC}
-                                    max="1"
-                                    min="0.010"
+                                    max={config.VALIDATION_LIMITS.ROUND.BULLET_BC.max}
+                                    min={config.VALIDATION_LIMITS.ROUND.BULLET_BC.min}
                                     name="bulletBC"
                                     placeholder="Bullet Ballistic Coefficient"
                                     {...register("bulletBC", {
-                                        max: { value: 1, message: "Bullet ballistic coefficient has a maximum value of 1" },
-                                        min: { value: 0.010, message: "Bullet ballistic coefficient has a minimum value of 0.010" },
+                                        max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.max, message: "Bullet ballistic coefficient has a maximum value of 1" },
+                                        min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.min, message: "Bullet ballistic coefficient has a minimum value of 0.010" },
                                         required: "Bullet ballistic coefficient is required, so wind resistance can be calculated properly."
                                     })}
                                     required
