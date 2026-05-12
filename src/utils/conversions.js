@@ -2,7 +2,7 @@ import config from '../config';
 
 // All functions are pure functions
 
-/* eslint-disable no-unused-vars */
+ 
 const conversions = {
     degreesToRadians: (degrees) => {
         // Converts from a degree to a radian angle.

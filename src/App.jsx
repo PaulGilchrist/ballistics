@@ -1,7 +1,7 @@
 // 06062025
 import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
-// eslint-disable-next-line no-unused-vars
+ 
 import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
@@ -22,9 +22,6 @@ import Round from './components/Round';
 import Rounds from './components/Rounds';
 import Target from './components/Target';
 import Weather from './components/Weather';
-
-
-let pdfBlobRef = null;
 
 const showToast = (type, message) => {
   toast[type](message, config.TOAST_OPTIONS);
@@ -311,7 +308,6 @@ const App = () => {
         await autoTable(pdf, { html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
         const pdfBlob = pdf.output('blob');
         const pdfBlobUrl = URL.createObjectURL(pdfBlob);
-        pdfBlobRef = pdfBlob; // keep a reference to prevent GC
         const x = window.open();
         x.location.href = pdfBlobUrl;
     }
@@ -381,8 +377,6 @@ const App = () => {
     let firearm = getFirearm(firearms, firearmId);
     let round = getRound(firearm, roundId);
     let rangeData = ballistics.getRangeData(weather, target, firearm, round);
-    const graphHeight = config.CHART.GRAPH_HEIGHT;
-    const graphWidth = config.CHART.GRAPH_WIDTH;
     // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>
