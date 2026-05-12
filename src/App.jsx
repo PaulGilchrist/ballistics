@@ -26,6 +26,10 @@ import Weather from './components/Weather';
 
 let pdfBlobRef = null;
 
+const showToast = (type, message) => {
+  toast[type](message, config.TOAST_OPTIONS);
+}
+
 /**
  * Convert config UPPER_SNAKE_CASE keys to camelCase for state initialization.
  * e.g. ALTITUDE_FEET -> altitudeFeet, SPEED_MPH -> speedMPH
@@ -231,7 +235,7 @@ const App = () => {
     // Event Handlers
     const handleDataImport = (event) => {
         if (!event.target.files || event.target.files.length !== 1) {
-            toast.error(`No file selected`, config.TOAST_OPTIONS);
+            showToast('error', 'No file selected');
         } else {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -274,7 +278,7 @@ const App = () => {
                 selectRound(null, null, null);
                 selectFirearm(null, null);
                 deleteFirearm(firearms, firearm.id);
-                toast.success(`Firearm Deleted`, config.TOAST_OPTIONS);
+                showToast('success', 'Firearm Deleted');
             }
         }
     }
@@ -287,12 +291,12 @@ const App = () => {
             if (!firearms.find((f) => f.name === firearm.name)) {
                 insertFirearm(firearms, firearm);
                 selectFirearm(firearms, firearm.id);
-                toast.success(`Firearm Added`, config.TOAST_OPTIONS);
+                showToast('success', 'Firearm Added');
             }
         } else {
             updateFirearm(firearms, firearm);
             selectFirearm(firearms, firearm.id);
-            toast.success(`Firearm Updated`, config.TOAST_OPTIONS);
+            showToast('success', 'Firearm Updated');
         }
     }
     const handleOnExportChart = (firearm, round) => {
@@ -321,14 +325,14 @@ const App = () => {
         if (window.confirm(`Are you sure you want to delete "${round.name}"?`)) {
             const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
             if (firearmIndex === -1) {
-                toast.error(`Firearm Not Found`, config.TOAST_OPTIONS);
+                showToast('error', 'Firearm Not Found');
             } else {
                 if (firearms[firearmIndex].rounds.find((r) => r.id === round.id)) {
                     if (roundId === round.id) {
                         selectRound(firearms, firearmId, null);
                     }
                     deleteRound(firearms, firearmId, round.id);
-            toast.success(`Round Deleted`, config.TOAST_OPTIONS);
+            showToast('success', 'Round Deleted');
                 }
             }
         }
@@ -339,19 +343,19 @@ const App = () => {
     const handleRoundOnSubmit = (firearms, firearmId, round) => {
         const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
         if (firearmIndex === -1) {
-            toast.error(`Firearm Not Found`, config.TOAST_OPTIONS);
+            showToast('error', 'Firearm Not Found');
         } else {
             // Find by name rather than id to ensure the name remains unique
             if (round.id === 'Add') {
                 if (!firearms[firearmIndex].rounds.find((r) => r.name === round.name)) {
                     insertRound(firearms, firearmId, round);
                     selectRound(firearms, firearmId, round.id);
-            toast.success(`Firearm Added`, config.TOAST_OPTIONS);
+            showToast('success', 'Firearm Added');
                 }
             } else {
                 updateRound(firearms, firearmId, round);
                 selectRound(firearms, firearmId, round.id);
-            toast.success(`Round Updated`, config.TOAST_OPTIONS);
+            showToast('success', 'Round Updated');
             }
         }
     }
@@ -366,11 +370,11 @@ const App = () => {
             slantDegrees: Number(targetData.slantDegrees),
             speedMPH: Number(targetData.speedMPH)
         });
-        toast.success(`Target Data Saved`, config.TOAST_OPTIONS);
+        showToast('success', 'Target Data Saved');
     }
     const handleWeatherOnSubmit = (weatherData) => {
         updateWeather(weatherData);
-        toast.success('Weather Data Saved', config.TOAST_OPTIONS);
+        showToast('success', 'Weather Data Saved');
     }
 
     // Get unwatched data

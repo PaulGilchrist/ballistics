@@ -225,30 +225,7 @@ const config = {
   },
 
   // ---------------------------------------------------------------------------
-  // 7. TOAST_CONFIG — Reused toast notification settings (UPPER_SNAKE_CASE)
-  // ---------------------------------------------------------------------------
-  TOAST_CONFIG: {
-    // Toast notification position on screen.
-    DISTANCE: "top-center",
-
-    // Auto-close delay in milliseconds.
-    AUTO_CLOSE: 2000,
-
-    // Whether to hide the progress bar indicator.
-    HIDE_PROGRESS_BAR: false,
-
-    // Close the toast when clicked.
-    CLOSE_ON_CLICK: true,
-
-    // Pause the auto-close timer on hover.
-    PAUSE_ON_HOVER: true,
-
-    // Allow the user to drag the toast to dismiss.
-    DRAGGABLE: true,
-  },
-
-  // ---------------------------------------------------------------------------
-  // 8. TOAST_OPTIONS — camelCase toast options for direct use with react-toastify
+  // 7. TOAST_OPTIONS — camelCase toast options for direct use with react-toastify
   // ---------------------------------------------------------------------------
   TOAST_OPTIONS: {
     position: "top-center",
@@ -260,7 +237,7 @@ const config = {
   },
 
   // ---------------------------------------------------------------------------
-  // 9. CHART — Chart/graph dimensions
+  // 8. CHART — Chart/graph dimensions
   // ---------------------------------------------------------------------------
   CHART: {
     // Height of the range chart graph in pixels (from App.jsx).
