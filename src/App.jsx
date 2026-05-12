@@ -23,6 +23,8 @@ import Target from './components/Target';
 import Weather from './components/Weather';
 
 
+let pdfBlobRef = null;
+
 const App = () => {
     // Theme
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -338,15 +340,16 @@ const App = () => {
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center' });
         autoTable(pdf, { html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
-        const pdfDataUrl = pdf.output('dataurl');
+        const pdfBlob = pdf.output('blob');
+        const pdfBlobUrl = URL.createObjectURL(pdfBlob);
+        pdfBlobRef = pdfBlob; // keep a reference to prevent GC
         const x = window.open();
         x.document.write('<!DOCTYPE html><html><head><title>Range Chart</title></head><body><embed width="100%" height="100%"></body></html>');
         x.document.close();
         const embed = x.document.querySelector('embed');
         if (embed) {
-            embed.setAttribute('src', pdfDataUrl);
+            embed.setAttribute('src', pdfBlobUrl);
         }
-        // pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
     }
     const handleRoundOnAdd = (firearms, firearmId) => {
         selectRound(firearms, firearmId, 'Add');
