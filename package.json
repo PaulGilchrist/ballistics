@@ -2,22 +2,7 @@
     "authors": [
         "Paul Gilchrist"
     ],
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
     "description": "Ballistics application",
-    "eslintConfig": {
-        "extends": "react-app"
-    },
     "homepage": "https://paulgilchrist.github.io/ballistics",
     "license": "MIT",
     "private": true,
@@ -27,11 +12,11 @@
         "url": "https://github.com/PaulGilchrist/ballistics.git"
     },
     "scripts": {
-        "build": "react-scripts build",
-        "deploy": "gh-pages -d build",
+        "build": "vite build",
+        "deploy": "gh-pages -d dist",
         "predeploy": "npm run build",
-        "start": "react-scripts --openssl-legacy-provider start",
-        "test": "react-scripts test"
+        "start": "vite",
+        "test": "vitest run"
     },
     "version": "0.1.0",
     "dependencies": {
@@ -45,17 +30,17 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.43.9",
-        "react-scripts": "^5.0.1",
-        "react-toastify": "^9.1.2",
-        "web-vitals": "^2.1.4",
-        "workbox-core": "^7.3.0",
-        "workbox-expiration": "^7.3.0",
-        "workbox-precaching": "^7.3.0"
+        "react-toastify": "^9.1.2"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
-        "gh-pages": "^6.3.0"
+        "@vitejs/plugin-react": "^4.3.0",
+        "gh-pages": "^6.3.0",
+        "jsdom": "^29.1.1",
+        "vite": "^5.0.0",
+        "vite-plugin-pwa": "^0.20.0",
+        "vitest": "^2.0.0"
     }
 }
