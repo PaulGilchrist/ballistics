@@ -282,21 +282,20 @@ const App = () => {
         selectFirearm(null, null);
     }
     const handleFirearmOnDelete = (firearms, firearm) => {
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-        if (firearms.find((f) => f.id === firearm.id) !== undefined) {
-            selectRound(null, null, null);
-            selectFirearm(null, null);
-            deleteFirearm(firearms, firearm.id);
-            toast.success(`Firearm Deleted`, {
-                distance: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
+        if (window.confirm(`Are you sure you want to delete "${firearm.name}"?`)) {
+            if (firearms.find((f) => f.id === firearm.id) !== undefined) {
+                selectRound(null, null, null);
+                selectFirearm(null, null);
+                deleteFirearm(firearms, firearm.id);
+                toast.success(`Firearm Deleted`, {
+                    distance: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                });
+            }
         }
     }
     const handleFirearmOnSelect = (firearms, firearm) => {
@@ -353,26 +352,10 @@ const App = () => {
         selectRound(null, null, null);
     }
     const handleRoundOnDelete = (firearms, firearmId, round) => {
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////// NEED CONFIRMATION DIALOG ///////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-        const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
-        if (firearmIndex === -1) {
-            toast.error(`Firearm Not Found`, {
-                distance: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-            });
-        } else {
-            if (firearms[firearmIndex].rounds.find((r) => r.id === round.id) !== undefined) {
-                if (roundId === round.id) {
-                    selectRound(firearms, firearmId, null);
-                }
-                deleteRound(firearms, firearmId, round.id);
-                toast.success(`Round Deleted`, {
+        if (window.confirm(`Are you sure you want to delete "${round.name}"?`)) {
+            const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
+            if (firearmIndex === -1) {
+                toast.error(`Firearm Not Found`, {
                     distance: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -380,6 +363,21 @@ const App = () => {
                     pauseOnHover: true,
                     draggable: true
                 });
+            } else {
+                if (firearms[firearmIndex].rounds.find((r) => r.id === round.id) !== undefined) {
+                    if (roundId === round.id) {
+                        selectRound(firearms, firearmId, null);
+                    }
+                    deleteRound(firearms, firearmId, round.id);
+                    toast.success(`Round Deleted`, {
+                        distance: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true
+                    });
+                }
             }
         }
     }
