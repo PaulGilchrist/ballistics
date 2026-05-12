@@ -10,8 +10,8 @@
 
 # production
 build
-dist
-dist/assets
+/dist
+
 
 # misc
 .DS_Store
