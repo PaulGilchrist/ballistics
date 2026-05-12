@@ -9,13 +9,12 @@ import { saveAs } from 'file-saver';
 import FIREARMS from './data/firearms';
 
 import { toast } from 'react-toastify'; // Must be initialized in App.js (see https://github.com/fkhadra/react-toastify#usage)
-import ballistics from 'pg-ballistics';
-import utilities from 'pg-utilities';
+import ballistics from './utils/ballistics';
+import utilities from './utils/utilities';
 
 import css from './app.module.css';
 
 import Chart from './components/Chart';
-import D3Graph from './components/D3Graph';
 import Firearm from './components/Firearm';
 import Firearms from './components/Firearms';
 import Round from './components/Round';
@@ -489,47 +488,6 @@ const App = () => {
                     : null
                 }
             </div>
-            {/* {firearm && round && roundId !== 'Add' ?
-                <React.Fragment>
-                    <br />
-                    <button className='btn btn-success' onClick={() => handleGraphTypeChange(graphType)}>Change Graph Type</button>
-                    <div className="d-flex flex-fill flex-row flex-wrap justify-content-center">
-                        <div className="graph-inline">
-                            <h4>Velocity (feet/sec)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="velocityFPS" width={graphWidth} height={graphHeight} labels="none" yToFixed={0} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Energy (foot pounds)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="energyFtLbs" width={graphWidth} height={graphHeight} labels="none" yToFixed={0} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Time (seconds)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="timeSeconds" width={graphWidth} height={graphHeight} labels="none" yToFixed={2} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Drop (inches)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="dropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Elevation (inches)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="verticalPositionInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Cross Wind Drift (inches)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="crossWindDriftInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Lead (inches)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="leadInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
-                        </div>
-                        <div className="graph-inline">
-                            <h4>Slant (inches - hold low)</h4>
-                            <D3Graph type={graphType} data={rangeData} xKey="rangeYards" yKey="slantDropInches" width={graphWidth} height={graphHeight} labels="none" yToFixed={1} />
-                        </div>
-                    </div>
-                </React.Fragment>
-                : null
-            } */}
         </div>
     );
 }

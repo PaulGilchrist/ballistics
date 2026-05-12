@@ -1,6 +1,6 @@
 import React from 'react';
 import './chart.css'
-import atmospherics from 'pg-atmospherics';
+import atmospherics from './../utils/atmospherics';
 
 const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChart, onPrintChart}) => {
     const { name: firearmName, reticleUnits, turretUnits } = firearm;

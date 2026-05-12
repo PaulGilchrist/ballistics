@@ -1,7 +1,7 @@
 // All functions are pure functions
 
-import atmospherics from 'pg-atmospherics';
-import conversions from 'pg-conversions';
+import atmospherics from './atmospherics';
+import conversions from './conversions';
 import INGALS from './ingals.data';
 
 const drag = {

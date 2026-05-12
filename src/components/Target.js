@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './form.css'
 
-import conversions from 'pg-conversions';
+import conversions from './../utils/conversions';
 
 const Target = ({targetData, onSubmit}) => {
     const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMPH} = targetData;
