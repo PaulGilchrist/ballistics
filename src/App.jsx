@@ -344,12 +344,7 @@ const App = () => {
         const pdfBlobUrl = URL.createObjectURL(pdfBlob);
         pdfBlobRef = pdfBlob; // keep a reference to prevent GC
         const x = window.open();
-        x.document.write('<!DOCTYPE html><html><head><title>Range Chart</title></head><body><embed width="100%" height="100%"></body></html>');
-        x.document.close();
-        const embed = x.document.querySelector('embed');
-        if (embed) {
-            embed.setAttribute('src', pdfBlobUrl);
-        }
+        x.location.href = pdfBlobUrl;
     }
     const handleRoundOnAdd = (firearms, firearmId) => {
         selectRound(firearms, firearmId, 'Add');
