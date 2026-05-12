@@ -36,15 +36,14 @@ const App = () => {
     // Get watched data
     const [graphType, setGraphType] = useState('line');
     // Firearms Array
-    let initialfirearms = null;
-    const firearmsJson = localStorage.getItem('firearms');
-    if (firearmsJson) {
-        initialfirearms = utilities.jsonParseNumbers(firearmsJson);
-    } else {
-        initialfirearms = FIREARMS;
-        localStorage.setItem('firearms', JSON.stringify(initialfirearms));
-    }
-    const [firearms, setFirearms] = useState(initialfirearms);
+    const [firearms, setFirearms] = useState(() => {
+        const firearmsJson = localStorage.getItem('firearms');
+        if (firearmsJson) {
+            return utilities.jsonParseNumbers(firearmsJson);
+        }
+        localStorage.setItem('firearms', JSON.stringify(FIREARMS));
+        return FIREARMS;
+    });
     const deleteFirearm = (firearms, firearmId) => {
         const filtered = firearms.filter(f => f.id !== firearmId);
         if (filtered.length !== firearms.length) {
@@ -120,12 +119,12 @@ const App = () => {
         }
     }
     // Target Data
-    let initialTarget = null;
-    const targetJson = localStorage.getItem('target');
-    if(targetJson) {
-        initialTarget = utilities.jsonParseNumbers(targetJson);
-    } else {
-        initialTarget = {
+    const [target, setTarget] = useState(() => {
+        const targetJson = localStorage.getItem('target');
+        if (targetJson) {
+            return utilities.jsonParseNumbers(targetJson);
+        }
+        const defaults = {
             chartStepping: 50,
             distance: 1000,
             distanceUnits: 'Yards', // Yards or Meters
@@ -134,20 +133,20 @@ const App = () => {
             slantDegrees: 45,
             speedMPH: 3
         };
-        localStorage.setItem('target', JSON.stringify(initialTarget));
-    }
-    const [target, setTarget] = useState(initialTarget);
+        localStorage.setItem('target', JSON.stringify(defaults));
+        return defaults;
+    });
     const updateTarget = (target) => {
         setTarget(target);
         localStorage.setItem('target', JSON.stringify(target));
     }
     // Weather Data
-    let initialWeather = null;
-    const weatherJson = localStorage.getItem('weather');
-    if(weatherJson) {
-        initialWeather = utilities.jsonParseNumbers(weatherJson);
-    } else {
-        initialWeather = {
+    const [weather, setWeather] = useState(() => {
+        const weatherJson = localStorage.getItem('weather');
+        if (weatherJson) {
+            return utilities.jsonParseNumbers(weatherJson);
+        }
+        const defaults = {
             altitudeFeet: 0,
             temperatureDegreesFahrenheit: 59,
             barometricPressureInchesHg: 29.53,
@@ -155,9 +154,9 @@ const App = () => {
             windVelocityMPH: 10,
             windAngleDegrees: 90
         };
-        localStorage.setItem('weather', JSON.stringify(initialWeather));
-    }
-    const [weather, setWeather] = useState(initialWeather);
+        localStorage.setItem('weather', JSON.stringify(defaults));
+        return defaults;
+    });
     const updateWeather = (weather) => {
         setWeather(weather);
         localStorage.setItem('weather', JSON.stringify(weather));
