@@ -337,7 +337,7 @@ const App = () => {
     const handleOnPrintChart = (firearm, round) => {
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center' });
-        pdf.autoTable({ html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
+        autoTable(pdf, { html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
         const pdfString = pdf.output('datauristring');
         const embed = `<embed width='100%' height='100%' src='${pdfString}'/>`;
         const x = window.open();
