@@ -338,10 +338,14 @@ const App = () => {
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.text([`Range Chart - Firearm (${firearm.name}) - Round (${round.name})`, ``], 104, 10, { align: 'center' });
         autoTable(pdf, { html: '#ballisticsTable', margin: 1, startY: 20, styles: { fontSize: 9, cellPadding: 1 } });
-        const pdfBlobUrl = pdf.output('bloburl');
+        const pdfDataUrl = pdf.output('dataurl');
         const x = window.open();
-        x.document.write(`<!DOCTYPE html><html><head><title>Range Chart</title></head><body><embed width="100%" height="100%" src="${pdfBlobUrl}"/></body></html>`);
+        x.document.write('<!DOCTYPE html><html><head><title>Range Chart</title></head><body><embed width="100%" height="100%"></body></html>');
         x.document.close();
+        const embed = x.document.querySelector('embed');
+        if (embed) {
+            embed.setAttribute('src', pdfDataUrl);
+        }
         // pdf.save(`Range Chart - Firearm (${firearm.name}) - Round (${round.name}).pdf`);
     }
     const handleRoundOnAdd = (firearms, firearmId) => {
