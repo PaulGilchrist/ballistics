@@ -68,7 +68,7 @@ const App = () => {
     const insertFirearm = (firearms, firearm) => {
         if (firearm.id === 'Add') {
             // Make sure it does not already exist
-            if (firearms.find((f) => f.name === firearm.name) === undefined) {
+            if (!firearms.find((f) => f.name === firearm.name)) {
                 const newFirearm = { ...firearm, id: utilities.guid(), rounds: [] };
                 const sortedFirearms = [...firearms, newFirearm].sort((a, b) => a.name.localeCompare(b.name));
                 updateFirearms(sortedFirearms);
@@ -79,7 +79,7 @@ const App = () => {
         if (round.id === 'Add') {
             const newFirearms = firearms.map(firearm => {
                 if (firearm.id === firearmId) {
-                    if (firearm.rounds.find((r) => r.name === round.name) === undefined) {
+                    if (!firearm.rounds.find((r) => r.name === round.name)) {
                         const newRound = { ...round, id: utilities.guid() };
                         const newRounds = [...firearm.rounds, newRound].sort((a, b) => a.name.localeCompare(b.name));
                         return { ...firearm, rounds: newRounds };
@@ -283,7 +283,7 @@ const App = () => {
     }
     const handleFirearmOnDelete = (firearms, firearm) => {
         if (window.confirm(`Are you sure you want to delete "${firearm.name}"?`)) {
-            if (firearms.find((f) => f.id === firearm.id) !== undefined) {
+            if (firearms.find((f) => f.id === firearm.id)) {
                 selectRound(null, null, null);
                 selectFirearm(null, null);
                 deleteFirearm(firearms, firearm.id);
@@ -304,7 +304,7 @@ const App = () => {
     const handleFirearmOnSubmit = (firearms, firearm) => {
         // Find by name rather than id to ensure the name remains unique
         if (firearm.id === 'Add') {
-            if (firearms.find((f) => f.name === firearm.name) === undefined) {
+            if (!firearms.find((f) => f.name === firearm.name)) {
                 insertFirearm(firearms, firearm);
                 selectFirearm(firearms, firearm.id);
                 toast.success(`Firearm Added`, {
@@ -364,7 +364,7 @@ const App = () => {
                     draggable: true
                 });
             } else {
-                if (firearms[firearmIndex].rounds.find((r) => r.id === round.id) !== undefined) {
+                if (firearms[firearmIndex].rounds.find((r) => r.id === round.id)) {
                     if (roundId === round.id) {
                         selectRound(firearms, firearmId, null);
                     }
@@ -398,7 +398,7 @@ const App = () => {
         } else {
             // Find by name rather than id to ensure the name remains unique
             if (round.id === 'Add') {
-                if (firearms[firearmIndex].rounds.find((r) => r.name === round.name) === undefined) {
+                if (!firearms[firearmIndex].rounds.find((r) => r.name === round.name)) {
                     insertRound(firearms, firearmId, round);
                     selectRound(firearms, firearmId, round.id);
                     toast.success(`Firearm Added`, {
