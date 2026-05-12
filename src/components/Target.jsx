@@ -4,6 +4,7 @@ import './form.css'
 
 import config from '../config';
 import conversions from './../utils/conversions';
+import FormField from './FormField';
 
 const Target = ({targetData, onSubmit}) => {
     const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMPH} = targetData;
@@ -25,32 +26,22 @@ const Target = ({targetData, onSubmit}) => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body`}>
-                        <div className="form-group">
-                            <label
-                                className="control-label"
-                                htmlFor="distance"
-                                data-toggle="tooltip"
-                                title="Distance measured from the muzzle to the target."
-                            >
-                                Distance
-                            </label>
-                            <div className="input-group margin-bottom-sm">
-                                <span className="input-group-text"><i className="fa fa-bullseye fa-fw"></i></span>
-                                <input
-                                    className="form-control"
-                                    defaultValue={distance}
-                                    max={config.VALIDATION_LIMITS.TARGET.DISTANCE.max}
-                                    min={config.VALIDATION_LIMITS.TARGET.DISTANCE.min}
-                                    onBlur={() => setValue('sizeMils', '')}
-                                    placeholder="Distance"
-                                    {...register("distance", {
-                                        max: { value: config.VALIDATION_LIMITS.TARGET.DISTANCE.max, message: "Distance has a maximum value of 5000" },
-                                        min: { value: config.VALIDATION_LIMITS.TARGET.DISTANCE.min, message: "Distance has a minimum value of 0" },
-                                        required: "Distance is required to determine how far out to calculate ballistics data"
-                                    })}
-                                    required
-                                    type="number"
-                                />
+                        <FormField
+                            name="distance"
+                            label="Distance"
+                            icon="fa fa-bullseye fa-fw"
+                            type="number"
+                            defaultValue={distance}
+                            placeholder="Distance"
+                            tooltip="Distance measured from the muzzle to the target."
+                            rules={{
+                                max: { value: config.VALIDATION_LIMITS.TARGET.DISTANCE.max, message: "Distance has a maximum value of 5000" },
+                                min: { value: config.VALIDATION_LIMITS.TARGET.DISTANCE.min, message: "Distance has a minimum value of 0" },
+                                required: "Distance is required to determine how far out to calculate ballistics data"
+                            }}
+                            required
+                            onBlur={() => setValue('sizeMils', '')}
+                            rightElement={
                                 <select
                                     className="form-control"
                                     defaultValue={distanceUnits}
@@ -61,165 +52,101 @@ const Target = ({targetData, onSubmit}) => {
                                     <option value='Yards'>Yards</option>
                                     <option value='Meters'>Meters</option>
                                 </select>
-                            </div>
-                            {errors.distance && errors.distance.message ?
-                                <div className="alert alert-danger">
-                                    {errors.distance.message}
-                                </div>
-                                : null
                             }
-                        </div>
-                        <div className="form-group">
-                            <label
-                                className="control-label"
-                                htmlFor="sizeInches"
-                                data-toggle="tooltip"
-                                title="The size of the target in inches (optional).  Used in combination with the size of the target in Mils to determine the distance."
-                            >
-                                Size (Inches / Mils) - optional
-                            </label>
-                            <div className="input-group margin-bottom-sm">
-                                <span className="input-group-text"><i className="fa fa-ellipsis-v fa-fw"></i></span>
-                                <input
-                                    className="form-control"
-                                    defaultValue={sizeInches}
-                                    max={config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.max}
-                                    min={config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.min}
-                                    placeholder="Size (inches)"
-                                    onBlur={async () => setDistance()}
-                                    {...register("sizeInches", {
-                                        max: { value: config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.max, message: "Size (inches) has a maximum value of 120" },
-                                        min: { value: config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.min, message: "Size (inches) has a minimum value of 1" },
-                                    })}
-                                    type="number"
-                                />
-                                <input
-                                    className="form-control"
-                                    defaultValue={sizeMils}
-                                    max={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max}
-                                    min={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min}
-                                    onBlur={() => setDistance()}
-                                    placeholder="Size (mils)"
-                                    {...register("sizeMils", {
-                                        max: { value: config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max, message: "Size (mils) has a maximum value of 100" },
-                                        min: { value: config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min, message: "Size (mils) has a minimum value of 0.1" },
-                                    })}
-                                    step="0.1"
-                                    type="number"
-                                />
-                            </div>
-                            {errors.sizeInches && errors.sizeInches.message ?
-                                <div className="alert alert-danger">
-                                    {errors.sizeInches.message}
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
+                            name="sizeInches"
+                            label="Size (Inches / Mils) - optional"
+                            icon="fa fa-ellipsis-v fa-fw"
+                            type="number"
+                            defaultValue={sizeInches}
+                            placeholder="Size (inches)"
+                            tooltip="The size of the target in inches (optional).  Used in combination with the size of the target in Mils to determine the distance."
+                            rules={{
+                                max: { value: config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.max, message: "Size (inches) has a maximum value of 120" },
+                                min: { value: config.VALIDATION_LIMITS.TARGET.SIZE_INCHES.min, message: "Size (inches) has a minimum value of 1" },
+                            }}
+                            onBlur={async () => setDistance()}
+                            rightElement={
+                                <div>
+                                    <input
+                                        className="form-control"
+                                        defaultValue={sizeMils}
+                                        max={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max}
+                                        min={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min}
+                                        onBlur={() => setDistance()}
+                                        placeholder="Size (mils)"
+                                        {...register("sizeMils", {
+                                            max: { value: config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max, message: "Size (mils) has a maximum value of 100" },
+                                            min: { value: config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min, message: "Size (mils) has a minimum value of 0.1" },
+                                        })}
+                                        step="0.1"
+                                        type="number"
+                                    />
+                                    {errors.sizeMils && errors.sizeMils.message ?
+                                        <div className="alert alert-danger">
+                                            {errors.sizeMils.message}
+                                        </div>
+                                        : null
+                                    }
                                 </div>
-                                : null
                             }
-                            {errors.sizeMils && errors.sizeMils.message ?
-                                <div className="alert alert-danger">
-                                    {errors.sizeMils.message}
-                                </div>
-                                : null
-                            }
-                        </div>
-                        <div className="form-group">
-                            <label
-                                className="control-label"
-                                htmlFor="chartStepping"
-                                data-toggle="tooltip"
-                                title="Chart stepping is required to determine how many rows to calculate."
-                            >
-                                Chart Stepping (yards)
-                            </label>
-                            <div className="input-group margin-bottom-sm">
-                                <span className="input-group-text"><i className="fa fa-bars fa-fw"></i></span>
-                                <input
-                                    className="form-control"
-                                    defaultValue={chartStepping}
-                                    max={config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.max}
-                                    min={config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.min}
-                                    placeholder="Chart Stepping (yards)"
-                                    {...register("chartStepping", {
-                                        max: { value: config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.max, message: "Chart Stepping has a maximum value of 500" },
-                                        min: { value: config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.min, message: "Chart Stepping has a minimum value of 1" },
-                                        required: "Chart Stepping is required to determine how many rows to calculate"
-                                    })}
-                                    required
-                                    type="number"
-                                />
-                            </div>
-                            {errors.chartStepping && errors.chartStepping.message ?
-                                <div className="alert alert-danger">
-                                    {errors.chartStepping.message}
-                                </div>
-                                : null
-                            }
-                        </div>
-                        <div className="form-group">
-                            <label
-                                className="control-label"
-                                htmlFor="slantDegrees"
-                                data-toggle="tooltip"
-                                title="The angle versus horizontal as measured between the muzzle and target.  Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
-                            >
-                                Slant (degrees)
-                            </label>
-                            <div className="input-group margin-bottom-sm">
-                                <span className="input-group-text"><i className="fa fa-location-arrow fa-fw"></i></span>
-                                <input
-                                    className="form-control"
-                                    defaultValue={slantDegrees}
-                                    max={config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.max}
-                                    min={config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.min}
-                                    placeholder="Slant (degrees)"
-                                    {...register("slantDegrees", {
-                                        max: { value: config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.max, message: "Slant has a maximum value of 500" },
-                                        min: { value: config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.min, message: "Slant has a minimum value of 10" },
-                                        required: "Slant is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
-                                    })}
-                                    required
-                                    type="number"
-                                />
-                            </div>
-                            {errors.slantDegrees && errors.slantDegrees.message ?
-                                <div className="alert alert-danger">
-                                    {errors.slantDegrees.message}
-                                </div>
-                                : null
-                            }
-                        </div>
-                        <div className="form-group">
-                            <label
-                                className="control-label"
-                                htmlFor="speedMPH"
-                                data-toggle="tooltip"
-                                title="The speed the target is moving perpendicular to the line between the muzzle and target.  Target speed is required to determine horizontal lead hold or scope adjustments needed."
-                            >
-                                Speed (MPH)
-                            </label>
-                            <div className="input-group margin-bottom-sm">
-                                <span className="input-group-text"><i className="fa fa-car fa-fw"></i></span>
-                                <input
-                                    className="form-control"
-                                    defaultValue={speedMPH}
-                                    max={config.VALIDATION_LIMITS.TARGET.SPEED_MPH.max}
-                                    min={config.VALIDATION_LIMITS.TARGET.SPEED_MPH.min}
-                                    placeholder="Speed (MPH)"
-                                    {...register("speedMPH", {
-                                        max: { value: config.VALIDATION_LIMITS.TARGET.SPEED_MPH.max, message: "Speed has a maximum value of 500" },
-                                        min: { value: config.VALIDATION_LIMITS.TARGET.SPEED_MPH.min, message: "Speed has a minimum value of 1" },
-                                        required: "Target speed is required to determine horizontal lead hold or scope adjustments needed."
-                                    })}
-                                    required
-                                    type="number"
-                                />
-                            </div>
-                            {errors.speedMPH && errors.speedMPH.message ?
-                                <div className="alert alert-danger">
-                                    {errors.speedMPH.message}
-                                </div>
-                                : null
-                            }
-                        </div>
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
+                            name="chartStepping"
+                            label="Chart Stepping (yards)"
+                            icon="fa fa-bars fa-fw"
+                            type="number"
+                            defaultValue={chartStepping}
+                            placeholder="Chart Stepping (yards)"
+                            tooltip="Chart stepping is required to determine how many rows to calculate."
+                            rules={{
+                                max: { value: config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.max, message: "Chart Stepping has a maximum value of 500" },
+                                min: { value: config.VALIDATION_LIMITS.TARGET.CHART_STEPPING.min, message: "Chart Stepping has a minimum value of 1" },
+                                required: "Chart Stepping is required to determine how many rows to calculate"
+                            }}
+                            required
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
+                            name="slantDegrees"
+                            label="Slant (degrees)"
+                            icon="fa fa-location-arrow fa-fw"
+                            type="number"
+                            defaultValue={slantDegrees}
+                            placeholder="Slant (degrees)"
+                            tooltip="The angle versus horizontal as measured between the muzzle and target.  Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
+                            rules={{
+                                max: { value: config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.max, message: "Slant has a maximum value of 500" },
+                                min: { value: config.VALIDATION_LIMITS.TARGET.SLANT_DEGREES.min, message: "Slant has a minimum value of 10" },
+                                required: "Slant is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
+                            }}
+                            required
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
+                            name="speedMPH"
+                            label="Speed (MPH)"
+                            icon="fa fa-car fa-fw"
+                            type="number"
+                            defaultValue={speedMPH}
+                            placeholder="Speed (MPH)"
+                            tooltip="The speed the target is moving perpendicular to the line between the muzzle and target.  Target speed is required to determine horizontal lead hold or scope adjustments needed."
+                            rules={{
+                                max: { value: config.VALIDATION_LIMITS.TARGET.SPEED_MPH.max, message: "Speed has a maximum value of 500" },
+                                min: { value: config.VALIDATION_LIMITS.TARGET.SPEED_MPH.min, message: "Speed has a minimum value of 1" },
+                                required: "Target speed is required to determine horizontal lead hold or scope adjustments needed."
+                            }}
+                            required
+                            register={register}
+                            errors={errors}
+                        />
                     </div>
                     <div className={`card-footer`}>
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
