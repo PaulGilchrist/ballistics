@@ -46,57 +46,58 @@ const App = () => {
     }
     const [firearms, setFirearms] = useState(initialfirearms);
     const deleteFirearm = (firearms, firearmId) => {
-        const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
-        if (firearmIndex !== -1) {
-            firearms.splice(firearmIndex, 1)
-            updateFirearms(firearms);
+        const filtered = firearms.filter(f => f.id !== firearmId);
+        if (filtered.length !== firearms.length) {
+            updateFirearms(filtered);
         }
     }
     const deleteRound = (firearms, firearmId, roundId) => {
-        const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
-        if (firearmIndex !== -1) {
-            const roundIndex = firearms[firearmIndex].rounds.findIndex((r) => r.id === roundId);
-            if (roundIndex !== -1) {
-                firearms[firearmIndex].rounds.splice(roundIndex, 1);
-                updateFirearms(firearms);
+        const newFirearms = firearms.map(firearm => {
+            if (firearm.id === firearmId) {
+                const filteredRounds = firearm.rounds.filter(r => r.id !== roundId);
+                if (filteredRounds.length !== firearm.rounds.length) {
+                    return { ...firearm, rounds: filteredRounds };
+                }
             }
+            return firearm;
+        });
+        if (newFirearms !== firearms) {
+            updateFirearms(newFirearms);
         }
     }
     const insertFirearm = (firearms, firearm) => {
         if (firearm.id === 'Add') {
             // Make sure it does not already exist
-            let firearmIndex = firearms.findIndex((f) => f.name === firearm.name);
-            if (firearmIndex === -1) {
-                firearm.id = utilities.guid();
-                firearm.rounds = [];
-                firearms.push(firearm);
-                utilities.sort(firearms, 'name');
-                updateFirearms(firearms);
-           }
+            if (firearms.find((f) => f.name === firearm.name) === undefined) {
+                const newFirearm = { ...firearm, id: utilities.guid(), rounds: [] };
+                const sortedFirearms = [...firearms, newFirearm].sort((a, b) => a.name.localeCompare(b.name));
+                updateFirearms(sortedFirearms);
+            }
         }
     }
     const insertRound = (firearms, firearmId, round) => {
-        const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
-        if (firearmIndex !== -1) {
-            if (round.id === 'Add') {
-                // Make sure it does not already exist
-                let roundIndex = firearms[firearmIndex].rounds.findIndex((r) => r.name === round.name);
-                if (roundIndex === -1) {
-                    round.id = utilities.guid();
-                    firearms[firearmIndex].rounds.push(round);
-                    utilities.sort(firearms[firearmIndex].rounds, 'name');
-                    updateFirearms(firearms);
+        if (round.id === 'Add') {
+            const newFirearms = firearms.map(firearm => {
+                if (firearm.id === firearmId) {
+                    if (firearm.rounds.find((r) => r.name === round.name) === undefined) {
+                        const newRound = { ...round, id: utilities.guid() };
+                        const newRounds = [...firearm.rounds, newRound].sort((a, b) => a.name.localeCompare(b.name));
+                        return { ...firearm, rounds: newRounds };
+                    }
                 }
+                return firearm;
+            });
+            if (newFirearms !== firearms) {
+                updateFirearms(newFirearms);
             }
         }
     }
     const updateFirearm = (firearms, firearm) => {
-        const firearmIndex = firearms.findIndex((f) => f.id === firearm.id);
-        if (firearmIndex !== -1) {
-            // Do not update the rounds
-            firearm.rounds = firearms[firearmIndex].rounds;
-            firearms[firearmIndex] = firearm;
-            updateFirearms(firearms);
+        const existingFirearm = firearms.find(f => f.id === firearm.id);
+        if (existingFirearm) {
+            const updatedFirearm = { ...firearm, rounds: existingFirearm.rounds };
+            const newFirearms = firearms.map(f => f.id === firearm.id ? updatedFirearm : f);
+            updateFirearms(newFirearms);
         }
     }
     const updateFirearms = (firearms) => {
@@ -104,14 +105,18 @@ const App = () => {
         localStorage.setItem('firearms', JSON.stringify(firearms));
     }
     const updateRound = (firearms, firearmId, round) => {
-        console.log(round);
-        const firearmIndex = firearms.findIndex((f) => f.id === firearmId);
-        if (firearmIndex !== -1) {
-            let roundIndex = firearms[firearmIndex].rounds.findIndex((r) => r.id === round.id);
-            if (roundIndex !== -1) {
-                firearms[firearmIndex].rounds[roundIndex] = round;
-                updateFirearms(firearms);
+        const newFirearms = firearms.map(firearm => {
+            if (firearm.id === firearmId) {
+                const existingRound = firearm.rounds.find(r => r.id === round.id);
+                if (existingRound) {
+                    const newRounds = firearm.rounds.map(r => r.id === round.id ? round : r);
+                    return { ...firearm, rounds: newRounds };
+                }
             }
+            return firearm;
+        });
+        if (newFirearms !== firearms) {
+            updateFirearms(newFirearms);
         }
     }
     // Target Data
