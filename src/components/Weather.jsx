@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 import config from '../config';
+import weatherApi from '../utils/weather-api';
 import './form.css'
 import FormField from './FormField';
 
 const Weather = ({weatherData, onSubmit}) => {
     const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMph, windAngleDegrees } = weatherData;
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: weatherData });
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: weatherData });
+    const [isFetching, setIsFetching] = useState(false);
+
+    const handleGetLocalWeather = () => {
+        setIsFetching(true);
+        weatherApi.getLocalWeather()
+            .then((data) => {
+                const updatedWeather = {
+                    ...weatherData,
+                    altitudeFeet: data.altitudeFeet ?? altitudeFeet,
+                    temperatureDegreesFahrenheit: data.temperatureDegreesFahrenheit,
+                    barometricPressureInchesHg: data.barometricPressureInchesHg,
+                    relativeHumidityPercent: data.relativeHumidityPercent,
+                    windVelocityMph: data.windVelocityMph
+                };
+                onSubmit(updatedWeather);
+                reset(updatedWeather);
+                toast.success('Local weather data loaded', config.TOAST_OPTIONS);
+            })
+            .catch((error) => {
+                toast.error(error.message, config.TOAST_OPTIONS);
+            })
+            .finally(() => {
+                setIsFetching(false);
+            });
+    };
+
     return (
         <div className="bal-form">
             <div className="card weather">
@@ -120,6 +148,9 @@ const Weather = ({weatherData, onSubmit}) => {
                         />
                     </div>
                     <div className="card-footer">
+                        <button className="btn btn-info" type="button" onClick={handleGetLocalWeather} disabled={isFetching}>
+                            {isFetching ? <><i className="fa fa-spinner fa-spin"></i> Loading...</> : <><i className="fa fa-map-marker"></i> Get Local Weather</>}
+                        </button>&nbsp;
                         <button className="btn btn-success" type="submit"><span className="fa fa-check"></span> Save</button>&nbsp;
                     </div>
                 </form>
