@@ -220,7 +220,8 @@ const App = () => {
                     name: '',
                     bulletDiameterInches: null,
                     bulletWeightGrains: null,
-                    muzzleVelocityFPS: null
+                    muzzleVelocityFPS: null,
+                    dragModel: 'G1'
                 }
             } else if (firearm.rounds && firearm.rounds.length > 0) {
                 round = firearm.rounds.find((r) => r.id === roundId);

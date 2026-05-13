@@ -20,6 +20,7 @@ No download. No install. No account. Just open the page and go.
 - **Full firearm & ammunition management** — Create, edit, and delete firearms and rounds. Comes pre-loaded with 8 firearms (Ruger 10/22, AR10, AR15 in 3 barrel lengths, LTR/AICS, and "Other") and 20 rounds total.
 - **Customizable scope settings** — Set sight height, zero range, reticle units (Mil, MoA, IPHY), and turret gradients to match your setup.
 - **Weather conditions** — Factor in altitude, temperature, barometric pressure, relative humidity, wind velocity, and wind angle.
+- **Dual drag models (G1 & G7)** — Choose the drag function that best matches your bullet. G1 is the classic standard for spitzer bullets; G7 is more accurate for modern, low-drag boat-tail projectiles.
 - **Long-range accuracy** — Spin drift and Coriolis effect calculations for extreme long-range shooting (>800 yards).
 - **Target parameters** — Set target distance (yards or meters), target speed, and slant angle for uphill and downhill shots.
 - **Range chart export** — Export your range chart as a CSV file (via PapaParse) or print it as a PDF (via jsPDF).
@@ -31,7 +32,7 @@ No download. No install. No account. Just open the page and go.
 ## How It Works
 
 1. **Select a firearm** — Pick from your saved firearms or create a new one.
-2. **Select a round** — Choose the ammunition loaded in the chamber.
+2. **Select a round** — Choose the ammunition loaded in the chamber and select the drag model (G1 or G7) that best matches the bullet's shape.
 3. **Adjust conditions** — Set your scope zero, weather, and target parameters.
 4. **View the range chart** — Get a complete trajectory breakdown at each incremental distance, with transonic and subsonic zones color-coded for quick reference.
 
@@ -77,7 +78,7 @@ The app will be available at `http://localhost:5173`.
 - **Bootstrap 5** — Responsive layout and components
 - **PapaParse** — CSV export
 - **jsPDF** — PDF print export
-- **Ingals standard atmosphere drag model** — Trajectory calculations with atmospheric density adjustments for altitude, temperature, pressure, and humidity
+- **G1 (Ingals) & G7 (Litz/BRL) drag models** — Trajectory calculations with atmospheric density adjustments for altitude, temperature, pressure, and humidity. Choose the drag function that best matches your bullet's shape.
 - **Spin drift & Coriolis models** — Gyroscopic spin drift and Earth rotation effects for extreme long-range accuracy
 
 ## License

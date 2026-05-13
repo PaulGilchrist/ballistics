@@ -17,7 +17,8 @@ const FIREARMS = [
                 "bulletBC": 0.114,
                 "bulletDiameterInches": 0.22,
                 "bulletWeightGrains": 36,
-                "muzzleVelocityFPS": 1260
+                "muzzleVelocityFPS": 1260,
+                "dragModel": "G1"
             }
         ]
     },
@@ -39,7 +40,8 @@ const FIREARMS = [
                 "bulletBC": 0.462,
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 168,
-                "muzzleVelocityFPS": 2650
+                "muzzleVelocityFPS": 2650,
+                "dragModel": "G1"
             },
             {
                 "id": "0dadbe8f-599e-4fce-8a1f-0e273e5ab535",
@@ -47,7 +49,8 @@ const FIREARMS = [
                 "bulletBC": 0.496,
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 175,
-                "muzzleVelocityFPS": 2518
+                "muzzleVelocityFPS": 2518,
+                "dragModel": "G1"
             }
         ]
     },
@@ -69,7 +72,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 190,
                 "muzzleVelocityFPS": 1000,
-                "bulletBC": 0.654
+                "bulletBC": 0.654,
+                "dragModel": "G1"
             },
             {
                 "id": "6a5cd5b6-c687-4bbe-92e8-99ec38a78b4d",
@@ -77,7 +81,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 110,
                 "muzzleVelocityFPS": 2200,
-                "bulletBC": 0.29
+                "bulletBC": 0.29,
+                "dragModel": "G1"
             }
         ]
     },
@@ -99,7 +104,8 @@ const FIREARMS = [
                 "bulletDiameterInches": "0.224",
                 "bulletWeightGrains": "77",
                 "muzzleVelocityFPS": "2364",
-                "bulletBC": "0.372"
+                "bulletBC": "0.372",
+                "dragModel": "G1"
             },
             {
                 "id": "c4933c0e-2fdf-4fd5-a390-1be968c215cb",
@@ -107,7 +113,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.224,
                 "bulletWeightGrains": 75,
                 "muzzleVelocityFPS": 2425,
-                "bulletBC": 0.354
+                "bulletBC": 0.354,
+                "dragModel": "G1"
             }
         ]
     },
@@ -129,7 +136,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.224,
                 "bulletWeightGrains": 77,
                 "muzzleVelocityFPS": 2486,
-                "bulletBC": 0.372
+                "bulletBC": 0.372,
+                "dragModel": "G1"
             },
             {
                 "id": "8e07274d-2489-4fc5-893e-97831a395c06",
@@ -137,7 +145,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.224,
                 "bulletWeightGrains": 75,
                 "muzzleVelocityFPS": 2657,
-                "bulletBC": 0.354
+                "bulletBC": 0.354,
+                "dragModel": "G1"
             }
         ]
     },
@@ -159,7 +168,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.224,
                 "bulletWeightGrains": 77,
                 "muzzleVelocityFPS": 2650,
-                "bulletBC": 0.372
+                "bulletBC": 0.372,
+                "dragModel": "G1"
             },
             {
                 "id": "1f3303a9-8bd9-4e0b-bc4b-002073c2edf8",
@@ -167,7 +177,8 @@ const FIREARMS = [
                 "bulletBC": 0.372,
                 "bulletDiameterInches": 0.224,
                 "bulletWeightGrains": 77,
-                "muzzleVelocityFPS": 2760
+                "muzzleVelocityFPS": 2760,
+                "dragModel": "G1"
             },
             {
                 "id": "98949310-8370-4807-af7a-16711831d7d7",
@@ -175,7 +186,8 @@ const FIREARMS = [
                 "bulletBC": 0.354,
                 "bulletDiameterInches": 0.224,
                 "bulletWeightGrains": 75,
-                "muzzleVelocityFPS": 2821
+                "muzzleVelocityFPS": 2821,
+                "dragModel": "G1"
             }
         ]
     },
@@ -197,7 +209,8 @@ const FIREARMS = [
                 "bulletDiameterInches": "0.243",
                 "bulletWeightGrains": "103",
                 "muzzleVelocityFPS": "2550",
-                "bulletBC": "0.512"
+                "bulletBC": "0.512",
+                "dragModel": "G1"
             },
             {
                 "id": "398f5e50-9491-4f83-bf0a-2ee14215a999",
@@ -205,7 +218,8 @@ const FIREARMS = [
                 "bulletDiameterInches": "0.243",
                 "bulletWeightGrains": "105",
                 "muzzleVelocityFPS": "2550",
-                "bulletBC": "0.530"
+                "bulletBC": "0.530",
+                "dragModel": "G1"
             }
         ]
     },
@@ -227,7 +241,8 @@ const FIREARMS = [
                 "bulletBC": 0.462,
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 168,
-                "muzzleVelocityFPS": 2524
+                "muzzleVelocityFPS": 2524,
+                "dragModel": "G1"
             },
             {
                 "id": "f0f811c2-238e-43b9-bc52-4c9a4447d74e",
@@ -235,7 +250,8 @@ const FIREARMS = [
                 "bulletBC": 0.496,
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 175,
-                "muzzleVelocityFPS": 2518
+                "muzzleVelocityFPS": 2518,
+                "dragModel": "G1"
             }
         ]
     },
@@ -257,7 +273,8 @@ const FIREARMS = [
                 "bulletBC": 0.218,
                 "bulletDiameterInches": 0.308,
                 "bulletWeightGrains": 150,
-                "muzzleVelocityFPS": 2290
+                "muzzleVelocityFPS": 2290,
+                "dragModel": "G1"
             },
             {
                 "id": "f1028fdd-c82f-4f78-bfd7-bee52d796b9a",
@@ -265,7 +282,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.243,
                 "bulletWeightGrains": 103,
                 "muzzleVelocityFPS": 2950,
-                "bulletBC": 0.512
+                "bulletBC": 0.512,
+                "dragModel": "G1"
             },
             {
                 "id": "cfef1cfc-60b2-43ec-9828-8b1ac9322d32",
@@ -273,7 +291,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.264,
                 "bulletWeightGrains": 143,
                 "muzzleVelocityFPS": 2500,
-                "bulletBC": 0.625
+                "bulletBC": 0.625,
+                "dragModel": "G1"
             },
             {
                 "id": "de066d4e-1164-4233-99fc-72db1ccdae0e",
@@ -281,7 +300,8 @@ const FIREARMS = [
                 "bulletDiameterInches": 0.264,
                 "bulletWeightGrains": 123,
                 "muzzleVelocityFPS": 2495,
-                "bulletBC": 0.506
+                "bulletBC": 0.506,
+                "dragModel": "G1"
             },
             {
                 "id": "21386bc8-9b0e-4787-82e5-2f062b47e2c9",
@@ -289,7 +309,8 @@ const FIREARMS = [
                 "bulletBC": 0.149,
                 "bulletDiameterInches": 0.355,
                 "bulletWeightGrains": 124,
-                "muzzleVelocityFPS": 1120
+                "muzzleVelocityFPS": 1120,
+                "dragModel": "G1"
             }
         ]
     }

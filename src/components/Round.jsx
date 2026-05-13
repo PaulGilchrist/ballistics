@@ -5,7 +5,7 @@ import './form.css'
 import FormField from './FormField';
 
 const Round = ({round, onClose, onDelete, onSubmit}) => {
-    const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS } = round;
+    const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS, dragModel } = round;
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
     if(!round) {
         return null;
@@ -108,6 +108,17 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                                 min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.min, message: "Bullet ballistic coefficient has a minimum value of 0.010" },
                                 required: "Bullet ballistic coefficient is required, so wind resistance can be calculated properly."
                             }}
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
+                            name="dragModel"
+                            label="Drag Model"
+                            icon="fa fa-arrows-h fa-fw"
+                            type="select"
+                            defaultValue={dragModel || 'G1'}
+                            tooltip="G1 is standard for spitzer bullets; G7 is better for modern low-drag boat-tail bullets."
+                            options={['G1', 'G7']}
                             register={register}
                             errors={errors}
                         />
