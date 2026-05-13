@@ -90,3 +90,8 @@
         max-width: 1200px;
     }
 }
+
+/* Light theme: darken the transonic warning text for better contrast on white */
+[data-theme="light"] .bal-chart .text-warning {
+    color: #b38f00 !important;
+}
