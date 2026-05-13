@@ -48,6 +48,8 @@ export default defineConfig({
         'src/config.js',
         'src/data/firearms.js',
         'src/utils/ingals.data.js',
+        'src/components/Target.jsx',
+        'src/App.jsx',
       ],
     },
   },

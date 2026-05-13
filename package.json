@@ -15,7 +15,10 @@
         "build": "vite build",
         "lint": "eslint src/",
         "start": "vite",
-        "test": "vitest run"
+        "test": "vitest",
+        "test:run": "vitest run",
+        "test:watch": "vitest watch",
+        "test:coverage": "vitest run --coverage"
     },
     "version": "0.1.0",
     "dependencies": {
