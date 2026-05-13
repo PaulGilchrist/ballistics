@@ -9,7 +9,7 @@ const ballistics = {
             const currentBallisticCoefficient = drag.modifiedBallisticCoefficient(round.bulletBC, weather.altitudeFeet, weather.temperatureDegreesFahrenheit, weather.barometricPressureInchesHg, weather.relativeHumidityPercent);
             const zeroRangeYards = firearm.zeroRangeUnits==='Yards' ? firearm.zeroRange: conversions.metersToYards(firearm.zeroRange);
             const muzzleAngleDegrees = drag.muzzleAngleDegreesForZeroRange(round.muzzleVelocityFPS, zeroRangeYards, firearm.sightHeightInches, currentBallisticCoefficient);
-            let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches,  currentRangeMeters, currentRangeYards, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches;
+            let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches, currentRangeMeters, currentRangeYards, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches, currentSpinDriftInches, currentCoriolisDriftInches;
             // Skip the first row
             let currentRange = target.chartStepping;
             while (currentRange <= target.distance) {
@@ -23,6 +23,8 @@ const ballistics = {
                 // Cross Winds take on full range value regardless of Slant To Target
                 currentCrossWindDriftInches = drag.crossWindDrift(currentRangeYards, currentTimeSeconds, weather.windAngleDegrees, weather.windVelocityMph, muzzleAngleDegrees, round.muzzleVelocityFPS);
                 currentLeadInches = drag.lead(target.speedMph, currentTimeSeconds);
+                currentSpinDriftInches = drag.spinDrift(currentTimeSeconds, round.muzzleVelocityFPS, firearm.riflingTwistInches, currentBallisticCoefficient);
+                currentCoriolisDriftInches = drag.coriolisDrift(weather.latitudeDegrees, currentTimeSeconds, currentVelocityFPS, muzzleAngleDegrees);
                 const slantDropInches = currentDropInches * (1-Math.cos(conversions.degreesToRadians(target.slantDegrees)));
                 const range = {
                     rangeMeters: currentRangeMeters,
@@ -48,7 +50,15 @@ const ballistics = {
                     slantDropInches: slantDropInches,
                     slantMil: conversions.inchesToMil(slantDropInches, currentRangeYards),
                     slantMoA: conversions.inchesToMinutesOfAngle(slantDropInches, currentRangeYards),
-                    slantIPHY: conversions.inchesToIPHY(slantDropInches, currentRangeYards)
+                    slantIPHY: conversions.inchesToIPHY(slantDropInches, currentRangeYards),
+                    spinDriftInches: currentSpinDriftInches,
+                    spinDriftMil: conversions.inchesToMil(currentSpinDriftInches, currentRangeYards),
+                    spinDriftMoA: conversions.inchesToMinutesOfAngle(currentSpinDriftInches, currentRangeYards),
+                    spinDriftIPHY: conversions.inchesToIPHY(currentSpinDriftInches, currentRangeYards),
+                    coriolisDriftInches: currentCoriolisDriftInches,
+                    coriolisDriftMil: conversions.inchesToMil(currentCoriolisDriftInches, currentRangeYards),
+                    coriolisDriftMoA: conversions.inchesToMinutesOfAngle(currentCoriolisDriftInches, currentRangeYards),
+                    coriolisDriftIPHY: conversions.inchesToIPHY(currentCoriolisDriftInches, currentRangeYards)
                 };
                 rangeData.push(range);
                 currentRange += target.chartStepping;

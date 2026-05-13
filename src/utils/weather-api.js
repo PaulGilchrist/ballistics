@@ -34,6 +34,7 @@ const weatherApi = {
 
                             resolve({
                                 altitudeFeet: altitudeFeet, // null if GPS altitude unavailable
+                                latitudeDegrees: lat,
                                 temperatureDegreesFahrenheit: temperatureF,
                                 barometricPressureInchesHg: pressureHg,
                                 relativeHumidityPercent: humidity,

@@ -20,6 +20,7 @@ No download. No install. No account. Just open the page and go.
 - **Full firearm & ammunition management** — Create, edit, and delete firearms and rounds. Comes pre-loaded with 8 firearms (Ruger 10/22, AR10, AR15 in 3 barrel lengths, LTR/AICS, and "Other") and 20 rounds total.
 - **Customizable scope settings** — Set sight height, zero range, reticle units (Mil, MoA, IPHY), and turret gradients to match your setup.
 - **Weather conditions** — Factor in altitude, temperature, barometric pressure, relative humidity, wind velocity, and wind angle.
+- **Long-range accuracy** — Spin drift and Coriolis effect calculations for extreme long-range shooting (>800 yards).
 - **Target parameters** — Set target distance (yards or meters), target speed, and slant angle for uphill and downhill shots.
 - **Range chart export** — Export your range chart as a CSV file (via PapaParse) or print it as a PDF (via jsPDF).
 - **Data portability** — Import and export all your firearms, rounds, and settings as a single JSON file.
@@ -46,6 +47,8 @@ At each distance increment, the range chart displays:
 - **Cross-wind drift** — Lateral displacement, in inches, Mil, MoA, and IPHY
 - **Lead for moving targets** — How far ahead to aim, in inches, Mil, MoA, and IPHY
 - **Slant corrections** — Adjustments for uphill and downhill elevation changes
+- **Spin drift** — Lateral displacement caused by the bullet's gyroscopic spin, in inches, Mil, MoA, and IPHY
+- **Coriolis effect** — Lateral displacement caused by Earth's rotation, in inches, Mil, MoA, and IPHY
 
 Transonic and subsonic flight zones are highlighted with color coding so you can see exactly where your bullet transitions.
 
@@ -75,6 +78,7 @@ The app will be available at `http://localhost:5173`.
 - **PapaParse** — CSV export
 - **jsPDF** — PDF print export
 - **Ingals standard atmosphere drag model** — Trajectory calculations with atmospheric density adjustments for altitude, temperature, pressure, and humidity
+- **Spin drift & Coriolis models** — Gyroscopic spin drift and Earth rotation effects for extreme long-range accuracy
 
 ## License
 

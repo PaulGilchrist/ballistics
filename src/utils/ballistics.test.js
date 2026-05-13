@@ -11,6 +11,7 @@ const defaultWeather = {
   relativeHumidityPercent: 78,
   windAngleDegrees: 90,
   windVelocityMph: 10,
+  latitudeDegrees: 45,
 };
 
 const defaultTarget = {
@@ -25,6 +26,7 @@ const defaultFirearm = {
   sightHeightInches: 2.0,
   zeroRange: 100,
   zeroRangeUnits: 'Yards',
+  riflingTwistInches: 10,
 };
 
 const defaultRound = {
@@ -252,6 +254,14 @@ test('each entry contains all expected properties', () => {
     'slantMil',
     'slantMoA',
     'slantIPHY',
+    'spinDriftInches',
+    'spinDriftMil',
+    'spinDriftMoA',
+    'spinDriftIPHY',
+    'coriolisDriftInches',
+    'coriolisDriftMil',
+    'coriolisDriftMoA',
+    'coriolisDriftIPHY',
   ];
 
   for (const entry of result) {
@@ -276,6 +286,8 @@ test('all numeric properties are actual numbers', () => {
     'crossWindDriftMil', 'crossWindDriftMoA', 'crossWindDriftIPHY',
     'leadMil', 'leadMoA', 'leadIPHY',
     'slantDropInches', 'slantMil', 'slantMoA', 'slantIPHY',
+    'spinDriftInches', 'spinDriftMil', 'spinDriftMoA', 'spinDriftIPHY',
+    'coriolisDriftInches', 'coriolisDriftMil', 'coriolisDriftMoA', 'coriolisDriftIPHY',
   ];
 
   for (const entry of result) {

@@ -142,6 +142,7 @@ const config = {
       RELATIVE_HUMIDITY_PERCENT: 78,
       WIND_VELOCITY_MPH: 10,
       WIND_ANGLE_DEGREES: 90,
+      LATITUDE_DEGREES: 45,
     },
 
     // Default target parameters (from App.jsx target defaults).
@@ -149,7 +150,7 @@ const config = {
       CHART_STEPPING: 50,
       DISTANCE: 1000,
       DISTANCE_UNITS: 'Yards',
-      SIZE_INCHES: 40,
+      SIZE_INCHES: 28,
       SLANT_DEGREES: 45,
       SPEED_MPH: 3,
     },
@@ -157,6 +158,7 @@ const config = {
     // Default firearm settings (from App.jsx getFirearm 'Add' branch).
     FIREARM: {
       SIGHT_HEIGHT_INCHES: 2.0,
+      RIFLING_TWIST_INCHES: 10,
       ZERO_RANGE: 100,
       ZERO_RANGE_UNITS: 'Yards',
       RETICLE_UNITS: 'Mil',
@@ -178,6 +180,7 @@ const config = {
       RELATIVE_HUMIDITY_PERCENT: { min: 0, max: 100 },
       WIND_VELOCITY_MPH: { min: 0, max: 200 },
       WIND_ANGLE_DEGREES: { min: 0, max: 90 },
+      LATITUDE_DEGREES: { min: -90, max: 90 },
     },
 
     // Target form field constraints (from Target.jsx).
@@ -194,6 +197,7 @@ const config = {
     FIREARM: {
       NAME: { minLength: 3, maxLength: 50 },
       SIGHT_HEIGHT_INCHES: { min: 0.25, max: 5 },
+      RIFLING_TWIST_INCHES: { min: 6, max: 20 },
       ZERO_RANGE: { min: 10, max: 3000 },
     },
 

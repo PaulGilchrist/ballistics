@@ -200,6 +200,18 @@ const drag = {
     verticalPosition: (scopeHeightInches, muzzleAngleDegrees, currentRangeYards, currentDropInches) => {
         // Calculates how far the bullet falls (inches) due to gravity, taking into account the angle of the muzzle.
         return (currentDropInches+(currentRangeYards*config.PHYSICS.INCHES_PER_YARD)*Math.tan(conversions.degreesToRadians(muzzleAngleDegrees)))-scopeHeightInches;
+    },
+    spinDrift: (timeSeconds, muzzleVelocityFPS, riflingTwistInches, ballisticCoefficient) => {
+        // Calculates the lateral drift (inches) caused by the gyroscopic spin of the bullet.
+        const rpm = (muzzleVelocityFPS / riflingTwistInches) * 60;
+        return (timeSeconds * timeSeconds) * (rpm / 1000) * (1 / ballisticCoefficient) * 0.00012;
+    },
+    coriolisDrift: (latitudeDegrees, timeSeconds, currentVelocityFPS, muzzleAngleDegrees) => {
+        // Calculates the lateral drift (inches) caused by the Earth's rotation (Coriolis effect).
+        const omega = 0.000072921159;
+        const latitudeRadians = conversions.degreesToRadians(latitudeDegrees);
+        const coriolisDriftFeet = 2 * omega * currentVelocityFPS * timeSeconds * Math.sin(latitudeRadians);
+        return coriolisDriftFeet * config.PHYSICS.INCHES_PER_FOOT;
     }
 }
 

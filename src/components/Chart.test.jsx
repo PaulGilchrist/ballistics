@@ -7,8 +7,8 @@ import Chart from './Chart';
 
 const mockFirearm = {
   name: 'Test Rifle',
-  reticleUnits: 'Mil',
-  turretUnits: 'Mil',
+  reticleUnits: 'MoA',
+  turretUnits: 'MoA',
 };
 
 const mockRound = {
@@ -51,6 +51,14 @@ const mockRangeData = [
     slantMil: 0.05,
     slantMoA: 0.1,
     slantIPHY: 0.0,
+    spinDriftInches: 0.5,
+    spinDriftMil: 0.01,
+    spinDriftMoA: 0.02,
+    spinDriftIPHY: 0.0,
+    coriolisDriftInches: 0.3,
+    coriolisDriftMil: 0.01,
+    coriolisDriftMoA: 0.01,
+    coriolisDriftIPHY: 0.0,
   },
   {
     rangeYards: 200,
@@ -75,6 +83,14 @@ const mockRangeData = [
     slantMil: 0.1,
     slantMoA: 0.2,
     slantIPHY: 0.0,
+    spinDriftInches: 1.0,
+    spinDriftMil: 0.02,
+    spinDriftMoA: 0.05,
+    spinDriftIPHY: 0.0,
+    coriolisDriftInches: 0.6,
+    coriolisDriftMil: 0.02,
+    coriolisDriftMoA: 0.02,
+    coriolisDriftIPHY: 0.0,
   },
 ];
 
@@ -286,6 +302,14 @@ describe('Chart', () => {
         slantMil: 0.5,
         slantMoA: 0.5,
         slantIPHY: 0.0,
+        spinDriftInches: 5.0,
+        spinDriftMil: 0.5,
+        spinDriftMoA: 0.5,
+        spinDriftIPHY: 0.0,
+        coriolisDriftInches: 3.0,
+        coriolisDriftMil: 0.3,
+        coriolisDriftMoA: 0.3,
+        coriolisDriftIPHY: 0.0,
       },
     ];
     render(<Chart {...defaultProps} rangeData={subsonicData} />);
@@ -318,6 +342,14 @@ describe('Chart', () => {
         slantMil: 0.2,
         slantMoA: 0.3,
         slantIPHY: 0.0,
+        spinDriftInches: 3.0,
+        spinDriftMil: 0.3,
+        spinDriftMoA: 0.3,
+        spinDriftIPHY: 0.0,
+        coriolisDriftInches: 2.0,
+        coriolisDriftMil: 0.2,
+        coriolisDriftMoA: 0.2,
+        coriolisDriftIPHY: 0.0,
       },
     ];
     render(<Chart {...defaultProps} rangeData={transonicData} />);
@@ -350,6 +382,14 @@ describe('Chart', () => {
         slantMil: 0.05,
         slantMoA: 0.1,
         slantIPHY: 0.0,
+        spinDriftInches: 0.5,
+        spinDriftMil: 0.01,
+        spinDriftMoA: 0.02,
+        spinDriftIPHY: 0.0,
+        coriolisDriftInches: 0.3,
+        coriolisDriftMil: 0.01,
+        coriolisDriftMoA: 0.01,
+        coriolisDriftIPHY: 0.0,
       },
     ];
     render(<Chart {...defaultProps} rangeData={supersonicData} />);
@@ -395,6 +435,32 @@ describe('Chart', () => {
     expect(screen.getByText(/Wind.*\(IPHY\)/s)).toBeInTheDocument();
     expect(screen.getByText(/Lead.*\(IPHY\)/s)).toBeInTheDocument();
     expect(screen.getByText(/Slant.*\(IPHY\)/s)).toBeInTheDocument();
+  });
+
+  test('hides inch columns when both reticleUnits and turretUnits are Mil', () => {
+    render(
+      <Chart
+        {...defaultProps}
+        firearm={{ ...mockFirearm, reticleUnits: 'Mil', turretUnits: 'Mil' }}
+      />
+    );
+    expect(screen.queryByText(/Drop.*\(inch\)/s)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Elevation.*\(inch\)/s)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Wind.*\(inch\)/s)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Lead.*\(inch\)/s)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Slant.*\(inch\)/s)).not.toBeInTheDocument();
+  });
+
+  test('hides Mil/MoA/IPHY variant columns when both reticleUnits and turretUnits are Inches', () => {
+    render(
+      <Chart
+        {...defaultProps}
+        firearm={{ ...mockFirearm, reticleUnits: 'Inches', turretUnits: 'Inches' }}
+      />
+    );
+    expect(screen.queryByText(/Elevation.*\(Mil\)/s)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Elevation.*\(MoA\)/s)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Elevation.*\(IPHY\)/s)).not.toBeInTheDocument();
   });
 
   test('shows Mil variant columns when reticleUnits is Mil (even if turret differs)', () => {

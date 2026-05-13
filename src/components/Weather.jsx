@@ -7,7 +7,7 @@ import './form.css'
 import FormField from './FormField';
 
 const Weather = ({weatherData, onSubmit}) => {
-    const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMph, windAngleDegrees } = weatherData;
+    const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMph, windAngleDegrees, latitudeDegrees } = weatherData;
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: weatherData });
     const [isFetching, setIsFetching] = useState(false);
 
@@ -18,6 +18,7 @@ const Weather = ({weatherData, onSubmit}) => {
                 const updatedWeather = {
                     ...weatherData,
                     altitudeFeet: data.altitudeFeet ?? altitudeFeet,
+                    latitudeDegrees: data.latitudeDegrees ?? latitudeDegrees,
                     temperatureDegreesFahrenheit: data.temperatureDegreesFahrenheit,
                     barometricPressureInchesHg: data.barometricPressureInchesHg,
                     relativeHumidityPercent: data.relativeHumidityPercent,
@@ -56,6 +57,24 @@ const Weather = ({weatherData, onSubmit}) => {
                                 required: "Altitude is required to determine atmospheric density",
                                 min: { value: config.VALIDATION_LIMITS.WEATHER.ALTITUDE_FEET.min, message: "Altitude has a minimum value of 0" },
                                 max: { value: config.VALIDATION_LIMITS.WEATHER.ALTITUDE_FEET.max, message: "Altitude has a maximum value of 50000" }
+                            }}
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
+                            name="latitudeDegrees"
+                            label="Latitude (degrees)"
+                            icon="fa fa-map-marker fa-fw"
+                            type="number"
+                            placeholder="Latitude (degrees)"
+                            tooltip="Shooter's latitude is required to calculate the Coriolis effect on the bullet. Positive for Northern Hemisphere, negative for Southern Hemisphere."
+                            step="1"
+                            min={config.VALIDATION_LIMITS.WEATHER.LATITUDE_DEGREES.min}
+                            max={config.VALIDATION_LIMITS.WEATHER.LATITUDE_DEGREES.max}
+                            rules={{
+                                required: "Latitude is required to calculate the Coriolis effect",
+                                min: { value: config.VALIDATION_LIMITS.WEATHER.LATITUDE_DEGREES.min, message: "Latitude has a minimum value of -90" },
+                                max: { value: config.VALIDATION_LIMITS.WEATHER.LATITUDE_DEGREES.max, message: "Latitude has a maximum value of 90" }
                             }}
                             register={register}
                             errors={errors}

@@ -72,6 +72,22 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                             errors={errors}
                         />
                         <FormField
+                            name="riflingTwistInches"
+                            label="Rifling Twist (1:X)"
+                            icon="fa fa-cog fa-fw"
+                            type="number"
+                            placeholder="Rifling Twist (1:X)"
+                            tooltip="The rifling twist rate (inches per rotation) is required to calculate spin drift. Common values are 7 to 12 inches. A 1:10 twist means the bullet completes one full rotation every 10 inches."
+                            step="0.5"
+                            rules={{
+                                max: { value: config.VALIDATION_LIMITS.FIREARM.RIFLING_TWIST_INCHES.max, message: `Rifling Twist has a maximum value of ${config.VALIDATION_LIMITS.FIREARM.RIFLING_TWIST_INCHES.max}` },
+                                min: { value: config.VALIDATION_LIMITS.FIREARM.RIFLING_TWIST_INCHES.min, message: `Rifling Twist has a minimum value of ${config.VALIDATION_LIMITS.FIREARM.RIFLING_TWIST_INCHES.min}` },
+                                required: "Rifling Twist is required for spin drift calculations"
+                            }}
+                            register={register}
+                            errors={errors}
+                        />
+                        <FormField
                             name="zeroRange"
                             label="Zero Range"
                             icon="fa fa-circle-o fa-fw"

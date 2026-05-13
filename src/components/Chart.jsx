@@ -2,8 +2,8 @@ import React from 'react';
 import './chart.css'
 import atmospherics from './../utils/atmospherics';
 
-function getColumns(config) {
-    const { distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY } = config;
+function getColumns(config, rangeData) {
+    const { distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY, bothMil, bothInches } = config;
 
     function unitVariants(showMil, showMoA, showIPHY, keyPrefix, headerFn, bodyFn) {
         const variants = [];
@@ -19,16 +19,16 @@ function getColumns(config) {
     columns.push({
         key: 'range',
         th: <th data-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
-            Range<br/>{distanceUnits==='Yards' ? '(yards)': '(meters)'}
+            Range<br />{distanceUnits === 'Yards' ? '(yards)' : '(meters)'}
         </th>,
-        td: (d) => <td>{distanceUnits==='Yards' ? d.rangeYards : d.rangeMeters}</td>
+        td: (d) => <td>{distanceUnits === 'Yards' ? d.rangeYards : d.rangeMeters}</td>
     });
 
     // Velocity
     columns.push({
         key: 'velocity',
         th: <th data-toggle="tooltip" title="Velocity of the bullet in feet per second">
-            Velocity<br/>(FPS)
+            Velocity<br />(FPS)
         </th>,
         td: (d) => <td>{d.velocityFPS.toFixed(0)}</td>
     });
@@ -37,7 +37,7 @@ function getColumns(config) {
     columns.push({
         key: 'energy',
         th: <th className="d-none d-sm-table-cell" data-toggle="tooltip" title="Energy of the bullet on impact">
-            Energy<br/>(FtLbs)
+            Energy<br />(FtLbs)
         </th>,
         td: (d) => <td className="d-none d-sm-table-cell">{d.energyFtLbs.toFixed(0)}</td>
     });
@@ -46,7 +46,7 @@ function getColumns(config) {
     columns.push({
         key: 'time',
         th: <th className="d-none d-sm-table-cell" data-toggle="tooltip" title="Time the bullet has been in flight since leaving the muzzle">
-            Time<br/>(sec)
+            Time<br />(sec)
         </th>,
         td: (d) => <td className="d-none d-sm-table-cell">{d.timeSeconds.toFixed(3)}</td>
     });
@@ -54,111 +54,173 @@ function getColumns(config) {
     // Drop
     columns.push({
         key: 'drop',
-        th: <th className="d-none d-sm-table-cell" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
-            Drop<br/>(inch)
+        th: <th className="d-none d-xl-table-cell" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
+            Drop<br />(inch)
         </th>,
-        td: (d) => <td className="d-none d-sm-table-cell">{-d.dropInches.toFixed(1)}</td>
+        td: (d) => <td className="d-none d-xl-table-cell">{-d.dropInches.toFixed(1)}</td>
     });
 
     // Elevation inch
-    columns.push({
-        key: 'elevation-inches',
-        th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
-            Elevation<br/>(inch)
-        </th>,
-        td: (d) => <td className='d-none d-md-table-cell'>{-d.verticalPositionInches.toFixed(1)}</td>
-    });
+    if (!bothMil) {
+        columns.push({
+            key: 'elevation-inches',
+            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
+                Elevation<br />(inch)
+            </th>,
+            td: (d) => <td className='d-none d-md-table-cell'>{-d.verticalPositionInches.toFixed(1)}</td>
+        });
+    }
 
     // Elevation variants
-    columns.push(...unitVariants(showMil, showMoA, showIPHY, 'elevation',
-        (unit) => <th data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
-            Elevation<br/>({unit})
-        </th>,
-        (unit) => (d) => <td>{-d[`verticalPosition${unit}`].toFixed(1)}</td>
-    ));
+    if (!bothInches) {
+        columns.push(...unitVariants(showMil, showMoA, showIPHY, 'elevation',
+            (unit) => <th data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
+                Elevation<br />({unit})
+            </th>,
+            (unit) => (d) => <td>{-d[`verticalPosition${unit}`].toFixed(1)}</td>
+        ));
+    }
 
     // Wind inch
-    columns.push({
-        key: 'wind-inches',
-        th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
-            Wind<br/>
-            {windVelocityMph} MPH<br/>
-            {windAngleDegrees} deg<br/>
-            (inch)
-        </th>,
-        td: (d) => <td className='d-none d-md-table-cell'>{d.crossWindDriftInches.toFixed(1)}</td>
-    });
+    if (!bothMil) {
+        columns.push({
+            key: 'wind-inches',
+            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+                Wind<br />
+                {windVelocityMph} MPH<br />
+                {windAngleDegrees} deg<br />
+                (inch)
+            </th>,
+            td: (d) => <td className='d-none d-md-table-cell'>{d.crossWindDriftInches.toFixed(1)}</td>
+        });
+    }
 
     // Wind variants
-    columns.push(...unitVariants(showMil, showMoA, showIPHY, 'wind',
-        (unit) => <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
-            Wind<br/>
-            {windVelocityMph} MPH<br/>
-            {windAngleDegrees} deg<br/>
-            ({unit})
-        </th>,
-        (unit) => (d) => <td>{d[`crossWindDrift${unit}`].toFixed(1)}</td>
-    ));
+    if (!bothInches) {
+        columns.push(...unitVariants(showMil, showMoA, showIPHY, 'wind',
+            (unit) => <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+                Wind<br />
+                {windVelocityMph} MPH<br />
+                {windAngleDegrees} deg<br />
+                ({unit})
+            </th>,
+            (unit) => (d) => <td>{d[`crossWindDrift${unit}`].toFixed(1)}</td>
+        ));
+    }
 
     // Lead inch
-    columns.push({
-        key: 'lead-inches',
-        th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
-            Lead<br/>
-            {speedMph} MPH<br/>
-            (inch)
-        </th>,
-        td: (d) => <td className='d-none d-md-table-cell'>{d.leadInches.toFixed(1)}</td>
-    });
+    if (!bothMil) {
+        columns.push({
+            key: 'lead-inches',
+            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+                Lead<br />
+                {speedMph} MPH<br />
+                (inch)
+            </th>,
+            td: (d) => <td className='d-none d-md-table-cell'>{d.leadInches.toFixed(1)}</td>
+        });
+    }
 
     // Lead variants
-    columns.push(...unitVariants(showMil, showMoA, showIPHY, 'lead',
-        (unit) => <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
-            Lead<br/>
-            {speedMph} MPH<br/>
-            ({unit})
-        </th>,
-        (unit) => (d) => <td>{d[`lead${unit}`].toFixed(1)}</td>
-    ));
+    if (!bothInches) {
+        columns.push(...unitVariants(showMil, showMoA, showIPHY, 'lead',
+            (unit) => <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+                Lead<br />
+                {speedMph} MPH<br />
+                ({unit})
+            </th>,
+            (unit) => (d) => <td>{d[`lead${unit}`].toFixed(1)}</td>
+        ));
+    }
 
     // Slant inch
-    columns.push({
-        key: 'slant-inches',
-        th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
-            Slant<br/>
-            {slantDegrees} deg<br/>
-            (inch)
-        </th>,
-        td: (d) => <td className='d-none d-md-table-cell'>{d.slantDropInches.toFixed(1)}</td>
-    });
+    if (!bothMil) {
+        columns.push({
+            key: 'slant-inches',
+            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+                Slant<br />
+                {slantDegrees} deg<br />
+                (inch)
+            </th>,
+            td: (d) => <td className='d-none d-md-table-cell'>{d.slantDropInches.toFixed(1)}</td>
+        });
+    }
 
     // Slant variants
-    columns.push(...unitVariants(showMil, showMoA, showIPHY, 'slant',
-        (unit) => <th data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
-            Slant<br/>
-            {slantDegrees} deg<br/>
-            ({unit})
-        </th>,
-        (unit) => (d) => <td>{d[`slant${unit}`].toFixed(1)}</td>
-    ));
+    if (!bothInches) {
+        columns.push(...unitVariants(showMil, showMoA, showIPHY, 'slant',
+            (unit) => <th data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+                Slant<br />
+                {slantDegrees} deg<br />
+                ({unit})
+            </th>,
+            (unit) => (d) => <td>{d[`slant${unit}`].toFixed(1)}</td>
+        ));
+    }
+
+    // Spin Drift (only if at least one row has a non-zero value)
+    const hasSpinDrift = rangeData && rangeData.some(d => d.spinDriftInches >= 0.1);
+    if (hasSpinDrift) {
+        if (!bothMil) {
+            columns.push({
+                key: 'spin-drift-inches',
+                th: <th className='d-none d-lg-table-cell' data-toggle="tooltip" title="Lateral drift caused by the bullet's gyroscopic spin. Right-hand twist causes rightward drift.">
+                    Spin Drift<br />(inch)
+                </th>,
+                td: (d) => <td className='d-none d-lg-table-cell'>{d.spinDriftInches.toFixed(1)}</td>
+            });
+        }
+
+        if (!bothInches) {
+            columns.push(...unitVariants(showMil, showMoA, showIPHY, 'spin-drift',
+                (unit) => <th className='d-none d-lg-table-cell' data-toggle="tooltip" title="Lateral drift caused by the bullet's gyroscopic spin. Right-hand twist causes rightward drift.">
+                    Spin Drift<br />({unit})
+                </th>,
+                (unit) => (d) => <td className='d-none d-lg-table-cell'>{d[`spinDrift${unit}`].toFixed(1)}</td>
+            ));
+        }
+    }
+
+    // Coriolis inch
+    if (!bothMil) {
+        columns.push({
+            key: 'coriolis-inches',
+            th: <th className='d-none d-sm-table-cell' data-toggle="tooltip" title="Lateral drift caused by the Earth's rotation (Coriolis effect). Significant at long range (&gt;800 yards).">
+                Coriolis<br />(inch)
+            </th>,
+            td: (d) => <td className='d-none d-sm-table-cell'>{d.coriolisDriftInches.toFixed(1)}</td>
+        });
+    }
+
+    // Coriolis variants
+    if (!bothInches) {
+        columns.push(...unitVariants(showMil, showMoA, showIPHY, 'coriolis',
+            (unit) => <th className='d-none d-xl-table-cell' data-toggle="tooltip" title="Lateral drift caused by the Earth's rotation (Coriolis effect). Significant at long range (&gt;800 yards).">
+                Coriolis<br />({unit})
+            </th>,
+            (unit) => (d) => <td className='d-none d-xl-table-cell'>{d[`coriolisDrift${unit}`].toFixed(1)}</td>
+        ));
+    }
 
     return columns;
 }
 
-const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChart, onPrintChart}) => {
+const Chart = ({ firearm, rangeData, round, targetData, weatherData, onExportChart, onPrintChart }) => {
     const { name: firearmName, reticleUnits, turretUnits } = firearm;
     const { name: roundName } = round;
     const { distanceUnits, slantDegrees, speedMph } = targetData;
     const { altitudeFeet, windVelocityMph, windAngleDegrees } = weatherData;
 
-    const showMil = turretUnits==='Mil' || reticleUnits==='Mil';
-    const showMoA = turretUnits==='MoA' || reticleUnits==='MoA';
-    const showIPHY = turretUnits==='IPHY' || reticleUnits==='IPHY';
+    const showMil = turretUnits === 'Mil' || reticleUnits === 'Mil';
+    const showMoA = turretUnits === 'MoA' || reticleUnits === 'MoA';
+    const showIPHY = turretUnits === 'IPHY' || reticleUnits === 'IPHY';
+    const bothMil = reticleUnits === 'Mil' && turretUnits === 'Mil';
+    const bothInches = reticleUnits === 'Inches' && turretUnits === 'Inches';
     const speedOfSound = atmospherics.speedOfSound(altitudeFeet);
 
     const columns = getColumns({
-        distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY
-    });
+        distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY, bothMil, bothInches
+    }, rangeData);
 
     return (
         <div className="bal-chart">
