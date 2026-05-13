@@ -13,7 +13,7 @@ const defaultTargetData = {
   sizeInches: 40,
   sizeMils: 1.5,
   slantDegrees: 45,
-  speedMPH: 3,
+  speedMph: 3,
 };
 
 // ---------------------------------------------------------------------------
@@ -54,7 +54,7 @@ test('renders all five primary form fields', () => {
   expect(container.querySelector('input[name="sizeInches"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="chartStepping"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="slantDegrees"]')).toBeInTheDocument();
-  expect(container.querySelector('input[name="speedMPH"]')).toBeInTheDocument();
+  expect(container.querySelector('input[name="speedMph"]')).toBeInTheDocument();
 });
 
 test('renders the sizeMils input field', () => {
@@ -142,40 +142,40 @@ test('renders the sizeMils input with min and max attributes', () => {
 // Default values from props
 // ---------------------------------------------------------------------------
 
-test('populates the distance field with the default value', () => {
+test('populates the distance field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const distanceInput = container.querySelector('input[name="distance"]');
-  expect(distanceInput.defaultValue).toBe('1000');
+  expect(distanceInput).toHaveValue('1000');
 });
 
-test('populates the sizeInches field with the default value', () => {
+test('populates the sizeInches field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const sizeInchesInput = container.querySelector('input[name="sizeInches"]');
-  expect(sizeInchesInput.defaultValue).toBe('40');
+  expect(sizeInchesInput).toHaveValue('40');
 });
 
-test('populates the sizeMils field with the default value', () => {
+test('populates the sizeMils field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const sizeMilsInput = container.querySelector('input[name="sizeMils"]');
-  expect(sizeMilsInput.defaultValue).toBe('1.5');
+  expect(sizeMilsInput).toHaveValue('1.5');
 });
 
-test('populates the chartStepping field with the default value', () => {
+test('populates the chartStepping field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const chartSteppingInput = container.querySelector('input[name="chartStepping"]');
-  expect(chartSteppingInput.defaultValue).toBe('50');
+  expect(chartSteppingInput).toHaveValue('50');
 });
 
-test('populates the slantDegrees field with the default value', () => {
+test('populates the slantDegrees field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const slantDegreesInput = container.querySelector('input[name="slantDegrees"]');
-  expect(slantDegreesInput.defaultValue).toBe('45');
+  expect(slantDegreesInput).toHaveValue('45');
 });
 
-test('populates the speedMPH field with the default value', () => {
+test('populates the speedMph field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
-  const speedMPHInput = container.querySelector('input[name="speedMPH"]');
-  expect(speedMPHInput.defaultValue).toBe('3');
+  const speedMphInput = container.querySelector('input[name="speedMph"]');
+  expect(speedMphInput).toHaveValue('3');
 });
 
 // ---------------------------------------------------------------------------
@@ -224,7 +224,7 @@ test('calls onSubmit when the form is submitted with typed values', async () => 
       sizeInches: '40',
       chartStepping: '50',
       slantDegrees: '45',
-      speedMPH: '3',
+      speedMph: '3',
     }),
     expect.anything()
   );
@@ -242,7 +242,7 @@ test('handles target data with undefined values', () => {
     sizeInches: undefined,
     sizeMils: undefined,
     slantDegrees: undefined,
-    speedMPH: undefined,
+    speedMph: undefined,
   };
 
   const { container } = render(<Target targetData={emptyTargetData} onSubmit={() => {}} />);
@@ -258,7 +258,7 @@ test('handles target data with zero values', () => {
     sizeInches: 0,
     sizeMils: 0,
     slantDegrees: 0,
-    speedMPH: 0,
+    speedMph: 0,
   };
 
   const { container } = render(<Target targetData={zeroTargetData} onSubmit={() => {}} />);
@@ -274,7 +274,7 @@ test('handles target data with string values', () => {
     sizeInches: '40',
     sizeMils: '1.5',
     slantDegrees: '45',
-    speedMPH: '3',
+    speedMph: '3',
   };
 
   const { container } = render(<Target targetData={stringTargetData} onSubmit={() => {}} />);
@@ -290,7 +290,7 @@ test('handles target data with negative values', () => {
     sizeInches: -5,
     sizeMils: -1,
     slantDegrees: -10,
-    speedMPH: -3,
+    speedMph: -3,
   };
 
   const { container } = render(<Target targetData={negativeTargetData} onSubmit={() => {}} />);
@@ -306,7 +306,7 @@ test('handles target data with large values', () => {
     sizeInches: 120,
     sizeMils: 100,
     slantDegrees: 500,
-    speedMPH: 500,
+    speedMph: 500,
   };
 
   const { container } = render(<Target targetData={largeTargetData} onSubmit={() => {}} />);
@@ -322,7 +322,7 @@ test('handles target data with empty string values', () => {
     sizeInches: '',
     sizeMils: '',
     slantDegrees: '',
-    speedMPH: '',
+    speedMph: '',
   };
 
   const { container } = render(<Target targetData={emptyStringTargetData} onSubmit={() => {}} />);
@@ -338,7 +338,7 @@ test('handles target data with null values', () => {
     sizeInches: null,
     sizeMils: null,
     slantDegrees: null,
-    speedMPH: null,
+    speedMph: null,
   };
 
   const { container } = render(<Target targetData={nullTargetData} onSubmit={() => {}} />);
@@ -390,10 +390,10 @@ test('renders the slantDegrees field with correct placeholder', () => {
   expect(slantDegreesInput).toHaveAttribute('placeholder', 'Slant (degrees)');
 });
 
-test('renders the speedMPH field with correct placeholder', () => {
+test('renders the speedMph field with correct placeholder', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
-  const speedMPHInput = container.querySelector('input[name="speedMPH"]');
-  expect(speedMPHInput).toHaveAttribute('placeholder', 'Speed (MPH)');
+  const speedMphInput = container.querySelector('input[name="speedMph"]');
+  expect(speedMphInput).toHaveAttribute('placeholder', 'Speed (MPH)');
 });
 
 // ---------------------------------------------------------------------------
@@ -433,7 +433,7 @@ test('displays validation error for sizeMils when value exceeds max', async () =
         sizeInches: 36,
         sizeMils: 200,
         slantDegrees: 45,
-        speedMPH: 3,
+        speedMph: 3,
       }}
       onSubmit={() => {}}
     />
@@ -458,7 +458,7 @@ test('displays validation error for sizeMils when value is below min', async () 
         sizeInches: 36,
         sizeMils: 0.05,
         slantDegrees: 45,
-        speedMPH: 3,
+        speedMph: 3,
       }}
       onSubmit={() => {}}
     />
@@ -506,7 +506,7 @@ test('form submission includes all expected fields', async () => {
       chartStepping: expect.any(String),
       sizeInches: expect.any(String),
       slantDegrees: expect.any(String),
-      speedMPH: expect.any(String),
+      speedMph: expect.any(String),
     }),
     expect.anything()
   );
@@ -600,29 +600,29 @@ test('displays validation error for slantDegrees when value is below min', async
   expect(container.querySelector('.alert-danger')).toBeInTheDocument();
 });
 
-test('displays validation error for speedMPH when value exceeds max', async () => {
+test('displays validation error for speedMph when value exceeds max', async () => {
   const user = userEvent.setup();
   const { container } = render(
     <Target targetData={defaultTargetData} onSubmit={() => {}} />
   );
 
-  const speedMPHInput = container.querySelector('input[name="speedMPH"]');
-  await user.clear(speedMPHInput);
-  await user.type(speedMPHInput, '600');
+  const speedMphInput = container.querySelector('input[name="speedMph"]');
+  await user.clear(speedMphInput);
+  await user.type(speedMphInput, '600');
   await user.tab();
 
   expect(container.querySelector('.alert-danger')).toBeInTheDocument();
 });
 
-test('displays validation error for speedMPH when value is below min', async () => {
+test('displays validation error for speedMph when value is below min', async () => {
   const user = userEvent.setup();
   const { container } = render(
     <Target targetData={defaultTargetData} onSubmit={() => {}} />
   );
 
-  const speedMPHInput = container.querySelector('input[name="speedMPH"]');
-  await user.clear(speedMPHInput);
-  await user.type(speedMPHInput, '0');
+  const speedMphInput = container.querySelector('input[name="speedMph"]');
+  await user.clear(speedMphInput);
+  await user.type(speedMphInput, '0');
   await user.tab();
 
   expect(container.querySelector('.alert-danger')).toBeInTheDocument();

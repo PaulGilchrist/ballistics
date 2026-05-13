@@ -31,9 +31,9 @@ const conversions = {
     metersToYards: (meters) => {
         return (meters * config.CONVERSIONS.YARDS_PER_METER);
     },
-    milesPerHourToInchesPerSecond: (inputVelocityMPH) => {
+    milesPerHourToInchesPerSecond: (inputVelocityMph) => {
         // Converts from a miles per hour (MPH) to inches per second.
-        return inputVelocityMPH * config.CONVERSIONS.MPH_TO_INCHES_PER_SECOND;
+        return inputVelocityMph * config.CONVERSIONS.MPH_TO_INCHES_PER_SECOND;
     },
     radiansToDegrees: (radians) => {
         // Converts from a radian ro a degree angle.

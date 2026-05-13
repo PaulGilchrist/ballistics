@@ -21,8 +21,8 @@ const ballistics = {
                 currentDropInches = drag.drop(round.muzzleVelocityFPS, currentVelocityFPS, currentTimeSeconds);
                 currentVerticalPositionInches = drag.verticalPosition(firearm.sightHeightInches, muzzleAngleDegrees, currentRangeYards, currentDropInches);
                 // Cross Winds take on full range value regardless of Slant To Target
-                currentCrossWindDriftInches = drag.crossWindDrift(currentRangeYards, currentTimeSeconds, weather.windAngleDegrees, weather.windVelocityMPH, muzzleAngleDegrees, round.muzzleVelocityFPS);
-                currentLeadInches = drag.lead(target.speedMPH, currentTimeSeconds);
+                currentCrossWindDriftInches = drag.crossWindDrift(currentRangeYards, currentTimeSeconds, weather.windAngleDegrees, weather.windVelocityMph, muzzleAngleDegrees, round.muzzleVelocityFPS);
+                currentLeadInches = drag.lead(target.speedMph, currentTimeSeconds);
                 const slantDropInches = currentDropInches * (1-Math.cos(conversions.degreesToRadians(target.slantDegrees)));
                 const range = {
                     rangeMeters: currentRangeMeters,

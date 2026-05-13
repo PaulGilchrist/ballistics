@@ -3,7 +3,7 @@ import './chart.css'
 import atmospherics from './../utils/atmospherics';
 
 function getColumns(config) {
-    const { distanceUnits, windVelocityMPH, windAngleDegrees, slantDegrees, speedMPH, showMil, showMoA, showIPHY } = config;
+    const { distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY } = config;
 
     function unitVariants(showMil, showMoA, showIPHY, keyPrefix, headerFn, bodyFn) {
         const variants = [];
@@ -82,7 +82,7 @@ function getColumns(config) {
         key: 'wind-inches',
         th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
             Wind<br/>
-            {windVelocityMPH} MPH<br/>
+            {windVelocityMph} MPH<br/>
             {windAngleDegrees} deg<br/>
             (inch)
         </th>,
@@ -93,7 +93,7 @@ function getColumns(config) {
     columns.push(...unitVariants(showMil, showMoA, showIPHY, 'wind',
         (unit) => <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
             Wind<br/>
-            {windVelocityMPH} MPH<br/>
+            {windVelocityMph} MPH<br/>
             {windAngleDegrees} deg<br/>
             ({unit})
         </th>,
@@ -105,7 +105,7 @@ function getColumns(config) {
         key: 'lead-inches',
         th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
             Lead<br/>
-            {speedMPH} MPH<br/>
+            {speedMph} MPH<br/>
             (inch)
         </th>,
         td: (d) => <td className='d-none d-md-table-cell'>{d.leadInches.toFixed(1)}</td>
@@ -115,7 +115,7 @@ function getColumns(config) {
     columns.push(...unitVariants(showMil, showMoA, showIPHY, 'lead',
         (unit) => <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
             Lead<br/>
-            {speedMPH} MPH<br/>
+            {speedMph} MPH<br/>
             ({unit})
         </th>,
         (unit) => (d) => <td>{d[`lead${unit}`].toFixed(1)}</td>
@@ -148,8 +148,8 @@ function getColumns(config) {
 const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChart, onPrintChart}) => {
     const { name: firearmName, reticleUnits, turretUnits } = firearm;
     const { name: roundName } = round;
-    const { distanceUnits, slantDegrees, speedMPH } = targetData;
-    const { altitudeFeet, windVelocityMPH, windAngleDegrees } = weatherData;
+    const { distanceUnits, slantDegrees, speedMph } = targetData;
+    const { altitudeFeet, windVelocityMph, windAngleDegrees } = weatherData;
 
     const showMil = turretUnits==='Mil' || reticleUnits==='Mil';
     const showMoA = turretUnits==='MoA' || reticleUnits==='MoA';
@@ -157,7 +157,7 @@ const Chart = ({firearm, rangeData, round, targetData, weatherData, onExportChar
     const speedOfSound = atmospherics.speedOfSound(altitudeFeet);
 
     const columns = getColumns({
-        distanceUnits, windVelocityMPH, windAngleDegrees, slantDegrees, speedMPH, showMil, showMoA, showIPHY
+        distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY
     });
 
     return (

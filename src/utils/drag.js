@@ -22,9 +22,9 @@ const drag = {
         // Calculate the number of scope clicks needed to correct the above calculated vertical position making the new vertical position zero.
         return -(conversions.inchesToMinutesOfAngle(verticalPositionAtMaxPointBlankRangeZero, maxPointBlankRangeZeroYards) * scopeElevationClicksPerMOA);
     },
-    crossWindDrift: (currentRangeYards, currentTimeSeconds, crossWindAngleDegrees, crossWindVelocityMPH, muzzleAngleDegrees, muzzleVelocityFPS) => {
+    crossWindDrift: (currentRangeYards, currentTimeSeconds, crossWindAngleDegrees, crossWindVelocityMph, muzzleAngleDegrees, muzzleVelocityFPS) => {
         // Calculates how far the bullet drifts (inches) due to wind.
-        return (Math.sin(conversions.degreesToRadians(crossWindAngleDegrees)) * conversions.milesPerHourToInchesPerSecond(crossWindVelocityMPH) / config.PHYSICS.INCHES_PER_FOOT * (currentTimeSeconds - (currentRangeYards * config.PHYSICS.FEET_PER_YARD) / (muzzleVelocityFPS * Math.cos(conversions.degreesToRadians(muzzleAngleDegrees))))) * config.PHYSICS.INCHES_PER_FOOT;
+        return (Math.sin(conversions.degreesToRadians(crossWindAngleDegrees)) * conversions.milesPerHourToInchesPerSecond(crossWindVelocityMph) / config.PHYSICS.INCHES_PER_FOOT * (currentTimeSeconds - (currentRangeYards * config.PHYSICS.FEET_PER_YARD) / (muzzleVelocityFPS * Math.cos(conversions.degreesToRadians(muzzleAngleDegrees))))) * config.PHYSICS.INCHES_PER_FOOT;
     },
     drop: (muzzleVelocityFPS, currentVelocityFPS, currentTimeSeconds) => {
         // Calculates how far the bullet falls (inches) due to gravity, if their were no angle at the muzzle.
@@ -112,9 +112,9 @@ const drag = {
         }
         return velocityFromTime;
     },
-    lead: (targetSpeedMPH, currentTimeSeconds) => {
+    lead: (targetSpeedMph, currentTimeSeconds) => {
         // Calculates how far the user needs to lead (inches) a moving target.
-        return conversions.milesPerHourToInchesPerSecond(targetSpeedMPH) * currentTimeSeconds;
+        return conversions.milesPerHourToInchesPerSecond(targetSpeedMph) * currentTimeSeconds;
     },
     maximumPointBlankRange: (ballisticCoefficient, muzzleVelocityFPS, maximumOrdinate) => {
         // Calculate the maximum range at which the user can shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).

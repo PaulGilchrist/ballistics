@@ -5,7 +5,7 @@ import FormField from './FormField';
 import './form.css'
 
 const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: firearm });
     if(!firearm) {
         return null;
     }
@@ -13,7 +13,6 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
     const zeroRangeUnitsSelect = (
         <select
             className="form-control"
-            defaultValue={firearm.zeroRangeUnits}
             name="zeroRangeUnits"
             {...register("zeroRangeUnits", { required: true })}
         >
@@ -26,7 +25,6 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
     const turretUnitsSelect = (
         <select
             className="form-control"
-            defaultValue={firearm.turretUnits}
             name="turretUnits"
             {...register("turretUnits", { required: true })}
         >
@@ -44,12 +42,11 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`card-body`}>
-                        <input hidden name="id" defaultValue={firearm.id} type="text" {...register("id")}/>
+                        <input hidden name="id" type="text" {...register("id")}/>
                         <FormField
                             name="name"
                             label="Name"
                             icon="fa fa-file-o fa-fw"
-                            defaultValue={firearm.name}
                             placeholder="Name"
                             tooltip="Name used to uniquely identify this firearm."
                             rules={{
@@ -64,7 +61,6 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                             name="sightHeightInches"
                             label="Sight Height (inches)"
                             icon="fa fa-crosshairs fa-fw"
-                            defaultValue={firearm.sightHeightInches}
                             placeholder="Sight Height (inches)"
                             tooltip="Measured from bore centerline to scope centerline. Common heights are 1.5 to 2 inches."
                             rules={{
@@ -79,7 +75,6 @@ const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
                             name="zeroRange"
                             label="Zero Range"
                             icon="fa fa-circle-o fa-fw"
-                            defaultValue={firearm.zeroRange}
                             placeholder="Zero Range"
                             tooltip="Range at which scope has been adjusted for point of aim = point of impact."
                             rules={{

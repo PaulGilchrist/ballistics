@@ -29,13 +29,12 @@ const showToast = (type, message) => {
 
 /**
  * Convert config UPPER_SNAKE_CASE keys to camelCase for state initialization.
- * e.g. ALTITUDE_FEET -> altitudeFeet, SPEED_MPH -> speedMPH
+ * e.g. ALTITUDE_FEET -> altitudeFeet, SPEED_MPH -> speedMph, WIND_VELOCITY_MPH -> windVelocityMph
  */
 const convertConfigToCamelCase = (configObj) => {
     const camelCaseObj = {};
     for (const [key, value] of Object.entries(configObj)) {
-        const camelKey = key.charAt(0).toLowerCase() + key.slice(1)
-            .replace(/_([A-Z])/g, (match, letter) => letter.toLowerCase());
+        const camelKey = key.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
         camelCaseObj[camelKey] = value;
     }
     return camelCaseObj;
@@ -364,7 +363,7 @@ const App = () => {
             sizeInches: Number(targetData.sizeInches),
             sizeMils: null, // Don't save sizeMils
             slantDegrees: Number(targetData.slantDegrees),
-            speedMPH: Number(targetData.speedMPH)
+            speedMph: Number(targetData.speedMph)
         });
         showToast('success', 'Target Data Saved');
     }

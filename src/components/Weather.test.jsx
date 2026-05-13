@@ -7,7 +7,7 @@ const defaultWeatherData = {
   temperatureDegreesFahrenheit: 72,
   barometricPressureInchesHg: 29.92,
   relativeHumidityPercent: 65,
-  windVelocityMPH: 10,
+  windVelocityMph: 10,
   windAngleDegrees: 90,
 };
 
@@ -27,7 +27,7 @@ test('renders all six weather form fields', () => {
   expect(container.querySelector('input[name="temperatureDegreesFahrenheit"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="barometricPressureInchesHg"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="relativeHumidityPercent"]')).toBeInTheDocument();
-  expect(container.querySelector('input[name="windVelocityMPH"]')).toBeInTheDocument();
+  expect(container.querySelector('input[name="windVelocityMph"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="windAngleDegrees"]')).toBeInTheDocument();
 });
 
@@ -83,7 +83,7 @@ test('calls onSubmit when the form is submitted with typed values', async () => 
       temperatureDegreesFahrenheit: '72',
       barometricPressureInchesHg: '29.92',
       relativeHumidityPercent: '65',
-      windVelocityMPH: '10',
+      windVelocityMph: '10',
       windAngleDegrees: '90',
     }),
     expect.anything()
@@ -96,7 +96,7 @@ test('handles weather data with undefined values', () => {
     temperatureDegreesFahrenheit: undefined,
     barometricPressureInchesHg: undefined,
     relativeHumidityPercent: undefined,
-    windVelocityMPH: undefined,
+    windVelocityMph: undefined,
     windAngleDegrees: undefined,
   };
 
@@ -111,7 +111,7 @@ test('handles weather data with zero values', () => {
     temperatureDegreesFahrenheit: 0,
     barometricPressureInchesHg: 0,
     relativeHumidityPercent: 0,
-    windVelocityMPH: 0,
+    windVelocityMph: 0,
     windAngleDegrees: 0,
   };
 
@@ -126,7 +126,7 @@ test('handles weather data with string values', () => {
     temperatureDegreesFahrenheit: '72',
     barometricPressureInchesHg: '29.92',
     relativeHumidityPercent: '65',
-    windVelocityMPH: '10',
+    windVelocityMph: '10',
     windAngleDegrees: '90',
   };
 
@@ -141,7 +141,7 @@ test('handles weather data with negative values', () => {
     temperatureDegreesFahrenheit: -10,
     barometricPressureInchesHg: -5,
     relativeHumidityPercent: -10,
-    windVelocityMPH: -5,
+    windVelocityMph: -5,
     windAngleDegrees: -10,
   };
 
@@ -156,7 +156,7 @@ test('handles weather data with large values', () => {
     temperatureDegreesFahrenheit: 200,
     barometricPressureInchesHg: 100,
     relativeHumidityPercent: 100,
-    windVelocityMPH: 200,
+    windVelocityMph: 200,
     windAngleDegrees: 90,
   };
 

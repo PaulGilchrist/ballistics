@@ -18,12 +18,12 @@ const mockRound = {
 const mockTargetData = {
   distanceUnits: 'Yards',
   slantDegrees: 30,
-  speedMPH: 5,
+  speedMph: 5,
 };
 
 const mockWeatherData = {
   altitudeFeet: 1000,
-  windVelocityMPH: 10,
+  windVelocityMph: 10,
   windAngleDegrees: 90,
 };
 
@@ -432,7 +432,7 @@ describe('Chart', () => {
     render(
       <Chart
         {...defaultProps}
-        weatherData={{ ...mockWeatherData, windVelocityMPH: 15 }}
+        weatherData={{ ...mockWeatherData, windVelocityMph: 15 }}
       />
     );
     const headers = screen.getAllByText(/Wind.*15 MPH/s);
@@ -454,7 +454,7 @@ describe('Chart', () => {
     render(
       <Chart
         {...defaultProps}
-        targetData={{ ...mockTargetData, speedMPH: 10 }}
+        targetData={{ ...mockTargetData, speedMph: 10 }}
       />
     );
     const headers = screen.getAllByText(/Lead.*10 MPH/s);

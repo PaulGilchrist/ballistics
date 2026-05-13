@@ -10,7 +10,7 @@ const defaultWeather = {
   barometricPressureInchesHg: 29.53,
   relativeHumidityPercent: 78,
   windAngleDegrees: 90,
-  windVelocityMPH: 10,
+  windVelocityMph: 10,
 };
 
 const defaultTarget = {
@@ -18,7 +18,7 @@ const defaultTarget = {
   distance: 100,
   distanceUnits: 'Yards',
   slantDegrees: 45,
-  speedMPH: 3,
+  speedMph: 3,
 };
 
 const defaultFirearm = {
@@ -408,7 +408,7 @@ test('produces zero crossWindDrift when wind angle is 0°', () => {
 // ---------------------------------------------------------------------------
 
 test('produces zero lead when target speed is 0 MPH', () => {
-  const target = { ...defaultTarget, speedMPH: 0 };
+  const target = { ...defaultTarget, speedMph: 0 };
   const result = ballistics.getRangeData(
     defaultWeather,
     target,

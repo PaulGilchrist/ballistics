@@ -5,8 +5,8 @@ import './form.css'
 import FormField from './FormField';
 
 const Weather = ({weatherData, onSubmit}) => {
-    const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMPH, windAngleDegrees } = weatherData;
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
+    const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMph, windAngleDegrees } = weatherData;
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: weatherData });
     return (
         <div className="bal-form">
             <div className="card weather">
@@ -20,7 +20,6 @@ const Weather = ({weatherData, onSubmit}) => {
                             label="Altitude (feet)"
                             icon="fa fa-globe fa-fw"
                             type="number"
-                            defaultValue={altitudeFeet}
                             placeholder="Altitude (feet)"
                             tooltip="Distance above sea level. Altitude is used to determine atmospheric density."
                             min={config.VALIDATION_LIMITS.WEATHER.ALTITUDE_FEET.min}
@@ -38,7 +37,6 @@ const Weather = ({weatherData, onSubmit}) => {
                             label="Temperature (fahrenheit)"
                             icon="fa fa-snowflake-o fa-fw"
                             type="number"
-                            defaultValue={temperatureDegreesFahrenheit}
                             placeholder="Temperature (fahrenheit)"
                             tooltip="Degree or intensity of heat in the atmosphere."
                             min={config.VALIDATION_LIMITS.WEATHER.TEMPERATURE_DEGREES_FAHRENHEIT.min}
@@ -56,7 +54,6 @@ const Weather = ({weatherData, onSubmit}) => {
                             label="Barometric Pressure (in Hg)"
                             icon="fa fa-cloud fa-fw"
                             type="number"
-                            defaultValue={barometricPressureInchesHg}
                             placeholder="Barometric Pressure (in Hg)"
                             tooltip="Air pressure in the atmosphere measured in inches Hg."
                             step="0.01"
@@ -75,7 +72,6 @@ const Weather = ({weatherData, onSubmit}) => {
                             label="Relative Humidity (%)"
                             icon="fa fa-tint fa-fw"
                             type="number"
-                            defaultValue={relativeHumidityPercent}
                             placeholder="Relative Humidity (%)"
                             tooltip="The percentage of moisture in the atmosphere."
                             min={config.VALIDATION_LIMITS.WEATHER.RELATIVE_HUMIDITY_PERCENT.min}
@@ -89,11 +85,10 @@ const Weather = ({weatherData, onSubmit}) => {
                             errors={errors}
                         />
                         <FormField
-                            name="windVelocityMPH"
+                            name="windVelocityMph"
                             label="Wind Velocity (MPH)"
                             icon="fa fa-flag fa-fw"
                             type="number"
-                            defaultValue={windVelocityMPH}
                             placeholder="Wind Velocity (MPH)"
                             tooltip="Wind velocity is required to calculate bullet drift."
                             min={config.VALIDATION_LIMITS.WEATHER.WIND_VELOCITY_MPH.min}
@@ -111,7 +106,6 @@ const Weather = ({weatherData, onSubmit}) => {
                             label="Wind Angle (degrees)"
                             icon="fa fa-line-chart fa-fw"
                             type="number"
-                            defaultValue={windAngleDegrees}
                             placeholder="Wind Angle (degrees)"
                             tooltip="Wind velocity is required to calculate bullet drift."
                             min={config.VALIDATION_LIMITS.WEATHER.WIND_ANGLE_DEGREES.min}

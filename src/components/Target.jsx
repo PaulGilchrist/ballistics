@@ -7,8 +7,8 @@ import conversions from './../utils/conversions';
 import FormField from './FormField';
 
 const Target = ({targetData, onSubmit}) => {
-    const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMPH} = targetData;
-    const { register, getValues, handleSubmit, setValue, formState: { errors } } = useForm({ mode: 'onBlur' });
+    const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMph} = targetData;
+    const { register, getValues, handleSubmit, setValue, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: targetData });
     const setDistance = () => {
         const values = getValues();
         // Given the size of a target in both inches and mils, will calculate and update the distance
@@ -31,7 +31,6 @@ const Target = ({targetData, onSubmit}) => {
                             label="Distance"
                             icon="fa fa-bullseye fa-fw"
                             type="number"
-                            defaultValue={distance}
                             placeholder="Distance"
                             tooltip="Distance measured from the muzzle to the target."
                             rules={{
@@ -44,7 +43,6 @@ const Target = ({targetData, onSubmit}) => {
                             rightElement={
                                 <select
                                     className="form-control"
-                                    defaultValue={distanceUnits}
                                     {...register("distanceUnits", {
                                         required: true
                                     })}
@@ -61,7 +59,6 @@ const Target = ({targetData, onSubmit}) => {
                             label="Size (Inches / Mils) - optional"
                             icon="fa fa-ellipsis-v fa-fw"
                             type="number"
-                            defaultValue={sizeInches}
                             placeholder="Size (inches)"
                             tooltip="The size of the target in inches (optional).  Used in combination with the size of the target in Mils to determine the distance."
                             rules={{
@@ -73,7 +70,6 @@ const Target = ({targetData, onSubmit}) => {
                                 <div>
                                     <input
                                         className="form-control"
-                                        defaultValue={sizeMils}
                                         max={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.max}
                                         min={config.VALIDATION_LIMITS.TARGET.SIZE_MILS.min}
                                         onBlur={() => setDistance()}
@@ -101,7 +97,6 @@ const Target = ({targetData, onSubmit}) => {
                             label="Chart Stepping (yards)"
                             icon="fa fa-bars fa-fw"
                             type="number"
-                            defaultValue={chartStepping}
                             placeholder="Chart Stepping (yards)"
                             tooltip="Chart stepping is required to determine how many rows to calculate."
                             rules={{
@@ -118,7 +113,6 @@ const Target = ({targetData, onSubmit}) => {
                             label="Slant (degrees)"
                             icon="fa fa-location-arrow fa-fw"
                             type="number"
-                            defaultValue={slantDegrees}
                             placeholder="Slant (degrees)"
                             tooltip="The angle versus horizontal as measured between the muzzle and target.  Slant degrees is required to determine vertical hold over or angle scope adjustments needed.  Both up and down slant angles result in the need to aim low."
                             rules={{
@@ -131,11 +125,10 @@ const Target = ({targetData, onSubmit}) => {
                             errors={errors}
                         />
                         <FormField
-                            name="speedMPH"
+                            name="speedMph"
                             label="Speed (MPH)"
                             icon="fa fa-car fa-fw"
                             type="number"
-                            defaultValue={speedMPH}
                             placeholder="Speed (MPH)"
                             tooltip="The speed the target is moving perpendicular to the line between the muzzle and target.  Target speed is required to determine horizontal lead hold or scope adjustments needed."
                             rules={{
