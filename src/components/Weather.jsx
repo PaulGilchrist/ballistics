@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import config from '../config';
-import weatherApi from '../utils/weather-api';
-import './form.css'
+import weatherApi from '../utils/weatherApi';
+import './Form.css'
 import FormField from './FormField';
 
 const Weather = ({weatherData, onSubmit}) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './chart.css'
+import './Chart.css'
 import atmospherics from './../utils/atmospherics';
 
 function getColumns(config, rangeData) {

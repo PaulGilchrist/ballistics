@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import './form.css'
+import './Form.css'
 
 import config from '../config';
 import conversions from './../utils/conversions';

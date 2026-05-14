@@ -9,7 +9,7 @@ export default defineConfig({
       registerType: 'auto',
       includeAssets: ['ballistics-icon.png', 'manifest.json', 'robots.txt'],
       injectManifest: {
-        swSrc: 'src/service-worker.js',
+        swSrc: 'src/serviceWorker.js',
         swDest: 'dist/sw.js',
         manifest: {
           short_name: 'Ballistics',
@@ -44,7 +44,7 @@ export default defineConfig({
       exclude: [
         'src/index.jsx',
         'src/setupTests.js',
-        'src/service-worker.js',
+        'src/serviceWorker.js',
         'src/config.js',
         'src/data/firearms.js',
         'src/utils/ingals.data.js',

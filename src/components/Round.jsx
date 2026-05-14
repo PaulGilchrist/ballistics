@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import config from '../config';
-import './form.css'
+import './Form.css'
 import FormField from './FormField';
 
 const Round = ({round, onClose, onDelete, onSubmit}) => {

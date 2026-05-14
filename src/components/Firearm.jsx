@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import config from '../config';
 import FormField from './FormField';
-import './form.css'
+import './Form.css'
 
 const Firearm = ({firearm, onClose, onSubmit, onDelete}) => {
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: firearm });

@@ -12,7 +12,7 @@ import { toast } from 'react-toastify'; // Must be initialized in App.js (see ht
 import ballistics from './utils/ballistics';
 import utilities from './utils/utilities';
 
-import css from './app.module.css';
+import css from './App.module.css';
 import config from './config';
 
 import Chart from './components/Chart';

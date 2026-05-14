@@ -1,5 +1,5 @@
 import React from 'react';
-import './form.css'
+import './Form.css'
 
 const ItemList = ({items, onAdd, onSelect, title, addItemLabel}) => {
     if(!items) {
