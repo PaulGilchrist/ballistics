@@ -244,8 +244,8 @@ const App = () => {
                 updateFirearms(importedState.firearms);
                 updateTarget(importedState.target);
                 updateWeather(importedState.weather);
-                selectFirearm(firearms, importedState.firearmId);
-                selectRound(firearms, firearmId, importedState.roundId);
+                selectFirearm(importedState.firearms, importedState.firearmId);
+                selectRound(importedState.firearms, importedState.firearmId, importedState.roundId);
             };
             reader.readAsText(event.target.files[0]);
         }
