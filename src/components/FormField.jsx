@@ -29,6 +29,7 @@ const FormField = ({
         if (type === 'select' || options) {
             return (
                 <select
+                    id={name}
                     className="form-control"
                     name={name}
                     {...register(name, { defaultValue: safeDefault, ...(rules || {}) })}
@@ -41,6 +42,7 @@ const FormField = ({
         }
 
         const inputProps = {
+            id: name,
             className: 'form-control',
             name,
             placeholder,

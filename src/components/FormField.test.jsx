@@ -74,6 +74,14 @@ test('renders the input with the correct name attribute', () => {
   expect(input).toHaveAttribute('name', 'test');
 });
 
+test('renders the input with the correct id attribute', () => {
+  const { container } = render(
+    <FormField name="test" label="Test" register={mockRegister} />,
+  );
+  const input = container.querySelector('input');
+  expect(input).toHaveAttribute('id', 'test');
+});
+
 test('renders the input with the correct placeholder', () => {
   render(
     <FormField name="test" label="Test" placeholder="Enter value" register={mockRegister} />,
@@ -173,6 +181,14 @@ test('renders the select with the correct name attribute', () => {
   );
   const select = container.querySelector('select');
   expect(select).toHaveAttribute('name', 'test');
+});
+
+test('renders the select with the correct id attribute', () => {
+  const { container } = render(
+    <FormField name="test" label="Test" options={['A', 'B']} register={mockRegister} />,
+  );
+  const select = container.querySelector('select');
+  expect(select).toHaveAttribute('id', 'test');
 });
 
 test('renders the select with the correct defaultValue', () => {
