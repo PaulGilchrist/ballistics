@@ -101,10 +101,10 @@ const FIREARMS = [
             {
                 "id": "f4f9e005-c43e-494e-a903-eaaf0d21404a",
                 "name": "SMK, 24.5 Varget",
-                "bulletDiameterInches": "0.224",
-                "bulletWeightGrains": "77",
-                "muzzleVelocityFPS": "2364",
-                "bulletBC": "0.372",
+                "bulletDiameterInches": 0.224,
+                "bulletWeightGrains": 77,
+                "muzzleVelocityFPS": 2364,
+                "bulletBC": 0.372,
                 "dragModel": "G1"
             },
             {
@@ -194,31 +194,31 @@ const FIREARMS = [
     {
         "id": "c4c2a911-de11-4add-8224-0180a85ed76b",
         "name": "AR15 - 6 ARC - 20\"",
-        "sightHeightInches": "2.75",
+        "sightHeightInches": 2.75,
         "riflingTwistInches": 7.5,
-        "zeroRange": "100",
+        "zeroRange": 100,
         "zeroRangeUnits": "Yards",
         "reticleUnits": "Mil",
-        "elevationTurretGradients": "10",
+        "elevationTurretGradients": 10,
         "turretUnits": "Mil",
-        "windageTurretGradients": "10",
+        "windageTurretGradients": 10,
         "rounds": [
             {
                 "id": "dad1096e-2e3e-4ebd-bff8-7af1bfd42e1a",
                 "name": "ELD-X, 27.0 Varget",
-                "bulletDiameterInches": "0.243",
-                "bulletWeightGrains": "103",
-                "muzzleVelocityFPS": "2550",
-                "bulletBC": "0.512",
+                "bulletDiameterInches": 0.243,
+                "bulletWeightGrains": 103,
+                "muzzleVelocityFPS": 2550,
+                "bulletBC": 0.512,
                 "dragModel": "G1"
             },
             {
                 "id": "398f5e50-9491-4f83-bf0a-2ee14215a999",
                 "name": "Hornady M, 27.0 Varget",
-                "bulletDiameterInches": "0.243",
-                "bulletWeightGrains": "105",
-                "muzzleVelocityFPS": "2550",
-                "bulletBC": "0.530",
+                "bulletDiameterInches": 0.243,
+                "bulletWeightGrains": 105,
+                "muzzleVelocityFPS": 2550,
+                "bulletBC": 0.530,
                 "dragModel": "G1"
             }
         ]
