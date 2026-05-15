@@ -288,7 +288,7 @@ const App = () => {
             if (!firearms.find((f) => f.name === firearm.name)) {
                 insertFirearm(firearms, firearm);
                 selectFirearm(firearms, firearm.id);
-                showToast('success', 'Firearm Added');
+            showToast('success', 'Round Added');
             }
         } else {
             updateFirearm(firearms, firearm);
