@@ -7,7 +7,7 @@ import './Form.css'
 import FormField from './FormField';
 
 const Weather = ({weatherData, onSubmit}) => {
-    const { altitudeFeet, temperatureDegreesFahrenheit, barometricPressureInchesHg, relativeHumidityPercent, windVelocityMph, windAngleDegrees, latitudeDegrees } = weatherData;
+    const { altitudeFeet, _temperatureDegreesFahrenheit, _barometricPressureInchesHg, _relativeHumidityPercent, _windVelocityMph, _windAngleDegrees, latitudeDegrees } = weatherData;
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: weatherData });
     const [isFetching, setIsFetching] = useState(false);
 

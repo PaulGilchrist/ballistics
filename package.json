@@ -6,6 +6,7 @@
     "homepage": "https://paulgilchrist.github.io/ballistics",
     "license": "MIT",
     "private": true,
+    "type": "module",
     "name": "ballistics",
     "repository": {
         "type": "git",

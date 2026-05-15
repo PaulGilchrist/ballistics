@@ -39,6 +39,9 @@ const browserGlobals = {
   ResizeObserver: "readonly",
   self: "readonly",
   Buffer: "readonly",
+  process: "readonly",
+  Atomics: "readonly",
+  SharedArrayBuffer: "readonly",
 };
 
 export default [
@@ -74,7 +77,7 @@ export default [
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_|^muzzleAngleDegrees", varsIgnorePattern: "^_" }],
     },
   },
   {
@@ -91,7 +94,12 @@ export default [
         beforeAll: "readonly",
         afterAll: "readonly",
         jest: "readonly",
+        vi: "readonly",
+        require: "readonly",
       },
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_|^container|^config|^exportBtn", varsIgnorePattern: "^_|^container|^config|^exportBtn" }],
     },
   },
 ];

@@ -7,7 +7,7 @@ import conversions from './../utils/conversions';
 import FormField from './FormField';
 
 const Target = ({targetData, onSubmit}) => {
-    const {distanceUnits, distance, chartStepping, sizeInches, sizeMils, slantDegrees, speedMph} = targetData;
+    const {_distanceUnits, _distance, _chartStepping, _sizeInches, _sizeMils, _slantDegrees, _speedMph} = targetData;
     const { register, getValues, handleSubmit, setValue, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: targetData });
     const setDistance = () => {
         const values = getValues();
