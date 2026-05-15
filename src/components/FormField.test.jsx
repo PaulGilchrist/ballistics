@@ -2,7 +2,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FormField from './FormField';
 
-const mockRegister = vi.fn(() => ({}));
+const mockRegister = vi.fn((name, options) => {
+  if (!options) return {};
+  const result = {};
+  if (options.defaultValue !== undefined) {
+    result.defaultValue = options.defaultValue;
+  }
+  return result;
+});
 
 test('renders the form-group container', () => {
   const { container } = render(
@@ -289,7 +296,7 @@ test('calls register with the field name and rules for text input', () => {
   render(
     <FormField name="test" label="Test" rules={rules} register={mockRegister} />,
   );
-  expect(mockRegister).toHaveBeenCalledWith('test', rules);
+  expect(mockRegister).toHaveBeenCalledWith('test', expect.objectContaining({ required: true, minLength: 3 }));
 });
 
 test('calls register with the field name and rules for select input', () => {
@@ -298,7 +305,31 @@ test('calls register with the field name and rules for select input', () => {
   render(
     <FormField name="test" label="Test" options={['A', 'B']} rules={rules} register={mockRegister} />,
   );
-  expect(mockRegister).toHaveBeenCalledWith('test', rules);
+  expect(mockRegister).toHaveBeenCalledWith('test', expect.objectContaining({ required: true }));
+});
+
+test('passes defaultValue to register for text input', () => {
+  mockRegister.mockClear();
+  render(
+    <FormField name="test" label="Test" defaultValue="42" register={mockRegister} />,
+  );
+  expect(mockRegister).toHaveBeenCalledWith('test', expect.objectContaining({ defaultValue: '42' }));
+});
+
+test('passes defaultValue to register for select input', () => {
+  mockRegister.mockClear();
+  render(
+    <FormField name="test" label="Test" options={['A', 'B']} defaultValue="B" register={mockRegister} />,
+  );
+  expect(mockRegister).toHaveBeenCalledWith('test', expect.objectContaining({ defaultValue: 'B' }));
+});
+
+test('converts numeric defaultValue to string for number inputs', () => {
+  mockRegister.mockClear();
+  render(
+    <FormField name="test" label="Test" type="number" defaultValue={1000} register={mockRegister} />,
+  );
+  expect(mockRegister).toHaveBeenCalledWith('test', expect.objectContaining({ defaultValue: '1000' }));
 });
 
 test('renders with minimal props (only name and register)', () => {

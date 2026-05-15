@@ -21,14 +21,17 @@ const FormField = ({
 }) => {
     const isError = errors && errors[name] && errors[name].message;
 
+    // Convert defaultValue to string to match previous DOM-coercion behavior
+    // (e.g., number inputs expect string values in jsdom tests)
+    const safeDefault = defaultValue != null ? String(defaultValue) : defaultValue;
+
     const renderInput = () => {
         if (type === 'select' || options) {
             return (
                 <select
                     className="form-control"
-                    defaultValue={defaultValue}
                     name={name}
-                    {...register(name, rules)}
+                    {...register(name, { defaultValue: safeDefault, ...(rules || {}) })}
                 >
                     {options && options.map(option => (
                         <option key={option} value={option}>{option}</option>
@@ -39,7 +42,6 @@ const FormField = ({
 
         const inputProps = {
             className: 'form-control',
-            defaultValue,
             name,
             placeholder,
             type,
@@ -48,7 +50,7 @@ const FormField = ({
             ...(max && { max }),
             ...(min && { min }),
             ...(onBlur && { onBlur }),
-            ...register(name, rules)
+            ...register(name, { defaultValue: safeDefault, ...(rules || {}) })
         };
 
         return <input {...inputProps} />;
