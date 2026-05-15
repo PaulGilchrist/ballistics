@@ -32,9 +32,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 placeholder="Name"
                 tooltip="Name used to identify this round unique to the firearm."
                 rules={{
-                    maxLength: { value: config.VALIDATION_LIMITS.ROUND.NAME.maxLength, message: "Name has a maximum length of 50" },
-                    minLength: { value: config.VALIDATION_LIMITS.ROUND.NAME.minLength, message: "Name has a minimum length of 3" },
-                    required: "Name is required"
+                    maxLength: { value: config.VALIDATION_LIMITS.ROUND.NAME.maxLength, message: config.VALIDATION_LIMITS.ROUND.NAME.messages.maxLength },
+                    minLength: { value: config.VALIDATION_LIMITS.ROUND.NAME.minLength, message: config.VALIDATION_LIMITS.ROUND.NAME.messages.minLength },
+                    required: config.VALIDATION_LIMITS.ROUND.NAME.messages.required
                 }}
                 register={register}
                 errors={errors}
@@ -51,9 +51,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 max={config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.max}
                 min={config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.min}
                 rules={{
-                    max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.max, message: "Bullet Diameter has a maximum value of 1" },
-                    min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.min, message: "Bullet Diameter has a minimum value of 0.010" },
-                    required: "Bullet diameter is required so wind resistance can be calculated."
+                    max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.max, message: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.messages.max },
+                    min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.min, message: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.messages.min },
+                    required: config.VALIDATION_LIMITS.ROUND.BULLET_DIAMETER_INCHES.messages.required
                 }}
                 register={register}
                 errors={errors}
@@ -70,9 +70,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 max={config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.max}
                 min={config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.min}
                 rules={{
-                    max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.max, message: "Bullet Weight has a maximum value of 1000" },
-                    min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.min, message: "Bullet Weight has a minimum value of 10" },
-                    required: "Bullet Weight is required, so bullet drop can be calculated properly."
+                    max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.max, message: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.messages.max },
+                    min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.min, message: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.messages.min },
+                    required: config.VALIDATION_LIMITS.ROUND.BULLET_WEIGHT_GRAINS.messages.required
                 }}
                 register={register}
                 errors={errors}
@@ -89,9 +89,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 max={config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.max}
                 min={config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.min}
                 rules={{
-                    max: { value: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.max, message: "Muzzle Velocity has a maximum value of 5000" },
-                    min: { value: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.min, message: "Muzzle Velocity has a minimum value of 100" },
-                    required: "Muzzle Velocity is required, so bullet drop can be calculated properly."
+                    max: { value: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.max, message: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.messages.max },
+                    min: { value: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.min, message: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.messages.min },
+                    required: config.VALIDATION_LIMITS.ROUND.MUZZLE_VELOCITY_FPS.messages.required
                 }}
                 register={register}
                 errors={errors}
@@ -108,9 +108,9 @@ const Round = ({round, onClose, onDelete, onSubmit}) => {
                 max={config.VALIDATION_LIMITS.ROUND.BULLET_BC.max}
                 min={config.VALIDATION_LIMITS.ROUND.BULLET_BC.min}
                 rules={{
-                    max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.max, message: "Bullet ballistic coefficient has a maximum value of 1" },
-                    min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.min, message: "Bullet ballistic coefficient has a minimum value of 0.010" },
-                    required: "Bullet ballistic coefficient is required, so wind resistance can be calculated properly."
+                    max: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.max, message: config.VALIDATION_LIMITS.ROUND.BULLET_BC.messages.max },
+                    min: { value: config.VALIDATION_LIMITS.ROUND.BULLET_BC.min, message: config.VALIDATION_LIMITS.ROUND.BULLET_BC.messages.min },
+                    required: config.VALIDATION_LIMITS.ROUND.BULLET_BC.messages.required
                 }}
                 register={register}
                 errors={errors}

@@ -203,11 +203,51 @@ const config = {
 
     // Round form field constraints (from Round.jsx).
     ROUND: {
-      NAME: { minLength: 3, maxLength: 50 },
-      BULLET_DIAMETER_INCHES: { min: 0.010, max: 1 },
-      BULLET_WEIGHT_GRAINS: { min: 10, max: 1000 },
-      MUZZLE_VELOCITY_FPS: { min: 100, max: 5000 },
-      BULLET_BC: { min: 0.010, max: 1 },
+      NAME: {
+        minLength: 3,
+        maxLength: 50,
+        messages: {
+          minLength: "Name has a minimum length of 3",
+          maxLength: "Name has a maximum length of 50",
+          required: "Name is required",
+        },
+      },
+      BULLET_DIAMETER_INCHES: {
+        min: 0.010,
+        max: 1,
+        messages: {
+          min: "Bullet Diameter has a minimum value of 0.010",
+          max: "Bullet Diameter has a maximum value of 1",
+          required: "Bullet diameter is required so wind resistance can be calculated.",
+        },
+      },
+      BULLET_WEIGHT_GRAINS: {
+        min: 10,
+        max: 1000,
+        messages: {
+          min: "Bullet Weight has a minimum value of 10",
+          max: "Bullet Weight has a maximum value of 1000",
+          required: "Bullet Weight is required, so bullet drop can be calculated properly.",
+        },
+      },
+      MUZZLE_VELOCITY_FPS: {
+        min: 100,
+        max: 5000,
+        messages: {
+          min: "Muzzle Velocity has a minimum value of 100",
+          max: "Muzzle Velocity has a maximum value of 5000",
+          required: "Muzzle Velocity is required, so bullet drop can be calculated properly.",
+        },
+      },
+      BULLET_BC: {
+        min: 0.010,
+        max: 1,
+        messages: {
+          min: "Bullet ballistic coefficient has a minimum value of 0.010",
+          max: "Bullet ballistic coefficient has a maximum value of 1",
+          required: "Bullet ballistic coefficient is required, so wind resistance can be calculated properly.",
+        },
+      },
     },
   },
 
