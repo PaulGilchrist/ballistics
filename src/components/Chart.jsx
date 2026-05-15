@@ -52,13 +52,15 @@ function getColumns(config, rangeData) {
     });
 
     // Drop
-    columns.push({
-        key: 'drop',
-        th: <th className="d-none d-xl-table-cell" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
-            Drop<br />(inch)
-        </th>,
-        td: (d) => <td className="d-none d-xl-table-cell">{-d.dropInches.toFixed(1)}</td>
-    });
+    if (!bothMil) {
+        columns.push({
+            key: 'drop',
+            th: <th className="d-none d-xl-table-cell" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
+                Drop<br />(inch)
+            </th>,
+            td: (d) => <td className="d-none d-xl-table-cell">{-d.dropInches.toFixed(1)}</td>
+        });
+    }
 
     // Elevation inch
     if (!bothMil) {

@@ -6,7 +6,7 @@ import FormField from './FormField';
 
 const Round = ({round, onClose, onDelete, onSubmit}) => {
     const { id, name, bulletBC, bulletDiameterInches, bulletWeightGrains, muzzleVelocityFPS, dragModel } = round;
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: round });
     if(!round) {
         return null;
     }

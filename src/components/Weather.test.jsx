@@ -4,6 +4,7 @@ import Weather from './Weather';
 
 const defaultWeatherData = {
   altitudeFeet: 5000,
+  latitudeDegrees: 40,
   temperatureDegreesFahrenheit: 72,
   barometricPressureInchesHg: 29.92,
   relativeHumidityPercent: 65,
@@ -21,9 +22,10 @@ test('renders the form element', () => {
   expect(container.querySelector('form')).toBeInTheDocument();
 });
 
-test('renders all six weather form fields', () => {
+test('renders all seven weather form fields', () => {
   const { container } = render(<Weather weatherData={defaultWeatherData} onSubmit={() => {}} />);
   expect(container.querySelector('input[name="altitudeFeet"]')).toBeInTheDocument();
+  expect(container.querySelector('input[name="latitudeDegrees"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="temperatureDegreesFahrenheit"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="barometricPressureInchesHg"]')).toBeInTheDocument();
   expect(container.querySelector('input[name="relativeHumidityPercent"]')).toBeInTheDocument();
@@ -39,13 +41,13 @@ test('renders the Save button', () => {
 test('renders field icons', () => {
   const { container } = render(<Weather weatherData={defaultWeatherData} onSubmit={() => {}} />);
   const iconSpans = container.querySelectorAll('.input-group-text i');
-  expect(iconSpans.length).toBe(6);
+  expect(iconSpans.length).toBe(7);
 });
 
 test('renders field labels with tooltip attributes', () => {
   const { container } = render(<Weather weatherData={defaultWeatherData} onSubmit={() => {}} />);
   const labels = container.querySelectorAll('label[data-toggle="tooltip"]');
-  expect(labels.length).toBe(6);
+  expect(labels.length).toBe(7);
 });
 
 test('renders the submit button with correct type and classes', () => {
@@ -80,11 +82,12 @@ test('calls onSubmit when the form is submitted with typed values', async () => 
   expect(handleSubmit).toHaveBeenCalledWith(
     expect.objectContaining({
       altitudeFeet: '1000',
-      temperatureDegreesFahrenheit: '72',
-      barometricPressureInchesHg: '29.92',
-      relativeHumidityPercent: '65',
-      windVelocityMph: '10',
-      windAngleDegrees: '90',
+      latitudeDegrees: 40,
+      temperatureDegreesFahrenheit: 72,
+      barometricPressureInchesHg: 29.92,
+      relativeHumidityPercent: 65,
+      windVelocityMph: 10,
+      windAngleDegrees: 90,
     }),
     expect.anything()
   );
@@ -93,6 +96,7 @@ test('calls onSubmit when the form is submitted with typed values', async () => 
 test('handles weather data with undefined values', () => {
   const emptyWeatherData = {
     altitudeFeet: undefined,
+    latitudeDegrees: undefined,
     temperatureDegreesFahrenheit: undefined,
     barometricPressureInchesHg: undefined,
     relativeHumidityPercent: undefined,
@@ -108,6 +112,7 @@ test('handles weather data with undefined values', () => {
 test('handles weather data with zero values', () => {
   const zeroWeatherData = {
     altitudeFeet: 0,
+    latitudeDegrees: 0,
     temperatureDegreesFahrenheit: 0,
     barometricPressureInchesHg: 0,
     relativeHumidityPercent: 0,
@@ -123,6 +128,7 @@ test('handles weather data with zero values', () => {
 test('handles weather data with string values', () => {
   const stringWeatherData = {
     altitudeFeet: '5000',
+    latitudeDegrees: '40',
     temperatureDegreesFahrenheit: '72',
     barometricPressureInchesHg: '29.92',
     relativeHumidityPercent: '65',
@@ -138,6 +144,7 @@ test('handles weather data with string values', () => {
 test('handles weather data with negative values', () => {
   const negativeWeatherData = {
     altitudeFeet: -100,
+    latitudeDegrees: -45,
     temperatureDegreesFahrenheit: -10,
     barometricPressureInchesHg: -5,
     relativeHumidityPercent: -10,
@@ -153,6 +160,7 @@ test('handles weather data with negative values', () => {
 test('handles weather data with large values', () => {
   const largeWeatherData = {
     altitudeFeet: 50000,
+    latitudeDegrees: 90,
     temperatureDegreesFahrenheit: 200,
     barometricPressureInchesHg: 100,
     relativeHumidityPercent: 100,
@@ -174,7 +182,7 @@ test('renders the outer container with correct class', () => {
 test('renders form fields with correct input types', () => {
   const { container } = render(<Weather weatherData={defaultWeatherData} onSubmit={() => {}} />);
   const inputs = container.querySelectorAll('input[type="number"]');
-  expect(inputs.length).toBe(6);
+  expect(inputs.length).toBe(7);
 });
 
 test('renders the barometric pressure field with step attribute', () => {

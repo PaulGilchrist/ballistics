@@ -145,37 +145,37 @@ test('renders the sizeMils input with min and max attributes', () => {
 test('populates the distance field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const distanceInput = container.querySelector('input[name="distance"]');
-  expect(distanceInput).toHaveValue('1000');
+  expect(distanceInput).toHaveValue(1000);
 });
 
 test('populates the sizeInches field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const sizeInchesInput = container.querySelector('input[name="sizeInches"]');
-  expect(sizeInchesInput).toHaveValue('40');
+  expect(sizeInchesInput).toHaveValue(40);
 });
 
 test('populates the sizeMils field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const sizeMilsInput = container.querySelector('input[name="sizeMils"]');
-  expect(sizeMilsInput).toHaveValue('1.5');
+  expect(sizeMilsInput).toHaveValue(1.5);
 });
 
 test('populates the chartStepping field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const chartSteppingInput = container.querySelector('input[name="chartStepping"]');
-  expect(chartSteppingInput).toHaveValue('50');
+  expect(chartSteppingInput).toHaveValue(50);
 });
 
 test('populates the slantDegrees field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const slantDegreesInput = container.querySelector('input[name="slantDegrees"]');
-  expect(slantDegreesInput).toHaveValue('45');
+  expect(slantDegreesInput).toHaveValue(45);
 });
 
 test('populates the speedMph field with the correct value', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
   const speedMphInput = container.querySelector('input[name="speedMph"]');
-  expect(speedMphInput).toHaveValue('3');
+  expect(speedMphInput).toHaveValue(3);
 });
 
 // ---------------------------------------------------------------------------
@@ -221,10 +221,11 @@ test('calls onSubmit when the form is submitted with typed values', async () => 
   expect(handleSubmit).toHaveBeenCalledWith(
     expect.objectContaining({
       distance: '500',
-      sizeInches: '40',
-      chartStepping: '50',
-      slantDegrees: '45',
-      speedMph: '3',
+      sizeInches: 40,
+      sizeMils: 1.5,
+      chartStepping: 50,
+      slantDegrees: 45,
+      speedMph: 3,
     }),
     expect.anything()
   );
@@ -501,12 +502,13 @@ test('form submission includes all expected fields', async () => {
 
   expect(handleSubmit).toHaveBeenCalledWith(
     expect.objectContaining({
-      distance: expect.any(String),
+      distance: expect.any(Number),
       distanceUnits: expect.any(String),
-      chartStepping: expect.any(String),
-      sizeInches: expect.any(String),
-      slantDegrees: expect.any(String),
-      speedMph: expect.any(String),
+      chartStepping: expect.any(Number),
+      sizeInches: expect.any(Number),
+      sizeMils: expect.any(Number),
+      slantDegrees: expect.any(Number),
+      speedMph: expect.any(Number),
     }),
     expect.anything()
   );

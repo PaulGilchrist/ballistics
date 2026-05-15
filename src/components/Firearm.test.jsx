@@ -6,6 +6,7 @@ const mockFirearm = {
   id: 'firearm-1',
   name: 'Glock 19',
   sightHeightInches: 1.75,
+  riflingTwistInches: 10,
   zeroRange: 100,
   zeroRangeUnits: 'Yards',
   reticleUnits: 'Mil',
@@ -18,6 +19,7 @@ const mockAddFirearm = {
   id: 'Add',
   name: '',
   sightHeightInches: 2.0,
+  riflingTwistInches: 10,
   zeroRange: 100,
   zeroRangeUnits: 'Yards',
   reticleUnits: 'Mil',
@@ -286,7 +288,7 @@ test('renders field icons for text input fields', () => {
     <Firearm firearm={mockFirearm} onClose={() => {}} onSubmit={() => {}} onDelete={() => {}} />,
   );
   const iconSpans = container.querySelectorAll('.input-group-text i');
-  expect(iconSpans.length).toBe(6);
+  expect(iconSpans.length).toBe(7);
 });
 
 test('renders field labels with tooltip attributes', () => {
@@ -294,7 +296,7 @@ test('renders field labels with tooltip attributes', () => {
     <Firearm firearm={mockFirearm} onClose={() => {}} onSubmit={() => {}} onDelete={() => {}} />,
   );
   const labels = container.querySelectorAll('label[data-toggle="tooltip"]');
-  expect(labels.length).toBe(6);
+  expect(labels.length).toBe(7);
 });
 
 test('renders the zero range units dropdown with correct options', () => {
@@ -351,6 +353,7 @@ test('handles firearm data with empty string values', () => {
     id: 'firearm-2',
     name: '',
     sightHeightInches: '',
+    riflingTwistInches: '',
     zeroRange: '',
     zeroRangeUnits: '',
     reticleUnits: '',
@@ -370,6 +373,7 @@ test('handles firearm data with different unit selections', () => {
     id: 'firearm-3',
     name: 'Remington 700',
     sightHeightInches: 2.5,
+    riflingTwistInches: 9,
     zeroRange: 200,
     zeroRangeUnits: 'Meters',
     reticleUnits: 'MoA',
