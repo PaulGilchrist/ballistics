@@ -7,10 +7,10 @@ const utilities = {
         });
     },
     base64Decode: (base64Encoded) => {
-        return Buffer.from(base64Encoded, 'base64').toString();
+        return new TextDecoder().decode(Uint8Array.from(atob(base64Encoded), c => c.charCodeAt(0)));
     },
     base64Encode: (string) => {
-        return Buffer.from(string).toString('base64');
+        return btoa(String.fromCharCode(...new TextEncoder().encode(string)));
     },
     filter: (inputObjectArray, searchString) => {
         // Filters any objects from the array where any of their properties contain the passed in search string
