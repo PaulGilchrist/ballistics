@@ -90,5 +90,4 @@ All application state lives in **`App.jsx`** and is passed down via props:
 - Forms use `react-hook-form` with `onBlur` validation
 - State changes go through `App.jsx` via callback props
 - CSS uses module files (`.module.css`) and shared `form.css`/`chart.css`
-- Utility functions in `utils/` should be **pure functions** with no side effects
 - All new code should use **ES modules** (not CommonJS)
