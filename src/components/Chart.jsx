@@ -18,7 +18,7 @@ function getColumns(config, rangeData) {
     // Range
     columns.push({
         key: 'range',
-        th: <th data-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
+        th: <th data-bs-toggle="tooltip" title="Range in yards from the muzzle to the bullet">
             Range<br />{distanceUnits === 'Yards' ? '(yards)' : '(meters)'}
         </th>,
         td: (d) => <td>{distanceUnits === 'Yards' ? d.rangeYards : d.rangeMeters}</td>
@@ -27,7 +27,7 @@ function getColumns(config, rangeData) {
     // Velocity
     columns.push({
         key: 'velocity',
-        th: <th data-toggle="tooltip" title="Velocity of the bullet in feet per second">
+        th: <th data-bs-toggle="tooltip" title="Velocity of the bullet in feet per second">
             Velocity<br />(FPS)
         </th>,
         td: (d) => <td>{d.velocityFPS.toFixed(0)}</td>
@@ -36,7 +36,7 @@ function getColumns(config, rangeData) {
     // Energy
     columns.push({
         key: 'energy',
-        th: <th className="d-none d-sm-table-cell" data-toggle="tooltip" title="Energy of the bullet on impact">
+        th: <th className="d-none d-sm-table-cell" data-bs-toggle="tooltip" title="Energy of the bullet on impact">
             Energy<br />(FtLbs)
         </th>,
         td: (d) => <td className="d-none d-sm-table-cell">{d.energyFtLbs.toFixed(0)}</td>
@@ -45,7 +45,7 @@ function getColumns(config, rangeData) {
     // Time
     columns.push({
         key: 'time',
-        th: <th className="d-none d-sm-table-cell" data-toggle="tooltip" title="Time the bullet has been in flight since leaving the muzzle">
+        th: <th className="d-none d-sm-table-cell" data-bs-toggle="tooltip" title="Time the bullet has been in flight since leaving the muzzle">
             Time<br />(sec)
         </th>,
         td: (d) => <td className="d-none d-sm-table-cell">{d.timeSeconds.toFixed(3)}</td>
@@ -55,7 +55,7 @@ function getColumns(config, rangeData) {
     if (!bothMil) {
         columns.push({
             key: 'drop',
-            th: <th className="d-none d-xl-table-cell" data-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
+            th: <th className="d-none d-xl-table-cell" data-bs-toggle="tooltip" title="Amount of bullet drop in relation to the muzzle angle not the ground">
                 Drop<br />(inch)
             </th>,
             td: (d) => <td className="d-none d-xl-table-cell">{-d.dropInches.toFixed(1)}</td>
@@ -66,7 +66,7 @@ function getColumns(config, rangeData) {
     if (!bothMil) {
         columns.push({
             key: 'elevation-inches',
-            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
+            th: <th className='d-none d-md-table-cell' data-bs-toggle="tooltip" title="Bullet elevation above or below the target centerline">
                 Elevation<br />(inch)
             </th>,
             td: (d) => <td className='d-none d-md-table-cell'>{-d.verticalPositionInches.toFixed(1)}</td>
@@ -76,7 +76,7 @@ function getColumns(config, rangeData) {
     // Elevation variants
     if (!bothInches) {
         columns.push(...unitVariants(showMil, showMoA, showIPHY, 'elevation',
-            (unit) => <th data-toggle="tooltip" title="Bullet elevation above or below the target centerline">
+            (unit) => <th data-bs-toggle="tooltip" title="Bullet elevation above or below the target centerline">
                 Elevation<br />({unit})
             </th>,
             (unit) => (d) => <td>{-d[`verticalPosition${unit}`].toFixed(1)}</td>
@@ -87,7 +87,7 @@ function getColumns(config, rangeData) {
     if (!bothMil) {
         columns.push({
             key: 'wind-inches',
-            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+            th: <th className='d-none d-md-table-cell' data-bs-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
                 Wind<br />
                 {windVelocityMph} MPH<br />
                 {windAngleDegrees} deg<br />
@@ -100,7 +100,7 @@ function getColumns(config, rangeData) {
     // Wind variants
     if (!bothInches) {
         columns.push(...unitVariants(showMil, showMoA, showIPHY, 'wind',
-            (unit) => <th data-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
+            (unit) => <th data-bs-toggle="tooltip" title="Bullet drift left or right of the target centerline.  Drift is calculated at 90 degrees with velocity automatically adjusted from original wind direction.">
                 Wind<br />
                 {windVelocityMph} MPH<br />
                 {windAngleDegrees} deg<br />
@@ -114,7 +114,7 @@ function getColumns(config, rangeData) {
     if (!bothMil) {
         columns.push({
             key: 'lead-inches',
-            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+            th: <th className='d-none d-md-table-cell' data-bs-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
                 Lead<br />
                 {speedMph} MPH<br />
                 (inch)
@@ -126,7 +126,7 @@ function getColumns(config, rangeData) {
     // Lead variants
     if (!bothInches) {
         columns.push(...unitVariants(showMil, showMoA, showIPHY, 'lead',
-            (unit) => <th data-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
+            (unit) => <th data-bs-toggle="tooltip" title="Amount of distance a moving target will cover during the time it takes for the bullet to travel from the muzzle to the target.">
                 Lead<br />
                 {speedMph} MPH<br />
                 ({unit})
@@ -139,7 +139,7 @@ function getColumns(config, rangeData) {
     if (!bothMil) {
         columns.push({
             key: 'slant-inches',
-            th: <th className='d-none d-md-table-cell' data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+            th: <th className='d-none d-md-table-cell' data-bs-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
                 Slant<br />
                 {slantDegrees} deg<br />
                 (inch)
@@ -151,7 +151,7 @@ function getColumns(config, rangeData) {
     // Slant variants
     if (!bothInches) {
         columns.push(...unitVariants(showMil, showMoA, showIPHY, 'slant',
-            (unit) => <th data-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
+            (unit) => <th data-bs-toggle="tooltip" title="Amount you will need to hold low on a target that is of either a higher or lower elevation than the shooting position.  Always aim low for both up and down slants.">
                 Slant<br />
                 {slantDegrees} deg<br />
                 ({unit})
@@ -166,7 +166,7 @@ function getColumns(config, rangeData) {
         if (!bothMil) {
             columns.push({
                 key: 'spin-drift-inches',
-                th: <th className='d-none d-lg-table-cell' data-toggle="tooltip" title="Lateral drift caused by the bullet's gyroscopic spin. Right-hand twist causes rightward drift.">
+                th: <th className='d-none d-lg-table-cell' data-bs-toggle="tooltip" title="Lateral drift caused by the bullet's gyroscopic spin. Right-hand twist causes rightward drift.">
                     Spin Drift<br />(inch)
                 </th>,
                 td: (d) => <td className='d-none d-lg-table-cell'>{d.spinDriftInches.toFixed(1)}</td>
@@ -175,7 +175,7 @@ function getColumns(config, rangeData) {
 
         if (!bothInches) {
             columns.push(...unitVariants(showMil, showMoA, showIPHY, 'spin-drift',
-                (unit) => <th className='d-none d-lg-table-cell' data-toggle="tooltip" title="Lateral drift caused by the bullet's gyroscopic spin. Right-hand twist causes rightward drift.">
+                (unit) => <th className='d-none d-lg-table-cell' data-bs-toggle="tooltip" title="Lateral drift caused by the bullet's gyroscopic spin. Right-hand twist causes rightward drift.">
                     Spin Drift<br />({unit})
                 </th>,
                 (unit) => (d) => <td className='d-none d-lg-table-cell'>{d[`spinDrift${unit}`].toFixed(1)}</td>
@@ -187,7 +187,7 @@ function getColumns(config, rangeData) {
     if (!bothMil) {
         columns.push({
             key: 'coriolis-inches',
-            th: <th className='d-none d-sm-table-cell' data-toggle="tooltip" title="Lateral drift caused by the Earth's rotation (Coriolis effect). Significant at long range (&gt;800 yards).">
+            th: <th className='d-none d-sm-table-cell' data-bs-toggle="tooltip" title="Lateral drift caused by the Earth's rotation (Coriolis effect). Significant at long range (&gt;800 yards).">
                 Coriolis<br />(inch)
             </th>,
             td: (d) => <td className='d-none d-sm-table-cell'>{d.coriolisDriftInches.toFixed(1)}</td>
@@ -197,7 +197,7 @@ function getColumns(config, rangeData) {
     // Coriolis variants
     if (!bothInches) {
         columns.push(...unitVariants(showMil, showMoA, showIPHY, 'coriolis',
-            (unit) => <th className='d-none d-xl-table-cell' data-toggle="tooltip" title="Lateral drift caused by the Earth's rotation (Coriolis effect). Significant at long range (&gt;800 yards).">
+            (unit) => <th className='d-none d-xl-table-cell' data-bs-toggle="tooltip" title="Lateral drift caused by the Earth's rotation (Coriolis effect). Significant at long range (&gt;800 yards).">
                 Coriolis<br />({unit})
             </th>,
             (unit) => (d) => <td className='d-none d-xl-table-cell'>{d[`coriolisDrift${unit}`].toFixed(1)}</td>
