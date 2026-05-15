@@ -1,5 +1,5 @@
 // 06062025
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { jsPDF } from 'jspdf';
  
 import autoTable from 'jspdf-autotable';
@@ -376,7 +376,7 @@ const App = () => {
     // Get unwatched data
     let firearm = getFirearm(firearms, firearmId);
     let round = getRound(firearm, roundId);
-    let rangeData = ballistics.getRangeData(weather, target, firearm, round);
+    const rangeData = useMemo(() => ballistics.getRangeData(weather, target, firearm, round), [weather, target, firearm, round]);
     // Render UI
     return (
         <div className={`container-fluid ${css.app}`}>
