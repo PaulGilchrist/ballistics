@@ -295,7 +295,7 @@ test('renders field labels with tooltip attributes', () => {
   const { container } = render(
     <Firearm firearm={mockFirearm} onClose={() => {}} onSubmit={() => {}} onDelete={() => {}} />,
   );
-  const labels = container.querySelectorAll('label[data-toggle="tooltip"]');
+  const labels = container.querySelectorAll('label[data-bs-toggle="tooltip"]');
   expect(labels.length).toBe(7);
 });
 

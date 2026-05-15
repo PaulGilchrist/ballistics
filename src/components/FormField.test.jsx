@@ -38,7 +38,7 @@ test('renders the label with tooltip attributes', () => {
     <FormField name="test" label="Test" tooltip="Help text" register={mockRegister} />,
   );
   const label = container.querySelector('label');
-  expect(label).toHaveAttribute('data-toggle', 'tooltip');
+  expect(label).toHaveAttribute('data-bs-toggle', 'tooltip');
   expect(label).toHaveAttribute('title', 'Help text');
 });
 

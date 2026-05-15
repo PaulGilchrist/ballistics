@@ -90,7 +90,7 @@ test('renders field icons for all form fields', () => {
 
 test('renders field labels with tooltip attributes', () => {
   const { container } = render(<Target targetData={defaultTargetData} onSubmit={() => {}} />);
-  const labels = container.querySelectorAll('label[data-toggle="tooltip"]');
+  const labels = container.querySelectorAll('label[data-bs-toggle="tooltip"]');
   expect(labels.length).toBe(5);
 });
 

@@ -63,7 +63,7 @@ const FormField = ({
             <label
                 className="control-label"
                 htmlFor={name}
-                data-toggle="tooltip"
+                data-bs-toggle="tooltip"
                 title={tooltip}
             >
                 {label}

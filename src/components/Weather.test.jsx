@@ -46,7 +46,7 @@ test('renders field icons', () => {
 
 test('renders field labels with tooltip attributes', () => {
   const { container } = render(<Weather weatherData={defaultWeatherData} onSubmit={() => {}} />);
-  const labels = container.querySelectorAll('label[data-toggle="tooltip"]');
+  const labels = container.querySelectorAll('label[data-bs-toggle="tooltip"]');
   expect(labels.length).toBe(7);
 });
 
