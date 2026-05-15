@@ -1,5 +1,3 @@
-// All functions are pure functions
-
 import config from '../config';
 import atmospherics from './atmospherics';
 import conversions from './conversions';

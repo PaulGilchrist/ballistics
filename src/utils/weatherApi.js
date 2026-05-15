@@ -1,5 +1,3 @@
-// All functions are pure functions
-
 const weatherApi = {
     getLocalWeather: () => {
         // Fetches local weather data using the browser's Geolocation API and the free Open-Meteo API.

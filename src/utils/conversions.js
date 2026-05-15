@@ -1,8 +1,5 @@
 import config from '../config';
 
-// All functions are pure functions
-
- 
 const conversions = {
     degreesToRadians: (degrees) => {
         // Converts from a degree to a radian angle.
