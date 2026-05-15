@@ -18,13 +18,13 @@
     padding: 10px 12px;
 }
 
-/* Heading spacer: fills remaining space */
-.card-heading-spacer {
+/* Heading spacer: fills remaining space (scoped under .bal-chart) */
+.bal-chart .card-heading-spacer {
     flex-grow: 1;
 }
 
-/* Heading button: smaller on mobile */
-.card-heading-button {
+/* Heading button: smaller on mobile (scoped under .bal-chart) */
+.bal-chart .card-heading-button {
     margin: 4px 6px 4px 0;
     font-size: 0.85em;
 }
