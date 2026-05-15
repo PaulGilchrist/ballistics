@@ -1,6 +1,7 @@
 import React from 'react';
 import './Chart.css'
 import atmospherics from './../utils/atmospherics';
+import conversions from '../utils/conversions';
 
 function getColumns(config, rangeData) {
     const { distanceUnits, windVelocityMph, windAngleDegrees, slantDegrees, speedMph, showMil, showMoA, showIPHY, bothMil, bothInches } = config;
@@ -235,19 +236,21 @@ const Chart = ({ firearm, rangeData, round, targetData, weatherData, onExportCha
                 </div>
                 <div className="card-body">
                     <div className="table-responsive">
-                        <table id="ballisticsTable" className="table table-condensed table-striped table-hover font-size-small">
+                        <table id="ballisticsTable" className="table table-condensed table-hover font-size-small">
                             <thead>
                                 <tr>{columns.map(col => col.renderTh(col.key))}</tr>
                             </thead>
                             <tbody className='table-group-divider'>
                                 {rangeData.map((d, index) => {
+                                    const isEvenRow = conversions.isEven(index);
                                     const rowClass = d.velocityFPS <= speedOfSound
                                         ? 'text-danger'
                                         : d.velocityFPS <= speedOfSound * 1.2
                                             ? 'text-warning'
                                             : null;
+                                    const combinedClass = isEvenRow ? (rowClass ? rowClass + ' row-even' : 'row-even') : (rowClass || '');
                                     return (
-                                        <tr key={index} className={rowClass}>
+                                        <tr key={index} className={combinedClass}>
                                             {columns.map(col => col.renderTd(col.key, d))}
                                         </tr>
                                     );

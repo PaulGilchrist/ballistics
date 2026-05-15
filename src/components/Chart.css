@@ -70,13 +70,22 @@
     white-space: nowrap;
 }
 
-/* Striped rows: inherit color from the <tr> so Bootstrap doesn't override */
-.bal-chart .table-striped > tbody > tr > td {
-    color: inherit;
+/* Striped rows: even rows get a subtle background color on cells */
+.bal-chart .row-even > td {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-.bal-chart .table-striped > tbody > tr > th {
-    color: inherit;
+.bal-chart .row-even > th {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark theme: lighter stripe for dark backgrounds */
+[data-theme="dark"] .bal-chart .row-even > td {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .bal-chart .row-even > th {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Responsive font size: 576px */

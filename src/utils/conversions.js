@@ -19,7 +19,7 @@ const conversions = {
     },
     isEven: (input) => {
         // Returns true if the inputed integer is an even number.
-        if (input / 2 * 2 === input) {
+        if (typeof input === 'number' && input % 2 === 0) {
             return true;
         } else {
             return false;

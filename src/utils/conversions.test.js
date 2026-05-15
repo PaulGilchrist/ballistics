@@ -206,32 +206,32 @@ test('returns true for -4', () => {
   expect(conversions.isEven(-4)).toBe(true);
 });
 
-test('returns true for odd integers (JS float division makes 1/2*2 === 1)', () => {
-  expect(conversions.isEven(1)).toBe(true);
+test('returns false for odd integer 1', () => {
+  expect(conversions.isEven(1)).toBe(false);
 });
 
-test('returns true for odd integer 3 (1.5*2 === 3)', () => {
-  expect(conversions.isEven(3)).toBe(true);
+test('returns false for odd integer 3', () => {
+  expect(conversions.isEven(3)).toBe(false);
 });
 
-test('returns true for odd integer 99', () => {
-  expect(conversions.isEven(99)).toBe(true);
+test('returns false for odd integer 99', () => {
+  expect(conversions.isEven(99)).toBe(false);
 });
 
-test('returns true for negative odd integer -7', () => {
-  expect(conversions.isEven(-7)).toBe(true);
+test('returns false for negative odd integer -7', () => {
+  expect(conversions.isEven(-7)).toBe(false);
 });
 
-test('returns true for large odd integer 10001', () => {
-  expect(conversions.isEven(10001)).toBe(true);
+test('returns false for large odd integer 10001', () => {
+  expect(conversions.isEven(10001)).toBe(false);
 });
 
-test('returns true for float 3.0 (3.0/2*2 === 3.0)', () => {
-  expect(conversions.isEven(3.0)).toBe(true);
+test('returns false for float 3.0', () => {
+  expect(conversions.isEven(3.0)).toBe(false);
 });
 
-test('returns true for float 3.5 (3.5/2*2 === 3.5)', () => {
-  expect(conversions.isEven(3.5)).toBe(true);
+test('returns false for float 3.5', () => {
+  expect(conversions.isEven(3.5)).toBe(false);
 });
 
 test('returns false for string "4" (strict equality: 4 !== "4")', () => {
