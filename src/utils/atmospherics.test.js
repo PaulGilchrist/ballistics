@@ -16,16 +16,16 @@ test('returns the first element when arrayIndex is negative', () => {
   expect(atmospherics.interpolateArray(arr, -100)).toBe(10);
 });
 
-test('returns the last indexed element when arrayIndex equals array.length', () => {
+test('returns the last element when arrayIndex equals array.length', () => {
   const arr = [10, 20, 30, 40, 50];
-  // arrayIndex >= maxIndex (5) returns arr[5] which is undefined
-  expect(atmospherics.interpolateArray(arr, 5)).toBe(undefined);
+  // arrayIndex >= maxIndex (4) returns arr[4] which is the last element
+  expect(atmospherics.interpolateArray(arr, 5)).toBe(50);
 });
 
-test('returns undefined when arrayIndex exceeds array.length', () => {
+test('returns the last element when arrayIndex exceeds array.length', () => {
   const arr = [10, 20, 30, 40, 50];
-  expect(atmospherics.interpolateArray(arr, 6)).toBe(undefined);
-  expect(atmospherics.interpolateArray(arr, 100)).toBe(undefined);
+  expect(atmospherics.interpolateArray(arr, 6)).toBe(50);
+  expect(atmospherics.interpolateArray(arr, 100)).toBe(50);
 });
 
 test('interpolates linearly between two adjacent elements', () => {
@@ -51,16 +51,17 @@ test('handles a two-element array', () => {
   const arr = [10, 30];
   expect(atmospherics.interpolateArray(arr, 0)).toBe(10);
   expect(atmospherics.interpolateArray(arr, 0.5)).toBe(20);
-  // index 1 < maxIndex(2) so it enters else branch; arr[2] is undefined → NaN
-  expect(Number.isNaN(atmospherics.interpolateArray(arr, 1))).toBe(true);
-  // index 1.5 < maxIndex(2) so it also enters else branch → NaN
-  expect(Number.isNaN(atmospherics.interpolateArray(arr, 1.5))).toBe(true);
+  // index 1 >= maxIndex(1) so it returns arr[1] = 30
+  expect(atmospherics.interpolateArray(arr, 1)).toBe(30);
+  // index 1.5 >= maxIndex(1) so it also returns arr[1] = 30
+  expect(atmospherics.interpolateArray(arr, 1.5)).toBe(30);
 });
 
 test('handles a single-element array', () => {
   const arr = [42];
   expect(atmospherics.interpolateArray(arr, 0)).toBe(42);
-  expect(atmospherics.interpolateArray(arr, 1)).toBe(undefined);
+  // index 1 >= maxIndex(0) so it returns arr[0] = 42
+  expect(atmospherics.interpolateArray(arr, 1)).toBe(42);
 });
 
 test('handles negative values in the array', () => {
@@ -77,9 +78,9 @@ test('handles NaN arrayIndex by falling through to the else branch', () => {
   expect(Number.isNaN(atmospherics.interpolateArray(arr, NaN))).toBe(true);
 });
 
-test('handles Infinity arrayIndex by clamping to undefined (>= maxIndex)', () => {
+test('handles Infinity arrayIndex by clamping to last element (>= maxIndex)', () => {
   const arr = [10, 20, 30];
-  expect(atmospherics.interpolateArray(arr, Infinity)).toBe(undefined);
+  expect(atmospherics.interpolateArray(arr, Infinity)).toBe(30);
 });
 
 // ---------------------------------------------------------------------------
@@ -109,17 +110,17 @@ test('returns a factor greater than 1 for positive altitudes', () => {
   expect(atmospherics.altitudeAdjustmentFactor(3000)).toBeGreaterThan(1);
 });
 
-test('returns NaN at 15000 feet (index 15 triggers out-of-bounds read)', () => {
-  // index 15 < 16 so it enters else branch; arr[16] is undefined → NaN
-  expect(Number.isNaN(atmospherics.altitudeAdjustmentFactor(15000))).toBe(true);
+test('returns the last table value at 15000 feet (index 15 clamps to last element)', () => {
+  // index 15 >= maxIndex(15) so it returns arr[15] = 1.573
+  expect(atmospherics.altitudeAdjustmentFactor(15000)).toBe(1.573);
 });
 
-test('returns undefined at 16000 feet (index equals table length)', () => {
-  expect(atmospherics.altitudeAdjustmentFactor(16000)).toBe(undefined);
+test('returns the last table value at 16000 feet (index exceeds table length)', () => {
+  expect(atmospherics.altitudeAdjustmentFactor(16000)).toBe(1.573);
 });
 
-test('returns undefined for altitudes beyond the table (e.g., 20000 feet)', () => {
-  expect(atmospherics.altitudeAdjustmentFactor(20000)).toBe(undefined);
+test('returns the last table value for altitudes beyond the table (e.g., 20000 feet)', () => {
+  expect(atmospherics.altitudeAdjustmentFactor(20000)).toBe(1.573);
 });
 
 test('returns the first table value for negative altitudes', () => {
@@ -207,9 +208,10 @@ test('handles 0% relative humidity at different temperatures', () => {
   expect(atmospherics.relativeHumidityAdjustmentFactor(70, 29.53, 0)).toBeCloseTo(0.995, 5);
 });
 
-test('returns NaN when temperature is beyond the vapor pressure table', () => {
-  // Vapor pressure table goes up to index 72 (144°F). 200°F → index 100 → undefined.
-  expect(Number.isNaN(atmospherics.relativeHumidityAdjustmentFactor(200, 29.53, 50))).toBe(true);
+test('clamps to last table value when temperature is beyond the vapor pressure table', () => {
+  // Vapor pressure table last element is 3.64. 200°F → index 100 → clamps to last element.
+  const result = atmospherics.relativeHumidityAdjustmentFactor(200, 29.53, 50);
+  expect(result).toBeCloseTo(-0.747, 3);
 });
 
 test('returns NaN when barometricPressure is NaN', () => {
@@ -306,8 +308,10 @@ test('handles negative altitudes', () => {
   expect(typeof result).toBe('number');
 });
 
-test('returns NaN at 16000 feet (beyond table bounds)', () => {
-  expect(Number.isNaN(atmospherics.standardRelativeHumidity(16000))).toBe(true);
+test('clamps to last table value at 16000 feet (beyond table bounds)', () => {
+  // index 16 >= maxIndex(15) so it clamps to last element for both temp and pressure tables
+  const result = atmospherics.standardRelativeHumidity(16000);
+  expect(result).toBeCloseTo(4.45, 1);
 });
 
 // ---------------------------------------------------------------------------
@@ -343,8 +347,10 @@ test('returns NaN when temperature is NaN', () => {
   expect(Number.isNaN(atmospherics.temperatureAdjustmentFactor(0, NaN))).toBe(true);
 });
 
-test('returns NaN at 16000 feet (beyond table bounds)', () => {
-  expect(Number.isNaN(atmospherics.temperatureAdjustmentFactor(16000, 59))).toBe(true);
+test('clamps to last table value at 16000 feet (beyond table bounds)', () => {
+  // index 16 >= maxIndex(15) so it clamps to last element = 5.5°F
+  const result = atmospherics.temperatureAdjustmentFactor(16000, 59);
+  expect(result).toBeCloseTo(0.115, 3);
 });
 
 test('returns a number type for valid inputs', () => {

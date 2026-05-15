@@ -5,7 +5,7 @@ import config from '../config';
 const atmospherics = {
     interpolateArray: (array, arrayIndex) => {
         // Takes the nearest 2 numbers in a lookup table and returns a number between them.
-        const maxIndex = array.length;
+        const maxIndex = array.length - 1;
         const minIndex = 0;
         let result = 0;
         if (arrayIndex <= minIndex) {
