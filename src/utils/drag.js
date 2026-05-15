@@ -46,7 +46,7 @@ const drag = {
         // Returns the space value from the drag table at the given velocity.
         const table = getTable(dragModel);
         let counter = 0;
-        while(table.v[counter] > currentVelocity) {
+        while(counter < table.v.length && table.v[counter] > currentVelocity) {
             counter++;
         }
         let spaceFromVelocity;
@@ -66,7 +66,7 @@ const drag = {
         // Returns the Time value from the drag table at the given Velocity.
         const table = getTable(dragModel);
         let counter = 0;
-        while(table.v[counter] > currentVelocity) {
+        while(counter < table.v.length && table.v[counter] > currentVelocity) {
             counter++;
         }
         let timeFromVelocity;
@@ -86,7 +86,7 @@ const drag = {
         // Returns the Velocity value from the drag table at the given Space.
         const table = getTable(dragModel);
         let counter = 0;
-        while(table.s[counter] < currentSpace) {
+        while(counter < table.s.length && table.s[counter] < currentSpace) {
             counter++;
         }
         let velocityFromSpace;
@@ -106,7 +106,7 @@ const drag = {
         // Returns the Velocity value from the drag table at the given Time.
         const table = getTable(dragModel);
         let counter = 0;
-        while(table.t[counter] < currentTime) {
+        while(counter < table.t.length && table.t[counter] < currentTime) {
             counter++;
         }
         let velocityFromTime;
@@ -138,8 +138,12 @@ const drag = {
         const dropAtMaximumPointBlankRange = dropAtMaximumPointBlankRangeZero - maximumOrdinate;
         // Loop through dropping velocity until Drop = DropAtMaximumPointBlankRange to find the velocity at the true point blank range
         let velocityAtMaximumPointBlankRange = velocityAtTimeToMaximumOrdinate;
-        while(drag.drop(muzzleVelocityFPS, velocityAtMaximumPointBlankRange, drag.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaximumPointBlankRange, dragModel)) > dropAtMaximumPointBlankRange) {
+        let iterations = 0;
+        while(drag.drop(muzzleVelocityFPS, velocityAtMaximumPointBlankRange, drag.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaximumPointBlankRange, dragModel)) > dropAtMaximumPointBlankRange && iterations++ < 100000) {
             velocityAtMaximumPointBlankRange -= 0.1;
+        }
+        if (iterations >= 100000) {
+            console.warn('drag: maximumPointBlankRange exceeded 100,000 iterations');
         }
         // Given the velocity at the point blank range, calculate the actual range
         return drag.range(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaximumPointBlankRange, dragModel);
@@ -169,8 +173,12 @@ const drag = {
         const timeAtZeroRange = drag.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtZeroRange, dragModel);
         const dropAtZeroRange = drag.drop(muzzleVelocityFPS, velocityAtZeroRange, timeAtZeroRange);
         let muzzleAngleDegreesForZeroRange = 0;
-        while(drag.verticalPosition(scopeHeightInches, muzzleAngleDegreesForZeroRange, zeroRangeYards, dropAtZeroRange) < 0) {
+        let iterations = 0;
+        while(drag.verticalPosition(scopeHeightInches, muzzleAngleDegreesForZeroRange, zeroRangeYards, dropAtZeroRange) < 0 && iterations++ < 100000) {
             muzzleAngleDegreesForZeroRange += 0.00001;
+        }
+        if (iterations >= 100000) {
+            console.warn('drag: muzzleAngleDegreesForZeroRange exceeded 100,000 iterations');
         }
         return muzzleAngleDegreesForZeroRange;
     },

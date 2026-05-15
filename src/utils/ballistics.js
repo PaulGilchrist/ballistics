@@ -13,7 +13,15 @@ const ballistics = {
             let currentCrossWindDriftInches, currentDropInches, currentEnergyFtLbs, currentLeadInches, currentRangeMeters, currentRangeYards, currentTimeSeconds, currentVelocityFPS, currentVerticalPositionInches, currentSpinDriftInches, currentCoriolisDriftInches;
             // Skip the first row
             let currentRange = target.chartStepping;
+            if (!target.chartStepping || target.chartStepping <= 0) {
+                return [];
+            }
+            let iterations = 0;
             while (currentRange <= target.distance) {
+                if (++iterations > 50000) {
+                    console.warn('Ballistics: max iterations (50,000) reached; possible infinite loop');
+                    break;
+                }
                 currentRangeMeters = target.distanceUnits==='Yards' ? conversions.yardsToMeters(currentRange) : currentRange;
                 currentRangeYards = target.distanceUnits==='Yards' ? currentRange : conversions.metersToYards(currentRange);
                 currentVelocityFPS = drag.velocityFromRange(currentBallisticCoefficient, round.muzzleVelocityFPS, currentRangeYards, dragModel);
